@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: The workflow should fail if one of the jobs failed
 
 # Controls when the workflow will run
 on:
@@ -42,12 +42,10 @@ jobs:
     steps:
       # Runs a set of commands using the runners shell
       - name: check-if
-      #   if: |
-      #     contains(github.ref_name, 'main') && 
-      #     (needs.shouldnt-fail.result != 'success' || 
-      #     needs.should-succeed.result != 'success')
         if: |
-          contains(github.ref_name, 'main') && failure()
+          contains(github.ref_name, 'main') && 
+          (needs.shouldnt-fail.result != 'success' || 
+          needs.should-succeed.result != 'success')
         run: |
           echo "Should fail, if one of previous jobs fail and succeeds otherwise"
           exit 1
