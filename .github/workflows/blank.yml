@@ -31,7 +31,7 @@ jobs:
     steps:
       # Runs a set of commands using the runners shell
       - name: success
-        run: exit 1
+        run: exit 0
   
   should-check:
     if: always()
@@ -42,10 +42,12 @@ jobs:
     steps:
       # Runs a set of commands using the runners shell
       - name: check-if
+      #   if: |
+      #     contains(github.ref_name, 'main') && 
+      #     (needs.shouldnt-fail.result != 'success' || 
+      #     needs.should-succeed.result != 'success')
         if: |
-          contains(github.ref_name, 'main') && 
-          (needs.shouldnt-fail.result != 'success' || 
-          needs.should-succeed.result != 'success')
+          contains(github.ref_name, 'main') && failure()
         run: |
           echo "Should fail, if one of previous jobs fail and succeeds otherwise"
           exit 1
