@@ -47,5 +47,4 @@ jobs:
           (needs.shouldnt-fail.result != 'success' || 
           needs.should-succeed.result != 'success')
         run: |
-          echo "Should fail, if one of previous jobs fail and succeeds otherwise"
-          exit 1
+          echo "This job runs when one of the previous jobs had failed"
