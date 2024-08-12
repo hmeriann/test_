@@ -42,8 +42,8 @@ jobs:
       - name: check-if
         if: |
           contains(github.ref_name, 'main') && 
-          (needs.configure-mount-and-download-benchmark-data.result != 'success' || 
-          needs.build-duckdb-versions-and-setup-benchmarks.result != 'success')
+          (needs.shouldnt-fail.result != 'success' || 
+          needs.should-succeed.result != 'success')
         run: |
           echo "Should've not been run"
           exit 1
