@@ -10,7 +10,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  shoudnt-fail:
+  shouldnt-fail:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -24,6 +24,8 @@ jobs:
         run: exit 0
 
   should-succeed:
+    needs:
+      - shouldnt-fail
     runs-on: ubuntu-latest
     steps:
       # Runs a set of commands using the runners shell
@@ -31,6 +33,9 @@ jobs:
         run: exit 0
   
   should-check:
+    needs:
+      - shouldnt-fail
+      - should-succeed
     runs-on: ubuntu-latest
     steps:
       # Runs a set of commands using the runners shell
