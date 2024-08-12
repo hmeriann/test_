@@ -21,7 +21,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: exit
-        run: exit 0
+        run: exit 1
 
   should-succeed:
     needs:
