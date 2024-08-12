@@ -48,3 +48,5 @@ jobs:
           needs.should-succeed.result != 'success')
         run: |
           echo "This job runs when one of the previous jobs had failed"
+          echo shouldnt-fail-result: ${{ needs.shouldnt-fail.result }}
+          echo should-fail-result: ${{ needs.should-succeed.result }}
