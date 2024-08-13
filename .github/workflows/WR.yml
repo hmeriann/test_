@@ -1,0 +1,86 @@
+name: WR
+on:
+  workflow_dispatch:
+
+jobs:
+  configure-mount-and-download-benchmark-data:
+    name: Configure mount and download benchmark data
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: exit 1
+
+  build-duckdb-versions-and-setup-benchmarks:
+    name: Build DuckDB versions and link the benchmarks
+    needs: 
+      - configure-mount-and-download-benchmark-data
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: exit 2      
+
+  run-regression-tests:
+    name: Run Regression Tests
+    if: success()
+    needs: 
+      - configure-mount-and-download-benchmark-data
+      - build-duckdb-versions-and-setup-benchmarks
+    runs-on: self-hosted
+    strategy:
+      fail-fast: false
+      matrix:
+        test: ['large/tpch.csv', 'tpcds.csv', 'large/ingestion.csv', 'micro_extended.csv']
+    outputs:
+      file_name: ${{ steps.create.outputs.file_name }}
+        
+    steps:
+      - name: Create a File Name 
+        if: always()
+        id: create
+        shell: bash
+        run: |
+          echo "file_name=$(echo regression_output_${{ matrix.test }}_.txt | sed -e 's/\//_/g' -e 's/\.csv//')" >> $GITHUB_OUTPUT
+          
+      - name: Run Regression Test
+        if: contains(${{ steps.create.outputs.file_name }}, 'regression')
+        continue-on-error: true
+        shell: bash
+        run: |
+          echo TEST: ${{ matrix.test }}
+          
+      - name: Upload results
+        if: success()
+        run: echo UPLOAD FILE ${{ steps.create.outputs.file_name }}
+  
+  file-issue:
+    name: File Issue
+    needs: 
+      - configure-mount-and-download-benchmark-data
+      - build-duckdb-versions-and-setup-benchmarks
+      - run-regression-tests
+    if: always()
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        test: ${{ needs.run-regression-tests.outputs.file_name }}
+
+    steps:
+      - name: File issue on preparation steps
+        if: |
+            contains(github.ref_name, 'main') && 
+            (needs.configure-mount-and-download-benchmark-data.result != 'success' || 
+            needs.build-duckdb-versions-and-setup-benchmarks.result != 'success')
+        run: |
+          echo "PREP STEP ISSUE"
+
+      - name: File issue on Benchmarks
+        if: ${{ failure() || needs.run-regression-tests.result != 'success' }}
+        run: |
+          # get versions
+          echo "GET VERSIONS"
+          
+          # collect failures on benchmarks runs
+          echo "COLLECT ISSUES"
+
+          # create issue
+          echo "CREATE ISSUE" 
