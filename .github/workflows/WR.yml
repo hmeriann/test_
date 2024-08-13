@@ -15,11 +15,13 @@ jobs:
       - configure-mount-and-download-benchmark-data
     runs-on: ubuntu-latest
     steps:
-      - run: exit 0      
+      # - run: exit 0      
+      - run: exit 1      
 
   run-regression-tests:
     name: Run Regression Tests
-    if: success()
+    # if: success()
+    if: always()
     needs: 
       - configure-mount-and-download-benchmark-data
       - build-duckdb-versions-and-setup-benchmarks
