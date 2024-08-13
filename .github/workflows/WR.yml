@@ -69,16 +69,16 @@ jobs:
         if: |
             contains(github.ref_name, 'main') && failure()
         run: |
-          echo "PREP STEP ISSUE"
+          echo PREP STEP ISSUE ${{ matrix.test }}
 
       - name: File issue on Benchmarks
         if: ${{ failure() || needs.run-regression-tests.result != 'success' }}
         run: |
           # get versions
-          echo "GET VERSIONS"
+          echo GET VERSIONS ${{ matrix.test }}
           
           # collect failures on benchmarks runs
-          echo "COLLECT ISSUES"
+          echo COLLECT ISSUES ${{ matrix.test }}
 
           # create issue
-          echo "CREATE ISSUE" 
+          echo CREATE ISSUE ${{ matrix.test }}
