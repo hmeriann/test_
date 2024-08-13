@@ -20,8 +20,8 @@ jobs:
 
   run-regression-tests:
     name: Run Regression Tests
-    # if: success()
-    if: always()
+    if: success()
+    # if: always()
     needs: 
       - configure-mount-and-download-benchmark-data
       - build-duckdb-versions-and-setup-benchmarks
