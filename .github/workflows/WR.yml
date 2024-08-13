@@ -47,7 +47,7 @@ jobs:
         shell: bash
         run: |
           echo TEST: ${{ matrix.test }}
-          if ${{ matrix.test }} == 'tpcds.csv'; then
+          if \'${{ matrix.test }}\' == 'tpcds.csv'; then
             exit 1
           fi
           
