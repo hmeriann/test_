@@ -69,7 +69,7 @@ jobs:
           echo PREP STEP ISSUE
 
       - name: File issue on Benchmarks
-        if: contains(github.ref_name, 'main') && needs.run-regression-tests.result != 'success'
+        if: contains(github.ref_name, 'main') && (needs.run-regression-tests.result != 'success')
         run: |
           # get versions
           echo GET VERSIONS
