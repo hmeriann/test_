@@ -21,7 +21,7 @@ jobs:
 
   run-regression-tests:
     name: Run Regression Tests
-    if: always()
+    if: success()
     needs: 
       - configure-mount-and-download-benchmark-data
       - build-duckdb-versions-and-setup-benchmarks
@@ -63,8 +63,8 @@ jobs:
 
     steps:
       - name: File issue on preparation steps
-        if: |
-            contains(github.ref_name, 'main') && failure()
+        if: contains(github.ref_name, 'main') && (needs.configure-mount-and-download-benchmark-data.result != 'success' || 
+            needs.build-duckdb-versions-and-setup-benchmarks.result != 'success')
         run: |
           echo PREP STEP ISSUE
 
