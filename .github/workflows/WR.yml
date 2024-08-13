@@ -40,6 +40,9 @@ jobs:
         shell: bash
         run: |
           echo "file_name=$(echo regression_output_${{ matrix.test }}_.txt | sed -e 's/\//_/g' -e 's/\.csv//')" >> $GITHUB_OUTPUT
+          if ${{ steps.create.outputs.file_name }} == 'tpcds.csv'; then
+            exit 1
+          fi
           
       - name: Run Regression Test
         if: contains(${{ steps.create.outputs.file_name }}, 'regression')
