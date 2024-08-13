@@ -23,7 +23,6 @@ jobs:
     name: Run Regression Tests
     if: success()
     needs: 
-      - define-matrix
       - configure-mount-and-download-benchmark-data
       - build-duckdb-versions-and-setup-benchmarks
     runs-on: self-hosted
