@@ -7,7 +7,7 @@ jobs:
     name: Configure mount and download benchmark data
     runs-on: ubuntu-latest
     steps:
-      - run: exit 0
+      - run: exit 1
 
   build-duckdb-versions-and-setup-benchmarks:
     name: Build DuckDB versions and link the benchmarks
@@ -15,8 +15,8 @@ jobs:
       - configure-mount-and-download-benchmark-data
     runs-on: ubuntu-latest
     steps:
-      # - run: exit 0      
-      - run: exit 1      
+      - run: exit 0      
+      # - run: exit 1      
 
   run-regression-tests:
     name: Run Regression Tests
