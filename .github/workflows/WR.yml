@@ -67,9 +67,7 @@ jobs:
     steps:
       - name: File issue on preparation steps
         if: |
-            contains(github.ref_name, 'main') && 
-            (needs.configure-mount-and-download-benchmark-data.result != 'success' || 
-            needs.build-duckdb-versions-and-setup-benchmarks.result != 'success')
+            contains(github.ref_name, 'main') && failure()
         run: |
           echo "PREP STEP ISSUE"
 
