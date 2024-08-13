@@ -60,25 +60,22 @@ jobs:
       - run-regression-tests
     if: always()
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        test: ${{ needs.run-regression-tests.outputs.file_name }}
 
     steps:
       - name: File issue on preparation steps
         if: |
             contains(github.ref_name, 'main') && failure()
         run: |
-          echo PREP STEP ISSUE ${{ matrix.test }}
+          echo PREP STEP ISSUE
 
       - name: File issue on Benchmarks
         if: ${{ failure() || needs.run-regression-tests.result != 'success' }}
         run: |
           # get versions
-          echo GET VERSIONS ${{ matrix.test }}
+          echo GET VERSIONS
           
           # collect failures on benchmarks runs
-          echo COLLECT ISSUES ${{ matrix.test }}
+          echo COLLECT ISSUES
 
           # create issue
-          echo CREATE ISSUE ${{ matrix.test }}
+          echo CREATE ISSUE
