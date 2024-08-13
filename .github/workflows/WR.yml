@@ -25,7 +25,7 @@ jobs:
     needs: 
       - configure-mount-and-download-benchmark-data
       - build-duckdb-versions-and-setup-benchmarks
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
