@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - run: exit 1
+      - run: exit 0
 
   build-duckdb-versions-and-setup-benchmarks:
     name: Build DuckDB versions and link the benchmarks
