@@ -51,10 +51,10 @@ jobs:
             exit 1
           fi
           if [[ ${{ matrix.test }} != large/tpch.csv ]]; then
-            $flag=''
+            flag=''
             echo $flag
           else
-            $flag='--disable-timeout'
+            flag='--disable-timeout'
             echo $flag
           fi
           echo ⚠️ $flag
