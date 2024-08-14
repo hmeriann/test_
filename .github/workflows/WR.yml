@@ -50,6 +50,14 @@ jobs:
           if [[ ${{ matrix.test }} == tpcds.csv ]]; then
             exit 1
           fi
+          if [[ ${{ matrix.test }} != large/tpch.csv ]]; then
+            $flag=''
+            echo $flag
+          else
+            $flag ='--disable-timeout'
+            echo $flag
+          fi
+          echo ⚠️ $flag
           
       - name: Upload results
         if: success()
