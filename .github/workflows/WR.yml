@@ -54,7 +54,7 @@ jobs:
             $flag=''
             echo $flag
           else
-            $flag ='--disable-timeout'
+            $flag='--disable-timeout'
             echo $flag
           fi
           echo ⚠️ $flag
