@@ -23,13 +23,8 @@ jobs:
       - name: Fuzz
         shell: bash
         run: |
-            
-            while [[ $(date -u +%s) -le $endtime ]]
-            do
-                echo "Time Now: `date +%H:%M:%S`"
-                if [[ ${{ matrix.enable_verification == 'true' }} ]]; then
-                  echo --${{ matrix.fuzzer }} --${{ matrix.data }} --ENABLE_VERIFICATION🪭
-                else
-                  echo --${{ matrix.fuzzer }} --${{ matrix.data }} 
-                fi
-            done
+          if [[ ${{ matrix.enable_verification == 'true' }} ]]; then
+            echo --${{ matrix.fuzzer }} --${{ matrix.data }} --ENABLE_VERIFICATION🪭
+          else
+            echo --${{ matrix.fuzzer }} --${{ matrix.data }} 
+          fi
