@@ -23,7 +23,7 @@ jobs:
       - name: Fuzz
         shell: bash
         run: |
-          if [[ matrix.enable_verification == true ]]; then
+          if [[ matrix.enable_verification == 'true' ]]; then
             echo --${{ matrix.fuzzer }} --${{ matrix.data }} --ENABLE_VERIFICATION🪭
           else
             echo --${{ matrix.fuzzer }} --${{ matrix.data }} 
