@@ -86,7 +86,7 @@ jobs:
           echo GET VERSIONS
 
           # collect failures on benchmarks runs
-          echo REGRESSIONS DETECTED >> issue_body.txt
+          echo REGRESSION DETECTED >> issue_body.txt
       
           if grep -q "REGRESSIONS DETECTED" issue_body.txt; then
             echo "Regressions detected, GitHub issue will be filed."
