@@ -47,7 +47,7 @@ jobs:
   run-tests:
     name: Run Regression Tests
     # if: success() - will skip all other tests if one fails
-    if: always() && needs.configure["main"].result == 'success' && needs.build["main"].result == 'success'
+    if: always() && (needs.configure['main'].result == 'success' && needs.build['main'].result == 'success' || needs.configure['feature'].result == 'success' && needs.build['feature'].result == 'success')
     needs: 
       - configure
       - build
