@@ -31,7 +31,7 @@ jobs:
     strategy:
       matrix:
         branch: ${{ fromJSON(needs.define-matrix.outputs.branches) }}
-    runs-on: ubunru-latest
+    runs-on: ubuntu-latest
     
     steps:
       - name: Build old and current
