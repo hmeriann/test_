@@ -33,7 +33,7 @@ jobs:
       - name: Collect Successful Builds
         id: collect-builds
         run: |
-            echo "successful_builds=$(jq -n --arg branch "${{ matrix.branch }}" '[$branch]')" >> "$GITHUB_OUTPUT"
+            echo "successful_builds=$(jq -n --arg branch ${{ matrix.branch }} '[$branch]')" >> "$GITHUB_OUTPUT"
 
   run-tests:
     name: Run Tests on Successful Builds
