@@ -44,7 +44,7 @@ jobs:
           
   run-tests:
     name: Run Regression Tests
-    if: always()
+    if: always() && needs.build.result == 'success'
     needs: 
       - define-matrix
       - configure
