@@ -22,7 +22,7 @@ jobs:
       - run: exit 0
       
   build:
-    name: Build DuckDB versions and link the benchmarks
+    name: Build 
     needs: 
       - define-matrix
       - configure
@@ -33,16 +33,18 @@ jobs:
     outputs:
       builds: ${{ steps.successful-builds.outputs.builds }}
     steps:
-      - name: Build old and current
+      - id: initialize-builds
+        run: echo "builds=[]" >> "$GITHUB_OUTPUT"
+  
+      - name: Build 
         shell: bash
         run: |
           echo ${{ matrix.branch }} 🐣
-          
-      - id: successful-builds
+      
+      - id: accumulate-builds
         if: ${{ job.status == 'success' }}
         run: |
-          echo "builds=[\"${{ matrix.branch }}\"]" >> "$GITHUB_OUTPUT"
-
+          echo "builds=$(jq -c --arg branch '${{ matrix.branch }}' '. + [\$branch]' <<< '${{ steps.initialize-builds.outputs.builds }}')" >> "$GITHUB_OUTPUT"
 
   debug:
     name: Debug
