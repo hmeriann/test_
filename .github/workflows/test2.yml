@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        branch: ${{ fromJSON(env.branches) }}
+        branch: ${{ fromJSON(needs.define-matrix.outputs.branches) }}
     outputs:
       successful_builds: ${{ steps.copy-branches.outputs.successful_builds }}
 
