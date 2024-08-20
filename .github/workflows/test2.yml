@@ -29,21 +29,11 @@ jobs:
         id: build-step
         run: |
           echo "Building branch: ${{ matrix.branch }}"
-          if [[ "${{ matrix.branch }}" == "main" ]]; then
-            echo "Simulated failure for main branch, but not exiting with error"
-            # Just output a message and continue with exit code 0
-          else
-            echo "Build successful for branch: ${{ matrix.branch }}"
-          fi
 
       - name: Collect Successful Builds
         id: collect-builds
         run: |
-          if [[ "${{ matrix.branch }}" != "main" ]]; then
-            echo "successful_builds=$(jq -n --arg branch "${{ matrix.branch }}" '[$branch]')" >> $GITHUB_ENV
-          else
-            echo "successful_builds=[]" >> $GITHUB_ENV
-          fi
+            echo "successful_builds=$(jq -n --arg branch "${{ matrix.branch }}" '[$branch]')" >> "$GITHUB_OUTPUT"
 
   run-tests:
     name: Run Tests on Successful Builds
