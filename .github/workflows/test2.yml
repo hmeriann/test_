@@ -32,6 +32,7 @@ jobs:
 
       - name: Collect Successful Builds
         id: collect-builds
+        if: ${{ job.status == 'success' }}
         run: |
             echo "successful_builds=$(jq -n --arg branch ${{ matrix.branch }} '[$branch]')" >> "$GITHUB_OUTPUT"
 
