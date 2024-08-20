@@ -15,7 +15,7 @@ jobs:
         run: |
           # Define the initial matrix as a JSON array
           branches=$(jq -n --argjson arr '["main", "feature"]' '$arr')
-          echo "branches=${branches}" >> $GITHUB_OUTPUT
+          echo "branches=${branches}" >> $GITHUB_ENV
 
   build:
     name: Build and Copy Branches
@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        branch: ${{ fromJSON(needs.define-matrix.outputs.branches) }}
+        branch: ${{ fromJSON(env.branches) }}
     outputs:
       successful_builds: ${{ steps.copy-branches.outputs.successful_builds }}
 
