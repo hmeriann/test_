@@ -38,6 +38,7 @@ jobs:
       fail-fast: false
       matrix:
         test: ['large/tpch.csv', 'tpcds.csv', 'large/ingestion.csv', 'micro_extended.csv']
+        branch: ["main", "feature"]
     outputs:
       file_name: ${{ steps.create.outputs.file_name }}
         
@@ -47,7 +48,7 @@ jobs:
         id: create
         shell: bash
         run: |
-          echo "file_name=$(echo regression_output_${{ matrix.test }}_.txt | sed -e 's/\//_/g' -e 's/\.csv//')" >> $GITHUB_OUTPUT
+          echo "file_name=$(echo regression_output_${{ matrix.test }}_.txt with ${{ matrix.branch }} 🦑 | sed -e 's/\//_/g' -e 's/\.csv//')" >> $GITHUB_OUTPUT
           
       - name: Run Regression Test
         if: contains(${{ steps.create.outputs.file_name }}, 'regression')
@@ -56,6 +57,7 @@ jobs:
         run: |
           echo TEST: ${{ matrix.test }}
           if [[ ${{ matrix.test }} == tpcds.csv ]]; then
+            echo 🐠 ${{ matrix.branch }}
             exit 1
           fi
           if [[ ${{ matrix.test }} != large/tpch.csv ]]; then
@@ -69,7 +71,7 @@ jobs:
           
       - name: Upload results
         if: success()
-        run: echo UPLOAD FILE ${{ steps.create.outputs.file_name }}
+        run: echo UPLOAD FILE ${{ steps.create.outputs.file_name }} on 🦋 ${{ matrix.branch }}
   
   file-issue:
     name: File Issue
