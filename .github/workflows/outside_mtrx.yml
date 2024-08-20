@@ -29,7 +29,7 @@ jobs:
   run-tests:
     name: Run Regression Tests
     # if: success() - will skip all other tests if one fails
-    if: always() && (needs.configure['main'].result == 'success' && needs.build['main'].result == 'success' || needs.configure['feature'].result == 'success' && needs.build['feature'].result == 'success')
+    # if: always() && (needs.configure['main'].result == 'success' && needs.build['main'].result == 'success' || needs.configure['feature'].result == 'success' && needs.build['feature'].result == 'success')
     needs: 
       - configure
       - build
@@ -44,10 +44,13 @@ jobs:
         
     steps:
       - name: Check if the build succeeded for this branch
-        if: needs.build.result == 'success' && needs.configure.result == 'success'
-        run: echo "Running tests for successful build on branch ${{ matrix.branch }}"
+        if: needs.build.result == 'success' && matrix.branch == 'main'
+        run: echo "Running tests for successful build on branch main 🐺"
+      - name: Check if the build succeeded for this branch
+        if: needs.build.result == 'success' && matrix.branch == 'feature'
+        run: echo "Running tests for successful build on branch feature 🦄"
       - name: Run Regression Test
-        if: contains(${{ steps.create.outputs.file_name }}, 'regression')
+        if: needs.build.result == 'success'
         continue-on-error: true
         shell: bash
         run: |
