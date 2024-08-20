@@ -53,7 +53,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        mtr: ${{ needs.build.outputs.builds }
+        mtr: ${{ needs.build.outputs.builds }}
     steps:
       - name: Debug Outputs
         run: echo ${{ matrix.mtr }}
