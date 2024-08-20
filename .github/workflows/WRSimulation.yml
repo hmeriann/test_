@@ -12,8 +12,8 @@ jobs:
     steps:
       - id: branches
         run: | 
-            echo feature_branch_exists='true' >> $GITHUB_OUTPUT
-            echo feature_branch_exists='false' >> $GITHUB_OUTPUT
+            echo branches='true' >> $GITHUB_OUTPUT
+            echo branches='false' >> $GITHUB_OUTPUT
             
   configure:
     name: Configure mount and download benchmark data
