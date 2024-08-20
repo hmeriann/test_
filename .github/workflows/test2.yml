@@ -51,9 +51,12 @@ jobs:
       - configure
       - build
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        mtr: ${{ fomJson(needs.build.outputs.builds) }}
     steps:
       - name: Debug Outputs
-        run: echo "${{ needs.build.outputs.builds }}"
+        run: echo ${{ matrix.mtr }}
 
   run-tests:
     name: Run Regression Tests
@@ -62,7 +65,7 @@ jobs:
       - define-matrix
       - configure
       - build
-      # - branch-matrix
+      - debug
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
