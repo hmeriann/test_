@@ -35,10 +35,9 @@ jobs:
 
       - name: Copy Branches
         id: copy-branches
+        if: ${{ steps.build-step.outcome == 'success' }}
         run: |
-          # Initialize array to store branches
-          successful_builds=$(jq -n --arg branch "${{ matrix.branch }}" '[$branch]')
-          echo "successful_builds=${successful_builds}" >> $GITHUB_OUTPUT
+          echo successful_builds=$(jq -n --arg branch ${{ matrix.branch }} '[$branch]') >> $GITHUB_OUTPUT
 
   run-tests:
     name: Run Tests on Copied Branches
