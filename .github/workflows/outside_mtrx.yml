@@ -43,14 +43,8 @@ jobs:
       file_name: ${{ steps.create.outputs.file_name }}
         
     steps:
-      - name: Check if the build succeeded for this branch
-        if: needs.build.result == 'success' && matrix.branch == 'main'
-        run: echo "Running tests for successful build on branch main 🐺"
-      - name: Check if the build succeeded for this branch
-        if: needs.build.result == 'success' && matrix.branch == 'feature'
-        run: echo "Running tests for successful build on branch feature 🦄"
       - name: Run Regression Test
-        if: needs.build.result == 'success'
+        if: ${{ needs.build.result == 'success' && matrix.branch == 'main' || matrix.branch == 'feature' && needs.build.result == 'success' }}
         continue-on-error: true
         shell: bash
         run: |
