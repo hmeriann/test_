@@ -106,7 +106,7 @@ jobs:
         if: |
             contains(github.ref_name, 'main') && 
             (needs.configure.result != 'success' || 
-            needs..result != 'success')
+            needs.build.result != 'success')
         run: |
           echo "Failed to run Weekly Regression Benchmarks"
 
