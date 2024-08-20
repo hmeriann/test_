@@ -19,6 +19,7 @@ jobs:
         branch: ["main", "feature"]
     steps:
       - name: Run
+        continue-on-error: true
         run: |
           if [[ ${{ matrix.branch }} == main ]]; then
             exit 1
