@@ -25,24 +25,6 @@ jobs:
           else 
             exit 0
           fi
-  
-  prep-issue:
-    name: Collect a prep steps issue
-    needs: 
-      - configure
-      - build
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        branch: ["main", "feature"]
-    steps:
-      - name: Run
-        run: |
-          if [[ ${{ matrix.branch }} == main ]]; then
-            exit 1
-          else 
-            exit 0
-          fi
 
   run-tests:
     name: Run Regression Tests
@@ -61,6 +43,9 @@ jobs:
       file_name: ${{ steps.create.outputs.file_name }}
         
     steps:
+      - name: Check if the build succeeded for this branch
+        if: needs.build.result == 'success' && needs.configure.result == 'success'
+        run: echo "Running tests for successful build on branch ${{ matrix.branch }}"
       - name: Run Regression Test
         if: contains(${{ steps.create.outputs.file_name }}, 'regression')
         continue-on-error: true
