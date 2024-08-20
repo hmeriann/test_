@@ -24,7 +24,6 @@ jobs:
         branch: ${{ fromJSON(needs.define-matrix.outputs.branches) }}
     outputs:
       successful_builds: ${{ steps.copy-branches.outputs.successful_builds }}
-      current_array: '[]'
 
     steps:
       - name: Simulate Build
@@ -33,16 +32,20 @@ jobs:
           echo "Building branch: ${{ matrix.branch }}"
           # Simulate build process (no conditions needed)
           echo "Build completed for branch: ${{ matrix.branch }}"
-
+      
+      - run: |
+          current_array='[]'
+          echo "successful_builds=$current_array" >> $GITHUB_OUTPUT
+      
       - name: Copy Branches
         id: copy-branches
         if: ${{ steps.build-step.outcome == 'success' }}
         run: |
           # echo successful_builds=$(jq -n --arg branch ${{ matrix.branch }} '[$branch]') >> $GITHUB_OUTPUT
-          current_array=$(jq --arg value ${{ matrix.branch }} '. += [$value]' <<< $current_array)
-          echo "Current array: $current_array"
-          repository='{ "successful_builds": [ $current_array ] }'
-          echo "branch=$repository" >> "$GITHUB_OUTPUT"
+          current_array="${{ needs.initialize.outputs.current_array }}"
+          updated_array=$(jq --arg value "${{matrix.branch}}" '. += [$value]' <<< "$current_array")
+          echo "Updated array: $updated_array"
+          echo "successful_builds=$updated_array" >> $GITHUB_OUTPUT
 
   run-tests:
     name: Run Tests on Copied Branches
