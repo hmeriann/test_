@@ -72,7 +72,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        branch: ${{ fromJSON(needs.successful-builds.outputs.builds) }}
+        branch: ${{ fromJSON(needs.build.outputs.builds) }}
         test: ['one', 'two', 'three', 'four']
         
     steps:
