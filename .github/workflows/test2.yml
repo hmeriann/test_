@@ -41,7 +41,8 @@ jobs:
       - id: successful-builds
         if: ${{ job.status == 'success' }}
         run: |
-          echo "builds=${{ matrix.branch }}" >> "$GITHUB_OUTPUT"
+          echo "builds=[\"${{ matrix.branch }}\"]" >> "$GITHUB_OUTPUT"
+
 
   debug:
     name: Debug
@@ -53,7 +54,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        mtr: ${{ needs.build.outputs.builds }}
+        mtr: ${{ fromJSON(needs.build.outputs.builds) }}
     steps:
       - name: Debug Outputs
         run: echo ${{ matrix.mtr }}
@@ -70,7 +71,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        branch: ${{ needs.build.outputs.builds }}
+        branch: ${{ fromJSON(needs.build.outputs.builds) }}
         test: ['one', 'two', 'three', 'four']
         
     steps:
