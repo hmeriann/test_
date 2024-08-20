@@ -1,4 +1,4 @@
-name: Weekly Regression
+name: Simple WR
 on:
   workflow_dispatch:
 
@@ -62,7 +62,10 @@ jobs:
     steps:
       - id: builds
         run: |
-          echo "build=${{ toJSON(needs.build.outputs.builds) }}" >> "$GITHUB_OUTPUT"
+          # echo "build=${{ toJSON(needs.build.outputs.builds) }}" >> "$GITHUB_OUTPUT"
+          set -eux
+          DATA=$(echo ${{ needs.build.outputs.builds }} | jq -c '. | map(split("/")[0]) | unique')
+          echo "build=$DATA" >> "$GITHUB_OUTPUT"
 
       
   run-tests:
