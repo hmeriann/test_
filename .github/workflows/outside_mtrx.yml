@@ -25,11 +25,29 @@ jobs:
           else 
             exit 0
           fi
+  
+  prep-issue:
+    name: Collect a prep steps issue
+    needs: 
+      - configure
+      - build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        branch: ["main", "feature"]
+    steps:
+      - name: Run
+        run: |
+          if [[ ${{ matrix.branch }} == main ]]; then
+            exit 1
+          else 
+            exit 0
+          fi
 
   run-tests:
     name: Run Regression Tests
     # if: success() - will skip all other tests if one fails
-    if: always()
+    if: always() && needs.configure["main"].result == 'success' && needs.build["main"].result == 'success'
     needs: 
       - configure
       - build
@@ -43,13 +61,6 @@ jobs:
       file_name: ${{ steps.create.outputs.file_name }}
         
     steps:
-      - name: Create a File Name 
-        if: always()
-        id: create
-        shell: bash
-        run: |
-          echo "file_name=$(echo regression_output_${{ matrix.test }}_.txt with ${{ matrix.branch }} 🦑 | sed -e 's/\//_/g' -e 's/\.csv//')" >> $GITHUB_OUTPUT
-          
       - name: Run Regression Test
         if: contains(${{ steps.create.outputs.file_name }}, 'regression')
         continue-on-error: true
@@ -60,18 +71,6 @@ jobs:
             echo 🐠 ${{ matrix.branch }}
             exit 1
           fi
-          if [[ ${{ matrix.test }} != large/tpch.csv ]]; then
-            flag=''
-            echo $flag
-          else
-            flag='--disable-timeout'
-            echo $flag
-          fi
-          echo ⚠️ $flag
-          
-      - name: Upload results
-        if: success()
-        run: echo UPLOAD FILE ${{ steps.create.outputs.file_name }} on 🦋 ${{ matrix.branch }}
   
   file-issue:
     name: File Issue
