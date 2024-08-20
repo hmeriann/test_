@@ -13,7 +13,7 @@ jobs:
     steps:
       - id: set-matrix
         run: |
-          echo "branches=['main', 'feature']" >> "$GITHUB_OUTPUT"
+          echo "branches=$(jq -n --argjson arr '["main", "feature"]' '$arr')" >> $GITHUB_ENV
 
   build:
     name: Build Branches
@@ -23,7 +23,7 @@ jobs:
       matrix:
         branch: ${{ fromJSON(needs.define-matrix.outputs.branches) }}
     outputs:
-      successful-builds: ${{ steps.collect-builds.outputs.successful_builds }}
+      successful_builds: ${{ steps.collect-builds.outputs.successful_builds }}
 
     steps:
       - name: Simulate Build
@@ -31,14 +31,20 @@ jobs:
         run: |
           echo "Building branch: ${{ matrix.branch }}"
           if [[ "${{ matrix.branch }}" == "main" ]]; then
-            echo "Simulated failure for main branch"
-            exit 0
+            echo "Simulated failure for main branch, but not exiting with error"
+            # Just output a message and continue with exit code 0
+          else
+            echo "Build successful for branch: ${{ matrix.branch }}"
           fi
 
       - name: Collect Successful Builds
         id: collect-builds
         run: |
-          echo "successful_builds=$(jq -n --arg branch "${{ matrix.branch }}" '[$branch]')" >> "$GITHUB_OUTPUT"
+          if [[ "${{ matrix.branch }}" != "main" ]]; then
+            echo "successful_builds=$(jq -n --arg branch "${{ matrix.branch }}" '[$branch]')" >> $GITHUB_ENV
+          else
+            echo "successful_builds=[]" >> $GITHUB_ENV
+          fi
 
   run-tests:
     name: Run Tests on Successful Builds
@@ -46,7 +52,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        branch: ${{ fromJSON(needs.build.outputs.successful-builds) }}
+        branch: ${{ fromJSON(needs.build.outputs.successful_builds) }}
         test: ['1', '2', '3']
 
     steps:
