@@ -39,7 +39,7 @@ jobs:
         if: ${{ steps.build-step.outcome == 'success' }}
         run: |
           # echo successful_builds=$(jq -n --arg branch ${{ matrix.branch }} '[$branch]') >> $GITHUB_OUTPUT
-          current_array=$(jq --arg value ${{ matrix.branch }} '. += [$value]')
+          current_array=$(jq --arg value ${{ matrix.branch }} '. += [$value]' <<< $current_value)
           echo "Current array: $current_array"
           repository='{ "successful_builds": [ $current_array ] }'
           echo "branch=$repository" >> "$GITHUB_OUTPUT"
