@@ -1,4 +1,4 @@
-name: WR
+name: OUTSIDE MTRX
 on:
   workflow_dispatch:
 
@@ -107,6 +107,7 @@ jobs:
       - configure
       - build
       - run-tests
+      - file-issue
     runs-on: ubuntu-latest
     steps:
      - name: Send issue to GH
