@@ -1,0 +1,116 @@
+name: WR
+on:
+  workflow_dispatch:
+
+jobs:
+  configure:
+    name: Configure mount and download benchmark data
+    runs-on: ubuntu-latest
+    steps:
+      - run: exit 1
+
+  build:
+    name: Build DuckDB versions and link the benchmarks
+    needs: 
+      - configure
+    runs-on: ubuntu-latest
+    steps:
+      - run: exit 0      
+      # - run: exit 1      
+
+  run-tests:
+    name: Run Regression Tests
+    # if: success() - will skip all other tests if one fails
+    if: always()
+    needs: 
+      - configure
+      - build
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        test: ['large/tpch.csv', 'tpcds.csv', 'large/ingestion.csv', 'micro_extended.csv']
+    outputs:
+      file_name: ${{ steps.create.outputs.file_name }}
+        
+    steps:
+      - name: Create a File Name 
+        if: always()
+        id: create
+        shell: bash
+        run: |
+          echo "file_name=$(echo regression_output_${{ matrix.test }}_.txt | sed -e 's/\//_/g' -e 's/\.csv//')" >> $GITHUB_OUTPUT
+          
+      - name: Run Regression Test
+        if: contains(${{ steps.create.outputs.file_name }}, 'regression')
+        continue-on-error: true
+        shell: bash
+        run: |
+          echo TEST: ${{ matrix.test }}
+          if [[ ${{ matrix.test }} == tpcds.csv ]]; then
+            exit 1
+          fi
+          if [[ ${{ matrix.test }} != large/tpch.csv ]]; then
+            flag=''
+            echo $flag
+          else
+            flag='--disable-timeout'
+            echo $flag
+          fi
+          echo ⚠️ $flag
+          
+      - name: Upload results
+        if: success()
+        run: echo UPLOAD FILE ${{ steps.create.outputs.file_name }}
+  
+  file-issue:
+    name: File Issue
+    needs: 
+      - configure
+      - build
+      - run-tests
+    if: always()
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        branch: ["main", "feature"]
+
+    steps:
+      - name: File issue on preparation steps
+        if: contains(github.ref_name, 'main') && (needs.configure.result != 'success' || 
+            needs.build.result != 'success')
+        run: |
+          echo PREP STEP ISSUE
+
+      - name: File issue on Benchmarks
+        if: contains(github.ref_name, 'main')
+        run: |
+          # get versions
+          echo GET VERSIONS
+
+          # collect failures on benchmarks runs
+          echo REGRESSION DETECTED >> issue_body_${{ matrix.branch }}.txt
+      
+          if grep -q "REGRESSIONS DETECTED" issue_body_${{ matrix.branch }}.txt; then
+            echo "Regressions detected on ${{ matrix.branch }}, GitHub issue will be filed."
+            # create issue
+            echo CREATE ISSUE on branch ${{ matrix.branch }} ✅
+            # notify next run that it should not update duckdb-old-${{ matrix.branch }}
+            echo "touch ~/previous_failed_${{ matrix.branch }}.txt"
+          else
+            echo "No regressions detected on branch ${{ matrix.branch }} ⚛️"
+            echo "rm -f ~/previous_failed_${{ matrix.branch }}.txt"
+          fi
+  send-issue:
+    if: always()
+    needs:
+      - configure
+      - build
+      - run-tests
+    runs-on: ubuntu-latest
+    steps:
+     - name: Send issue to GH
+       shell: bash
+       run: |
+         echo $(cat issue_body*.txt >> report.txt)
+          cat report.txt
