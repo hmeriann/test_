@@ -7,7 +7,7 @@ jobs:
     name: Configure mount and download benchmark data
     runs-on: ubuntu-latest
     steps:
-      - run: exit 1
+      - run: exit 0
 
   build:
     name: Build DuckDB versions and link the benchmarks
