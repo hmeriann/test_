@@ -47,7 +47,7 @@ jobs:
         
     steps:
       - name: Run Regression Test
-        if: ${{ needs.build['main].result == 'success' && matrix.branch == 'main' || matrix.branch == 'feature' && needs.build['feature'].result == 'success' }}
+        if: ${{ needs.build['main'].result == 'success' && matrix.branch == 'main' || matrix.branch == 'feature' && needs.build['feature'].result == 'success' }}
         continue-on-error: true
         shell: bash
         run: |
