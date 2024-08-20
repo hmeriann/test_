@@ -58,7 +58,7 @@ jobs:
       - build
     runs-on: ubuntu-latest
     outputs:
-      build: ${{ steps.builds.outups }}
+      build: ${{ steps.builds.outups.build }}
     steps:
       - id: builds
         run: |
