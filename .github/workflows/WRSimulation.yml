@@ -48,8 +48,24 @@ jobs:
         if: ${{ job.status == 'success' }}
         run: |
           echo "builds=${{ matrix.branch }}" >> $GITHUB_OUTPUT
-          echo *️⃣ $GITHUB_OUTPUT
           
+  branch-matrix:
+    name: Create a new matrix with built branch names
+    if: always()
+    needs: 
+      - define-matrix
+      - configure
+      - build
+    runs-on: ubuntu-latest
+    outputs:
+      build: ${{ steps.builds.outups }}
+    steps:
+      - id: builds
+        run: |
+          repo='{ "repo": ${{ needs.build.outputs.builds }}'
+          echo "build=$repo" >> $GITHUB_OUTPUT
+
+      
   run-tests:
     name: Run Regression Tests
     if: always()
@@ -57,11 +73,12 @@ jobs:
       - define-matrix
       - configure
       - build
+      - branch-matrix
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        branch: ${{ fromJSON(needs.build.outputs.builds) }}
+        branch: ${{ fromJSON(needs.branch-matrix.outputs.build) }}
         test: ['one', 'two', 'three', 'four']
         
     steps:
