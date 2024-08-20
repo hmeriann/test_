@@ -42,8 +42,18 @@ jobs:
         if: ${{ job.status == 'success' }}
         run: |
           echo "builds=${{ matrix.branch }}" >> "$GITHUB_OUTPUT"
+
+  debug:
+    name: Debug
+    if: always()
+    needs: 
+      - define-matrix
+      - configure
+      - build
+    runs-on: ubuntu-latest
+    steps:
       - name: Debug Outputs
-        run: echo "${{ steps.successful-builds.outputs.builds }}"
+        run: echo "${{ needs.build.outputs.builds }}"
 
   run-tests:
     name: Run Regression Tests
