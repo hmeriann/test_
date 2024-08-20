@@ -12,15 +12,15 @@ jobs:
       matrix:
         fuzzer: [duckfuzz, sqlsmith, duckfuzz_functions]
         data: [alltypes, tpch, emptyalltypes]
-        enable_verification: [true, false]
+        enable_verification: [--ENABLE_VERIFICATION, '']
         exclude:
-          - enable_verification: true
+          - enable_verification: --ENABLE_VERIFICATION
             fuzzer: sqlsmith
-          - enable_verification: true
+          - enable_verification: --ENABLE_VERIFICATION
             fuzzer: duckfuzz_functions
 
     steps:
       - name: Fuzz
         shell: bash
         run: |
-          echo --${{ matrix.fuzzer }} --${{ matrix.data }} --ENABLE_VERIFICATION=${{ matrix.enable_verification }}
+          echo --${{ matrix.fuzzer }} --${{ matrix.data }} ${{ matrix.enable_verification }}
