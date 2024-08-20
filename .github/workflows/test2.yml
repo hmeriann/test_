@@ -1,124 +1,55 @@
-name: Test Simple WR
+name: Build and Test
+
 on:
   workflow_dispatch:
 
 jobs:
   define-matrix:
-    name: Check if feature branch exists and define matrix
+    name: Define Branch Matrix
     runs-on: ubuntu-latest
     outputs:
-      branches: ${{ steps.branches.outputs.branches }}
+      branches: ${{ steps.set-matrix.outputs.branches }}
+
     steps:
-      - id: branches
-        run: | 
+      - id: set-matrix
+        run: |
           echo 'branches=["main", "feature"]' >> "$GITHUB_OUTPUT"
 
-  configure:
-    name: Configure mount and download benchmark data
-    needs: 
-      - define-matrix
-    runs-on: ubuntu-latest
-    steps:
-      - run: exit 0
-      
   build:
-    name: Build 
-    needs: 
-      - define-matrix
-      - configure
+    name: Build Branches
+    needs: define-matrix
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         branch: ${{ fromJSON(needs.define-matrix.outputs.branches) }}
-    runs-on: ubuntu-latest
     outputs:
-      builds: ${{ steps.successful-builds.outputs.builds }}
-    steps:
-      - id: initialize-builds
-        run: echo "builds=[]" >> "$GITHUB_OUTPUT"
-  
-      - name: Build 
-        shell: bash
-        run: |
-          echo ${{ matrix.branch }} 🐣
-      
-      - id: accumulate-builds
-        if: ${{ job.status == 'success' }}
-        run: |
-          echo "builds=$(jq -c --arg branch '${{ matrix.branch }}' '. + [\$branch]' <<< '${{ steps.initialize-builds.outputs.builds }}')" >> "$GITHUB_OUTPUT"
+      successful-builds: ${{ steps.collect-builds.outputs.successful_builds }}
 
-  debug:
-    name: Debug
-    if: always()
-    needs: 
-      - define-matrix
-      - configure
-      - build
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        mtr: ${{ fromJSON(needs.build.outputs.builds) }}
     steps:
-      - name: Debug Outputs
-        run: echo ${{ matrix.mtr }}
+      - name: Simulate Build
+        id: build-step
+        run: |
+          echo "Building branch: ${{ matrix.branch }}"
+          if [[ "${{ matrix.branch }}" == "main" ]]; then
+            echo "Simulated failure for main branch"
+            exit 0
+          fi
+
+      - name: Collect Successful Builds
+        id: collect-builds
+        run: |
+          echo "successful_builds=$(jq -n --arg branch "${{ matrix.branch }}" '[$branch]')" >> "$GITHUB_OUTPUT"
 
   run-tests:
-    name: Run Regression Tests
-    if: always()
-    needs: 
-      - define-matrix
-      - configure
-      - build
-      - debug
+    name: Run Tests on Successful Builds
+    needs: build
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
       matrix:
-        branch: ${{ fromJSON(needs.build.outputs.builds) }}
-        test: ['one', 'two', 'three', 'four']
-        
+        branch: ${{ fromJSON(needs.build.outputs.successful-builds) }}
+        test: ['1', '2', '3']
+
     steps:
-      - name: Run Regression Test
-        continue-on-error: true
-        shell: bash
+      - name: Run Tests
         run: |
-          echo ${{ matrix.branch }} ⏩️ ${{ matrix.test }} ⏹️
-          
-  collect-issues:
-    name: Collect failures
-    needs: 
-      - define-matrix
-      - configure
-      - build
-      - run-tests
-    if: always()
-    runs-on: ubuntu-latest
-    strategy:
-      matrix: 
-        branch: ${{ fromJSON(needs.define-matrix.outputs.branches) }}
-    steps:
-      - name: Collect issues on Benchmarks
-        if: contains(github.ref_name, 'main')
-        run: |
-          echo "touch ~/previous_failed_${{ matrix.branch }}.txt"
-      
-  file-issue:
-    name: File Issue
-    needs: 
-      - define-matrix
-      - configure
-      - build
-      - run-tests
-      - collect-issues
-    if: always()
-    runs-on: ubuntu-latest
-    steps:
-      - name: File issue on preparation steps
-        if: |
-            contains(github.ref_name, 'main') && 
-            (needs.configure.result != 'success' || 
-            needs.build.result != 'success')
-        run: |
-          echo "Failed to run Weekly Regression Benchmarks"
-      - name: Send issue to gh
-        run: |
-          echo "REGRESSIONS DETECTED"
+          echo "Running test ${{ matrix.test }} on branch ${{ matrix.branch }}"
