@@ -32,7 +32,9 @@ jobs:
       matrix:
         branch: ${{ fromJSON(needs.define-matrix.outputs.branches) }}
     runs-on: ubuntu-latest
-    
+    outputs:
+      builds: ${{ steps.successful-builds.outputs }}
+
     steps:
       - name: Build old and current
         shell: bash
@@ -42,9 +44,14 @@ jobs:
             exit 1
           fi
           
+      - id: successful-builds
+        if: ${{ job.status == 'success' }}
+        run: |
+          echo "builds=${{ matrix.branch }}" >> $GITHUB_OUTPUTS
+          
   run-tests:
     name: Run Regression Tests
-    if: always() && needs.build.result == 'success'
+    if: always()
     needs: 
       - define-matrix
       - configure
@@ -53,7 +60,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        branch: ${{ fromJSON(needs.define-matrix.outputs.branches) }}
+        branch: ${{ fromJSON(needs.build.outputs.builds) }}
         test: ['one', 'two', 'three', 'four']
         
     steps:
