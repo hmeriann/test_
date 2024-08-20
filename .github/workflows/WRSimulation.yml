@@ -38,7 +38,7 @@ jobs:
         shell: bash
         run: |
           echo ${{ matrix.branch }} 🐣
-          if [ matrix.branch == 'feature' ]; then
+          if [ ${{ matrix.branch }} == 'feature' ]; then
             exit 1
           fi
           
