@@ -40,6 +40,7 @@ jobs:
         run: |
           # echo successful_builds=$(jq -n --arg branch ${{ matrix.branch }} '[$branch]') >> $GITHUB_OUTPUT
           updated_array=$(jq --arg value ${{ matrix.branch }} '. += [$value]' <<< "$current_array")
+          echo "Current array: $current_array"
           echo "Updated array: $updated_array"
           repository='{ "successful_builds": [ $updated_array ] }'
           echo "branch=$repository" >> "$GITHUB_OUTPUT"
