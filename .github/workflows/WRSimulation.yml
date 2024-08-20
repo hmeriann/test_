@@ -12,9 +12,8 @@ jobs:
     steps:
       - id: branches
         run: | 
-            echo branches='true' >> $GITHUB_OUTPUT
-            echo branches='false' >> $GITHUB_OUTPUT
-            
+          echo 'branches=["main", "feature"]' >> $GITHUB_OUTPUT
+
   configure:
     name: Configure mount and download benchmark data
     needs: 
