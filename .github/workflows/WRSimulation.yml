@@ -50,7 +50,7 @@ jobs:
       - define-matrix
       - configure
       - build
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
@@ -97,7 +97,7 @@ jobs:
       - run-tests
       - collect-issues
     if: always()
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     defaults:
       run:
         shell: bash
