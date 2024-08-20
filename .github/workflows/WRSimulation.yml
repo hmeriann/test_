@@ -47,7 +47,7 @@ jobs:
       - id: successful-builds
         if: ${{ job.status == 'success' }}
         run: |
-          echo "builds=${{ matrix.branch }}" >> $GITHUB_OUTPUTS
+          echo "builds=${{ matrix.branch }}" >> $GITHUB_OUTPUT
           
   run-tests:
     name: Run Regression Tests
