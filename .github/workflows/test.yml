@@ -1,0 +1,132 @@
+name: test
+on:
+  workflow_dispatch:
+
+jobs:
+  define-matrix:
+    name: Check if feature branch exists and define matrix
+    runs-on: ubuntu-latest
+    outputs:
+      branches: ${{ steps.branches.outputs.branches }}
+
+    steps:
+      - id: branches
+        run: | 
+          echo 'branches=["main", "feature"]' >> "$GITHUB_OUTPUT"
+    
+  build:
+    name: Build DuckDB versions and link the benchmarks
+    needs: 
+      - define-matrix
+    strategy:
+      matrix:
+        branch: ${{ fromJSON(needs.define-matrix.outputs.branches) }}
+    runs-on: ubuntu-latest
+    outputs:
+      builds: ${{ fromJSON(steps.successful-builds.outputs) }}
+
+    steps:
+      - name: Build old and current
+        shell: bash
+        run: |
+          echo ${{ matrix.branch }} 🐣
+          
+      - id: successful-builds
+        if: ${{ job.status == 'success' }}
+        run: |
+          echo "builds=${{ matrix.branch }}" >> "$GITHUB_OUTPUT"
+          
+  branch-matrix:
+    name: Create a new matrix with built branch names
+    if: always()
+    needs: 
+      - define-matrix
+      - build
+    runs-on: ubuntu-latest
+    outputs:
+        mymatrix: ${{ steps.dataStep.outputs.myoutput }}
+    steps:
+      - id: dataStep
+        run: |
+          TARGETS=[ ${{ needs.build.outputs.builds }} ]
+          echo "myoutput=$(jq -cn --argjson environments "$TARGETS" '{target: $environments}')" >> $GITHUB_OUTPUT   
+    # outputs:
+    #   build: ${{ steps.builds.outups }}
+    # steps:
+      # - id: builds
+      #   run: |
+          # echo "build=${{ toJSON(needs.build.outputs.builds) }}" >> "$GITHUB_OUTPUT"
+          # set -eux
+          # DATA=$(echo ${{ needs.build.outputs.builds }} | jq -c '. | map(split("/")[0]) | unique')
+          # echo "build=$DATA" >> "$GITHUB_OUTPUT"
+
+  run-tests:
+    name: Run Regression Tests
+    if: always()
+    needs: 
+      - define-matrix
+      - build
+      - branch-matrix
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        branch: ${{ fromJSON(needs.branch-matrix.outputs.mymatrix) }}
+        test: ['one', 'two', 'three', 'four']
+        
+    steps:
+          
+      - name: Run Regression Test
+        continue-on-error: true
+        shell: bash
+        run: |
+          echo ${{ matrix.branch }} ⏩️ ${{ matrix.text }} ⏹️
+          
+  collect-issues:
+    name: Collect failures
+    needs: 
+      - define-matrix
+      - build
+      - branch-matrix
+      - run-tests
+    if: always()
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    strategy:
+      matrix: 
+        branch: ${{ fromJSON(needs.define-matrix.outputs.branches) }}
+
+    steps:
+      - name: Collect issues on Benchmarks
+        if: contains(github.ref_name, 'main')
+        run: |
+          # collect issues on benchmarks runs
+          echo "touch ~/previous_failed_${{ matrix.branch }}.txt"
+      
+  file-issue:
+    name: File Issue
+    needs: 
+      - define-matrix
+      - build
+      - branch-matrix
+      - run-tests
+      - collect-issues
+    if: always()
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: File issue on preparation steps
+        if: |
+            contains(github.ref_name, 'main') && 
+            (needs.configure.result != 'success' || 
+            needs.build.result != 'success')
+        run: |
+          echo "Failed to run Weekly Regression Benchmarks"
+
+      - name: Send issue to gh
+        run: |
+          echo "REGRESSIONS DETECTED"
