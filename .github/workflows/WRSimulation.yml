@@ -33,7 +33,7 @@ jobs:
         branch: ${{ fromJSON(needs.define-matrix.outputs.branches) }}
     runs-on: ubuntu-latest
     outputs:
-      builds: ${{ fromJSON(steps.successful-builds.outputs) }}
+      builds: ${{ steps.successful-builds.outputs }}
 
     steps:
       - name: Build old and current
