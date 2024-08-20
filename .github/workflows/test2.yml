@@ -13,8 +13,7 @@ jobs:
     steps:
       - id: set-matrix
         run: |
-          echo "branches=$(jq -n --argjson arr '["main", "feature"]' '$arr')" >> $GITHUB_ENV
-
+          echo "branches=['main', 'feature']" >> "$GITHUB_OUTPUT"
   build:
     name: Build Branches
     needs: define-matrix
