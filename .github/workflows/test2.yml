@@ -1,11 +1,11 @@
-name: Build and Test
+name: Build and Process
 
 on:
   workflow_dispatch:
 
 jobs:
   define-matrix:
-    name: Define Branch Matrix
+    name: Define Initial Matrix
     runs-on: ubuntu-latest
     outputs:
       branches: ${{ steps.set-matrix.outputs.branches }}
@@ -13,39 +13,44 @@ jobs:
     steps:
       - id: set-matrix
         run: |
-          echo "branches=['main', 'feature']" >> "$GITHUB_OUTPUT"
+          # Define the initial matrix as a JSON array
+          branches=$(jq -n --argjson arr '["main", "feature"]' '$arr')
+          echo "branches=${branches}" >> $GITHUB_OUTPUT
+
   build:
-    name: Build Branches
+    name: Build and Copy Branches
     needs: define-matrix
     runs-on: ubuntu-latest
     strategy:
       matrix:
         branch: ${{ fromJSON(needs.define-matrix.outputs.branches) }}
     outputs:
-      successful_builds: ${{ steps.collect-builds.outputs.successful_builds }}
+      successful_builds: ${{ steps.copy-branches.outputs.successful_builds }}
 
     steps:
       - name: Simulate Build
         id: build-step
         run: |
           echo "Building branch: ${{ matrix.branch }}"
+          # Simulate build process (no conditions needed)
+          echo "Build completed for branch: ${{ matrix.branch }}"
 
-      - name: Collect Successful Builds
-        id: collect-builds
-        if: ${{ job.status == 'success' }}
+      - name: Copy Branches
+        id: copy-branches
         run: |
-            echo "successful_builds=$(${{ matrix.branch }} '[$branch]')" >> "$GITHUB_OUTPUT"
+          # Initialize array to store branches
+          successful_builds=$(jq -n --arg branch "${{ matrix.branch }}" '[$branch]')
+          echo "successful_builds=${successful_builds}" >> $GITHUB_OUTPUT
 
   run-tests:
-    name: Run Tests on Successful Builds
+    name: Run Tests on Copied Branches
     needs: build
     runs-on: ubuntu-latest
     strategy:
       matrix:
         branch: ${{ fromJSON(needs.build.outputs.successful_builds) }}
-        test: ['1', '2', '3']
 
     steps:
-      - name: Run Tests
+      - name: Output Branches
         run: |
-          echo "Running test ${{ matrix.test }} on branch ${{ matrix.branch }}"
+          echo "Branch: ${{ matrix.branch }}"
