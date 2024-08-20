@@ -13,9 +13,7 @@ jobs:
     steps:
       - id: set-matrix
         run: |
-          # Define the initial matrix as a JSON array
-          branches=$(jq -n --argjson arr '["main", "feature"]' '$arr')
-          echo "branches=${branches}" >> $GITHUB_ENV
+          echo "branches=['main', 'feature']" >> "$GITHUB_OUTPUT"
 
   build:
     name: Build and Copy Branches
