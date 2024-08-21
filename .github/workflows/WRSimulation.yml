@@ -74,7 +74,7 @@ jobs:
           
           if "${{ needs.build.outputs.build_one == 'main' }}" && "${{ needs.build.outputs.build_two == 'feature' }}"; then
             echo "I am here"
-            echo 'build="[ ${{ needs.build.outputs.build_one }}, ${{ needs.build.outputs.build_two }} ]"' >> $GITHUB_OUTPUT
+            echo 'build=[ ${{ needs.build.outputs.build_one }}, ${{ needs.build.outputs.build_two }} ]' >> $GITHUB_OUTPUT
           elif "${{ needs.build.outputs.build_one == 'main' }}" && "${{ needs.build.outputs.build_two != 'feature' }}"; then
             echo "I am here 1"
             echo 'build="[ ${{ needs.build.outputs.build_one }} ]"' >> $GITHUB_OUTPUT
