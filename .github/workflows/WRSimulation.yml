@@ -12,7 +12,7 @@ jobs:
     steps:
       - id: branches
         run: | 
-          echo 'branches=["main", "feature"]' >> $GITHUB_OUTPUT
+          echo 'branches=[ "main", "feature" ]' >> $GITHUB_OUTPUT
 
   configure:
     name: Configure mount and download benchmark data
@@ -73,9 +73,9 @@ jobs:
           echo "feature: ${{ needs.build.outputs.build_two }}"
           if [ ${{ needs.build.outputs.build_one == 'main' }} && ${{ needs.build.outputs.build_two == 'feature' }} ]; then
             echo 'build=[ "main", "feature" ]' >> $GITHUB_OUTPUT
-          elif [  ${{ needs.build.outputs.build_one == 'main' }} && ${{ needs.build.outputs.build_two != 'feature' }} ]; then
+          elif [ ${{ needs.build.outputs.build_one == 'main' }} && ${{ needs.build.outputs.build_two != 'feature' }} ]; then
             echo 'build=[ "main" ]' >> $GITHUB_OUTPUT
-          elif [  ${{ needs.build.outputs.build_one != 'main' }} && ${{ needs.build.outputs.build_two == 'feature' }} ]; then
+          elif [ ${{ needs.build.outputs.build_one != 'main' }} && ${{ needs.build.outputs.build_two == 'feature' }} ]; then
             echo 'build=[ "feature" ]' >> $GITHUB_OUTPUT
           else
             exit 1
@@ -94,7 +94,7 @@ jobs:
       fail-fast: false
       matrix:
         branch: ${{ fromJSON(needs.branch-matrix.outputs.build) }}
-        test: ['one', 'two', 'three', 'four']
+        test: [ 'one', 'two', 'three', 'four' ]
         
     steps:
           
