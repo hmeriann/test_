@@ -41,10 +41,11 @@ jobs:
         shell: bash
         id: build
         run: |
-          echo "${{ matrix.branch }}" 🐣
-          if [ ${{ matrix.branch }} == 'feature' ]; then
-            exit 1
-          fi
+          # echo "${{ matrix.branch }}" 🐣
+          # if [ ${{ matrix.branch }} == 'feature' ]; then
+          #   exit 1
+          # fi
+          exit 1
       
       - id: success
         shell: bash
@@ -79,7 +80,7 @@ jobs:
           elif "${{ needs.build.outputs.build_one != 'main' }}" && "${{ needs.build.outputs.build_two == 'feature' }}"; then
             echo 'build=[ "${{ needs.build.outputs.build_two }}" ]' >> $GITHUB_OUTPUT
           else
-            exit 1
+            echo 'build=[]' >> $GITHUB_OUTPUT
           fi
 
   debug:
@@ -96,7 +97,7 @@ jobs:
         
   run-tests:
     name: Run Regression Tests
-    if: always()
+    if: always() && fromJSON(needs.branch-matrix.outputs.build) != []
     needs: 
       - define-matrix
       - configure
@@ -126,7 +127,7 @@ jobs:
       - build
       - branch-matrix
       - run-tests
-    if: always()
+    if: always() && fromJSON(needs.branch-matrix.outputs.build) != []
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -142,27 +143,27 @@ jobs:
           # collect issues on benchmarks runs
           echo "${{ matrix.branch }}"
       
-  # file-issue:
-  #   name: File Issue
-  #   needs: 
-  #     - define-matrix
-  #     - configure
-  #     - build
-  #     - run-tests
-  #     - collect-issues
-  #   if: always()
-  #   runs-on: ubuntu-latest
-  #   defaults:
-  #     run:
-  #       shell: bash
-  #   steps:
-  #     - name: File issue on preparation steps
-  #       if: |
-  #           contains(github.ref_name, 'main') && 
-  #           (needs.configure.result != 'success' || 
-  #           needs.build.result != 'success')
-  #       run: |
-  #         echo "Failed to run Weekly Regression Benchmarks"
+  file-issue:
+    name: File Issue
+    needs: 
+      - define-matrix
+      - configure
+      - build
+      - run-tests
+      - collect-issues
+    if: always()
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: File issue on preparation steps
+        if: |
+            contains(github.ref_name, 'main') && 
+            (needs.configure.result != 'success' || 
+            needs.build.result != 'success' || needs.run-tests.result != 'success')
+        run: |
+          echo "Failed to run Weekly Regression Benchmarks"
 
       - name: Send issue to gh
         run: |
