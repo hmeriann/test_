@@ -97,7 +97,7 @@ jobs:
         
   run-tests:
     name: Run Regression Tests
-    if: always() && fromJSON(needs.branch-matrix.outputs.build) != []
+    if: always() && fromJSON(needs.branch-matrix.outputs.build) != null
     needs: 
       - define-matrix
       - configure
@@ -127,7 +127,7 @@ jobs:
       - build
       - branch-matrix
       - run-tests
-    if: always() && fromJSON(needs.branch-matrix.outputs.build) != []
+    if: always() && fromJSON(needs.branch-matrix.outputs.build) != null
     runs-on: ubuntu-latest
     defaults:
       run:
