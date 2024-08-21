@@ -12,7 +12,7 @@ jobs:
     steps:
       - id: branches
         run: | 
-          echo 'branches=["main", "feature"]' >> "$GITHUB_OUTPUT"
+          echo 'branches=["main", "feature"]' >> $GITHUB_OUTPUT
 
   configure:
     name: Configure mount and download benchmark data
@@ -51,9 +51,9 @@ jobs:
         if: ${{ steps.build.outcome == 'success' }}
         run: |
           if [ ${{ matrix.branch }} == main ]; then
-            echo "build_one=${{ matrix.branch }}" >> "$GITHUB_OUTPUT"
+            echo "build_one=${{ matrix.branch }}" >> $GITHUB_OUTPUT
           elif [ ${{ matrix.branch }} == feature ]; then
-            echo "build_two=${{ matrix.branch }}" >> "$GITHUB_OUTPUT"
+            echo "build_two=${{ matrix.branch }}" >> $GITHUB_OUTPUT
           fi
           
   branch-matrix:
@@ -69,18 +69,17 @@ jobs:
     steps:
       - id: builds
         run: |
-          echo "main: ${{ needs.build.outputs.build_one }} 1️⃣"
-          echo "feature: ${{ needs.build.outputs.build_two }} 2️⃣"
+          echo "main: ${{ needs.build.outputs.build_one }} "
+          echo "feature: ${{ needs.build.outputs.build_two }}"
           if [ ${{ needs.build.outputs.build_one == 'main' }} && ${{ needs.build.outputs.build_two == 'feature' }} ]; then
-            echo 'build=["main", "feature"]' >> "$GITHUB_OUTPUT"
+            echo 'build=["main", "feature"]' >> $GITHUB_OUTPUT
           elif [  ${{ needs.build.outputs.build_one == 'main' }} && ${{ needs.build.outputs.build_two != 'feature' }} ]; then
-            echo 'build=["main"]' >> "$GITHUB_OUTPUT"
+            echo 'build=["main"]' >> $GITHUB_OUTPUT
           elif [  ${{ needs.build.outputs.build_one != 'main' }} && ${{ needs.build.outputs.build_two == 'feature' }} ]; then
-            echo 'build=["feature"]' >> "$GITHUB_OUTPUT"
+            echo 'build=["feature"]' >> $GITHUB_OUTPUT
           else
             exit 1
           fi
-          echo "$build 🛜"
             
   run-tests:
     name: Run Regression Tests
