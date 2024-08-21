@@ -31,6 +31,7 @@ jobs:
     strategy:
       matrix:
         branch: ${{ fromJSON(needs.define-matrix.outputs.branches) }}
+      # fail-fast: false
     runs-on: ubuntu-latest
     outputs:
       build_one: ${{ steps.success.outputs.build_one }}
@@ -41,15 +42,18 @@ jobs:
         shell: bash
         id: build
         run: |
-          # echo "${{ matrix.branch }}" 🐣
-          # if [ ${{ matrix.branch }} == 'feature' ]; then
-          #   exit 1
-          # fi
-          exit 1
+          echo "${{ matrix.branch }}" 🐣
+          if [ ${{ matrix.branch }} == 'feature' ]; then
+            exit 1
+          fi
+      - name: filler
+        shell: bash
+        run: |
+          echo 🐣 JUST A FILLER STEP
       
       - id: success
         shell: bash
-        if: ${{ steps.build.outcome == 'success' }}
+        if: ${{ job.result == 'success' }}
         run: |
           if [[ "${{ matrix.branch }}" = "main" ]]; then
             echo "build_one=${{ matrix.branch }}" >> $GITHUB_OUTPUT
