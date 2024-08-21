@@ -71,6 +71,7 @@ jobs:
         run: |
           echo "ONE: ${{ needs.build.outputs.build_one }} "
           echo "TWO: ${{ needs.build.outputs.build_two }}"
+          
           if "${{ needs.build.outputs.build_one == 'main' }}" && "${{ needs.build.outputs.build_two == 'feature' }}"; then
             echo 'build=[ "${{ needs.build.outputs.build_one }}", "${{ needs.build.outputs.build_two }}" ]' >> "$GITHUB_OUTPUT"
           elif "${{ needs.build.outputs.build_one == 'main' }}" && "${{ needs.build.outputs.build_two != 'feature' }}"; then
@@ -80,7 +81,19 @@ jobs:
           else
             exit 1
           fi
-            
+
+  debug:
+    name: Debug
+    if: always()
+    needs: 
+      - define-matrix
+      - configure
+      - build
+      - branch-matrix
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "${{ needs.branch-matrix.outputs.build }}"
+        
   run-tests:
     name: Run Regression Tests
     if: always()
@@ -89,11 +102,12 @@ jobs:
       - configure
       - build
       - branch-matrix
+      - debug
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        branch: ${{ needs.branch-matrix.outputs.build }}
+        branch: ${{ fromJSON(needs.branch-matrix.outputs.build) }}
         test: [ 'one', 'two', 'three', 'four' ]
         
     steps:
@@ -110,6 +124,7 @@ jobs:
       - define-matrix
       - configure
       - build
+      - branch-matrix
       - run-tests
     if: always()
     runs-on: ubuntu-latest
@@ -118,36 +133,36 @@ jobs:
         shell: bash
     strategy:
       matrix: 
-        branch: ${{ fromJSON(needs.define-matrix.outputs.branches) }}
+        branch: ${{ fromJSON(needs.branch-matrix.outputs.build) }}
 
     steps:
       - name: Collect issues on Benchmarks
         if: contains(github.ref_name, 'main')
         run: |
           # collect issues on benchmarks runs
-          echo "touch ~/previous_failed_${{ matrix.branch }}.txt"
+          echo "${{ matrix.branch }}"
       
-  file-issue:
-    name: File Issue
-    needs: 
-      - define-matrix
-      - configure
-      - build
-      - run-tests
-      - collect-issues
-    if: always()
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
-    steps:
-      - name: File issue on preparation steps
-        if: |
-            contains(github.ref_name, 'main') && 
-            (needs.configure.result != 'success' || 
-            needs.build.result != 'success')
-        run: |
-          echo "Failed to run Weekly Regression Benchmarks"
+  # file-issue:
+  #   name: File Issue
+  #   needs: 
+  #     - define-matrix
+  #     - configure
+  #     - build
+  #     - run-tests
+  #     - collect-issues
+  #   if: always()
+  #   runs-on: ubuntu-latest
+  #   defaults:
+  #     run:
+  #       shell: bash
+  #   steps:
+  #     - name: File issue on preparation steps
+  #       if: |
+  #           contains(github.ref_name, 'main') && 
+  #           (needs.configure.result != 'success' || 
+  #           needs.build.result != 'success')
+  #       run: |
+  #         echo "Failed to run Weekly Regression Benchmarks"
 
       - name: Send issue to gh
         run: |
