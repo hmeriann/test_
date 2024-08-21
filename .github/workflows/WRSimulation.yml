@@ -80,10 +80,6 @@ jobs:
           else
             exit 1
           fi
-      
-      - id: show-build
-        run: |
-          echo $outputs
             
   run-tests:
     name: Run Regression Tests
@@ -97,7 +93,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        branch: ${{ fromJSON(needs.branch-matrix.outputs.build) }}
+        branch: ${{ needs.branch-matrix.outputs.build }}
         test: [ 'one', 'two', 'three', 'four' ]
         
     steps:
