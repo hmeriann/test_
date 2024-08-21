@@ -51,9 +51,9 @@ jobs:
         if: ${{ steps.build.outcome == 'success' }}
         run: |
           if [ ${{ matrix.branch }} == main ]; then
-            echo "build_one=${{ matrix.branch }}
+            echo "build_one=${{ matrix.branch }}" >> "$GITHUB_OUTPUT"
           elif [ ${{ matrix.branch }} == feature ]; then
-            echo "build_two=${{ matrix.branch }}
+            echo "build_two=${{ matrix.branch }}" >> "$GITHUB_OUTPUT"
           fi
           
   branch-matrix:
@@ -73,8 +73,8 @@ jobs:
           # set -eux
           # DATA=$(echo ${{ needs.build.outputs.builds }} | jq -c '. | map(split("/")[0]) | unique')
           # echo "build=$DATA" >> "$GITHUB_OUTPUT"
-          echo "main result: ${{ needs.build.outputs.build_one }} 1️⃣"
-          echo "feature result: ${{ needs.build.outputs.build_two }} 2️⃣"
+          echo "main: ${{ needs.build.outputs.build_one }} 1️⃣"
+          echo "feature: ${{ needs.build.outputs.build_two }} 2️⃣"
           if [[ ${{ needs.build.outputs.build_one }} == 'main' && ${{ needs.build.outputs.build_two }} == 'feature' ]]; then
             echo 'build=["main", "feature"]' >> $GITHUB_OUTPUT
           elif [[  ${{ needs.build.outputs.build_one }} == 'main' && ${{ needs.build.outputs.build_two }} != 'feature' ]]; then
