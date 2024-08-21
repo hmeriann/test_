@@ -80,6 +80,10 @@ jobs:
           else
             exit 1
           fi
+      
+      - id: show-build
+        run: |
+          echo $build
             
   run-tests:
     name: Run Regression Tests
