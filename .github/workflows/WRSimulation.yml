@@ -33,17 +33,28 @@ jobs:
         branch: ${{ fromJSON(needs.define-matrix.outputs.branches) }}
     runs-on: ubuntu-latest
     outputs:
-      build_main: ${{ steps.successful_build_main.outputs }}
-      build_feature: ${{ steps.successful_build_feature.outputs }}
+      build_one: ${{ steps.successful_build_one.outputs }}
+      build_two: ${{ steps.successful_build_two.outputs }}
 
     steps:
       - name: Build old and current
         shell: bash
+        id: build
         run: |
           echo ${{ matrix.branch }} 🐣
           # if [ ${{ matrix.branch }} == 'feature' ]; then
           #   exit 1
           # fi
+      
+      - id: success
+        shell: bash
+        if: ${{ steps.build.outcome == 'success' }}
+        run: |
+          if [[ ${{ matrix.branch }} == main }}; then
+            echo "build_one=${{ matrix.branch }}
+          elif [[ ${{ matrix.branch }} == feature }}; then
+            echo "build_two=${{ matrix.branch }}
+          fi
           
   branch-matrix:
     name: Create a new matrix with built branch names
@@ -56,24 +67,20 @@ jobs:
     outputs:
       build: ${{ steps.builds.outups.build }}
     steps:
-      - id: debug
-        run: |
-          echo "🛜 needs: ${{ toJSON(needs) }}"
-
       - id: builds
         run: |
           # echo "build=${{ toJSON(needs.build.outputs.builds) }}" >> "$GITHUB_OUTPUT"
           # set -eux
           # DATA=$(echo ${{ needs.build.outputs.builds }} | jq -c '. | map(split("/")[0]) | unique')
           # echo "build=$DATA" >> "$GITHUB_OUTPUT"
-          echo "main result: ${{ needs.build['main'][0].result }} 1️⃣"
-          echo "feature result: ${{ needs.build['feature'][0].result }} 2️⃣"
-          if [[ needs.build['main'].result != 'success' && needs.build['feature'].result == 'success' ]]; then
-            echo 'build=["feature"]' >> $GITHUB_OUTPUT
-          elif [[ needs.build['main'].result == 'success' && needs.build['feature'].result == 'success'  ]]; then
+          echo "main result: ${{ needs.build.outputs.build_one }} 1️⃣"
+          echo "feature result: ${{ needs.build.outputs.build_two }} 2️⃣"
+          if [[ ${{ needs.build.outputs.build_one }} == 'main' && ${{ needs.build.outputs.build_two }} == 'feature' ]]; then
             echo 'build=["main", "feature"]' >> $GITHUB_OUTPUT
-          elif [[ needs.build['main'].result == 'success' && needs.build['feature'].result != 'success'  ]]; then
+          elif [[  ${{ needs.build.outputs.build_one }} == 'main' && ${{ needs.build.outputs.build_two }} != 'feature' ]]; then
             echo 'build=["main"]' >> $GITHUB_OUTPUT
+          elif [[  ${{ needs.build.outputs.build_one }} != 'main' && ${{ needs.build.outputs.build_two }} == 'feature' ]]; then
+            echo 'build=["feature"]' >> $GITHUB_OUTPUT
           else
             exit 1
           fi
