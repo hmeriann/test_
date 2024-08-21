@@ -50,9 +50,9 @@ jobs:
         shell: bash
         if: ${{ steps.build.outcome == 'success' }}
         run: |
-          if [[ ${{ matrix.branch }} == main }}; then
+          if [ ${{ matrix.branch }} == main ]; then
             echo "build_one=${{ matrix.branch }}
-          elif [[ ${{ matrix.branch }} == feature }}; then
+          elif [ ${{ matrix.branch }} == feature ]; then
             echo "build_two=${{ matrix.branch }}
           fi
           
