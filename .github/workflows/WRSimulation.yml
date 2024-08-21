@@ -62,6 +62,8 @@ jobs:
           # set -eux
           # DATA=$(echo ${{ needs.build.outputs.builds }} | jq -c '. | map(split("/")[0]) | unique')
           # echo "build=$DATA" >> "$GITHUB_OUTPUT"
+          echo "main result: ${{ needs.build['main'].result }} 1️⃣"
+          echo "feature result: ${{ needs.build['feature'].result }} 2️⃣"
           if [[ needs.build['main'].result != 'success' && needs.build['feature'].result == 'success' ]]; then
             echo 'build=["feature"]' >> $GITHUB_OUTPUT
           elif [[ needs.build['main'].result == 'success' && needs.build['feature'].result == 'success'  ]]; then
@@ -69,7 +71,7 @@ jobs:
           elif [[ needs.build['main'].result == 'success' && needs.build['feature'].result != 'success'  ]]; then
             echo 'build=["main"]' >> $GITHUB_OUTPUT
           else
-            echo 'build=[]' >> $GITHUB_OUTPUT
+            exit 1
           fi
             
   run-tests:
