@@ -83,7 +83,7 @@ jobs:
       
       - id: show-build
         run: |
-          echo $build
+          echo $outputs
             
   run-tests:
     name: Run Regression Tests
