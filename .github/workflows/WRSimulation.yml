@@ -72,11 +72,11 @@ jobs:
           echo "main: ${{ needs.build.outputs.build_one }} "
           echo "feature: ${{ needs.build.outputs.build_two }}"
           if [ ${{ needs.build.outputs.build_one == 'main' }} && ${{ needs.build.outputs.build_two == 'feature' }} ]; then
-            echo 'build=[ "main", "feature" ]' >> $GITHUB_OUTPUT
+            echo 'build=${{needs.define-matrix.outputs.branches}}' >> $GITHUB_OUTPUT
           elif [ ${{ needs.build.outputs.build_one == 'main' }} && ${{ needs.build.outputs.build_two != 'feature' }} ]; then
-            echo 'build=[ "main" ]' >> $GITHUB_OUTPUT
+            echo 'build="main"' >> $GITHUB_OUTPUT
           elif [ ${{ needs.build.outputs.build_one != 'main' }} && ${{ needs.build.outputs.build_two == 'feature' }} ]; then
-            echo 'build=[ "feature" ]' >> $GITHUB_OUTPUT
+            echo 'build="feature"' >> $GITHUB_OUTPUT
           else
             exit 1
           fi
