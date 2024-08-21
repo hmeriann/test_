@@ -42,9 +42,9 @@ jobs:
         id: build
         run: |
           echo "${{ matrix.branch }}" 🐣
-          # if [ ${{ matrix.branch }} == 'feature' ]; then
-          #   exit 1
-          # fi
+          if [ ${{ matrix.branch }} == 'feature' ]; then
+            exit 1
+          fi
       
       - id: success
         shell: bash
