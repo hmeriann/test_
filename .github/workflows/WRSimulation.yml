@@ -72,11 +72,11 @@ jobs:
           echo "ONE: ${{ needs.build.outputs.build_one }} "
           echo "TWO: ${{ needs.build.outputs.build_two }}"
           if "${{ needs.build.outputs.build_one == 'main' }}" && "${{ needs.build.outputs.build_two == 'feature' }}"; then
-            echo 'build="${{ needs.define-matrix.outputs.branches }}"' >> "$GITHUB_OUTPUT"
+            echo 'build=[ "${{ needs.build.outputs.build_one }}", "${{ needs.build.outputs.build_two }}" ]' >> "$GITHUB_OUTPUT"
           elif "${{ needs.build.outputs.build_one == 'main' }}" && "${{ needs.build.outputs.build_two != 'feature' }}"; then
-            echo 'build=[ "main" ]' >> "$GITHUB_OUTPUT"
+            echo 'build=[ "${{ needs.build.outputs.build_one }}" ]' >> "$GITHUB_OUTPUT"
           elif "${{ needs.build.outputs.build_one != 'main' }}" && "${{ needs.build.outputs.build_two == 'feature' }}"; then
-            echo 'build=[ "feature" ]' >> "$GITHUB_OUTPUT"
+            echo 'build=[ "${{ needs.build.outputs.build_two }}" ]' >> "$GITHUB_OUTPUT"
           else
             exit 1
           fi
