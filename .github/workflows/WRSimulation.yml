@@ -112,7 +112,7 @@ jobs:
       fail-fast: false
       matrix:
         branch: ${{ fromJSON(needs.branch-matrix.outputs.build) }}
-        test: [ 'one', 'two', 'three', 'four' ]
+        test: [ "1️⃣", "2️⃣", "3️⃣", "4️⃣" ]
         
     steps:
           
@@ -120,7 +120,7 @@ jobs:
         continue-on-error: true
         shell: bash
         run: |
-          echo ${{ matrix.branch }} ⏩️ ${{ matrix.text }} ⏹️
+          echo ${{ matrix.branch }} ⏩️ ${{ matrix.text }}
           
   collect-issues:
     name: Collect failures
