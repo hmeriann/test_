@@ -75,11 +75,11 @@ jobs:
           # echo "build=$DATA" >> "$GITHUB_OUTPUT"
           echo "main: ${{ needs.build.outputs.build_one }} 1️⃣"
           echo "feature: ${{ needs.build.outputs.build_two }} 2️⃣"
-          if [ ${{ needs.build.outputs.build_one }} == main && ${{ needs.build.outputs.build_two }} == feature ]; then
+          if [ ${{ needs.build.outputs.build_one == 'main' }} && ${{ needs.build.outputs.build_two == 'feature' }} ]; then
             echo 'build=["main", "feature"]' >> "$GITHUB_OUTPUT"
-          elif [  ${{ needs.build.outputs.build_one }} == main && ${{ needs.build.outputs.build_two }} != feature ]; then
+          elif [  ${{ needs.build.outputs.build_one == 'main' }} && ${{ needs.build.outputs.build_two }} != 'feature' }} ]; then
             echo 'build=["main"]' >> "$GITHUB_OUTPUT"
-          elif [  ${{ needs.build.outputs.build_one }} != main && ${{ needs.build.outputs.build_two }} == feature ]; then
+          elif [  ${{ needs.build.outputs.build_one != 'main' }} && ${{ needs.build.outputs.build_two == 'feature' }} ]; then
             echo 'build=["feature"]' >> "$GITHUB_OUTPUT"
           else
             exit 1
