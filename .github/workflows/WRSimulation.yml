@@ -80,7 +80,8 @@ jobs:
           elif "${{ needs.build.outputs.build_one != 'main' }}" && "${{ needs.build.outputs.build_two == 'feature' }}"; then
             echo 'build=[ "${{ needs.build.outputs.build_two }}" ]' >> $GITHUB_OUTPUT
           else
-            echo 'build=[]' >> $GITHUB_OUTPUT
+            # echo 'build=[]' >> $GITHUB_OUTPUT
+            exit 1
           fi
 
   debug:
@@ -97,7 +98,7 @@ jobs:
         
   run-tests:
     name: Run Regression Tests
-    if: always() && needs.branch-matrix.outputs.build != ''
+    if: always() && needs.branch-matrix.result == 'success'
     needs: 
       - define-matrix
       - configure
@@ -127,7 +128,7 @@ jobs:
       - build
       - branch-matrix
       - run-tests
-    if: always() && needs.branch-matrix.outputs.build != ''
+    if: always() && needs.branch-matrix.result == 'success'
     runs-on: ubuntu-latest
     defaults:
       run:
