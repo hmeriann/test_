@@ -8,13 +8,13 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 120
     env:
-      BUILD_ICU: 1
-      BUILD_JSON: 1
-      BUILD_TPCH: 1
-      BUILD_TPCDS: 1
-      BUILD_PARQUET: 1
-      BUILD_JEMALLOC: 1
-      CRASH_ON_ASSERT: 1
+      # BUILD_ICU: 1
+      # BUILD_JSON: 1
+      # BUILD_TPCH: 1
+      # BUILD_TPCDS: 1
+      # BUILD_PARQUET: 1
+      # BUILD_JEMALLOC: 1
+      # CRASH_ON_ASSERT: 1
       GEN: ninja
 
     steps:
@@ -84,7 +84,11 @@ jobs:
                 echo "Time Now: `date +%H:%M:%S`"
                 python3 scripts/run_fuzzer.py --no_checks --${{ matrix.fuzzer }} --${{ matrix.data }} --dry --max_queries=1 --shell=../duckdb
             done
-          
+            echo cat sqlsmith.complete.log >> clog/
+            
+      - name: List directory contents
+        run: ls -la
+
       - name: Upload fuzz_clogs
         uses: actions/upload-artifact@v4
         with:
