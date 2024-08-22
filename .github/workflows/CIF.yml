@@ -82,15 +82,14 @@ jobs:
             while [[ $(date -u +%s) -le $endtime ]]
             do
                 echo "Time Now: `date +%H:%M:%S`"
-                python3 scripts/run_fuzzer.py --no_checks --${{ matrix.fuzzer }} --${{ matrix.data }} --dry --max_queries=1000 --shell=../duckdb
+                python3 scripts/run_fuzzer.py --no_checks --${{ matrix.fuzzer }} --${{ matrix.data }} --dry --max_queries=1 --shell=../duckdb
             done
           
       - name: Upload fuzz_clogs
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.fuzzer }}_${{ matrix.data }}
-          path: sqlsmith.complete.log
-          compression-level: 6
+          path: ./sqlsmith.complete.log
 
   # upload-complete-logs:
   #   name: Upload complete logs
