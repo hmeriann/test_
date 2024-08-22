@@ -87,8 +87,10 @@ jobs:
 
             log_file="clog/${{ matrix.fuzzer }}_${{ matrix.data }}.log"
             mv sqlsmith.complete.log $log_file
+            echo 🚗 🚗 🚕 
+            pwd
+            echo 🚌 🚌 🚌
             ls -la
-            echo 🚗 cat sqlsmith.complete.log >> clog/
             
       - name: List directory contents
         if: always()
@@ -99,7 +101,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: fuzz_logs
-          path: clog/
+          path: duckdb_sqlsmith/clog/
 
   # upload-complete-logs:
   #   name: Upload complete logs
