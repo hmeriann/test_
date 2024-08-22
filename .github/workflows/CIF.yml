@@ -1,0 +1,114 @@
+name: CIF
+on:
+  workflow_dispatch:
+
+jobs:
+  build-duckdb:
+    name: Build 
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      BUILD_ICU: 1
+      BUILD_JSON: 1
+      BUILD_TPCH: 1
+      BUILD_TPCDS: 1
+      BUILD_PARQUET: 1
+      BUILD_JEMALLOC: 1
+      CRASH_ON_ASSERT: 1
+      GEN: ninja
+
+    steps:
+      - name: Dependencies
+        shell: bash
+        run: sudo apt-get update -y -qq && sudo apt-get install -y -qq ninja-build ccache
+
+      - uses: actions/checkout@v4
+        with:
+          repository: hmeriann/duckdb
+          fetch-depth: 0
+
+      - name: create build sqlsmith extension file
+        shell: bash
+        run: |
+          echo "duckdb_extension_load(sqlsmith 
+            GIT_URL https://github.com/hmeriann/duckdb_sqlsmith 
+            GIT_TAG main 
+          )" > sqlsmith.cmake
+
+      - name: Build
+        shell: bash
+        run: |
+          EXTENSION_CONFIGS="sqlsmith.cmake" make debug
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: duckdb
+          path: build/debug/duckdb
+
+  fuzzer:
+    name: Fuzzer
+    needs:
+    - build-duckdb
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        fuzzer: [duckfuzz, sqlsmith]
+        data: [alltypes]
+
+    steps:
+      - name: checkout duckdb_sqlsmith
+        uses: actions/checkout@v4
+        with:
+          repository: hmeriann/duckdb_sqlsmith
+          path: duckdb_sqlsmith
+          sparse-checkout: |
+            scripts
+
+      - name: Download a single artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: duckdb
+      
+      - name: Fuzz
+        shell: bash
+        run: |
+            chmod +x duckdb
+            runtime="10 minute"
+            endtime=$(date -ud "$runtime" +%s)
+            cd duckdb_sqlsmith
+
+            while [[ $(date -u +%s) -le $endtime ]]
+            do
+                echo "Time Now: `date +%H:%M:%S`"
+                python3 scripts/run_fuzzer.py --no_checks --${{ matrix.fuzzer }} --${{ matrix.data }} --max_queries=1000 --shell=../duckdb >> clogs/${{ matrix.fuzzer }}_${{ matrix.data }}_report.txt
+            done
+          
+      - name: Upload fuzz_clogs
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.fuzzer }}_${{ matrix.data }}
+          path: sqlsmith.complete.log
+          compression-level: 6
+
+  # upload-complete-logs:
+  #   name: Upload complete logs
+  #   if: always()
+  #   needs:
+  #     - build-duckdb
+  #     - fuzzer
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Upload fuzz_clogs
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: fuzz_clogs
+  #         path: sqlsmith.complete.log
+  #         compression-level: 6
+
+  #     - name: Upload clogs
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         path: clogs/
+  #         compression-level: 6
