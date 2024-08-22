@@ -40,7 +40,7 @@ jobs:
         run: |
           EXTENSION_CONFIGS="sqlsmith.cmake" make debug
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: duckdb
           path: build/debug/duckdb
@@ -67,7 +67,7 @@ jobs:
             scripts
 
       - name: Download a single artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: duckdb
       
@@ -78,12 +78,15 @@ jobs:
             runtime="10 minute"
             endtime=$(date -ud "$runtime" +%s)
             cd duckdb_sqlsmith
-
+            mkdir -p clog
             while [[ $(date -u +%s) -le $endtime ]]
             do
                 echo "Time Now: `date +%H:%M:%S`"
                 python3 scripts/run_fuzzer.py --no_checks --${{ matrix.fuzzer }} --${{ matrix.data }} --dry --max_queries=1 --shell=../duckdb
             done
+
+            log_file="clog/${{ matrix.fuzzer }}_${{ matrix.data }}.log"
+            mv sqlsmith.complete.log $log_file
             ls -la
             echo 🚗 cat sqlsmith.complete.log >> clog/
             
@@ -95,8 +98,8 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.fuzzer }}_${{ matrix.data }}
-          path: ./sqlsmith.complete.log
+          name: fuzz_logs
+          path: clog/
 
   # upload-complete-logs:
   #   name: Upload complete logs
