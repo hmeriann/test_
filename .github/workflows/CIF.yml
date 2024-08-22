@@ -96,30 +96,24 @@ jobs:
         if: always()
         run: ls -la
 
+      # - name: Upload fuzz_clogs
+      #   if: always()
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: fuzz_logs
+      #     path: duckdb_sqlsmith/clog/
+
+  upload-complete-logs:
+    name: Upload complete logs
+    if: always()
+    needs:
+      - build-duckdb
+      - fuzzer
+    runs-on: ubuntu-latest
+    steps:
       - name: Upload fuzz_clogs
-        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: fuzz_logs
+          name: fuzz_clogs
           path: duckdb_sqlsmith/clog/
-
-  # upload-complete-logs:
-  #   name: Upload complete logs
-  #   if: always()
-  #   needs:
-  #     - build-duckdb
-  #     - fuzzer
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Upload fuzz_clogs
-  #       uses: actions/upload-artifact@v4
-  #       with:
-  #         name: fuzz_clogs
-  #         path: sqlsmith.complete.log
-  #         compression-level: 6
-
-  #     - name: Upload clogs
-  #       uses: actions/upload-artifact@v4
-  #       with:
-  #         path: clogs/
-  #         compression-level: 6
+          compression-level: 6
