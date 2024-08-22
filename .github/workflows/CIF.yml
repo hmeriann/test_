@@ -82,7 +82,7 @@ jobs:
             while [[ $(date -u +%s) -le $endtime ]]
             do
                 echo "Time Now: `date +%H:%M:%S`"
-                python3 scripts/run_fuzzer.py --no_checks --${{ matrix.fuzzer }} --${{ matrix.data }} --max_queries=1000 --shell=../duckdb >> clogs/${{ matrix.fuzzer }}_${{ matrix.data }}_report.txt
+                python3 scripts/run_fuzzer.py --no_checks --${{ matrix.fuzzer }} --${{ matrix.data }} --max_queries=1000 --shell=../duckdb
             done
           
       - name: Upload fuzz_clogs
