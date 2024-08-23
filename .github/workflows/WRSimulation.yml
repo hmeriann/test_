@@ -1,4 +1,4 @@
-name: Simple WR
+name: Test creating a new matrix
 on:
   workflow_dispatch:
 
