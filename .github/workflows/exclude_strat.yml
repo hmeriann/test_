@@ -1,7 +1,7 @@
 name: CIFuzz
 on:
-  workflow_dispatch:
   pull_request:
+  workflow_dispatch:
 
 jobs:
   fuzzer:
