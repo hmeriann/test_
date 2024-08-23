@@ -33,25 +33,28 @@ jobs:
       - run: |
           if [[ "${{ matrix.branch }}" = "main" ]]; then
             exit 1
+          fi
       - id: success
         shell: bash
         if: ${{ job.status != 'success' }}
         run: |
           echo failed_build=${{ matrix.branch }} >> $GITHUB_OUTPUT
-    
+          
   run-tests:
     name: Run Tests
     if: always()
     needs: 
       - define-matrix
       - build
+      - show-needs
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         branch: ${{ fromJSON(needs.define-matrix.outputs.branches) }}
         test: ['large/tpch.csv', 'tpcds.csv']
-        exclude: ${{ fromJSON(needs.build.outputs.failed_build) }}
+        exclude: 
+          - branch: ${{ fromJSON(needs.build.outputs.failed_build) }}
     outputs:
       file_name: ${{ steps.create.outputs.file_name }}
         
@@ -97,8 +100,8 @@ jobs:
     strategy:
       matrix: 
         branch: ${{ fromJSON(needs.define-matrix.outputs.branches) }}
-        exclude: ${{ fromJSON(needs.build.outputs.failed_build) }}
-
+        exclude: 
+          - branch: ${{ fromJSON(needs.build.outputs.failed_build) }}
     steps:
       - name: Collect issues on Benchmarks
         # if: contains(github.ref_name, 'main')
