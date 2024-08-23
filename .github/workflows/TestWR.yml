@@ -49,7 +49,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        branch: ${{ fromJSON(needs.build.outputs.branches) }}
+        branch: ${{ fromJSON(needs.define-matrix.outputs.branches) }}
         test: ['large/tpch.csv', 'tpcds.csv']
         exclude: ${{ fromJSON(needs.build.outputs.failed_build) }}
     outputs:
@@ -96,7 +96,7 @@ jobs:
         shell: bash
     strategy:
       matrix: 
-        branch: ${{ fromJSON(needs.build.outputs.branches) }}
+        branch: ${{ fromJSON(needs.define-matrix.outputs.branches) }}
         exclude: ${{ fromJSON(needs.build.outputs.failed_build) }}
 
     steps:
