@@ -127,7 +127,7 @@ jobs:
           gh issue create --repo ${{ env.gh_issue_repo }} \
             --title "Failed to run Weekly Regression Benchmarks" \
             --body "Benchmark preparation steps have failed, please check the \
-            [workflow run](https://github.com/duckdblabs/duckdb-internal/actions/runs/${{ github.run_id }}) for details."
+            [workflow run](https://github.com/hmeriann/test_/actions/runs/${{ github.run_id }}) for details."
 
       - name: Send issue to gh
         run: |
@@ -135,7 +135,7 @@ jobs:
             echo "Regressions detected, GitHub issue will be filed."
             cat issue_body*.txt >> report.txt
             # create issue
-            gh issue create --repo ${{ env.gh_issue_repo }} --title "Weekly Regression Test Failure" --body-file report.txt
+            gh issue create --repo ${{ env.gh_issue_repo }} --title "Test issue filed: 🦋🐠🦑 [workflow run](https://github.com/hmeriann/test_/actions/runs/${{ github.run_id }}) for details."
           fi
         env:
           GH_TOKEN: ${{ github.token }}
