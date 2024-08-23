@@ -77,7 +77,7 @@ jobs:
         if: success()
         with:
           name: ${{ steps.create.outputs.file_name }}
-          path: ${{ env.mounted_directory_name }}/${{ steps.create.outputs.file_name }}
+          path: ${{ steps.create.outputs.file_name }}
           if-no-files-found: error
   
   collect-issues:
