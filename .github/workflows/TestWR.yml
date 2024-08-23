@@ -137,3 +137,5 @@ jobs:
             # create issue
             gh issue create --repo ${{ env.gh_issue_repo }} --title "Weekly Regression Test Failure" --body-file report.txt
           fi
+        env:
+          GH_TOKEN: ${{ github.token }}
