@@ -96,15 +96,15 @@ jobs:
         if: always()
         run: ls -la
 
-      # - name: Upload fuzz_clogs
-      #   if: always()
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: fuzz_logs
-      #     path: duckdb_sqlsmith/clog/
+      - name: Upload fuzz_clogs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fuzz_logs_${{ matrix.fuzzer }}
+          path: duckdb_sqlsmith/clog/
 
   upload-complete-logs:
-    name: Upload complete logs
+    name: Upload complete logs_
     if: always()
     needs:
       - build-duckdb
