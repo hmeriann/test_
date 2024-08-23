@@ -102,21 +102,3 @@ jobs:
         with:
           name: fuzz_logs_${{ matrix.fuzzer }}
           path: duckdb_sqlsmith/sqlsmith.complete.log
-
-  upload-complete-logs:
-    name: Upload complete logs_
-    if: always()
-    needs:
-      - build-duckdb
-      - fuzzer
-    runs-on: ubuntu-latest
-    steps:
-      - name: List directory contents on upload-complete-logs
-        if: always()
-        run: ls -la
-      - name: Upload fuzz_clogs
-        uses: actions/upload-artifact@v4
-        with:
-          name: fuzz_clogs
-          path: duckdb_sqlsmith/clog/
-          compression-level: 6
