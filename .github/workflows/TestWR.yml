@@ -46,7 +46,6 @@ jobs:
     needs: 
       - define-matrix
       - build
-      - show-needs
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
