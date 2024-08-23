@@ -3,6 +3,7 @@ on:
   workflow_dispatch:
 env:
   gh_issue_repo: hmeriann/test_
+  GH_TOKEN: ${{ github.token }}
 jobs:
   define-matrix:
     name: Check if feature branch exists and define matrix
