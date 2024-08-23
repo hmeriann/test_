@@ -86,9 +86,8 @@ jobs:
     needs: 
       - define-matrix
       - build
-      # - update-branches-matrix
       - run-tests
-    if: always() && needs.update-branches-matrix.result == 'success'
+    if: always()
     runs-on: ubuntu-latest
     defaults:
       run:
