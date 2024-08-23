@@ -1,4 +1,4 @@
-name: WR
+name: Test WR flag
 on:
   workflow_dispatch:
 
