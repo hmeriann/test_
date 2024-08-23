@@ -53,7 +53,7 @@ jobs:
         branch: ${{ fromJSON(needs.define-matrix.outputs.branches) }}
         test: ['large/tpch.csv', 'tpcds.csv']
         exclude: 
-          - branch: ${{ fromJSON(needs.build.outputs.failed_build) }}
+          - branch: ${{ needs.build.outputs.failed_build }}
     outputs:
       file_name: ${{ steps.create.outputs.file_name }}
         
@@ -100,7 +100,7 @@ jobs:
       matrix: 
         branch: ${{ fromJSON(needs.define-matrix.outputs.branches) }}
         exclude: 
-          - branch: ${{ fromJSON(needs.build.outputs.failed_build) }}
+          - branch: ${{ needs.build.outputs.failed_build }}
     steps:
       - name: Collect issues on Benchmarks
         # if: contains(github.ref_name, 'main')
