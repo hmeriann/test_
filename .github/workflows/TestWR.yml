@@ -1,4 +1,4 @@
-name: Test WR when branch matrix is not updated
+name: Test exclude strategy for matrix
 on:
   workflow_dispatch:
 env:
