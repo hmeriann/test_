@@ -39,6 +39,9 @@ jobs:
 
   fuzz:
     name: Fuzz
+    needs: 
+      - build-duckdb
+      - fuzzer
     uses: hmeriann/base_workflow/.github/workflows/fuzz.yml@main
     with:
         fuzzer: ${{ matrix.fuzzer }}
