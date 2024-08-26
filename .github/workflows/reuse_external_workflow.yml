@@ -1,0 +1,51 @@
+name: This Workflow Reuses an external base_workflow
+on:
+  workflow_dispatch:
+  pull_request:
+
+jobs:
+  build-duckdb:
+    name: Build 
+    uses: hmeriann/base_workflow/.github/workflows/base_workflow.yml@main
+    with:
+      git_url: ${{ github.actor }}
+      git_tag: ${{ github.ref_name }}
+      
+  fuzzer:
+    name: Fuzzer
+    needs:
+    - build-duckdb
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        fuzzer: [duckfuzz, sqlsmith]
+        data: [alltypes]
+
+    steps:
+      - name: checkout duckdb_sqlsmith
+        uses: actions/checkout@v4
+        with:
+          repository: hmeriann/duckdb_sqlsmith
+          path: duckdb_sqlsmith
+          sparse-checkout: |
+            scripts
+
+      - name: Download a single artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: duckdb
+      
+      - name: Fuzz
+        uses: hmeriann/base_workflow/.github/workflows/fuzz.yml@main
+        with:
+          fuzzer: ${{ matrix.fuzzer }}
+          data: ${{ matrix.data }}\
+      
+      - name: Upload fuzz_clogs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fuzz_logs_${{ matrix.fuzzer }}
+          path: duckdb_sqlsmith/sqlsmith.complete.log
