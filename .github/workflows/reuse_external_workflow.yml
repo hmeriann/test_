@@ -36,16 +36,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: duckdb
-      
-      - name: Fuzz
-        uses: hmeriann/base_workflow/.github/workflows/fuzz.yml@main
-        with:
-          fuzzer: ${{ matrix.fuzzer }}
-          data: ${{ matrix.data }}\
-      
-      - name: Upload fuzz_clogs
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: fuzz_logs_${{ matrix.fuzzer }}
-          path: duckdb_sqlsmith/sqlsmith.complete.log
+
+  fuzz:
+    name: Fuzz
+    uses: hmeriann/base_workflow/.github/workflows/fuzz.yml@main
+    with:
+        fuzzer: ${{ matrix.fuzzer }}
+        data: ${{ matrix.data }}
