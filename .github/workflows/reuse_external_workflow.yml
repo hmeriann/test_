@@ -15,34 +15,12 @@ jobs:
     name: Fuzzer
     needs:
     - build-duckdb
-    runs-on: ubuntu-latest
-    timeout-minutes: 120
+    uses: hmeriann/base_workflow/.github/workflows/fuzz.yml@main
     strategy:
       fail-fast: false
       matrix:
-        fuzzer: [duckfuzz, sqlsmith]
-        data: [alltypes]
-
-    steps:
-      - name: checkout duckdb_sqlsmith
-        uses: actions/checkout@v4
-        with:
-          repository: hmeriann/duckdb_sqlsmith
-          path: duckdb_sqlsmith
-          sparse-checkout: |
-            scripts
-
-      - name: Download a single artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: duckdb
-
-  fuzz:
-    name: Fuzz
-    needs: 
-      - build-duckdb
-      - fuzzer
-    uses: hmeriann/base_workflow/.github/workflows/fuzz.yml@main
+        fuzzer: [duckfuzz, sqlsmith, duckfuzz_functions]
+        data: [emptyalltypes]
     with:
         fuzzer: ${{ matrix.fuzzer }}
         data: ${{ matrix.data }}
