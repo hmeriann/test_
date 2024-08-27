@@ -18,7 +18,7 @@ jobs:
       - define-matrix
     strategy:
       matrix:
-        branches: ${{ needs.define-matrix.outputs.branches }}
+        branches: ${{ fromJSON(needs.define-matrix.outputs.branches) }}
     runs-on: ubuntu-latest
     steps:
       - run: echo ${{ matrix.branches }}    
