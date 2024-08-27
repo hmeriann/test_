@@ -1,4 +1,4 @@
-name: test if: always()
+name: test if always
 on:
   workflow_dispatch:
 
