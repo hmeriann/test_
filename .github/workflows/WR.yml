@@ -18,16 +18,16 @@ jobs:
       - define-matrix
     strategy:
       matrix:
-        branches: ${{ fromJSON(needs.define-matrix.outputs.branches) }}
+        branch: ${{ fromJSON(needs.define-matrix.outputs.branches) }}
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ matrix.branches }}    
+      - run: echo ${{ matrix.branch }}    
       # - run: exit 1      
 
   run-tests:
     name: Run Regression Tests
     # if: success() - will skip all other tests if one fails
-    if: needs.build.result == 'success'
+    if: always() && needs.build.result == 'success'
     needs: 
       - define-matrix
       - build
