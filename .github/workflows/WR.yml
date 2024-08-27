@@ -10,7 +10,8 @@ jobs:
       branches: ${{steps.branches.outputs.branches}}
     steps:
       - id: branches
-        run: echo branches=[main, feature] >> $GITHUB_OUTPUT
+        run: echo branches=[ 'main', 'feature' ] >> $GITHUB_OUTPUT
+      - run: echo $branches 🥵
 
   build:
     name: Build DuckDB versions and link the benchmarks
@@ -21,7 +22,7 @@ jobs:
         branch: ${{ fromJSON(needs.define-matrix.outputs.branches) }}
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ matrix.branch }}    
+      - run: echo ${{ matrix.branch }} 🦑
       # - run: exit 1      
 
   run-tests:
@@ -62,8 +63,8 @@ jobs:
 
     steps:
       - name: File issue on preparation steps
-        if: contains(github.ref_name, 'main') && (needs.configure-mount-and-download-benchmark-data.result != 'success' || 
-            needs.build-duckdb-versions-and-setup-benchmarks.result != 'success')
+        if: contains(github.ref_name, 'main') && (needs.define-matrix.result != 'success' || 
+            needs.build.result != 'success')
         run: |
           echo PREP STEP ISSUE
 
