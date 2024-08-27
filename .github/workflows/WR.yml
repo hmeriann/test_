@@ -3,61 +3,49 @@ on:
   workflow_dispatch:
 
 jobs:
-  configure-mount-and-download-benchmark-data:
-    name: Configure mount and download benchmark data
+  define-matrix:
+    name: Define matrix
     runs-on: ubuntu-latest
+    outputs:
+      branches: ${{steps.branches.outputs.branches}}
     steps:
-      - run: exit 1
+      - id: branches
+        run: echo branches=[main, feature] >> $GITHUB_OUTPUT
 
-  build-duckdb-versions-and-setup-benchmarks:
+  build:
     name: Build DuckDB versions and link the benchmarks
     needs: 
-      - configure-mount-and-download-benchmark-data
+      - define-matrix
+    strategy:
+      matrix:
+        branches: ${{ needs.define-matrix.outputs.branches }}
     runs-on: ubuntu-latest
     steps:
-      - run: exit 0      
+      - run: echo ${{ matrix.branches }}    
       # - run: exit 1      
 
-  run-regression-tests:
+  run-tests:
     name: Run Regression Tests
     # if: success() - will skip all other tests if one fails
-    if: always()
+    if: needs.build.result == 'success'
     needs: 
-      - configure-mount-and-download-benchmark-data
-      - build-duckdb-versions-and-setup-benchmarks
+      - define-matrix
+      - build
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
+        branch: ${{ fromJSON(needs.define-matrix.outputs.branches) }}
         test: ['large/tpch.csv', 'tpcds.csv', 'large/ingestion.csv', 'micro_extended.csv']
     outputs:
       file_name: ${{ steps.create.outputs.file_name }}
         
-    steps:
-      - name: Create a File Name 
-        if: always()
-        id: create
-        shell: bash
-        run: |
-          echo "file_name=$(echo regression_output_${{ matrix.test }}_.txt | sed -e 's/\//_/g' -e 's/\.csv//')" >> $GITHUB_OUTPUT
-          
+    steps:    
       - name: Run Regression Test
-        if: contains(${{ steps.create.outputs.file_name }}, 'regression')
         continue-on-error: true
         shell: bash
         run: |
           echo TEST: ${{ matrix.test }}
-          if [[ ${{ matrix.test }} == tpcds.csv ]]; then
-            exit 1
-          fi
-          if [[ ${{ matrix.test }} != large/tpch.csv ]]; then
-            flag=''
-            echo $flag
-          else
-            flag='--disable-timeout'
-            echo $flag
-          fi
-          echo ⚠️ $flag
           
       - name: Upload results
         if: success()
@@ -66,9 +54,9 @@ jobs:
   file-issue:
     name: File Issue
     needs: 
-      - configure-mount-and-download-benchmark-data
-      - build-duckdb-versions-and-setup-benchmarks
-      - run-regression-tests
+      - define-matrix
+      - build
+      - run-tests
     if: always()
     runs-on: ubuntu-latest
 
