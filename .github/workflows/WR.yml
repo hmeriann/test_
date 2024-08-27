@@ -1,4 +1,4 @@
-name: Test WR flag
+name: test if: always()
 on:
   workflow_dispatch:
 
