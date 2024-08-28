@@ -123,6 +123,5 @@ jobs:
             --title "Test issue filed: 🦋🐠🦑 \
             [workflow run](https://github.com/hmeriann/test_/actions/runs/${{ github.run_id }}) for details." \
             --body-file issue_body.txt
-          fi
         env:
           GH_TOKEN: ${{ github.token }}
