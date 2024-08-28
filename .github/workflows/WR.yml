@@ -40,6 +40,16 @@ jobs:
             echo "failed_build=${{ matrix.branch }}" >> $GITHUB_OUTPUT
           fi
 
+  debug:
+    name: Debug
+    if: always()
+    runs-on: ubuntu-latest
+    needs: 
+      - define-matrix
+      - build
+    steps:
+      - run: echo ${{ needs.build.outputs.failed_build }} 🐠
+    
   run-tests:
     name: Run Regression Tests
     # if: success() - will skip all other tests if one fails
@@ -47,6 +57,7 @@ jobs:
     needs: 
       - define-matrix
       - build
+      - debug
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
