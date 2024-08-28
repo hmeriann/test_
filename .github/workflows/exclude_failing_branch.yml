@@ -53,9 +53,8 @@ jobs:
       
       - id: success
         shell: bash
-        if: always() && ${{ job.status != 'success' }}
-        run: |
-          echo "failed_build=${{ matrix.branch }}" >> $GITHUB_OUTPUT
+        if: failure()
+        run: echo "failed_build=${{ matrix.branch }}" >> $GITHUB_OUTPUT
 
   debug:
     name: Debug
