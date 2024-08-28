@@ -98,7 +98,9 @@ jobs:
             --title "Failed to run Weekly Regression Benchmarks" \
             --body "Benchmark preparation steps have failed, please check the \
             [workflow run](https://github.com/hmeriann/test_/actions/runs/${{ github.run_id }}) for details."
-          
+        env:
+          GH_TOKEN: ${{ github.token }}
+    
       - name: Download artifacts
         if: always()
         uses: actions/download-artifact@v4
