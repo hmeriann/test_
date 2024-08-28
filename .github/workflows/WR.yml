@@ -22,8 +22,14 @@ jobs:
         branch: ${{ fromJSON(needs.define-matrix.outputs.branches) }}
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ matrix.branch }} 🦑
-      # - run: exit 1      
+      - name: Pretend like failing build on feature
+        run: |
+          if [ ${{ matrix.branch }} == "feature" ]; then
+            exit 1
+          else
+            echo ${{ matrix.branch }} 🦑
+          fi
+          # - run: exit 1      
 
   run-tests:
     name: Run Regression Tests
