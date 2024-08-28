@@ -76,6 +76,7 @@ jobs:
         if: success()
         with:
           path: ${{ steps.create.outputs.file_name }}
+          name: ${{ steps.create.outputs.file_name }}
           if-no-files-found: error
           
   file-issue:
