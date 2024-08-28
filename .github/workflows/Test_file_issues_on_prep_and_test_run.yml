@@ -109,11 +109,12 @@ jobs:
             printf "[ Regression Test $output ]\n" >> issue_body_${{ matrix.branch }}.txt
             printf "Regression Output \n \`\`\` \n $(awk '/REGRESSIONS DETECTED/,/OTHER TIMINGS/' $output) \n \`\`\` \n"  >> issue_body_${{ matrix.branch }}.txt
           done
-          echo ls -la
+          echo $(ls -la)
       - name: Upload issue_body
         uses: actions/upload-artifact@v4
         if: success()
         with:
+          path: .
           name: issue_body
 
   file-issue:
