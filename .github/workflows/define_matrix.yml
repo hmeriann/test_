@@ -1,0 +1,22 @@
+name: Define matrix
+on:
+  workflow_dispatch:
+env:
+  gh_issue_repo: hmeriann/test_
+  GH_TOKEN: ${{ github.token }}
+jobs:
+  define-matrix:
+    name: Define matrix
+    runs-on: ubuntu-latest
+    outputs:
+      branches: ${{steps.branches.outputs.branches}}
+    steps:
+      - id: branches
+        run: |
+          count=$(git log feature --since="7 days ago" | wc -l)
+          if [ $count == 0 ]; then
+            echo 'branches=["main"]' >> $GITHUB_OUTPUT
+          else
+            echo 'branches=["main", feature]' >> $GITHUB_OUTPUT
+          fi
+      - run: echo $branches 🥵
