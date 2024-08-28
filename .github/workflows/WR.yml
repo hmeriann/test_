@@ -33,7 +33,7 @@ jobs:
           # - run: exit 1
       - id: success
         shell: bash
-        if: ${{ job.status != 'success' }}
+        if: always() && ${{ job.status != 'success' }}
         run: |
           echo "failed_build=${{ matrix.branch }}" >> $GITHUB_OUTPUT
 
