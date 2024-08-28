@@ -22,8 +22,10 @@ jobs:
           echo $count 🦑
           if [ $count == 0 ]; then
             echo 'branches=["main"]' >> $GITHUB_OUTPUT
+            echo should set to ["main"] 🦑
           else
             echo 'branches=["main", feature]' >> $GITHUB_OUTPUT
+            echo should set to ["main", "feature" ] 🐠
           fi
   print-branches:
     name: Print
@@ -31,4 +33,4 @@ jobs:
     needs:
       - define-matrix
     steps:
-    - run: echo ${{ needs.define-branches.outputs.branches }} 🐠
+    - run: echo ${{ fromJson(needs.define-branches.outputs.branches) }} 🐠
