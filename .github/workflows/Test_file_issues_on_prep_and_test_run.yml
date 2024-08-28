@@ -82,6 +82,8 @@ jobs:
           echo TEST: ${{ matrix.test }}
           if [ ${{ matrix.test }} == 'tpcds.csv' ]; then
             echo cat "REGRESSIONS DETECTED ⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️ during the ${{ matrix.test }} run" > ${{ steps.create.outputs.file_name }}
+          fi
+          
       - name: Upload results
         uses: actions/upload-artifact@v4
         if: success()
