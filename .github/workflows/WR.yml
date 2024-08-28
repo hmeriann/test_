@@ -34,18 +34,19 @@ jobs:
             echo ${{ matrix.branch }} 🦑
           fi
           # - run: exit 1
-      - id: success
-        shell: bash
-        if: ${{ job.status != 'success' }}
-        run: |
-          echo "failed_build=${{ matrix.branch }}" >> $GITHUB_OUTPUT
+    # this way its being skipped:
       # - id: success
       #   shell: bash
-      #   if: always()
+      #   if: ${{ job.status != 'success' }}
       #   run: |
-      #     if [ ${{ steps.fake.outcome }} == failure ]; then
-      #       echo "failed_build=${{ matrix.branch }}" >> $GITHUB_OUTPUT
-      #     fi
+      #     echo "failed_build=${{ matrix.branch }}" >> $GITHUB_OUTPUT
+      - id: success
+        shell: bash
+        if: always()
+        run: |
+          if [ ${{ steps.fake.outcome }} == failure ]; then
+            echo "failed_build=${{ matrix.branch }}" >> $GITHUB_OUTPUT
+          fi
       - name: echo
         if: always()
         run: echo $failed_build
