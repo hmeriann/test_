@@ -20,6 +20,7 @@ jobs:
     strategy:
       matrix:
         branch: ${{ fromJSON(needs.define-matrix.outputs.branches) }}
+      fail-fast: false
     runs-on: ubuntu-latest
     steps:
       - name: Pretend like failing build on feature
