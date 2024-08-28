@@ -40,16 +40,22 @@ jobs:
       #   if: ${{ job.status != 'success' }}
       #   run: |
       #     echo "failed_build=${{ matrix.branch }}" >> $GITHUB_OUTPUT
+
+      # this way it WORKS
+      # - id: success
+      #   shell: bash
+      #   if: always()
+      #   run: |
+      #     if [ ${{ steps.fake.outcome }} == failure ]; then
+      #       echo "failed_build=${{ matrix.branch }}" >> $GITHUB_OUTPUT
+      #     fi
+
+      
       - id: success
         shell: bash
-        if: always()
+        if: ${{ steps.fake.outcome != 'success' }}
         run: |
-          if [ ${{ steps.fake.outcome }} == failure ]; then
-            echo "failed_build=${{ matrix.branch }}" >> $GITHUB_OUTPUT
-          fi
-      - name: echo
-        if: always()
-        run: echo $failed_build
+          echo "failed_build=${{ matrix.branch }}" >> $GITHUB_OUTPUT
 
   debug:
     name: Debug
