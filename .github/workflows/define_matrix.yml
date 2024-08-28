@@ -11,6 +11,11 @@ jobs:
     outputs:
       branches: ${{steps.branches.outputs.branches}}
     steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          repository: duckdb/duckdb
+          fetch-depth: 0
       - id: branches
         run: |
           count=$(git log feature --since="7 days ago" | wc -l)
@@ -19,4 +24,4 @@ jobs:
           else
             echo 'branches=["main", feature]' >> $GITHUB_OUTPUT
           fi
-      - run: echo $branches 🥵
+      - run: echo $branches
