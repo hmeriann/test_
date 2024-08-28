@@ -83,18 +83,52 @@ jobs:
           name: ${{ steps.create.outputs.file_name }}
           if-no-files-found: error
           
+  collect-issues:
+    name: Collect Issues
+    needs: 
+      - define-matrix
+      - build
+      - run-tests
+    if: always() && contains(github.ref_name, 'main')
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: 
+        branch: ${{ fromJSON(needs.define-matrix.outputs.branches) }}
+        exclude: 
+          - branch: ${{ needs.build.outputs.failed_build }}
+    steps:
+      - name: Download artifacts
+        # if: always()
+        uses: actions/download-artifact@v4
+          
+      - name: Collect issues
+        run: |
+          # collect issues on benchmarks runs
+          for output in regression*.txt; do
+            echo $output
+            printf "[ Regression Test $output ]\n" >> issue_body_${{ matrix.branch }}.txt
+            printf "Regression Output \n \`\`\` \n $(awk '/REGRESSIONS DETECTED/,/OTHER TIMINGS/' $output) \n \`\`\` \n"  >> issue_body_${{ matrix.branch }}.txt
+          done
+          echo ls -la
+      - name: Upload issue_body
+        uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: issue_body
+
   file-issue:
     name: File Issue
     needs: 
       - define-matrix
       - build
       - run-tests
+      - collect-issues
     if: always()
     runs-on: ubuntu-latest
 
     steps:
       - name: File issue on preparation steps
-        if: always() && contains(github.ref_name, 'main') && needs.build.result != 'success'
+        if: contains(github.ref_name, 'main') && needs.build.result != 'success'
         run: |
           gh issue create --repo "${{ env.gh_issue_repo }}" \
             --title "Failed to run Weekly Regression Benchmarks" \
@@ -106,23 +140,12 @@ jobs:
       - name: Download artifacts
         if: always()
         uses: actions/download-artifact@v4
+        with:
+          name: issue_body
           
       - name: File issue on Benchmarks
         if: contains(github.ref_name, 'main') && needs.build.result != 'success'
         run: |
-          # collect issues on benchmarks runs
-          for output in regression*.txt; do
-            printf "[ ${{ matrix.branch }} ] [ Regression Test $output ]\n" >> issue_body_${{ matrix.branch }}.txt
-            printf "Regression Output \n \`\`\` \n $(awk '/REGRESSIONS DETECTED/,/OTHER TIMINGS/' $output) \n \`\`\` \n"  >> issue_body.txt
-          done
-          echo ls -la
-      
-      - name: Report an issue
-        if: success()
-        run: |
-          gh issue create --repo ${{ env.gh_issue_repo }} \
-            --title "Test issue filed \
-            [workflow run](https://github.com/hmeriann/test_/actions/runs/${{ github.run_id }}) for details." \
-            --body-file issue_body.txt
-        env:
-          GH_TOKEN: ${{ github.token }}
+          if grep -q "REGRESSIONS DETECTED" issue_body*.txt; then
+            gh issue create --repo ${{ env.gh_issue_repo }} --title "Weekly Regression Test Failure" --body-file issue_body
+          fi
