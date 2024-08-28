@@ -117,7 +117,7 @@ jobs:
         if: success()
         with:
           path: ./issue_*.txt
-          name: issue_body
+          name: issue_body_${{ matrix.branch }}
 
   file-issue:
     name: File Issue
