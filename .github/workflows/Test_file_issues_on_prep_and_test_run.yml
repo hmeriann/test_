@@ -30,11 +30,12 @@ jobs:
       - name: Pretend like failing build on feature
         id: fake
         run: |
-          if [ ${{ matrix.branch }} == "feature" ]; then
-            exit 1
-          else
-            echo ${{ matrix.branch }} 🦑
-          fi
+          echo ${{ matrix.branch }} 🦑
+        #   if [ ${{ matrix.branch }} == "feature" ]; then
+        #     exit 1
+        #   else
+        #     echo ${{ matrix.branch }} 🦑
+        #   fi
       - id: failed-build
         shell: bash
         if: failure()
