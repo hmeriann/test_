@@ -144,7 +144,7 @@ jobs:
         if: always()
         uses: actions/download-artifact@v4
         with:
-          name: issue_body
+          name: issue_body*
       - run: ls -la
           
       - name: File issue on Benchmarks
