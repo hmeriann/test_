@@ -32,5 +32,8 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - define-matrix
+    strategy:
+      matrix:
+        branch: ${{ fromJson(needs.define-branches.outputs.branches) }}
     steps:
-    - run: echo ${{ fromJson(needs.define-branches.outputs.branches) }} 🐠
+    - run: echo ${{ matrix.branch }} 🪸
