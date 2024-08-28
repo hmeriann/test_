@@ -68,7 +68,9 @@ jobs:
         run: |
           echo TEST: ${{ matrix.test }}
           if [ ${{ matrix.test }} == 'tpcds.csv' ]; then
-            echo cat "REGRESSIONS DETECTED ⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️ during the ${{ matrix.test }} run" > ${{ steps.create.outputs.file_name }}
+            echo cat "REGRESSIONS DETECTED ⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️ during the ${{ matrix.test }} run" >> ${{ steps.create.outputs.file_name }}
+          else
+            echo cat "All GOOD 🦋" > ${{ steps.create.outputs.file_name }}
           fi
           
       - name: Upload results
