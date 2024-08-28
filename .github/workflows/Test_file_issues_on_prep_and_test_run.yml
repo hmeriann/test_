@@ -144,7 +144,6 @@ jobs:
         if: always()
         uses: actions/download-artifact@v4
         with:
-          name: issue_body
           pattern: issue_body_*
           merge-multiple: true
       - run: ls -R issue_body
