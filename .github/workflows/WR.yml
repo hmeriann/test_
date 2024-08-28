@@ -30,7 +30,12 @@ jobs:
           else
             echo ${{ matrix.branch }} 🦑
           fi
-          # - run: exit 1      
+          # - run: exit 1
+      - id: success
+        shell: bash
+        if: ${{ job.status != 'success' }}
+        run: |
+          echo "failed_build=${{ matrix.branch }}" >> $GITHUB_OUTPUT
 
   run-tests:
     name: Run Regression Tests
@@ -45,6 +50,8 @@ jobs:
       matrix:
         branch: ${{ fromJSON(needs.define-matrix.outputs.branches) }}
         test: ['large/tpch.csv', 'tpcds.csv', 'large/ingestion.csv', 'micro_extended.csv']
+        exclude:
+          - branch: ${{ needs.build.outputs.failed_build }}
     outputs:
       file_name: ${{ steps.create.outputs.file_name }}
         
