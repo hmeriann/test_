@@ -24,7 +24,7 @@ jobs:
             echo 'branches=["main"]' >> $GITHUB_OUTPUT
             echo should set to ["main"] 🦑
           else
-            echo 'branches=["main", feature]' >> $GITHUB_OUTPUT
+            echo 'branches=["main", "feature"]' >> $GITHUB_OUTPUT
             echo should set to ["main", "feature" ] 🐠
           fi
   print-branches:
