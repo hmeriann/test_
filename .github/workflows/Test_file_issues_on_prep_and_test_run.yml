@@ -69,7 +69,7 @@ jobs:
         shell: bash
         run: |
           echo TEST: ${{ matrix.test }}
-          if [ ${{ matrix.test }} == 'tpcds.csv' && ${{ matrix.test }} == 'large/ingestion.csv' ]; then
+          if [ ${{ matrix.test }} == 'tpcds.csv' || ${{ matrix.test }} == 'large/ingestion.csv' ]; then
             echo "⚠️ REGRESSIONS DETECTED ⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️ during the ${{ matrix.test }} run OTHER TIMINGS" >> ${{ steps.create.outputs.file_name }}
           else
             echo "All GOOD 🦋" > ${{ steps.create.outputs.file_name }}
