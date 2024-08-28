@@ -105,8 +105,8 @@ jobs:
         run: |
           # collect issues on benchmarks runs
           for output in regression*/*.txt; do
-            echo ❇️ cat $output
-            printf "[ Regression Test $output ]\n" >> issue_body_${{ matrix.branch }}.txt
+            echo ❇️ $(cat $output)
+            printf "[ Regression Test ${{matrix.test}} ]\n" >> issue_body_${{ matrix.branch }}.txt
             printf "Regression Output \n \`\`\` \n $(awk '/REGRESSIONS DETECTED/,/OTHER TIMINGS/' $output) \n \`\`\` \n"  >> issue_body_${{ matrix.branch }}.txt
           done
       - name: Upload issue_body
