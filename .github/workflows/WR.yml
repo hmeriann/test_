@@ -53,7 +53,7 @@ jobs:
       
       - id: success
         shell: bash
-        if: ${{ steps.fake.outcome != 'success' }}
+        if: always() && ${{ steps.fake.outcome != 'success' }}
         run: |
           echo "failed_build=${{ matrix.branch }}" >> $GITHUB_OUTPUT
 
