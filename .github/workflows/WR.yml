@@ -39,6 +39,7 @@ jobs:
           if [ ${{ steps.fake.outcome }} == failure ]; then
             echo "failed_build=${{ matrix.branch }}" >> $GITHUB_OUTPUT
           fi
+      - run: echo $failed_build
 
   debug:
     name: Debug
