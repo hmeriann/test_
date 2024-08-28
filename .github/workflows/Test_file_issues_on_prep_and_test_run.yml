@@ -69,7 +69,7 @@ jobs:
         shell: bash
         run: |
           echo TEST: ${{ matrix.test }}
-          if [ ${{ matrix.test }} == 'tpcds.csv' ]; then
+          if [ ${{ matrix.test }} == 'tpcds.csv' && ${{ matrix.test }} == 'large/ingestion.csv' ]; then
             echo "⚠️ REGRESSIONS DETECTED ⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️ during the ${{ matrix.test }} run OTHER TIMINGS" >> ${{ steps.create.outputs.file_name }}
           else
             echo "All GOOD 🦋" > ${{ steps.create.outputs.file_name }}
@@ -104,7 +104,7 @@ jobs:
       - name: Collect issues
         run: |
           # collect issues on benchmarks runs
-          for output in regression*.txt; do
+          for output in regression*/*.txt; do
             echo $output
             printf "[ Regression Test $output ]\n" >> issue_body_${{ matrix.branch }}.txt
             printf "Regression Output \n \`\`\` \n $(awk '/REGRESSIONS DETECTED/,/OTHER TIMINGS/' $output) \n \`\`\` \n"  >> issue_body_${{ matrix.branch }}.txt
@@ -147,6 +147,7 @@ jobs:
       - name: File issue on Benchmarks
         if: contains(github.ref_name, 'main') && needs.build.result != 'success'
         run: |
-          if grep -q "REGRESSIONS DETECTED" issue_body; then
-            gh issue create --repo ${{ env.gh_issue_repo }} --title "Weekly Regression Test Failure" --body-file issue_body
+          if grep -q "REGRESSIONS DETECTED" issue_body*.txt; then
+            cat issue_body*.txt >> report.txt
+            gh issue create --repo ${{ env.gh_issue_repo }} --title "Weekly Regression Test Failure" --body-file report.txt
           fi
