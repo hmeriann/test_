@@ -19,9 +19,10 @@ jobs:
       - id: branches
         run: |
           count=$(git log origin/feature --since="7 days ago" | wc -l)
+          echo $count 🦑
           if [ $count == 0 ]; then
             echo 'branches=["main"]' >> $GITHUB_OUTPUT
           else
             echo 'branches=["main", feature]' >> $GITHUB_OUTPUT
           fi
-      - run: echo $branches
+      - run: echo $branches 🐠
