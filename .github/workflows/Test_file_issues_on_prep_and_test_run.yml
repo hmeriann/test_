@@ -37,17 +37,6 @@ jobs:
         shell: bash
         if: failure()
         run: echo "failed_build=${{ matrix.branch }}" >> $GITHUB_OUTPUT
-
-  debug:
-    name: Debug
-    if: always()
-    runs-on: ubuntu-latest
-    needs: 
-      - define-matrix
-      - build
-    steps:
-      - run: echo ${{ needs.build.outputs.failed_build }} 🐠
-    
   run-tests:
     name: Run Regression Tests
     # if: success() - will skip all other tests if one fails
@@ -55,7 +44,6 @@ jobs:
     needs: 
       - define-matrix
       - build
-      - debug
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -66,7 +54,6 @@ jobs:
           - branch: ${{ needs.build.outputs.failed_build }}
     outputs:
       file_name: ${{ steps.create.outputs.file_name }}
-        
     steps:    
       - name: Create a File Name 
         if: always()
@@ -89,7 +76,6 @@ jobs:
         if: success()
         with:
           path: ${{ steps.create.outputs.file_name }}
-          name: artifact
           if-no-files-found: error
           
   file-issue:
@@ -110,7 +96,7 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
-          name: artifact
+          name: regression*.txt
           
       - name: File issue on Benchmarks
         if: contains(github.ref_name, 'main')
@@ -120,7 +106,12 @@ jobs:
             printf "[ ${{ matrix.branch }} ] [ Regression Test $output ]\n" >> issue_body_${{ matrix.branch }}.txt
             printf "Regression Output \n \`\`\` \n $(awk '/REGRESSIONS DETECTED/,/OTHER TIMINGS/' $output) \n \`\`\` \n"  >> issue_body_${{ matrix.branch }}.txt
           done
-          # notify next run that it should not update duckdb-old-${{ matrix.branch }}
-          touch ~/previous_failed_${{ matrix.branch }}.txt
-
+      
+      - name: Report an issue
+        uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          path: issue_body*.txt
+          name: REPORT
+          if-no-files-found: error
           
