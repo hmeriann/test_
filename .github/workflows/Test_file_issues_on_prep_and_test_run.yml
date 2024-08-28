@@ -70,9 +70,9 @@ jobs:
         run: |
           echo TEST: ${{ matrix.test }}
           if [ ${{ matrix.test }} == 'tpcds.csv' ]; then
-            echo cat "REGRESSIONS DETECTED ⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️ during the ${{ matrix.test }} run" >> ${{ steps.create.outputs.file_name }}
+            echo "REGRESSIONS DETECTED ⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️ during the ${{ matrix.test }} run" >> ${{ steps.create.outputs.file_name }}
           else
-            echo cat "All GOOD 🦋" > ${{ steps.create.outputs.file_name }}
+            echo "All GOOD 🦋" > ${{ steps.create.outputs.file_name }}
           fi
           
       - name: Upload results
@@ -115,12 +115,13 @@ jobs:
             printf "[ ${{ matrix.branch }} ] [ Regression Test $output ]\n" >> issue_body_${{ matrix.branch }}.txt
             printf "Regression Output \n \`\`\` \n $(awk '/REGRESSIONS DETECTED/,/OTHER TIMINGS/' $output) \n \`\`\` \n"  >> issue_body.txt
           done
+          echo ls -la
       
       - name: Report an issue
         if: success()
         run: |
           gh issue create --repo ${{ env.gh_issue_repo }} \
-            --title "Test issue filed: 🦋🐠🦑 \
+            --title "Test issue filed \
             [workflow run](https://github.com/hmeriann/test_/actions/runs/${{ github.run_id }}) for details." \
             --body-file issue_body.txt
         env:
