@@ -24,6 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Pretend like failing build on feature
+        id: fake
         run: |
           if [ ${{ matrix.branch }} == "feature" ]; then
             exit 1
@@ -33,7 +34,7 @@ jobs:
           # - run: exit 1
       - id: success
         shell: bash
-        if: always() && ${{ job.status != 'success' }}
+        if: ${{ steps.fake.status != 'success' }}
         run: |
           echo "failed_build=${{ matrix.branch }}" >> $GITHUB_OUTPUT
 
