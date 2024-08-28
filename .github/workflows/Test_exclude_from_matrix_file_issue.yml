@@ -1,4 +1,4 @@
-name: Test exclude strategy for matrix
+name: Test exclude strategy for matrix and file an issue
 on:
   workflow_dispatch:
 env:
