@@ -22,6 +22,7 @@ jobs:
         branch: ${{ fromJSON(needs.define-matrix.outputs.branches) }}
       fail-fast: false
     runs-on: ubuntu-latest
+    outputs: ${{ steps.success.outputs.failed_build }}
     steps:
       - name: Pretend like failing build on feature
         id: fake
