@@ -144,8 +144,10 @@ jobs:
         if: always()
         uses: actions/download-artifact@v4
         with:
-          name: issue_body*
-      - run: ls -la
+          name: issue_body
+          pattern: issue_body_*
+          merge-multiple: true
+      - run: ls -R issue_body
           
       - name: File issue on Benchmarks
         if: contains(github.ref_name, 'main') && needs.build.result != 'success'
