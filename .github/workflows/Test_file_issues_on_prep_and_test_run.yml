@@ -94,7 +94,7 @@ jobs:
       - name: File issue on preparation steps
         if: contains(github.ref_name, 'main') && needs.build.result != 'success'
         run: |
-          gh issue create --repo ${{ env.gh_issue_repo }} \
+          gh issue create --repo "${{ env.gh_issue_repo }}" \
             --title "Failed to run Weekly Regression Benchmarks" \
             --body "Benchmark preparation steps have failed, please check the \
             [workflow run](https://github.com/hmeriann/test_/actions/runs/${{ github.run_id }}) for details."
@@ -115,7 +115,10 @@ jobs:
       - name: Report an issue
         if: success()
         run: |
-          gh issue create --repo ${{ env.gh_issue_repo }} --title "Test issue filed: 🦋🐠🦑 [workflow run](https://github.com/hmeriann/test_/actions/runs/${{ github.run_id }}) for details." --body-file issue_body.txt
+          gh issue create --repo ${{ env.gh_issue_repo }} \
+            --title "Test issue filed: 🦋🐠🦑 \
+            [workflow run](https://github.com/hmeriann/test_/actions/runs/${{ github.run_id }}) for details." \
+            --body-file issue_body.txt
           fi
         env:
           GH_TOKEN: ${{ github.token }}
