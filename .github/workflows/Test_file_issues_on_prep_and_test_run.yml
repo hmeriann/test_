@@ -1,7 +1,9 @@
 name: Test issue filing, when there is a failing build and a regression
 on:
   workflow_dispatch:
-
+env:
+  gh_issue_repo: hmeriann/test_
+  GH_TOKEN: ${{ github.token }}
 jobs:
   define-matrix:
     name: Define matrix
