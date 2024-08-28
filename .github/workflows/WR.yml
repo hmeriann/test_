@@ -35,7 +35,7 @@ jobs:
   run-tests:
     name: Run Regression Tests
     # if: success() - will skip all other tests if one fails
-    if: always() && needs.build.result == 'success'
+    if: always() && needs.build.result != 'failure'
     needs: 
       - define-matrix
       - build
