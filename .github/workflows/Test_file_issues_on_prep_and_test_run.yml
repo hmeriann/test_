@@ -1,0 +1,124 @@
+name: Test issue filing, when there is a failing build and a regression
+on:
+  workflow_dispatch:
+
+jobs:
+  define-matrix:
+    name: Define matrix
+    runs-on: ubuntu-latest
+    outputs:
+      branches: ${{steps.branches.outputs.branches}}
+    steps:
+      - id: branches
+        run: echo 'branches=["main", "feature"]' >> $GITHUB_OUTPUT
+      - run: echo $branches 🥵
+
+  build:
+    name: Build DuckDB versions and link the benchmarks
+    needs: 
+      - define-matrix
+    strategy:
+      matrix:
+        branch: ${{ fromJSON(needs.define-matrix.outputs.branches) }}
+      fail-fast: false
+    runs-on: ubuntu-latest
+    outputs: 
+      failed_build: ${{ steps.failed-build.outputs.failed_build }}
+    steps:
+      - name: Pretend like failing build on feature
+        id: fake
+        run: |
+          if [ ${{ matrix.branch }} == "feature" ]; then
+            exit 1
+          else
+            echo ${{ matrix.branch }} 🦑
+          fi
+      - id: failed-build
+        shell: bash
+        if: failure()
+        run: echo "failed_build=${{ matrix.branch }}" >> $GITHUB_OUTPUT
+
+  debug:
+    name: Debug
+    if: always()
+    runs-on: ubuntu-latest
+    needs: 
+      - define-matrix
+      - build
+    steps:
+      - run: echo ${{ needs.build.outputs.failed_build }} 🐠
+    
+  run-tests:
+    name: Run Regression Tests
+    # if: success() - will skip all other tests if one fails
+    if: always()
+    needs: 
+      - define-matrix
+      - build
+      - debug
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        branch: ${{ fromJSON(needs.define-matrix.outputs.branches) }}
+        test: ['large/tpch.csv', 'tpcds.csv', 'large/ingestion.csv', 'micro_extended.csv']
+        exclude:
+          - branch: ${{ needs.build.outputs.failed_build }}
+    outputs:
+      file_name: ${{ steps.create.outputs.file_name }}
+        
+    steps:    
+      - name: Create a File Name 
+        if: always()
+        id: create
+        shell: bash
+        working-directory: ${{ env.mounted_directory_name }}
+        run: |
+          echo "file_name=$(echo regression_output_${{ matrix.test }}_${{ matrix.branch }}.txt | sed -e 's/\//_/g' -e 's/\.csv//')" >> $GITHUB_OUTPUT
+      - name: Run Regression Test
+        continue-on-error: true
+        shell: bash
+        run: |
+          echo TEST: ${{ matrix.test }}
+          if [ ${{ matrix.test }} == 'tpcds.csv' ]; then
+            echo cat "REGRESSIONS DETECTED ⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️ during the ${{ matrix.test }} run" > ${{ steps.create.outputs.file_name }}
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          path: ${{ steps.create.outputs.file_name }}
+          name: artifact
+          if-no-files-found: error
+          
+  file-issue:
+    name: File Issue
+    needs: 
+      - define-matrix
+      - build
+      - run-tests
+    if: always()
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: File issue on preparation steps
+        if: contains(github.ref_name, 'main') && needs.build.result != 'success'
+        run: |
+          echo PREP STEP ISSUE
+          
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: artifact
+          
+      - name: File issue on Benchmarks
+        if: contains(github.ref_name, 'main')
+        run: |
+          # collect issues on benchmarks runs
+          for output in regression*.txt; do
+            printf "[ ${{ matrix.branch }} ] [ Regression Test $output ]\n" >> issue_body_${{ matrix.branch }}.txt
+            printf "Regression Output \n \`\`\` \n $(awk '/REGRESSIONS DETECTED/,/OTHER TIMINGS/' $output) \n \`\`\` \n"  >> issue_body_${{ matrix.branch }}.txt
+          done
+          # notify next run that it should not update duckdb-old-${{ matrix.branch }}
+          touch ~/previous_failed_${{ matrix.branch }}.txt
+
+          
