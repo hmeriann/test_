@@ -25,4 +25,10 @@ jobs:
           else
             echo 'branches=["main", feature]' >> $GITHUB_OUTPUT
           fi
-      - run: echo $branches 🐠
+  print-branches:
+    name: Print
+    runs-on: ubuntu-latest
+    needs:
+      - define-matrix
+    steps:
+    - run: echo ${{ needs.define-branches.outputs.branches }} 🐠
