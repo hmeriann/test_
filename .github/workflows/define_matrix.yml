@@ -18,7 +18,7 @@ jobs:
           fetch-depth: 0
       - id: branches
         run: |
-          count=$(git log feature --since="7 days ago" | wc -l)
+          count=$(git log origin/feature --since="7 days ago" | wc -l)
           if [ $count == 0 ]; then
             echo 'branches=["main"]' >> $GITHUB_OUTPUT
           else
