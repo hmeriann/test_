@@ -10,7 +10,7 @@ jobs:
       branches: ${{steps.branches.outputs.branches}}
     steps:
       - id: branches
-        run: echo branches=[ "main", "feature" ] >> $GITHUB_OUTPUT
+        run: echo 'branches=["main", "feature"]' >> $GITHUB_OUTPUT
       - run: echo $branches 🥵
 
   build:
