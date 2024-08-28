@@ -100,6 +100,7 @@ jobs:
             [workflow run](https://github.com/hmeriann/test_/actions/runs/${{ github.run_id }}) for details."
           
       - name: Download artifacts
+        if: always()
         uses: actions/download-artifact@v4
         with:
           name: regression*.txt
