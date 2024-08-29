@@ -1,4 +1,4 @@
-name: OUTSIDE MTRX
+name: Test that issues are created outside the matrix
 on:
   workflow_dispatch:
 
