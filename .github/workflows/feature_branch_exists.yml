@@ -48,9 +48,9 @@ jobs:
       - name: define matrix
         id: branches
         run: |
-          if [ ${{ steps.check_feature_branch_exists.outputs.feature_branch_exists == 'false' }} ]; then
+          if [[ ${{ steps.check_feature_branch_exists.outputs.feature_branch_exists == 'false' }} ]]; then
             echo 'branches=["main"]' >> $GITHUB_OUTPUT
-          elif [ ${{ steps.check_feature_branch_exists.outputs.feature_branch_exists == 'true' }} ]; then
+          elif [[ ${{ steps.check_feature_branch_exists.outputs.feature_branch_exists == 'true' }} ]]; then
             if [ ${{ steps.check_last_commit_date.outputs.days_since_last_commit  <= 7 }} ]; then
               echo 'branches=["main", "feature"]' >> $GITHUB_OUTPUT
             else
