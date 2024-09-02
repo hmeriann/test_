@@ -26,7 +26,7 @@ jobs:
             echo feature_branch_exists='false' >> $GITHUB_OUTPUT
           fi
             echo "Number of branches named 'feature': $count"
-      - run: echo $feature_branch_exists *️⃣
+      - run: echo ${{ steps.check_feature_branch_exists.outputs.feature_branch_exists }} *️⃣
       - name: checkout feature
         if: ${{ steps.check_feature_branch_exists.outputs.feature_branch_exists == 'true' }}
         uses: actions/checkout@v4
@@ -44,7 +44,7 @@ jobs:
           days=$((time_passed / seconds_in_day))
           echo "Days since last commit to feature: $days"
           echo days_since_last_commit=$days >> $GITHUB_OUTPUT
-      - run: echo $days_since_last_commit 🐣
+      - run: echo ${{ steps.check_last_commit_date.outputs.days_since_last_commit }} 🐣
       - name: define matrix
         id: branches
         run: |
@@ -57,4 +57,4 @@ jobs:
               echo 'branches=["main"]' >> $GITHUB_OUTPUT
             fi
           fi
-      - run: echo $branches ⺦
+      - run: echo ${{ steps.branches.outputs.branches }} ⺦
