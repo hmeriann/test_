@@ -17,7 +17,7 @@ jobs:
       - name: upload
         uses: actions/upload-artifact@v4
         with:
-          path: regression/
+          path: 1MSgSnd2yKJkeInqzwOCo3BmukJvRaZg9?usp=share_link/
            
   collect-issues:
     name: Collect Issues
