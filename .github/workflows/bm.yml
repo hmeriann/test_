@@ -5,7 +5,7 @@ env:
   gh_issue_repo: hmeriann/test_
   GH_TOKEN: ${{ github.token }}
 jobs:
-  build-duckdb-versions-and-setup-benchmarks:
+  build:
     name: Build DuckDB versions and link the benchmarks
     runs-on: ubuntu-latest
     env:
@@ -46,6 +46,7 @@ jobs:
         
   run-tests:
     name: Run Benchmarks
+    needs: build
     runs-on: ubuntu-latest
     steps:    
       - run: |
