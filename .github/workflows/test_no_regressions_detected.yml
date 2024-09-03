@@ -16,7 +16,8 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           pattern: regression_*.txt
-          path: https://github.com/duckdblabs/duckdb-internal/actions/runs/10664396821
+          repository: duckdblabs/duckdb-internal
+          run_id: 10664396821
       - name: upload reports
         uses: actions/upload-artifact@v4
         with:
