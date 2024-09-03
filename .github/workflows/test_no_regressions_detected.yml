@@ -24,58 +24,49 @@ jobs:
         with:
           path: .
            
-  # collect-issues:
-  #   name: Collect Issues
-  #   needs: 
-  #     - run-tests
-  #   if: always() && contains(github.ref_name, 'main')
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Collect issues
-  #       run: |
-  #         # collect issues on benchmarks runs
-  #         for output in regression*/*.txt; do
-  #           echo ❇️ $(cat $output)
-  #           printf "Regression Output \n \`\`\` \n $(awk '/REGRESSIONS DETECTED/,/OTHER TIMINGS/' $output) \n \`\`\` \n"  >> issue_body_${{ matrix.branch }}.txt
-  #         done
-  #     - name: Upload issue_body
-  #       uses: actions/upload-artifact@v4
-  #       if: success()
-  #       with:
-  #         path: ./issue_*.txt
-  #         name: issue_body_${{ matrix.branch }}
+  collect-issues:
+    name: Collect Issues
+    needs: 
+      - run-tests
+    if: always() && contains(github.ref_name, 'main')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Collect issues
+        run: |
+          # collect issues on benchmarks runs
+          for output in artifact/*.txt; do
+            echo ❇️ $(cat $output)
+            printf " *️⃣ [ Regression Test $output ]\n" >> issue_body.txt
+            printf "Regression Output \n \`\`\` \n $(awk '/REGRESSIONS DETECTED/,/OTHER TIMINGS/' $output) \n \`\`\` \n"  >> issue_body.txt
+          done
+      - name: Upload issue_body
+        uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          path: ./issue_*.txt
+          name: issue_body
 
-  # file-issue:
-  #   name: File Issue
-  #   needs: 
-  #     - run-tests
-  #     - collect-issues
-  #   if: always()
-  #   runs-on: ubuntu-latest
+  file-issue:
+    name: File Issue
+    needs: 
+      - run-tests
+      - collect-issues
+    if: always()
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #     - name: File issue on preparation steps
-  #       if: contains(github.ref_name, 'main') && needs.build.result != 'success'
-  #       run: |
-  #         gh issue create --repo "${{ env.gh_issue_repo }}" \
-  #           --title "PREP: Failed to run Weekly Regression Benchmarks" \
-  #           --body "Benchmark preparation steps have failed, please check the \
-  #           [workflow run](https://github.com/hmeriann/test_/actions/runs/${{ github.run_id }}) for details."
-  #       env:
-  #         GH_TOKEN: ${{ github.token }}
-    
-  #     - name: Download artifacts
-  #       if: always()
-  #       uses: actions/download-artifact@v4
-  #       with:
-  #         pattern: issue_body_*
-  #         merge-multiple: true
-  #     - run: ls -R issue_body
+    steps:
+      - name: Download artifacts
+        if: always()
+        uses: actions/download-artifact@v4
+        with:
+          pattern: issue_body*
+          merge-multiple: true
+      - run: ls -R issue_body
           
-  #     - name: File issue on Benchmarks
-  #       if: contains(github.ref_name, 'main') && needs.build.result != 'success'
-  #       run: |
-  #         if grep -q "REGRESSIONS DETECTED" issue_body*.txt; then
-  #           cat issue_body*.txt >> report.txt
-  #           gh issue create --repo ${{ env.gh_issue_repo }} --title "TEST: Weekly Regression Test Failure" --body-file report.txt
-  #         fi
+      - name: File issue on Benchmarks
+        if: contains(github.ref_name, 'main') && needs.build.result != 'success'
+        run: |
+          if grep -q "REGRESSIONS DETECTED" issue_body*; then
+            cat issue_body* >> report.txt
+            gh issue create --repo ${{ env.gh_issue_repo }} --title "TEST: Weekly Regression Test Failure" --body-file report.txt
+          fi
