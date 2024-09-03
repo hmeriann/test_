@@ -12,7 +12,7 @@ jobs:
     outputs:
       file_name: ${{ steps.create.outputs.file_name }}
     steps:    
-      - run: wget https://drive.google.com/drive/folders/1MSgSnd2yKJkeInqzwOCo3BmukJvRaZg9?usp=share_link
+      - run: wget --recursive --no-parent -P regression https://drive.google.com/drive/folders/1MSgSnd2yKJkeInqzwOCo3BmukJvRaZg9?usp=share_link
       - run: ls -lah
       - name: upload
         uses: actions/upload-artifact@v4
