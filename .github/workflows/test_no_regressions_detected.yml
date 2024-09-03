@@ -12,8 +12,13 @@ jobs:
     outputs:
       file_name: ${{ steps.create.outputs.file_name }}
     steps:    
-      - run: wget --recursive --no-parent -P regression https://drive.google.com/drive/folders/1MSgSnd2yKJkeInqzwOCo3BmukJvRaZg9?usp=share_link
-      - run: ls -lah & ls -lah regression/
+      - run: |
+          wget https://drive.google.com/file/d/1T1o7e_3qfYCcXq6eFhBLw6o9KvttS-4m/view?usp=share_link --output-document regression_output_tpcds_main.txt
+          wget https://drive.google.com/file/d/1hkjahg7G1ErJh6DJ4WqZvAKDQr412Y_P/view?usp=share_link --output-document regression_output_micro_extended_main.txt
+          wget https://drive.google.com/file/d/1MmljcZBnO5MdCBkOb6RLgUEB7wP-1sBo/view?usp=share_link --output-document regression_output_large_tpch_main.txt
+          wget https://drive.google.com/file/d/1SiV2GksVENu7Xo9Xj6Gtq0pljH0x_1Vw/view?usp=share_link --output-document regression_output_large_ingestion_main.txt
+          wget https://drive.google.com/file/d/1GnE9rDb1HEILK7H02ZuA-ki46mpWRX2M/view?usp=share_link --output-document regression_output_large_tpcds_main.txt
+      - run: ls -lah
       # - name: upload
       #   uses: actions/upload-artifact@v4
       #   with:
