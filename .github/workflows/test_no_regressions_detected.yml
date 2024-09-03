@@ -19,7 +19,7 @@ jobs:
       - name: get reports
         uses: actions/download-artifact@v4
         with:
-          name: regression*.txt
+          pattern: regression_*.txt
           path: https://github.com/duckdblabs/duckdb-internal/actions/runs/10664396821
            
   collect-issues:
