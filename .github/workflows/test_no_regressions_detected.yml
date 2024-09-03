@@ -17,7 +17,7 @@ jobs:
           for output in regression*.txt; do
             echo ❇️ $(cat $output)
             printf " *️⃣ [ Regression Test $output ]\n" >> issue_body.txt
-            printf "Regression Output \n \`\`\` \n $(awk '/REGRESSIONS DETECTED/,/OTHER TIMINGS/' $output) \n \`\`\` \n"  >> issue_body.txt
+            printf "Regression Output \n \`\`\` \n $(awk '/REGRESSIONS DETECTED/,/OTHER TIMINGS/ { if ($0 !~ /NO REGRESSIONS DETECTED/) print }' $output) \n \`\`\` \n"  >> issue_body.txt
           done
           echo ✅
       - name: Upload issue_body
