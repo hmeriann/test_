@@ -12,7 +12,7 @@ jobs:
     outputs:
       file_name: ${{ steps.create.outputs.file_name }}
     steps:    
-      - run: wget https://github.com/duckdblabs/duckdb-internal/actions/runs/10664396821/artifacts/1881785592 --output-document regression_output_large_ingestion_main.txt
+      - run: wget https://drive.google.com/drive/folders/1MSgSnd2yKJkeInqzwOCo3BmukJvRaZg9?usp=share_link
            
   collect-issues:
     name: Collect Issues
