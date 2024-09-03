@@ -23,14 +23,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           path: .
-           
-  collect-issues:
-    name: Collect Issues
-    needs: 
-      - run-tests
-    if: always() && contains(github.ref_name, 'main')
-    runs-on: ubuntu-latest
-    steps:
       - name: Collect issues
         run: |
           # collect issues on benchmarks runs
@@ -50,7 +42,6 @@ jobs:
     name: File Issue
     needs: 
       - run-tests
-      - collect-issues
     if: always()
     runs-on: ubuntu-latest
 
