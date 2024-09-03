@@ -17,7 +17,7 @@ jobs:
         with:
           pattern: regression_*.txt
           repository: duckdblabs/duckdb-internal
-          run_id: 10664396821
+          run-id: 10664396821
       - name: upload reports
         uses: actions/upload-artifact@v4
         with:
