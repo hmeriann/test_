@@ -12,45 +12,42 @@ jobs:
     outputs:
       file_name: ${{ steps.create.outputs.file_name }}
     steps:    
-      # - name: upload
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     path: .
-      #     pattern: regression*.txt
-      - name: Collect issues
-        run: |
+       - name: Checkout repository
+         uses: actions/checkout@v4
+       - name: Collect issues
+         run: |
           # collect issues on benchmarks runs
           for output in regression*.txt; do
             echo ❇️ $(cat $output)
             printf " *️⃣ [ Regression Test $output ]\n" >> issue_body.txt
             printf "Regression Output \n \`\`\` \n $(awk '/REGRESSIONS DETECTED/,/OTHER TIMINGS/' $output) \n \`\`\` \n"  >> issue_body.txt
           done
-      - name: Upload issue_body
-        uses: actions/upload-artifact@v4
-        if: success()
-        with:
-          path: ./issue_*.txt
-          name: issue_body
+  #       - name: Upload issue_body
+  #         uses: actions/upload-artifact@v4
+  #         if: success()
+  #         with:
+  #           path: ./issue_*.txt
+  #           name: issue_body
 
-  file-issue:
-    name: File Issue
-    needs: 
-      - run-tests
-    if: always()
-    runs-on: ubuntu-latest
+  # file-issue:
+  #   name: File Issue
+  #   needs: 
+  #     - run-tests
+  #   if: always()
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - name: Download artifacts
-        if: always()
-        uses: actions/download-artifact@v4
-        with:
-          pattern: issue_body*
-          merge-multiple: true
+  #   steps:
+  #     - name: Download artifacts
+  #       if: always()
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         pattern: issue_body*
+  #         merge-multiple: true
           
-      - name: File issue on Benchmarks
-        if: contains(github.ref_name, 'main') && needs.build.result != 'success'
-        run: |
-          if grep -q "REGRESSIONS DETECTED" issue_body*; then
-            cat issue_body* >> report.txt
-            gh issue create --repo ${{ env.gh_issue_repo }} --title "TEST: Weekly Regression Test Failure" --body-file report.txt
-          fi
+  #     - name: File issue on Benchmarks
+  #       if: contains(github.ref_name, 'main') && needs.build.result != 'success'
+  #       run: |
+  #         if grep -q "REGRESSIONS DETECTED" issue_body*; then
+  #           cat issue_body* >> report.txt
+  #           gh issue create --repo ${{ env.gh_issue_repo }} --title "TEST: Weekly Regression Test Failure" --body-file report.txt
+  #         fi
