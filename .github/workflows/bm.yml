@@ -45,13 +45,7 @@ jobs:
         run: |
           cd duckdb-curr && make clean && make 
           cd ..
-          cd duckdb-old && make clean && make
-        
-  run-tests:
-    name: Run Benchmarks
-    needs: build
-    runs-on: ubuntu-latest
-    steps:    
+          cd duckdb-old && make clean && make  
       - run: |
           python duckdb-curr/scripts/regression_test_runner.py \
             --old=duckdb-old/build/release/benchmark/benchmark_runner \
