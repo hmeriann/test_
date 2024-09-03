@@ -46,7 +46,6 @@ jobs:
         with:
           pattern: issue_body*
           merge-multiple: true
-      - run: ls -R issue_body
           
       - name: File issue on Benchmarks
         if: contains(github.ref_name, 'main') && needs.build.result != 'success'
