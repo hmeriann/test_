@@ -19,14 +19,10 @@ jobs:
           wget https://drive.google.com/file/d/1SiV2GksVENu7Xo9Xj6Gtq0pljH0x_1Vw/view?usp=share_link --output-document regression_output_large_ingestion_main.txt
           wget https://drive.google.com/file/d/1GnE9rDb1HEILK7H02ZuA-ki46mpWRX2M/view?usp=share_link --output-document regression_output_large_tpcds_main.txt
       - run: ls -lah
-      - name: upload
-        uses: actions/upload-artifact@v4
-        with:
-          path: .
       - name: Collect issues
         run: |
           # collect issues on benchmarks runs
-          for output in artifact/*.txt; do
+          for output in regression*.txt; do
             echo ❇️ $(cat $output)
             printf " *️⃣ [ Regression Test $output ]\n" >> issue_body.txt
             printf "Regression Output \n \`\`\` \n $(awk '/REGRESSIONS DETECTED/,/OTHER TIMINGS/' $output) \n \`\`\` \n"  >> issue_body.txt
