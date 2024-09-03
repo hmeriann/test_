@@ -9,10 +9,6 @@ jobs:
   run-tests:
     name: Run Regression Tests
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        test: ['large/tpch.csv', 'tpcds.csv', 'large/ingestion.csv', 'micro_extended.csv']
     outputs:
       file_name: ${{ steps.create.outputs.file_name }}
     steps:    
@@ -21,6 +17,10 @@ jobs:
         with:
           pattern: regression_*.txt
           path: https://github.com/duckdblabs/duckdb-internal/actions/runs/10664396821
+      - name: upload reports
+        uses: actions/upload-artifact@v4
+        with:
+          path: reports
            
   collect-issues:
     name: Collect Issues
