@@ -1,0 +1,4297 @@
+====================================================
+==============      ITERATION 0        =============
+==============      REMAINING 234        =============
+====================================================
+
+name	run	timing
+benchmark/micro/aggregate/any_value_uuid.benchmark	1	0.013580
+benchmark/micro/aggregate/any_value_uuid.benchmark	2	0.010603
+benchmark/micro/aggregate/any_value_uuid.benchmark	3	0.013932
+benchmark/micro/aggregate/any_value_uuid.benchmark	4	0.013615
+benchmark/micro/aggregate/any_value_uuid.benchmark	5	0.010435
+
+name	run	timing
+benchmark/micro/aggregate/bitstring_aggregate.benchmark	1	0.100348
+benchmark/micro/aggregate/bitstring_aggregate.benchmark	2	0.100202
+benchmark/micro/aggregate/bitstring_aggregate.benchmark	3	0.096142
+benchmark/micro/aggregate/bitstring_aggregate.benchmark	4	0.095926
+benchmark/micro/aggregate/bitstring_aggregate.benchmark	5	0.100900
+
+name	run	timing
+benchmark/micro/aggregate/bitwise_aggregate.benchmark	1	0.007884
+benchmark/micro/aggregate/bitwise_aggregate.benchmark	2	0.007851
+benchmark/micro/aggregate/bitwise_aggregate.benchmark	3	0.007740
+benchmark/micro/aggregate/bitwise_aggregate.benchmark	4	0.007851
+benchmark/micro/aggregate/bitwise_aggregate.benchmark	5	0.007805
+
+name	run	timing
+benchmark/micro/aggregate/grouped_distinct.benchmark	1	0.065974
+benchmark/micro/aggregate/grouped_distinct.benchmark	2	0.066594
+benchmark/micro/aggregate/grouped_distinct.benchmark	3	0.068396
+benchmark/micro/aggregate/grouped_distinct.benchmark	4	0.066657
+benchmark/micro/aggregate/grouped_distinct.benchmark	5	0.066389
+
+name	run	timing
+benchmark/micro/aggregate/ordered_first.benchmark	1	0.055024
+benchmark/micro/aggregate/ordered_first.benchmark	2	0.053775
+benchmark/micro/aggregate/ordered_first.benchmark	3	0.055095
+benchmark/micro/aggregate/ordered_first.benchmark	4	0.054920
+benchmark/micro/aggregate/ordered_first.benchmark	5	0.055155
+
+name	run	timing
+benchmark/micro/aggregate/quantile/quantile.benchmark	1	0.207649
+benchmark/micro/aggregate/quantile/quantile.benchmark	2	0.210164
+benchmark/micro/aggregate/quantile/quantile.benchmark	3	0.211709
+benchmark/micro/aggregate/quantile/quantile.benchmark	4	0.214728
+benchmark/micro/aggregate/quantile/quantile.benchmark	5	0.203858
+
+name	run	timing
+benchmark/micro/aggregate/quantile/quantile_approx.benchmark	1	0.063815
+benchmark/micro/aggregate/quantile/quantile_approx.benchmark	2	0.063958
+benchmark/micro/aggregate/quantile/quantile_approx.benchmark	3	0.063018
+benchmark/micro/aggregate/quantile/quantile_approx.benchmark	4	0.063611
+benchmark/micro/aggregate/quantile/quantile_approx.benchmark	5	0.063695
+
+name	run	timing
+benchmark/micro/aggregate/quantile/quantile_many.benchmark	1	0.309693
+benchmark/micro/aggregate/quantile/quantile_many.benchmark	2	0.323408
+benchmark/micro/aggregate/quantile/quantile_many.benchmark	3	0.317676
+benchmark/micro/aggregate/quantile/quantile_many.benchmark	4	0.328480
+benchmark/micro/aggregate/quantile/quantile_many.benchmark	5	0.318744
+
+name	run	timing
+benchmark/micro/aggregate/quantile/quantile_sampling.benchmark	1	0.007503
+benchmark/micro/aggregate/quantile/quantile_sampling.benchmark	2	0.007458
+benchmark/micro/aggregate/quantile/quantile_sampling.benchmark	3	0.007482
+benchmark/micro/aggregate/quantile/quantile_sampling.benchmark	4	0.007438
+benchmark/micro/aggregate/quantile/quantile_sampling.benchmark	5	0.007629
+
+name	run	timing
+benchmark/micro/aggregate/simple_aggregate.benchmark	1	0.001858
+benchmark/micro/aggregate/simple_aggregate.benchmark	2	0.001784
+benchmark/micro/aggregate/simple_aggregate.benchmark	3	0.001896
+benchmark/micro/aggregate/simple_aggregate.benchmark	4	0.001792
+benchmark/micro/aggregate/simple_aggregate.benchmark	5	0.001754
+
+name	run	timing
+benchmark/micro/aggregate/simple_distinct.benchmark	1	0.051659
+benchmark/micro/aggregate/simple_distinct.benchmark	2	0.051184
+benchmark/micro/aggregate/simple_distinct.benchmark	3	0.051248
+benchmark/micro/aggregate/simple_distinct.benchmark	4	0.051497
+benchmark/micro/aggregate/simple_distinct.benchmark	5	0.052931
+
+name	run	timing
+benchmark/micro/aggregate/simple_group.benchmark	1	0.005511
+benchmark/micro/aggregate/simple_group.benchmark	2	0.005527
+benchmark/micro/aggregate/simple_group.benchmark	3	0.005225
+benchmark/micro/aggregate/simple_group.benchmark	4	0.005147
+benchmark/micro/aggregate/simple_group.benchmark	5	0.005165
+
+name	run	timing
+benchmark/micro/aggregate/sorted_last.benchmark	1	0.752873
+benchmark/micro/aggregate/sorted_last.benchmark	2	0.752755
+benchmark/micro/aggregate/sorted_last.benchmark	3	0.761282
+benchmark/micro/aggregate/sorted_last.benchmark	4	0.752703
+benchmark/micro/aggregate/sorted_last.benchmark	5	0.745138
+
+name	run	timing
+benchmark/micro/arithmetic/multiplications.benchmark	1	0.003848
+benchmark/micro/arithmetic/multiplications.benchmark	2	0.003810
+benchmark/micro/arithmetic/multiplications.benchmark	3	0.003831
+benchmark/micro/arithmetic/multiplications.benchmark	4	0.003913
+benchmark/micro/arithmetic/multiplications.benchmark	5	0.003846
+
+name	run	timing
+benchmark/micro/case/big_case.benchmark	1	2.507347
+benchmark/micro/case/big_case.benchmark	2	2.537584
+benchmark/micro/case/big_case.benchmark	3	2.510427
+benchmark/micro/case/big_case.benchmark	4	2.486581
+benchmark/micro/case/big_case.benchmark	5	2.507690
+
+name	run	timing
+benchmark/micro/case/integer_case_alternate.benchmark	1	0.071435
+benchmark/micro/case/integer_case_alternate.benchmark	2	0.071481
+benchmark/micro/case/integer_case_alternate.benchmark	3	0.071805
+benchmark/micro/case/integer_case_alternate.benchmark	4	0.071651
+benchmark/micro/case/integer_case_alternate.benchmark	5	0.070659
+
+name	run	timing
+benchmark/micro/case/integer_case_predictable.benchmark	1	0.024828
+benchmark/micro/case/integer_case_predictable.benchmark	2	0.024090
+benchmark/micro/case/integer_case_predictable.benchmark	3	0.024204
+benchmark/micro/case/integer_case_predictable.benchmark	4	0.024565
+benchmark/micro/case/integer_case_predictable.benchmark	5	0.024182
+
+name	run	timing
+benchmark/micro/cast/cast_constant_string_to_enum.benchmark	1	0.032305
+benchmark/micro/cast/cast_constant_string_to_enum.benchmark	2	0.032286
+benchmark/micro/cast/cast_constant_string_to_enum.benchmark	3	0.032400
+benchmark/micro/cast/cast_constant_string_to_enum.benchmark	4	0.032363
+benchmark/micro/cast/cast_constant_string_to_enum.benchmark	5	0.032336
+
+name	run	timing
+benchmark/micro/cast/cast_date_string.benchmark	1	0.056997
+benchmark/micro/cast/cast_date_string.benchmark	2	0.058873
+benchmark/micro/cast/cast_date_string.benchmark	3	0.056745
+benchmark/micro/cast/cast_date_string.benchmark	4	0.056789
+benchmark/micro/cast/cast_date_string.benchmark	5	0.056661
+
+name	run	timing
+benchmark/micro/cast/cast_decimal_double_1.benchmark	1	1.633895
+benchmark/micro/cast/cast_decimal_double_1.benchmark	2	1.633302
+benchmark/micro/cast/cast_decimal_double_1.benchmark	3	1.632435
+benchmark/micro/cast/cast_decimal_double_1.benchmark	4	1.641247
+benchmark/micro/cast/cast_decimal_double_1.benchmark	5	1.653902
+
+name	run	timing
+benchmark/micro/cast/cast_decimal_double_2.benchmark	1	1.034640
+benchmark/micro/cast/cast_decimal_double_2.benchmark	2	1.034536
+benchmark/micro/cast/cast_decimal_double_2.benchmark	3	1.034717
+benchmark/micro/cast/cast_decimal_double_2.benchmark	4	1.041217
+benchmark/micro/cast/cast_decimal_double_2.benchmark	5	1.034629
+
+name	run	timing
+benchmark/micro/cast/cast_decimal_double_3.benchmark	1	0.029888
+benchmark/micro/cast/cast_decimal_double_3.benchmark	2	0.029822
+benchmark/micro/cast/cast_decimal_double_3.benchmark	3	0.032210
+benchmark/micro/cast/cast_decimal_double_3.benchmark	4	0.029732
+benchmark/micro/cast/cast_decimal_double_3.benchmark	5	0.029783
+
+name	run	timing
+benchmark/micro/cast/cast_decimal_double_4.benchmark	1	0.023236
+benchmark/micro/cast/cast_decimal_double_4.benchmark	2	0.023319
+benchmark/micro/cast/cast_decimal_double_4.benchmark	3	0.023237
+benchmark/micro/cast/cast_decimal_double_4.benchmark	4	0.023246
+benchmark/micro/cast/cast_decimal_double_4.benchmark	5	0.023241
+
+name	run	timing
+benchmark/micro/cast/cast_double_string.benchmark	1	0.162477
+benchmark/micro/cast/cast_double_string.benchmark	2	0.163342
+benchmark/micro/cast/cast_double_string.benchmark	3	0.159075
+benchmark/micro/cast/cast_double_string.benchmark	4	0.154968
+benchmark/micro/cast/cast_double_string.benchmark	5	0.162401
+
+name	run	timing
+benchmark/micro/cast/cast_enum_string.benchmark	1	0.134997
+benchmark/micro/cast/cast_enum_string.benchmark	2	0.134794
+benchmark/micro/cast/cast_enum_string.benchmark	3	0.134746
+benchmark/micro/cast/cast_enum_string.benchmark	4	0.134704
+benchmark/micro/cast/cast_enum_string.benchmark	5	0.134996
+
+name	run	timing
+benchmark/micro/cast/cast_huge_hugeint_string_benchmark.benchmark	1	0.335385
+benchmark/micro/cast/cast_huge_hugeint_string_benchmark.benchmark	2	0.334808
+benchmark/micro/cast/cast_huge_hugeint_string_benchmark.benchmark	3	0.334967
+benchmark/micro/cast/cast_huge_hugeint_string_benchmark.benchmark	4	0.331215
+benchmark/micro/cast/cast_huge_hugeint_string_benchmark.benchmark	5	0.330991
+
+name	run	timing
+benchmark/micro/cast/cast_huge_string_hugeint.benchmark	1	0.160212
+benchmark/micro/cast/cast_huge_string_hugeint.benchmark	2	0.161120
+benchmark/micro/cast/cast_huge_string_hugeint.benchmark	3	0.167441
+benchmark/micro/cast/cast_huge_string_hugeint.benchmark	4	0.160438
+benchmark/micro/cast/cast_huge_string_hugeint.benchmark	5	0.166921
+
+name	run	timing
+benchmark/micro/cast/cast_hugeint_string.benchmark	1	0.043180
+benchmark/micro/cast/cast_hugeint_string.benchmark	2	0.043444
+benchmark/micro/cast/cast_hugeint_string.benchmark	3	0.043313
+benchmark/micro/cast/cast_hugeint_string.benchmark	4	0.043642
+benchmark/micro/cast/cast_hugeint_string.benchmark	5	0.043552
+
+name	run	timing
+benchmark/micro/cast/cast_int32_int64.benchmark	1	0.008399
+benchmark/micro/cast/cast_int32_int64.benchmark	2	0.008391
+benchmark/micro/cast/cast_int32_int64.benchmark	3	0.009214
+benchmark/micro/cast/cast_int32_int64.benchmark	4	0.008514
+benchmark/micro/cast/cast_int32_int64.benchmark	5	0.008624
+
+name	run	timing
+benchmark/micro/cast/cast_int64_int32.benchmark	1	0.013101
+benchmark/micro/cast/cast_int64_int32.benchmark	2	0.012805
+benchmark/micro/cast/cast_int64_int32.benchmark	3	0.012943
+benchmark/micro/cast/cast_int64_int32.benchmark	4	0.013049
+benchmark/micro/cast/cast_int64_int32.benchmark	5	0.013015
+
+name	run	timing
+benchmark/micro/cast/cast_int_string.benchmark	1	0.036748
+benchmark/micro/cast/cast_int_string.benchmark	2	0.037393
+benchmark/micro/cast/cast_int_string.benchmark	3	0.037305
+benchmark/micro/cast/cast_int_string.benchmark	4	0.037038
+benchmark/micro/cast/cast_int_string.benchmark	5	0.035510
+
+name	run	timing
+benchmark/micro/cast/cast_list_string.benchmark	1	0.134041
+benchmark/micro/cast/cast_list_string.benchmark	2	0.134649
+benchmark/micro/cast/cast_list_string.benchmark	3	0.141512
+benchmark/micro/cast/cast_list_string.benchmark	4	0.133948
+benchmark/micro/cast/cast_list_string.benchmark	5	0.134065
+
+name	run	timing
+benchmark/micro/cast/cast_string_double.benchmark	1	0.007640
+benchmark/micro/cast/cast_string_double.benchmark	2	0.007653
+benchmark/micro/cast/cast_string_double.benchmark	3	0.007575
+benchmark/micro/cast/cast_string_double.benchmark	4	0.007806
+benchmark/micro/cast/cast_string_double.benchmark	5	0.007803
+
+name	run	timing
+benchmark/micro/cast/cast_string_hugeint.benchmark	1	0.077922
+benchmark/micro/cast/cast_string_hugeint.benchmark	2	0.078423
+benchmark/micro/cast/cast_string_hugeint.benchmark	3	0.077624
+benchmark/micro/cast/cast_string_hugeint.benchmark	4	0.077176
+benchmark/micro/cast/cast_string_hugeint.benchmark	5	0.077834
+
+name	run	timing
+benchmark/micro/cast/cast_string_int.benchmark	1	0.046484
+benchmark/micro/cast/cast_string_int.benchmark	2	0.046033
+benchmark/micro/cast/cast_string_int.benchmark	3	0.047726
+benchmark/micro/cast/cast_string_int.benchmark	4	0.046198
+benchmark/micro/cast/cast_string_int.benchmark	5	0.046389
+
+name	run	timing
+benchmark/micro/cast/cast_string_list.benchmark	1	0.244046
+benchmark/micro/cast/cast_string_list.benchmark	2	0.235073
+benchmark/micro/cast/cast_string_list.benchmark	3	0.236649
+benchmark/micro/cast/cast_string_list.benchmark	4	0.236254
+benchmark/micro/cast/cast_string_list.benchmark	5	0.236129
+
+name	run	timing
+benchmark/micro/cast/cast_string_map.benchmark	1	0.851526
+benchmark/micro/cast/cast_string_map.benchmark	2	0.825574
+benchmark/micro/cast/cast_string_map.benchmark	3	0.838550
+benchmark/micro/cast/cast_string_map.benchmark	4	0.845837
+benchmark/micro/cast/cast_string_map.benchmark	5	0.853539
+
+name	run	timing
+benchmark/micro/cast/cast_string_struct.benchmark	1	0.261037
+benchmark/micro/cast/cast_string_struct.benchmark	2	0.283828
+benchmark/micro/cast/cast_string_struct.benchmark	3	0.262686
+benchmark/micro/cast/cast_string_struct.benchmark	4	0.261349
+benchmark/micro/cast/cast_string_struct.benchmark	5	0.261732
+
+name	run	timing
+benchmark/micro/cast/cast_string_struct_missing_val.benchmark	1	0.264525
+benchmark/micro/cast/cast_string_struct_missing_val.benchmark	2	0.273199
+benchmark/micro/cast/cast_string_struct_missing_val.benchmark	3	0.288098
+benchmark/micro/cast/cast_string_struct_missing_val.benchmark	4	0.287298
+benchmark/micro/cast/cast_string_struct_missing_val.benchmark	5	0.264793
+
+name	run	timing
+benchmark/micro/cast/cast_struct_string.benchmark	1	0.661541
+benchmark/micro/cast/cast_struct_string.benchmark	2	0.660544
+benchmark/micro/cast/cast_struct_string.benchmark	3	0.661537
+benchmark/micro/cast/cast_struct_string.benchmark	4	0.660958
+benchmark/micro/cast/cast_struct_string.benchmark	5	0.661901
+
+name	run	timing
+benchmark/micro/cast/cast_timestamp_string.benchmark	1	0.062160
+benchmark/micro/cast/cast_timestamp_string.benchmark	2	0.062241
+benchmark/micro/cast/cast_timestamp_string.benchmark	3	0.056916
+benchmark/micro/cast/cast_timestamp_string.benchmark	4	0.058978
+benchmark/micro/cast/cast_timestamp_string.benchmark	5	0.056970
+
+name	run	timing
+benchmark/micro/cast/format_int_string.benchmark	1	0.113331
+benchmark/micro/cast/format_int_string.benchmark	2	0.113408
+benchmark/micro/cast/format_int_string.benchmark	3	0.113548
+benchmark/micro/cast/format_int_string.benchmark	4	0.113747
+benchmark/micro/cast/format_int_string.benchmark	5	0.110420
+
+name	run	timing
+benchmark/micro/cast/strftime.benchmark	1	0.216335
+benchmark/micro/cast/strftime.benchmark	2	0.223085
+benchmark/micro/cast/strftime.benchmark	3	0.215663
+benchmark/micro/cast/strftime.benchmark	4	0.222068
+benchmark/micro/cast/strftime.benchmark	5	0.222109
+
+name	run	timing
+benchmark/micro/cast/strptime.benchmark	1	0.011378
+benchmark/micro/cast/strptime.benchmark	2	0.022304
+benchmark/micro/cast/strptime.benchmark	3	0.022543
+benchmark/micro/cast/strptime.benchmark	4	0.020650
+benchmark/micro/cast/strptime.benchmark	5	0.022558
+
+name	run	timing
+benchmark/micro/catalog/add_column_empty.benchmark	1	1.911116
+benchmark/micro/catalog/add_column_empty.benchmark	2	1.871364
+benchmark/micro/catalog/add_column_empty.benchmark	3	1.889412
+benchmark/micro/catalog/add_column_empty.benchmark	4	1.883924
+benchmark/micro/catalog/add_column_empty.benchmark	5	1.905412
+
+name	run	timing
+benchmark/micro/compression/alp/alp_read.benchmark	1	0.025263
+benchmark/micro/compression/alp/alp_read.benchmark	2	0.024888
+benchmark/micro/compression/alp/alp_read.benchmark	3	0.025405
+benchmark/micro/compression/alp/alp_read.benchmark	4	0.024918
+benchmark/micro/compression/alp/alp_read.benchmark	5	0.024961
+
+name	run	timing
+benchmark/micro/compression/alp/alp_read_best_case.benchmark	1	0.054886
+benchmark/micro/compression/alp/alp_read_best_case.benchmark	2	0.053823
+benchmark/micro/compression/alp/alp_read_best_case.benchmark	3	0.053849
+benchmark/micro/compression/alp/alp_read_best_case.benchmark	4	0.054824
+benchmark/micro/compression/alp/alp_read_best_case.benchmark	5	0.054008
+
+name	run	timing
+benchmark/micro/compression/alp/alp_read_worst_case.benchmark	1	0.083796
+benchmark/micro/compression/alp/alp_read_worst_case.benchmark	2	0.083311
+benchmark/micro/compression/alp/alp_read_worst_case.benchmark	3	0.084233
+benchmark/micro/compression/alp/alp_read_worst_case.benchmark	4	0.083609
+benchmark/micro/compression/alp/alp_read_worst_case.benchmark	5	0.083736
+
+name	run	timing
+benchmark/micro/compression/alp/alp_store.benchmark	1	0.566568
+benchmark/micro/compression/alp/alp_store.benchmark	2	0.567560
+benchmark/micro/compression/alp/alp_store.benchmark	3	0.560479
+benchmark/micro/compression/alp/alp_store.benchmark	4	0.599014
+benchmark/micro/compression/alp/alp_store.benchmark	5	0.565946
+
+name	run	timing
+benchmark/micro/compression/alp/alp_store_best_case.benchmark	1	3.642909
+benchmark/micro/compression/alp/alp_store_best_case.benchmark	2	3.660899
+benchmark/micro/compression/alp/alp_store_best_case.benchmark	3	3.649761
+benchmark/micro/compression/alp/alp_store_best_case.benchmark	4	3.653830
+benchmark/micro/compression/alp/alp_store_best_case.benchmark	5	3.657995
+
+name	run	timing
+benchmark/micro/compression/alp/alp_store_worst_case.benchmark	1	3.411364
+benchmark/micro/compression/alp/alp_store_worst_case.benchmark	2	3.238848
+benchmark/micro/compression/alp/alp_store_worst_case.benchmark	3	3.236112
+benchmark/micro/compression/alp/alp_store_worst_case.benchmark	4	3.234330
+benchmark/micro/compression/alp/alp_store_worst_case.benchmark	5	3.245221
+
+name	run	timing
+benchmark/micro/compression/alprd/alprd_read.benchmark	1	0.034899
+benchmark/micro/compression/alprd/alprd_read.benchmark	2	0.034920
+benchmark/micro/compression/alprd/alprd_read.benchmark	3	0.034942
+benchmark/micro/compression/alprd/alprd_read.benchmark	4	0.034865
+benchmark/micro/compression/alprd/alprd_read.benchmark	5	0.034962
+
+name	run	timing
+benchmark/micro/compression/alprd/alprd_read_best_case.benchmark	1	0.079815
+benchmark/micro/compression/alprd/alprd_read_best_case.benchmark	2	0.079486
+benchmark/micro/compression/alprd/alprd_read_best_case.benchmark	3	0.079505
+benchmark/micro/compression/alprd/alprd_read_best_case.benchmark	4	0.079657
+benchmark/micro/compression/alprd/alprd_read_best_case.benchmark	5	0.079558
+
+name	run	timing
+benchmark/micro/compression/alprd/alprd_read_worst_case.benchmark	1	0.086590
+benchmark/micro/compression/alprd/alprd_read_worst_case.benchmark	2	0.086500
+benchmark/micro/compression/alprd/alprd_read_worst_case.benchmark	3	0.086425
+benchmark/micro/compression/alprd/alprd_read_worst_case.benchmark	4	0.086327
+benchmark/micro/compression/alprd/alprd_read_worst_case.benchmark	5	0.086577
+
+name	run	timing
+benchmark/micro/compression/alprd/alprd_store.benchmark	1	0.669280
+benchmark/micro/compression/alprd/alprd_store.benchmark	2	0.676425
+benchmark/micro/compression/alprd/alprd_store.benchmark	3	0.669503
+benchmark/micro/compression/alprd/alprd_store.benchmark	4	0.659248
+benchmark/micro/compression/alprd/alprd_store.benchmark	5	0.664679
+
+name	run	timing
+benchmark/micro/compression/alprd/alprd_store_best_case.benchmark	1	2.633605
+benchmark/micro/compression/alprd/alprd_store_best_case.benchmark	2	2.643949
+benchmark/micro/compression/alprd/alprd_store_best_case.benchmark	3	2.640988
+benchmark/micro/compression/alprd/alprd_store_best_case.benchmark	4	2.644320
+benchmark/micro/compression/alprd/alprd_store_best_case.benchmark	5	2.648145
+
+name	run	timing
+benchmark/micro/compression/alprd/alprd_store_worst_case.benchmark	1	4.198054
+benchmark/micro/compression/alprd/alprd_store_worst_case.benchmark	2	4.215761
+benchmark/micro/compression/alprd/alprd_store_worst_case.benchmark	3	4.186780
+benchmark/micro/compression/alprd/alprd_store_worst_case.benchmark	4	4.207455
+benchmark/micro/compression/alprd/alprd_store_worst_case.benchmark	5	4.195957
+
+name	run	timing
+benchmark/micro/compression/bitpacking/bitpacking_read_constant.benchmark	1	0.051246
+benchmark/micro/compression/bitpacking/bitpacking_read_constant.benchmark	2	0.051044
+benchmark/micro/compression/bitpacking/bitpacking_read_constant.benchmark	3	0.051848
+benchmark/micro/compression/bitpacking/bitpacking_read_constant.benchmark	4	0.051075
+benchmark/micro/compression/bitpacking/bitpacking_read_constant.benchmark	5	0.051142
+
+name	run	timing
+benchmark/micro/compression/bitpacking/bitpacking_read_constant_delta.benchmark	1	0.059745
+benchmark/micro/compression/bitpacking/bitpacking_read_constant_delta.benchmark	2	0.059972
+benchmark/micro/compression/bitpacking/bitpacking_read_constant_delta.benchmark	3	0.059886
+benchmark/micro/compression/bitpacking/bitpacking_read_constant_delta.benchmark	4	0.059983
+benchmark/micro/compression/bitpacking/bitpacking_read_constant_delta.benchmark	5	0.059742
+
+name	run	timing
+benchmark/micro/compression/bitpacking/bitpacking_read_dfor.benchmark	1	0.071979
+benchmark/micro/compression/bitpacking/bitpacking_read_dfor.benchmark	2	0.071351
+benchmark/micro/compression/bitpacking/bitpacking_read_dfor.benchmark	3	0.071311
+benchmark/micro/compression/bitpacking/bitpacking_read_dfor.benchmark	4	0.072036
+benchmark/micro/compression/bitpacking/bitpacking_read_dfor.benchmark	5	0.071189
+
+name	run	timing
+benchmark/micro/compression/bitpacking/bitpacking_read_for.benchmark	1	0.070926
+benchmark/micro/compression/bitpacking/bitpacking_read_for.benchmark	2	0.070956
+benchmark/micro/compression/bitpacking/bitpacking_read_for.benchmark	3	0.071099
+benchmark/micro/compression/bitpacking/bitpacking_read_for.benchmark	4	0.070954
+benchmark/micro/compression/bitpacking/bitpacking_read_for.benchmark	5	0.071259
+
+name	run	timing
+benchmark/micro/compression/bitpacking/bitpacking_store_constant.benchmark	1	5.429494
+benchmark/micro/compression/bitpacking/bitpacking_store_constant.benchmark	2	5.434651
+benchmark/micro/compression/bitpacking/bitpacking_store_constant.benchmark	3	5.453701
+benchmark/micro/compression/bitpacking/bitpacking_store_constant.benchmark	4	5.435676
+benchmark/micro/compression/bitpacking/bitpacking_store_constant.benchmark	5	5.421433
+
+name	run	timing
+benchmark/micro/compression/bitpacking/bitpacking_store_constant_delta.benchmark	1	5.120504
+benchmark/micro/compression/bitpacking/bitpacking_store_constant_delta.benchmark	2	5.113272
+benchmark/micro/compression/bitpacking/bitpacking_store_constant_delta.benchmark	3	5.126412
+benchmark/micro/compression/bitpacking/bitpacking_store_constant_delta.benchmark	4	5.120791
+benchmark/micro/compression/bitpacking/bitpacking_store_constant_delta.benchmark	5	5.181346
+
+name	run	timing
+benchmark/micro/compression/bitpacking/bitpacking_store_dfor.benchmark	1	6.172833
+benchmark/micro/compression/bitpacking/bitpacking_store_dfor.benchmark	2	6.147808
+benchmark/micro/compression/bitpacking/bitpacking_store_dfor.benchmark	3	6.177122
+benchmark/micro/compression/bitpacking/bitpacking_store_dfor.benchmark	4	6.177448
+benchmark/micro/compression/bitpacking/bitpacking_store_dfor.benchmark	5	6.160955
+
+name	run	timing
+benchmark/micro/compression/bitpacking/bitpacking_store_for.benchmark	1	5.779272
+benchmark/micro/compression/bitpacking/bitpacking_store_for.benchmark	2	5.778447
+benchmark/micro/compression/bitpacking/bitpacking_store_for.benchmark	3	5.802147
+benchmark/micro/compression/bitpacking/bitpacking_store_for.benchmark	4	5.741798
+benchmark/micro/compression/bitpacking/bitpacking_store_for.benchmark	5	5.747076
+
+name	run	timing
+benchmark/micro/compression/bitpacking_hugeint/bitpacking_hugeint_read_constant.benchmark	1	0.214766
+benchmark/micro/compression/bitpacking_hugeint/bitpacking_hugeint_read_constant.benchmark	2	0.217055
+benchmark/micro/compression/bitpacking_hugeint/bitpacking_hugeint_read_constant.benchmark	3	0.214135
+benchmark/micro/compression/bitpacking_hugeint/bitpacking_hugeint_read_constant.benchmark	4	0.215553
+benchmark/micro/compression/bitpacking_hugeint/bitpacking_hugeint_read_constant.benchmark	5	0.214457
+
+name	run	timing
+benchmark/micro/compression/bitpacking_hugeint/bitpacking_hugeint_store_constant.benchmark	1	11.318163
+benchmark/micro/compression/bitpacking_hugeint/bitpacking_hugeint_store_constant.benchmark	2	11.319404
+benchmark/micro/compression/bitpacking_hugeint/bitpacking_hugeint_store_constant.benchmark	3	11.315212
+benchmark/micro/compression/bitpacking_hugeint/bitpacking_hugeint_store_constant.benchmark	4	11.323664
+benchmark/micro/compression/bitpacking_hugeint/bitpacking_hugeint_store_constant.benchmark	5	11.276901
+
+name	run	timing
+benchmark/micro/compression/dictionary/dictionary_read.benchmark	1	0.341854
+benchmark/micro/compression/dictionary/dictionary_read.benchmark	2	0.341612
+benchmark/micro/compression/dictionary/dictionary_read.benchmark	3	0.342027
+benchmark/micro/compression/dictionary/dictionary_read.benchmark	4	0.341703
+benchmark/micro/compression/dictionary/dictionary_read.benchmark	5	0.341518
+
+name	run	timing
+benchmark/micro/compression/dictionary/dictionary_read_best_case.benchmark	1	0.334038
+benchmark/micro/compression/dictionary/dictionary_read_best_case.benchmark	2	0.334348
+benchmark/micro/compression/dictionary/dictionary_read_best_case.benchmark	3	0.333577
+benchmark/micro/compression/dictionary/dictionary_read_best_case.benchmark	4	0.333375
+benchmark/micro/compression/dictionary/dictionary_read_best_case.benchmark	5	0.334085
+
+name	run	timing
+benchmark/micro/compression/dictionary/dictionary_read_worst_case.benchmark	1	1.041511
+benchmark/micro/compression/dictionary/dictionary_read_worst_case.benchmark	2	0.998525
+benchmark/micro/compression/dictionary/dictionary_read_worst_case.benchmark	3	0.996009
+benchmark/micro/compression/dictionary/dictionary_read_worst_case.benchmark	4	1.000922
+benchmark/micro/compression/dictionary/dictionary_read_worst_case.benchmark	5	0.995141
+
+name	run	timing
+benchmark/micro/compression/dictionary/dictionary_store.benchmark	1	14.161153
+benchmark/micro/compression/dictionary/dictionary_store.benchmark	2	14.097370
+benchmark/micro/compression/dictionary/dictionary_store.benchmark	3	14.174197
+benchmark/micro/compression/dictionary/dictionary_store.benchmark	4	14.080167
+benchmark/micro/compression/dictionary/dictionary_store.benchmark	5	14.115683
+
+name	run	timing
+benchmark/micro/compression/dictionary/dictionary_store_worst_case.benchmark	1	18.932127
+benchmark/micro/compression/dictionary/dictionary_store_worst_case.benchmark	2	19.049012
+benchmark/micro/compression/dictionary/dictionary_store_worst_case.benchmark	3	19.355275
+benchmark/micro/compression/dictionary/dictionary_store_worst_case.benchmark	4	19.104829
+benchmark/micro/compression/dictionary/dictionary_store_worst_case.benchmark	5	18.805570
+
+name	run	timing
+benchmark/micro/compression/fsst/fsst_late_decompression.benchmark	1	0.148142
+benchmark/micro/compression/fsst/fsst_late_decompression.benchmark	2	0.150241
+benchmark/micro/compression/fsst/fsst_late_decompression.benchmark	3	0.149834
+benchmark/micro/compression/fsst/fsst_late_decompression.benchmark	4	0.148281
+benchmark/micro/compression/fsst/fsst_late_decompression.benchmark	5	0.148619
+
+name	run	timing
+benchmark/micro/compression/fsst/fsst_read.benchmark	1	0.196916
+benchmark/micro/compression/fsst/fsst_read.benchmark	2	0.196932
+benchmark/micro/compression/fsst/fsst_read.benchmark	3	0.197011
+benchmark/micro/compression/fsst/fsst_read.benchmark	4	0.196852
+benchmark/micro/compression/fsst/fsst_read.benchmark	5	0.196836
+
+name	run	timing
+benchmark/micro/compression/fsst/fsst_read_worst_case.benchmark	1	0.181286
+benchmark/micro/compression/fsst/fsst_read_worst_case.benchmark	2	0.183094
+benchmark/micro/compression/fsst/fsst_read_worst_case.benchmark	3	0.173350
+benchmark/micro/compression/fsst/fsst_read_worst_case.benchmark	4	0.179134
+benchmark/micro/compression/fsst/fsst_read_worst_case.benchmark	5	0.179092
+
+name	run	timing
+benchmark/micro/compression/fsst/fsst_store.benchmark	1	0.397382
+benchmark/micro/compression/fsst/fsst_store.benchmark	2	0.390603
+benchmark/micro/compression/fsst/fsst_store.benchmark	3	0.409434
+benchmark/micro/compression/fsst/fsst_store.benchmark	4	0.404711
+benchmark/micro/compression/fsst/fsst_store.benchmark	5	0.406254
+
+name	run	timing
+benchmark/micro/compression/fsst/fsst_store_worst_case.benchmark	1	0.688505
+benchmark/micro/compression/fsst/fsst_store_worst_case.benchmark	2	0.683830
+benchmark/micro/compression/fsst/fsst_store_worst_case.benchmark	3	0.687486
+benchmark/micro/compression/fsst/fsst_store_worst_case.benchmark	4	0.686725
+benchmark/micro/compression/fsst/fsst_store_worst_case.benchmark	5	0.698742
+
+name	run	timing
+benchmark/micro/compression/store_tpch_sf1.benchmark	1	11.070135
+benchmark/micro/compression/store_tpch_sf1.benchmark	2	11.227535
+benchmark/micro/compression/store_tpch_sf1.benchmark	3	11.099859
+benchmark/micro/compression/store_tpch_sf1.benchmark	4	11.197936
+benchmark/micro/compression/store_tpch_sf1.benchmark	5	11.188159
+
+name	run	timing
+benchmark/micro/copy/from_parquet_large_row_groups.benchmark	1	0.355057
+benchmark/micro/copy/from_parquet_large_row_groups.benchmark	2	0.364223
+benchmark/micro/copy/from_parquet_large_row_groups.benchmark	3	0.361833
+benchmark/micro/copy/from_parquet_large_row_groups.benchmark	4	0.351180
+benchmark/micro/copy/from_parquet_large_row_groups.benchmark	5	0.358891
+
+name	run	timing
+benchmark/micro/copy/from_parquet_medium_row_groups.benchmark	1	0.339910
+benchmark/micro/copy/from_parquet_medium_row_groups.benchmark	2	0.337337
+benchmark/micro/copy/from_parquet_medium_row_groups.benchmark	3	0.337945
+benchmark/micro/copy/from_parquet_medium_row_groups.benchmark	4	0.341305
+benchmark/micro/copy/from_parquet_medium_row_groups.benchmark	5	0.341796
+
+name	run	timing
+benchmark/micro/copy/from_parquet_small_row_groups.benchmark	1	0.585883
+benchmark/micro/copy/from_parquet_small_row_groups.benchmark	2	0.586601
+benchmark/micro/copy/from_parquet_small_row_groups.benchmark	3	0.592824
+benchmark/micro/copy/from_parquet_small_row_groups.benchmark	4	0.613110
+benchmark/micro/copy/from_parquet_small_row_groups.benchmark	5	0.587657
+
+name	run	timing
+benchmark/micro/copy/to_parquet_partition_by_few.benchmark	1	0.265344
+benchmark/micro/copy/to_parquet_partition_by_few.benchmark	2	0.268315
+benchmark/micro/copy/to_parquet_partition_by_few.benchmark	3	0.268416
+benchmark/micro/copy/to_parquet_partition_by_few.benchmark	4	0.267466
+benchmark/micro/copy/to_parquet_partition_by_few.benchmark	5	0.256117
+
+name	run	timing
+benchmark/micro/copy/to_parquet_partition_by_many.benchmark	1	0.991549
+benchmark/micro/copy/to_parquet_partition_by_many.benchmark	2	0.923993
+benchmark/micro/copy/to_parquet_partition_by_many.benchmark	3	1.103639
+benchmark/micro/copy/to_parquet_partition_by_many.benchmark	4	0.909577
+benchmark/micro/copy/to_parquet_partition_by_many.benchmark	5	0.897626
+
+name	run	timing
+benchmark/micro/cte/cte.benchmark	1	23.228665
+benchmark/micro/cte/cte.benchmark	2	20.939271
+benchmark/micro/cte/cte.benchmark	3	23.151184
+benchmark/micro/cte/cte.benchmark	4	22.841804
+benchmark/micro/cte/cte.benchmark	5	22.885165
+
+name	run	timing
+benchmark/micro/cte/materialized_cte.benchmark	1	22.160546
+benchmark/micro/cte/materialized_cte.benchmark	2	22.311844
+benchmark/micro/cte/materialized_cte.benchmark	3	22.273428
+benchmark/micro/cte/materialized_cte.benchmark	4	22.275024
+benchmark/micro/cte/materialized_cte.benchmark	5	22.213721
+
+name	run	timing
+benchmark/micro/cte/stacked_materialized_cte.benchmark	1	0.242399
+benchmark/micro/cte/stacked_materialized_cte.benchmark	2	0.287703
+benchmark/micro/cte/stacked_materialized_cte.benchmark	3	0.296270
+benchmark/micro/cte/stacked_materialized_cte.benchmark	4	0.252776
+benchmark/micro/cte/stacked_materialized_cte.benchmark	5	0.281214
+
+name	run	timing
+benchmark/micro/date/extract_month.benchmark	1	0.206029
+benchmark/micro/date/extract_month.benchmark	2	0.206134
+benchmark/micro/date/extract_month.benchmark	3	0.207139
+benchmark/micro/date/extract_month.benchmark	4	0.206800
+benchmark/micro/date/extract_month.benchmark	5	0.211495
+
+name	run	timing
+benchmark/micro/date/extract_multiple.benchmark	1	0.045847
+benchmark/micro/date/extract_multiple.benchmark	2	0.045685
+benchmark/micro/date/extract_multiple.benchmark	3	0.045557
+benchmark/micro/date/extract_multiple.benchmark	4	0.045602
+benchmark/micro/date/extract_multiple.benchmark	5	0.049512
+
+name	run	timing
+benchmark/micro/date/extract_multiple_icu.benchmark	1	1.615505
+benchmark/micro/date/extract_multiple_icu.benchmark	2	1.613084
+benchmark/micro/date/extract_multiple_icu.benchmark	3	1.614210
+benchmark/micro/date/extract_multiple_icu.benchmark	4	1.614227
+benchmark/micro/date/extract_multiple_icu.benchmark	5	1.612127
+
+name	run	timing
+benchmark/micro/date/extract_struct.benchmark	1	0.290561
+benchmark/micro/date/extract_struct.benchmark	2	0.290268
+benchmark/micro/date/extract_struct.benchmark	3	0.290236
+benchmark/micro/date/extract_struct.benchmark	4	0.290427
+benchmark/micro/date/extract_struct.benchmark	5	0.279405
+
+name	run	timing
+benchmark/micro/date/extract_struct_icu.benchmark	1	0.409502
+benchmark/micro/date/extract_struct_icu.benchmark	2	0.398168
+benchmark/micro/date/extract_struct_icu.benchmark	3	0.409953
+benchmark/micro/date/extract_struct_icu.benchmark	4	0.397563
+benchmark/micro/date/extract_struct_icu.benchmark	5	0.398710
+
+name	run	timing
+benchmark/micro/date/extract_year.benchmark	1	0.203011
+benchmark/micro/date/extract_year.benchmark	2	0.210757
+benchmark/micro/date/extract_year.benchmark	3	0.204245
+benchmark/micro/date/extract_year.benchmark	4	0.204529
+benchmark/micro/date/extract_year.benchmark	5	0.207111
+
+name	run	timing
+benchmark/micro/distinct/distinct_on_pushdown.benchmark	1	0.049987
+benchmark/micro/distinct/distinct_on_pushdown.benchmark	2	0.048604
+benchmark/micro/distinct/distinct_on_pushdown.benchmark	3	0.048488
+benchmark/micro/distinct/distinct_on_pushdown.benchmark	4	0.049959
+benchmark/micro/distinct/distinct_on_pushdown.benchmark	5	0.049900
+
+name	run	timing
+benchmark/micro/filter/in_conversion.benchmark	1	0.165395
+benchmark/micro/filter/in_conversion.benchmark	2	0.166344
+benchmark/micro/filter/in_conversion.benchmark	3	0.165883
+benchmark/micro/filter/in_conversion.benchmark	4	0.165390
+benchmark/micro/filter/in_conversion.benchmark	5	0.164448
+
+name	run	timing
+benchmark/micro/filter/parallel_complex_filter.benchmark	1	0.013080
+benchmark/micro/filter/parallel_complex_filter.benchmark	2	0.012997
+benchmark/micro/filter/parallel_complex_filter.benchmark	3	0.013271
+benchmark/micro/filter/parallel_complex_filter.benchmark	4	0.013038
+benchmark/micro/filter/parallel_complex_filter.benchmark	5	0.012989
+
+name	run	timing
+benchmark/micro/functions/random.benchmark	1	0.104101
+benchmark/micro/functions/random.benchmark	2	0.103948
+benchmark/micro/functions/random.benchmark	3	0.104090
+benchmark/micro/functions/random.benchmark	4	0.103943
+benchmark/micro/functions/random.benchmark	5	0.103857
+
+name	run	timing
+benchmark/micro/functions/random_uuid.benchmark	1	0.235090
+benchmark/micro/functions/random_uuid.benchmark	2	0.235093
+benchmark/micro/functions/random_uuid.benchmark	3	0.235056
+benchmark/micro/functions/random_uuid.benchmark	4	0.235357
+benchmark/micro/functions/random_uuid.benchmark	5	0.234895
+
+name	run	timing
+benchmark/micro/groupby-parallel/large_groups.benchmark	1	0.029320
+benchmark/micro/groupby-parallel/large_groups.benchmark	2	0.025962
+benchmark/micro/groupby-parallel/large_groups.benchmark	3	0.027223
+benchmark/micro/groupby-parallel/large_groups.benchmark	4	0.025969
+benchmark/micro/groupby-parallel/large_groups.benchmark	5	0.025610
+
+name	run	timing
+benchmark/micro/groupby-parallel/many_groups_large_values.benchmark	1	2.124947
+benchmark/micro/groupby-parallel/many_groups_large_values.benchmark	2	2.334581
+benchmark/micro/groupby-parallel/many_groups_large_values.benchmark	3	2.033109
+benchmark/micro/groupby-parallel/many_groups_large_values.benchmark	4	1.917421
+benchmark/micro/groupby-parallel/many_groups_large_values.benchmark	5	1.900094
+
+name	run	timing
+benchmark/micro/groupby-parallel/many_groups_large_values_small.benchmark	1	0.175485
+benchmark/micro/groupby-parallel/many_groups_large_values_small.benchmark	2	0.170888
+benchmark/micro/groupby-parallel/many_groups_large_values_small.benchmark	3	0.176292
+benchmark/micro/groupby-parallel/many_groups_large_values_small.benchmark	4	0.175931
+benchmark/micro/groupby-parallel/many_groups_large_values_small.benchmark	5	0.172850
+
+name	run	timing
+benchmark/micro/groupby-parallel/medium_groups.benchmark	1	0.079552
+benchmark/micro/groupby-parallel/medium_groups.benchmark	2	0.079826
+benchmark/micro/groupby-parallel/medium_groups.benchmark	3	0.078912
+benchmark/micro/groupby-parallel/medium_groups.benchmark	4	0.080245
+benchmark/micro/groupby-parallel/medium_groups.benchmark	5	0.079302
+
+name	run	timing
+benchmark/micro/groupby-parallel/tiny_groups.benchmark	1	0.007688
+benchmark/micro/groupby-parallel/tiny_groups.benchmark	2	0.007393
+benchmark/micro/groupby-parallel/tiny_groups.benchmark	3	0.007665
+benchmark/micro/groupby-parallel/tiny_groups.benchmark	4	0.007605
+benchmark/micro/groupby-parallel/tiny_groups.benchmark	5	0.007713
+
+name	run	timing
+benchmark/micro/index/checkpoint/checkpoint_art.benchmark	1	4.222590
+benchmark/micro/index/checkpoint/checkpoint_art.benchmark	2	4.438793
+benchmark/micro/index/checkpoint/checkpoint_art.benchmark	3	4.461022
+benchmark/micro/index/checkpoint/checkpoint_art.benchmark	4	4.728261
+benchmark/micro/index/checkpoint/checkpoint_art.benchmark	5	4.951066
+
+name	run	timing
+benchmark/micro/index/create/create_art.benchmark	1	0.542594
+benchmark/micro/index/create/create_art.benchmark	2	0.530316
+benchmark/micro/index/create/create_art.benchmark	3	0.533766
+benchmark/micro/index/create/create_art.benchmark	4	0.528648
+benchmark/micro/index/create/create_art.benchmark	5	0.530880
+
+name	run	timing
+benchmark/micro/index/create/create_art_duplicates.benchmark	1	0.942852
+benchmark/micro/index/create/create_art_duplicates.benchmark	2	1.020655
+benchmark/micro/index/create/create_art_duplicates.benchmark	3	0.965809
+benchmark/micro/index/create/create_art_duplicates.benchmark	4	1.028875
+benchmark/micro/index/create/create_art_duplicates.benchmark	5	1.008082
+
+name	run	timing
+benchmark/micro/index/create/create_art_random.benchmark	1	0.588117
+benchmark/micro/index/create/create_art_random.benchmark	2	0.595546
+benchmark/micro/index/create/create_art_random.benchmark	3	0.606552
+benchmark/micro/index/create/create_art_random.benchmark	4	0.592008
+benchmark/micro/index/create/create_art_random.benchmark	5	0.590018
+
+name	run	timing
+benchmark/micro/index/create/create_art_sorted.benchmark	1	0.028413
+benchmark/micro/index/create/create_art_sorted.benchmark	2	0.028834
+benchmark/micro/index/create/create_art_sorted.benchmark	3	0.028456
+benchmark/micro/index/create/create_art_sorted.benchmark	4	0.027513
+benchmark/micro/index/create/create_art_sorted.benchmark	5	0.028142
+
+Failed to run benchmark benchmark/micro/index/create/create_art_varchar.benchmark
+====================================================
+==============         STDERR          =============
+====================================================
+
+name	run	timing
+terminate called after throwing an instance of 'duckdb::Exception'
+  what():  {"exception_type":"Catalog","exception_message":"Index with name idx does not exist!","type":"Index","name":"idx","error_subtype":"MISSING_ENTRY"}
+
+====================================================
+==============         STDOUT          =============
+====================================================
+
+
+name	run	timing
+benchmark/micro/index/create/create_art_varchar_long.benchmark	1	1.026640
+benchmark/micro/index/create/create_art_varchar_long.benchmark	2	0.997146
+benchmark/micro/index/create/create_art_varchar_long.benchmark	3	1.015056
+benchmark/micro/index/create/create_art_varchar_long.benchmark	4	1.015445
+benchmark/micro/index/create/create_art_varchar_long.benchmark	5	1.060066
+
+name	run	timing
+benchmark/micro/index/create/create_art_varchar_short.benchmark	1	0.860020
+benchmark/micro/index/create/create_art_varchar_short.benchmark	2	0.889450
+benchmark/micro/index/create/create_art_varchar_short.benchmark	3	0.872391
+benchmark/micro/index/create/create_art_varchar_short.benchmark	4	0.881226
+benchmark/micro/index/create/create_art_varchar_short.benchmark	5	0.908854
+
+name	run	timing
+benchmark/micro/index/delete/delete_art.benchmark	1	2.936322
+benchmark/micro/index/delete/delete_art.benchmark	2	2.455773
+benchmark/micro/index/delete/delete_art.benchmark	3	2.976858
+benchmark/micro/index/delete/delete_art.benchmark	4	2.499766
+benchmark/micro/index/delete/delete_art.benchmark	5	2.525378
+
+name	run	timing
+benchmark/micro/index/insert/insert_art.benchmark	1	4.118627
+benchmark/micro/index/insert/insert_art.benchmark	2	3.717159
+benchmark/micro/index/insert/insert_art.benchmark	3	4.363618
+benchmark/micro/index/insert/insert_art.benchmark	4	3.752286
+benchmark/micro/index/insert/insert_art.benchmark	5	3.850047
+
+name	run	timing
+benchmark/micro/index/insert/insert_pk_fk.benchmark	1	0.512602
+benchmark/micro/index/insert/insert_pk_fk.benchmark	2	0.509373
+benchmark/micro/index/insert/insert_pk_fk.benchmark	3	0.510945
+benchmark/micro/index/insert/insert_pk_fk.benchmark	4	0.514626
+benchmark/micro/index/insert/insert_pk_fk.benchmark	5	0.512731
+
+name	run	timing
+benchmark/micro/index/point/point_query_with_art.benchmark	1	0.000526
+benchmark/micro/index/point/point_query_with_art.benchmark	2	0.000432
+benchmark/micro/index/point/point_query_with_art.benchmark	3	0.000377
+benchmark/micro/index/point/point_query_with_art.benchmark	4	0.000388
+benchmark/micro/index/point/point_query_with_art.benchmark	5	0.000333
+
+name	run	timing
+benchmark/micro/index/point/point_query_with_art_and_many_keys.benchmark	1	0.007045
+benchmark/micro/index/point/point_query_with_art_and_many_keys.benchmark	2	0.007932
+benchmark/micro/index/point/point_query_with_art_and_many_keys.benchmark	3	0.007392
+benchmark/micro/index/point/point_query_with_art_and_many_keys.benchmark	4	0.007181
+benchmark/micro/index/point/point_query_with_art_and_many_keys.benchmark	5	0.008090
+
+name	run	timing
+benchmark/micro/index/point/point_query_without_index.benchmark	1	0.056541
+benchmark/micro/index/point/point_query_without_index.benchmark	2	0.055774
+benchmark/micro/index/point/point_query_without_index.benchmark	3	0.056258
+benchmark/micro/index/point/point_query_without_index.benchmark	4	0.056019
+benchmark/micro/index/point/point_query_without_index.benchmark	5	0.055894
+
+name	run	timing
+benchmark/micro/index/point/point_query_without_index_sequential.benchmark	1	0.000775
+benchmark/micro/index/point/point_query_without_index_sequential.benchmark	2	0.000764
+benchmark/micro/index/point/point_query_without_index_sequential.benchmark	3	0.000793
+benchmark/micro/index/point/point_query_without_index_sequential.benchmark	4	0.000868
+benchmark/micro/index/point/point_query_without_index_sequential.benchmark	5	0.000787
+
+name	run	timing
+benchmark/micro/index/range/range_query_with_art.benchmark	1	0.000688
+benchmark/micro/index/range/range_query_with_art.benchmark	2	0.000694
+benchmark/micro/index/range/range_query_with_art.benchmark	3	0.000678
+benchmark/micro/index/range/range_query_with_art.benchmark	4	0.000563
+benchmark/micro/index/range/range_query_with_art.benchmark	5	0.000520
+
+name	run	timing
+benchmark/micro/index/range/range_query_without_index.benchmark	1	0.001018
+benchmark/micro/index/range/range_query_without_index.benchmark	2	0.000960
+benchmark/micro/index/range/range_query_without_index.benchmark	3	0.001034
+benchmark/micro/index/range/range_query_without_index.benchmark	4	0.000907
+benchmark/micro/index/range/range_query_without_index.benchmark	5	0.000960
+
+name	run	timing
+benchmark/micro/index/range/wide_range_query_with_art.benchmark	1	0.005771
+benchmark/micro/index/range/wide_range_query_with_art.benchmark	2	0.005874
+benchmark/micro/index/range/wide_range_query_with_art.benchmark	3	0.005506
+benchmark/micro/index/range/wide_range_query_with_art.benchmark	4	0.005292
+benchmark/micro/index/range/wide_range_query_with_art.benchmark	5	0.005186
+
+name	run	timing
+benchmark/micro/index/range/wide_range_query_without_index.benchmark	1	0.002737
+benchmark/micro/index/range/wide_range_query_without_index.benchmark	2	0.003047
+benchmark/micro/index/range/wide_range_query_without_index.benchmark	3	0.002895
+benchmark/micro/index/range/wide_range_query_without_index.benchmark	4	0.002650
+benchmark/micro/index/range/wide_range_query_without_index.benchmark	5	0.002594
+
+name	run	timing
+benchmark/micro/join/asof_join.benchmark	1	0.229546
+benchmark/micro/join/asof_join.benchmark	2	0.217295
+benchmark/micro/join/asof_join.benchmark	3	0.211100
+benchmark/micro/join/asof_join.benchmark	4	0.205145
+benchmark/micro/join/asof_join.benchmark	5	0.219772
+
+name	run	timing
+benchmark/micro/join/asof_join_small_probe.benchmark	1	0.065649
+benchmark/micro/join/asof_join_small_probe.benchmark	2	0.063600
+benchmark/micro/join/asof_join_small_probe.benchmark	3	0.064619
+benchmark/micro/join/asof_join_small_probe.benchmark	4	0.063669
+benchmark/micro/join/asof_join_small_probe.benchmark	5	0.063749
+
+name	run	timing
+benchmark/micro/join/blockwise_nl_join.benchmark	1	1.078430
+benchmark/micro/join/blockwise_nl_join.benchmark	2	1.090464
+benchmark/micro/join/blockwise_nl_join.benchmark	3	1.081281
+benchmark/micro/join/blockwise_nl_join.benchmark	4	1.087257
+benchmark/micro/join/blockwise_nl_join.benchmark	5	1.082168
+
+name	run	timing
+benchmark/micro/join/delim_join_no_blowup.benchmark	1	0.752697
+benchmark/micro/join/delim_join_no_blowup.benchmark	2	0.742518
+benchmark/micro/join/delim_join_no_blowup.benchmark	3	0.745383
+benchmark/micro/join/delim_join_no_blowup.benchmark	4	0.742319
+benchmark/micro/join/delim_join_no_blowup.benchmark	5	0.746655
+
+name	run	timing
+benchmark/micro/join/hashjoin_dups_rhs.benchmark	1	1.090259
+benchmark/micro/join/hashjoin_dups_rhs.benchmark	2	1.082836
+benchmark/micro/join/hashjoin_dups_rhs.benchmark	3	1.090275
+benchmark/micro/join/hashjoin_dups_rhs.benchmark	4	1.086541
+benchmark/micro/join/hashjoin_dups_rhs.benchmark	5	1.086650
+
+name	run	timing
+benchmark/micro/join/hashjoin_highcardinality.benchmark	1	0.002671
+benchmark/micro/join/hashjoin_highcardinality.benchmark	2	0.002164
+benchmark/micro/join/hashjoin_highcardinality.benchmark	3	0.002411
+benchmark/micro/join/hashjoin_highcardinality.benchmark	4	0.002337
+benchmark/micro/join/hashjoin_highcardinality.benchmark	5	0.002490
+
+name	run	timing
+benchmark/micro/join/hashjoin_lhsarithmetic.benchmark	1	0.001840
+benchmark/micro/join/hashjoin_lhsarithmetic.benchmark	2	0.001786
+benchmark/micro/join/hashjoin_lhsarithmetic.benchmark	3	0.001748
+benchmark/micro/join/hashjoin_lhsarithmetic.benchmark	4	0.001741
+benchmark/micro/join/hashjoin_lhsarithmetic.benchmark	5	0.001774
+
+name	run	timing
+benchmark/micro/join/iejoin_employees.benchmark	1	3.651033
+benchmark/micro/join/iejoin_employees.benchmark	2	3.795697
+benchmark/micro/join/iejoin_employees.benchmark	3	3.836435
+benchmark/micro/join/iejoin_employees.benchmark	4	3.860892
+benchmark/micro/join/iejoin_employees.benchmark	5	3.872698
+
+name	run	timing
+benchmark/micro/join/iejoin_events.benchmark	1	0.029077
+benchmark/micro/join/iejoin_events.benchmark	2	0.028096
+benchmark/micro/join/iejoin_events.benchmark	3	0.030883
+benchmark/micro/join/iejoin_events.benchmark	4	0.023580
+benchmark/micro/join/iejoin_events.benchmark	5	0.026798
+
+name	run	timing
+benchmark/micro/join/iejoin_selectivity.benchmark	1	9.393432
+benchmark/micro/join/iejoin_selectivity.benchmark	2	9.339963
+benchmark/micro/join/iejoin_selectivity.benchmark	3	9.028315
+benchmark/micro/join/iejoin_selectivity.benchmark	4	9.276559
+benchmark/micro/join/iejoin_selectivity.benchmark	5	9.198175
+
+name	run	timing
+benchmark/micro/join/join_from_parquet.benchmark	1	0.240409
+benchmark/micro/join/join_from_parquet.benchmark	2	0.215751
+benchmark/micro/join/join_from_parquet.benchmark	3	0.220299
+benchmark/micro/join/join_from_parquet.benchmark	4	0.218905
+benchmark/micro/join/join_from_parquet.benchmark	5	0.216979
+
+name	run	timing
+benchmark/micro/join/join_order_optimizer_should_respect_limit.benchmark	1	0.002299
+benchmark/micro/join/join_order_optimizer_should_respect_limit.benchmark	2	0.002275
+benchmark/micro/join/join_order_optimizer_should_respect_limit.benchmark	3	0.002412
+benchmark/micro/join/join_order_optimizer_should_respect_limit.benchmark	4	0.002401
+benchmark/micro/join/join_order_optimizer_should_respect_limit.benchmark	5	0.002230
+
+name	run	timing
+benchmark/micro/join/left_outer_join_right_big.benchmark	1	0.296398
+benchmark/micro/join/left_outer_join_right_big.benchmark	2	0.298863
+benchmark/micro/join/left_outer_join_right_big.benchmark	3	0.304060
+benchmark/micro/join/left_outer_join_right_big.benchmark	4	0.304214
+benchmark/micro/join/left_outer_join_right_big.benchmark	5	0.295891
+
+name	run	timing
+benchmark/micro/join/many_inner_joins.benchmark	1	1.614323
+benchmark/micro/join/many_inner_joins.benchmark	2	1.625354
+benchmark/micro/join/many_inner_joins.benchmark	3	1.633910
+benchmark/micro/join/many_inner_joins.benchmark	4	1.630905
+benchmark/micro/join/many_inner_joins.benchmark	5	1.629485
+
+name	run	timing
+benchmark/micro/join/many_left_joins.benchmark	1	0.006928
+benchmark/micro/join/many_left_joins.benchmark	2	0.006980
+benchmark/micro/join/many_left_joins.benchmark	3	0.006896
+benchmark/micro/join/many_left_joins.benchmark	4	0.006972
+benchmark/micro/join/many_left_joins.benchmark	5	0.006842
+
+name	run	timing
+benchmark/micro/join/nary_positional_join.benchmark	1	0.181662
+benchmark/micro/join/nary_positional_join.benchmark	2	0.183086
+benchmark/micro/join/nary_positional_join.benchmark	3	0.181552
+benchmark/micro/join/nary_positional_join.benchmark	4	0.181295
+benchmark/micro/join/nary_positional_join.benchmark	5	0.184293
+
+name	run	timing
+benchmark/micro/join/positional_join.benchmark	1	0.025975
+benchmark/micro/join/positional_join.benchmark	2	0.026042
+benchmark/micro/join/positional_join.benchmark	3	0.026105
+benchmark/micro/join/positional_join.benchmark	4	0.026048
+benchmark/micro/join/positional_join.benchmark	5	0.026200
+
+name	run	timing
+benchmark/micro/join/prefer_right_deep_join_trees.benchmark	1	0.748550
+benchmark/micro/join/prefer_right_deep_join_trees.benchmark	2	0.750327
+benchmark/micro/join/prefer_right_deep_join_trees.benchmark	3	0.744789
+benchmark/micro/join/prefer_right_deep_join_trees.benchmark	4	0.750637
+benchmark/micro/join/prefer_right_deep_join_trees.benchmark	5	0.747594
+
+name	run	timing
+benchmark/micro/join/range_join.benchmark	1	0.027754
+benchmark/micro/join/range_join.benchmark	2	0.025890
+benchmark/micro/join/range_join.benchmark	3	0.029109
+benchmark/micro/join/range_join.benchmark	4	0.028140
+benchmark/micro/join/range_join.benchmark	5	0.026186
+
+name	run	timing
+benchmark/micro/join/range_join_big_result.benchmark	1	8.203522
+benchmark/micro/join/range_join_big_result.benchmark	2	8.253684
+benchmark/micro/join/range_join_big_result.benchmark	3	8.220938
+benchmark/micro/join/range_join_big_result.benchmark	4	8.209344
+benchmark/micro/join/range_join_big_result.benchmark	5	8.145885
+
+name	run	timing
+benchmark/micro/join/range_join_small_rhs.benchmark	1	0.453575
+benchmark/micro/join/range_join_small_rhs.benchmark	2	0.452187
+benchmark/micro/join/range_join_small_rhs.benchmark	3	0.453006
+benchmark/micro/join/range_join_small_rhs.benchmark	4	0.453510
+benchmark/micro/join/range_join_small_rhs.benchmark	5	0.453227
+
+name	run	timing
+benchmark/micro/join/right_outer_join_left_big.benchmark	1	0.317161
+benchmark/micro/join/right_outer_join_left_big.benchmark	2	0.307151
+benchmark/micro/join/right_outer_join_left_big.benchmark	3	0.300868
+benchmark/micro/join/right_outer_join_left_big.benchmark	4	0.294187
+benchmark/micro/join/right_outer_join_left_big.benchmark	5	0.309540
+
+name	run	timing
+benchmark/micro/join/skinny_probe_wide_build.benchmark	1	0.109985
+benchmark/micro/join/skinny_probe_wide_build.benchmark	2	0.105720
+benchmark/micro/join/skinny_probe_wide_build.benchmark	3	0.107888
+benchmark/micro/join/skinny_probe_wide_build.benchmark	4	0.108843
+benchmark/micro/join/skinny_probe_wide_build.benchmark	5	0.106270
+
+name	run	timing
+benchmark/micro/json/inconsistent_schema.benchmark	1	0.092620
+benchmark/micro/json/inconsistent_schema.benchmark	2	0.090902
+benchmark/micro/json/inconsistent_schema.benchmark	3	0.100360
+benchmark/micro/json/inconsistent_schema.benchmark	4	0.095645
+benchmark/micro/json/inconsistent_schema.benchmark	5	0.091175
+
+name	run	timing
+benchmark/micro/lambdas/list_filter_where.benchmark	1	0.004503
+benchmark/micro/lambdas/list_filter_where.benchmark	2	0.004349
+benchmark/micro/lambdas/list_filter_where.benchmark	3	0.004403
+benchmark/micro/lambdas/list_filter_where.benchmark	4	0.004406
+benchmark/micro/lambdas/list_filter_where.benchmark	5	0.003658
+
+name	run	timing
+benchmark/micro/lambdas/list_reduce/complex_expression.benchmark	1	0.223400
+benchmark/micro/lambdas/list_reduce/complex_expression.benchmark	2	0.222732
+benchmark/micro/lambdas/list_reduce/complex_expression.benchmark	3	0.223619
+benchmark/micro/lambdas/list_reduce/complex_expression.benchmark	4	0.222137
+benchmark/micro/lambdas/list_reduce/complex_expression.benchmark	5	0.224066
+
+name	run	timing
+benchmark/micro/lambdas/list_reduce/list_length_2.benchmark	1	0.048368
+benchmark/micro/lambdas/list_reduce/list_length_2.benchmark	2	0.046011
+benchmark/micro/lambdas/list_reduce/list_length_2.benchmark	3	0.046569
+benchmark/micro/lambdas/list_reduce/list_length_2.benchmark	4	0.047264
+benchmark/micro/lambdas/list_reduce/list_length_2.benchmark	5	0.046829
+
+name	run	timing
+benchmark/micro/lambdas/list_reduce/list_length_5000.benchmark	1	0.739883
+benchmark/micro/lambdas/list_reduce/list_length_5000.benchmark	2	0.747071
+benchmark/micro/lambdas/list_reduce/list_length_5000.benchmark	3	0.749768
+benchmark/micro/lambdas/list_reduce/list_length_5000.benchmark	4	0.745038
+benchmark/micro/lambdas/list_reduce/list_length_5000.benchmark	5	0.736970
+
+name	run	timing
+benchmark/micro/lambdas/list_reduce/list_variable_length.benchmark	1	5.558674
+benchmark/micro/lambdas/list_reduce/list_variable_length.benchmark	2	5.519744
+benchmark/micro/lambdas/list_reduce/list_variable_length.benchmark	3	5.543454
+benchmark/micro/lambdas/list_reduce/list_variable_length.benchmark	4	5.475008
+benchmark/micro/lambdas/list_reduce/list_variable_length.benchmark	5	5.515280
+
+name	run	timing
+benchmark/micro/lambdas/list_reduce/varchar.benchmark	1	1.362317
+benchmark/micro/lambdas/list_reduce/varchar.benchmark	2	1.340282
+benchmark/micro/lambdas/list_reduce/varchar.benchmark	3	1.336627
+benchmark/micro/lambdas/list_reduce/varchar.benchmark	4	1.360570
+benchmark/micro/lambdas/list_reduce/varchar.benchmark	5	1.347311
+
+name	run	timing
+benchmark/micro/lambdas/list_transform_select.benchmark	1	0.001567
+benchmark/micro/lambdas/list_transform_select.benchmark	2	0.002350
+benchmark/micro/lambdas/list_transform_select.benchmark	3	0.002186
+benchmark/micro/lambdas/list_transform_select.benchmark	4	0.001506
+benchmark/micro/lambdas/list_transform_select.benchmark	5	0.002314
+
+name	run	timing
+benchmark/micro/lambdas/list_transform_zip.benchmark	1	0.008903
+benchmark/micro/lambdas/list_transform_zip.benchmark	2	0.015605
+benchmark/micro/lambdas/list_transform_zip.benchmark	3	0.008775
+benchmark/micro/lambdas/list_transform_zip.benchmark	4	0.006200
+benchmark/micro/lambdas/list_transform_zip.benchmark	5	0.008693
+
+name	run	timing
+benchmark/micro/limit/parallel_limit.benchmark	1	0.064723
+benchmark/micro/limit/parallel_limit.benchmark	2	0.064892
+benchmark/micro/limit/parallel_limit.benchmark	3	0.064634
+benchmark/micro/limit/parallel_limit.benchmark	4	0.064942
+benchmark/micro/limit/parallel_limit.benchmark	5	0.064940
+
+name	run	timing
+benchmark/micro/limit/parallel_streaming_limit.benchmark	1	0.066259
+benchmark/micro/limit/parallel_streaming_limit.benchmark	2	0.065963
+benchmark/micro/limit/parallel_streaming_limit.benchmark	3	0.065734
+benchmark/micro/limit/parallel_streaming_limit.benchmark	4	0.066049
+benchmark/micro/limit/parallel_streaming_limit.benchmark	5	0.066155
+
+name	run	timing
+benchmark/micro/limit/parquet_parallel_limit.benchmark	1	0.233331
+benchmark/micro/limit/parquet_parallel_limit.benchmark	2	0.233005
+benchmark/micro/limit/parquet_parallel_limit.benchmark	3	0.233622
+benchmark/micro/limit/parquet_parallel_limit.benchmark	4	0.234155
+benchmark/micro/limit/parquet_parallel_limit.benchmark	5	0.232759
+
+name	run	timing
+benchmark/micro/limit/parquet_parallel_limit_glob.benchmark	1	0.235522
+benchmark/micro/limit/parquet_parallel_limit_glob.benchmark	2	0.232724
+benchmark/micro/limit/parquet_parallel_limit_glob.benchmark	3	0.235641
+benchmark/micro/limit/parquet_parallel_limit_glob.benchmark	4	0.231559
+benchmark/micro/limit/parquet_parallel_limit_glob.benchmark	5	0.231214
+
+name	run	timing
+benchmark/micro/list/column_data_collection_copy/large_lists.benchmark	1	2.827707
+benchmark/micro/list/column_data_collection_copy/large_lists.benchmark	2	2.593433
+benchmark/micro/list/column_data_collection_copy/large_lists.benchmark	3	2.456529
+benchmark/micro/list/column_data_collection_copy/large_lists.benchmark	4	2.821202
+benchmark/micro/list/column_data_collection_copy/large_lists.benchmark	5	2.346239
+
+name	run	timing
+benchmark/micro/list/column_data_collection_copy/small_lists.benchmark	1	0.063372
+benchmark/micro/list/column_data_collection_copy/small_lists.benchmark	2	0.031550
+benchmark/micro/list/column_data_collection_copy/small_lists.benchmark	3	0.063330
+benchmark/micro/list/column_data_collection_copy/small_lists.benchmark	4	0.024368
+benchmark/micro/list/column_data_collection_copy/small_lists.benchmark	5	0.023935
+
+name	run	timing
+benchmark/micro/list/column_data_collection_copy/unnest.benchmark	1	0.025282
+benchmark/micro/list/column_data_collection_copy/unnest.benchmark	2	0.025379
+benchmark/micro/list/column_data_collection_copy/unnest.benchmark	3	0.024830
+benchmark/micro/list/column_data_collection_copy/unnest.benchmark	4	0.010627
+benchmark/micro/list/column_data_collection_copy/unnest.benchmark	5	0.024825
+
+name	run	timing
+benchmark/micro/list/list_extract.benchmark	1	0.023481
+benchmark/micro/list/list_extract.benchmark	2	0.022819
+benchmark/micro/list/list_extract.benchmark	3	0.022717
+benchmark/micro/list/list_extract.benchmark	4	0.017709
+benchmark/micro/list/list_extract.benchmark	5	0.022899
+
+name	run	timing
+benchmark/micro/list/list_extract_null.benchmark	1	0.025663
+benchmark/micro/list/list_extract_null.benchmark	2	0.025422
+benchmark/micro/list/list_extract_null.benchmark	3	0.027942
+benchmark/micro/list/list_extract_null.benchmark	4	0.024083
+benchmark/micro/list/list_extract_null.benchmark	5	0.020885
+
+name	run	timing
+benchmark/micro/list/list_extract_struct.benchmark	1	0.214705
+benchmark/micro/list/list_extract_struct.benchmark	2	0.222552
+benchmark/micro/list/list_extract_struct.benchmark	3	0.227741
+benchmark/micro/list/list_extract_struct.benchmark	4	0.216492
+benchmark/micro/list/list_extract_struct.benchmark	5	0.214882
+
+name	run	timing
+benchmark/micro/list/list_extract_struct_null.benchmark	1	0.218178
+benchmark/micro/list/list_extract_struct_null.benchmark	2	0.221526
+benchmark/micro/list/list_extract_struct_null.benchmark	3	0.216562
+benchmark/micro/list/list_extract_struct_null.benchmark	4	0.222454
+benchmark/micro/list/list_extract_struct_null.benchmark	5	0.215981
+
+name	run	timing
+benchmark/micro/list/list_few_rows.benchmark	1	0.054767
+benchmark/micro/list/list_few_rows.benchmark	2	0.053929
+benchmark/micro/list/list_few_rows.benchmark	3	0.053421
+benchmark/micro/list/list_few_rows.benchmark	4	0.053376
+benchmark/micro/list/list_few_rows.benchmark	5	0.053393
+
+name	run	timing
+benchmark/micro/list/list_has_any.benchmark	1	0.856044
+benchmark/micro/list/list_has_any.benchmark	2	0.855791
+benchmark/micro/list/list_has_any.benchmark	3	0.847037
+benchmark/micro/list/list_has_any.benchmark	4	0.852800
+benchmark/micro/list/list_has_any.benchmark	5	0.857175
+
+name	run	timing
+benchmark/micro/list/list_many_rows.benchmark	1	0.027036
+benchmark/micro/list/list_many_rows.benchmark	2	0.028577
+benchmark/micro/list/list_many_rows.benchmark	3	0.026944
+benchmark/micro/list/list_many_rows.benchmark	4	0.027533
+benchmark/micro/list/list_many_rows.benchmark	5	0.028058
+
+name	run	timing
+benchmark/micro/list/list_min_max.benchmark	1	1.546280
+benchmark/micro/list/list_min_max.benchmark	2	1.543655
+benchmark/micro/list/list_min_max.benchmark	3	1.542993
+benchmark/micro/list/list_min_max.benchmark	4	1.543879
+benchmark/micro/list/list_min_max.benchmark	5	1.545970
+
+name	run	timing
+benchmark/micro/list/list_order_by.benchmark	1	0.562773
+benchmark/micro/list/list_order_by.benchmark	2	0.573003
+benchmark/micro/list/list_order_by.benchmark	3	0.549224
+benchmark/micro/list/list_order_by.benchmark	4	0.544628
+benchmark/micro/list/list_order_by.benchmark	5	0.563087
+
+name	run	timing
+benchmark/micro/list/list_value.benchmark	1	0.648074
+benchmark/micro/list/list_value.benchmark	2	0.648142
+benchmark/micro/list/list_value.benchmark	3	0.648343
+benchmark/micro/list/list_value.benchmark	4	0.649419
+benchmark/micro/list/list_value.benchmark	5	0.648189
+
+name	run	timing
+benchmark/micro/list/string_split.benchmark	1	0.091515
+benchmark/micro/list/string_split.benchmark	2	0.099536
+benchmark/micro/list/string_split.benchmark	3	0.091533
+benchmark/micro/list/string_split.benchmark	4	0.091627
+benchmark/micro/list/string_split.benchmark	5	0.091625
+
+name	run	timing
+benchmark/micro/list/string_split_regexp.benchmark	1	0.512442
+benchmark/micro/list/string_split_regexp.benchmark	2	0.512292
+benchmark/micro/list/string_split_regexp.benchmark	3	0.512368
+benchmark/micro/list/string_split_regexp.benchmark	4	0.509792
+benchmark/micro/list/string_split_regexp.benchmark	5	0.509487
+
+name	run	timing
+benchmark/micro/list/string_split_unicode.benchmark	1	0.077709
+benchmark/micro/list/string_split_unicode.benchmark	2	0.071636
+benchmark/micro/list/string_split_unicode.benchmark	3	0.071655
+benchmark/micro/list/string_split_unicode.benchmark	4	0.071777
+benchmark/micro/list/string_split_unicode.benchmark	5	0.071528
+
+name	run	timing
+benchmark/micro/list/unnest.benchmark	1	0.021147
+benchmark/micro/list/unnest.benchmark	2	0.019784
+benchmark/micro/list/unnest.benchmark	3	0.022696
+benchmark/micro/list/unnest.benchmark	4	0.019980
+benchmark/micro/list/unnest.benchmark	5	0.022964
+
+name	run	timing
+benchmark/micro/list/unnest_rewrite.benchmark	1	0.113938
+benchmark/micro/list/unnest_rewrite.benchmark	2	0.089078
+benchmark/micro/list/unnest_rewrite.benchmark	3	0.095104
+benchmark/micro/list/unnest_rewrite.benchmark	4	0.080172
+benchmark/micro/list/unnest_rewrite.benchmark	5	0.089585
+
+name	run	timing
+benchmark/micro/map/map_extract.benchmark	1	0.009411
+benchmark/micro/map/map_extract.benchmark	2	0.009181
+benchmark/micro/map/map_extract.benchmark	3	0.009225
+benchmark/micro/map/map_extract.benchmark	4	0.009160
+benchmark/micro/map/map_extract.benchmark	5	0.009106
+
+name	run	timing
+benchmark/micro/map/map_lookup.benchmark	1	0.034913
+benchmark/micro/map/map_lookup.benchmark	2	0.022589
+benchmark/micro/map/map_lookup.benchmark	3	0.034911
+benchmark/micro/map/map_lookup.benchmark	4	0.034888
+benchmark/micro/map/map_lookup.benchmark	5	0.034839
+
+name	run	timing
+benchmark/micro/nulls/no_nulls_addition.benchmark	1	0.022533
+benchmark/micro/nulls/no_nulls_addition.benchmark	2	0.022663
+benchmark/micro/nulls/no_nulls_addition.benchmark	3	0.022670
+benchmark/micro/nulls/no_nulls_addition.benchmark	4	0.024842
+benchmark/micro/nulls/no_nulls_addition.benchmark	5	0.023028
+
+name	run	timing
+benchmark/micro/nulls/null_addition.benchmark	1	0.023345
+benchmark/micro/nulls/null_addition.benchmark	2	0.022765
+benchmark/micro/nulls/null_addition.benchmark	3	0.023565
+benchmark/micro/nulls/null_addition.benchmark	4	0.023102
+benchmark/micro/nulls/null_addition.benchmark	5	0.024194
+
+name	run	timing
+benchmark/micro/optimizer/topn_optimization.benchmark	1	0.064465
+benchmark/micro/optimizer/topn_optimization.benchmark	2	0.065144
+benchmark/micro/optimizer/topn_optimization.benchmark	3	0.065205
+benchmark/micro/optimizer/topn_optimization.benchmark	4	0.064346
+benchmark/micro/optimizer/topn_optimization.benchmark	5	0.064775
+
+name	run	timing
+benchmark/micro/order/orderby.benchmark	1	0.024365
+benchmark/micro/order/orderby.benchmark	2	0.022542
+benchmark/micro/order/orderby.benchmark	3	0.022231
+benchmark/micro/order/orderby.benchmark	4	0.021705
+benchmark/micro/order/orderby.benchmark	5	0.019336
+
+name	run	timing
+benchmark/micro/pushdown/or_pushdown.benchmark	1	0.003838
+benchmark/micro/pushdown/or_pushdown.benchmark	2	0.003953
+benchmark/micro/pushdown/or_pushdown.benchmark	3	0.003905
+benchmark/micro/pushdown/or_pushdown.benchmark	4	0.003908
+benchmark/micro/pushdown/or_pushdown.benchmark	5	0.004330
+
+name	run	timing
+benchmark/micro/pushdown/window_partition_pushdown.benchmark	1	0.353761
+benchmark/micro/pushdown/window_partition_pushdown.benchmark	2	0.280495
+benchmark/micro/pushdown/window_partition_pushdown.benchmark	3	0.271385
+benchmark/micro/pushdown/window_partition_pushdown.benchmark	4	0.281170
+benchmark/micro/pushdown/window_partition_pushdown.benchmark	5	0.317012
+
+name	run	timing
+benchmark/micro/result_collection/arrow_result.benchmark	1	1.064751
+benchmark/micro/result_collection/arrow_result.benchmark	2	1.028921
+benchmark/micro/result_collection/arrow_result.benchmark	3	1.018635
+benchmark/micro/result_collection/arrow_result.benchmark	4	1.012560
+benchmark/micro/result_collection/arrow_result.benchmark	5	1.021686
+
+Failed to run benchmark benchmark/micro/result_collection/batched_arrow_result.benchmark
+====================================================
+==============         STDERR          =============
+====================================================
+
+name	run	timing
+benchmark/micro/result_collection/batched_arrow_result.benchmark	1	2.485150
+benchmark/micro/result_collection/batched_arrow_result.benchmark	2	
+====================================================
+==============         STDOUT          =============
+====================================================
+
+
+name	run	timing
+benchmark/micro/result_collection/batched_stream_query.benchmark	1	1.266229
+benchmark/micro/result_collection/batched_stream_query.benchmark	2	1.061679
+benchmark/micro/result_collection/batched_stream_query.benchmark	3	1.218946
+benchmark/micro/result_collection/batched_stream_query.benchmark	4	1.038499
+benchmark/micro/result_collection/batched_stream_query.benchmark	5	1.118388
+
+name	run	timing
+benchmark/micro/simd/auto-vectorization.benchmark	1	3.171315
+benchmark/micro/simd/auto-vectorization.benchmark	2	3.164300
+benchmark/micro/simd/auto-vectorization.benchmark	3	3.153495
+benchmark/micro/simd/auto-vectorization.benchmark	4	3.164744
+benchmark/micro/simd/auto-vectorization.benchmark	5	3.172982
+
+name	run	timing
+benchmark/micro/string/bitstring.benchmark	1	0.035852
+benchmark/micro/string/bitstring.benchmark	2	0.035715
+benchmark/micro/string/bitstring.benchmark	3	0.035682
+benchmark/micro/string/bitstring.benchmark	4	0.033612
+benchmark/micro/string/bitstring.benchmark	5	0.033625
+
+name	run	timing
+benchmark/micro/string/concat_long.benchmark	1	0.063688
+benchmark/micro/string/concat_long.benchmark	2	0.068277
+benchmark/micro/string/concat_long.benchmark	3	0.067226
+benchmark/micro/string/concat_long.benchmark	4	0.063519
+benchmark/micro/string/concat_long.benchmark	5	0.063134
+
+name	run	timing
+benchmark/micro/string/concat_short.benchmark	1	0.068379
+benchmark/micro/string/concat_short.benchmark	2	0.068912
+benchmark/micro/string/concat_short.benchmark	3	0.063146
+benchmark/micro/string/concat_short.benchmark	4	0.065323
+benchmark/micro/string/concat_short.benchmark	5	0.068717
+
+name	run	timing
+benchmark/micro/string/contains_integers.benchmark	1	0.036470
+benchmark/micro/string/contains_integers.benchmark	2	0.037948
+benchmark/micro/string/contains_integers.benchmark	3	0.036111
+benchmark/micro/string/contains_integers.benchmark	4	0.036101
+benchmark/micro/string/contains_integers.benchmark	5	0.036090
+
+name	run	timing
+benchmark/micro/string/contains_long.benchmark	1	0.043346
+benchmark/micro/string/contains_long.benchmark	2	0.043207
+benchmark/micro/string/contains_long.benchmark	3	0.043297
+benchmark/micro/string/contains_long.benchmark	4	0.043151
+benchmark/micro/string/contains_long.benchmark	5	0.043280
+
+name	run	timing
+benchmark/micro/string/contains_r.benchmark	1	0.042542
+benchmark/micro/string/contains_r.benchmark	2	0.042618
+benchmark/micro/string/contains_r.benchmark	3	0.042541
+benchmark/micro/string/contains_r.benchmark	4	0.042406
+benchmark/micro/string/contains_r.benchmark	5	0.042523
+
+name	run	timing
+benchmark/micro/string/contains_re.benchmark	1	0.048064
+benchmark/micro/string/contains_re.benchmark	2	0.048109
+benchmark/micro/string/contains_re.benchmark	3	0.047991
+benchmark/micro/string/contains_re.benchmark	4	0.048146
+benchmark/micro/string/contains_re.benchmark	5	0.048162
+
+name	run	timing
+benchmark/micro/string/contains_reg.benchmark	1	0.049189
+benchmark/micro/string/contains_reg.benchmark	2	0.048994
+benchmark/micro/string/contains_reg.benchmark	3	0.048894
+benchmark/micro/string/contains_reg.benchmark	4	0.049106
+benchmark/micro/string/contains_reg.benchmark	5	0.048989
+
+name	run	timing
+benchmark/micro/string/contains_regular.benchmark	1	0.048819
+benchmark/micro/string/contains_regular.benchmark	2	0.048709
+benchmark/micro/string/contains_regular.benchmark	3	0.048524
+benchmark/micro/string/contains_regular.benchmark	4	0.048577
+benchmark/micro/string/contains_regular.benchmark	5	0.048638
+
+name	run	timing
+benchmark/micro/string/equality_long.benchmark	1	0.041406
+benchmark/micro/string/equality_long.benchmark	2	0.043736
+benchmark/micro/string/equality_long.benchmark	3	0.043664
+benchmark/micro/string/equality_long.benchmark	4	0.042791
+benchmark/micro/string/equality_long.benchmark	5	0.042775
+
+name	run	timing
+benchmark/micro/string/equality_short.benchmark	1	0.049726
+benchmark/micro/string/equality_short.benchmark	2	0.049721
+benchmark/micro/string/equality_short.benchmark	3	0.046557
+benchmark/micro/string/equality_short.benchmark	4	0.046566
+benchmark/micro/string/equality_short.benchmark	5	0.046557
+
+name	run	timing
+benchmark/micro/string/greater_than_long.benchmark	1	0.045149
+benchmark/micro/string/greater_than_long.benchmark	2	0.045074
+benchmark/micro/string/greater_than_long.benchmark	3	0.043340
+benchmark/micro/string/greater_than_long.benchmark	4	0.043455
+benchmark/micro/string/greater_than_long.benchmark	5	0.042782
+
+name	run	timing
+benchmark/micro/string/greater_than_short.benchmark	1	0.051466
+benchmark/micro/string/greater_than_short.benchmark	2	0.051450
+benchmark/micro/string/greater_than_short.benchmark	3	0.051428
+benchmark/micro/string/greater_than_short.benchmark	4	0.049382
+benchmark/micro/string/greater_than_short.benchmark	5	0.049363
+
+Failed to run benchmark benchmark/micro/string/inet_escape_function.benchmark
+====================================================
+==============         STDERR          =============
+====================================================
+
+name	run	timing
+terminate called after throwing an instance of 'duckdb::InvalidInputException'
+  what():  {"exception_type":"Invalid Input","exception_message":"Extension inet is not available/was not compiled. Cannot run this benchmark."}
+
+====================================================
+==============         STDOUT          =============
+====================================================
+
+
+Failed to run benchmark benchmark/micro/string/inet_unescape_charrefs.benchmark
+====================================================
+==============         STDERR          =============
+====================================================
+
+name	run	timing
+terminate called after throwing an instance of 'duckdb::InvalidInputException'
+  what():  {"exception_type":"Invalid Input","exception_message":"Extension inet is not available/was not compiled. Cannot run this benchmark."}
+
+====================================================
+==============         STDOUT          =============
+====================================================
+
+
+Failed to run benchmark benchmark/micro/string/inet_unescape_codepoints.benchmark
+====================================================
+==============         STDERR          =============
+====================================================
+
+name	run	timing
+terminate called after throwing an instance of 'duckdb::InvalidInputException'
+  what():  {"exception_type":"Invalid Input","exception_message":"Extension inet is not available/was not compiled. Cannot run this benchmark."}
+
+====================================================
+==============         STDOUT          =============
+====================================================
+
+
+name	run	timing
+benchmark/micro/string/length_long.benchmark	1	0.045097
+benchmark/micro/string/length_long.benchmark	2	0.047576
+benchmark/micro/string/length_long.benchmark	3	0.047610
+benchmark/micro/string/length_long.benchmark	4	0.044922
+benchmark/micro/string/length_long.benchmark	5	0.047594
+
+name	run	timing
+benchmark/micro/string/length_short.benchmark	1	0.050966
+benchmark/micro/string/length_short.benchmark	2	0.053952
+benchmark/micro/string/length_short.benchmark	3	0.050579
+benchmark/micro/string/length_short.benchmark	4	0.050530
+benchmark/micro/string/length_short.benchmark	5	0.050948
+
+name	run	timing
+benchmark/micro/string/like_regular.benchmark	1	0.048831
+benchmark/micro/string/like_regular.benchmark	2	0.048621
+benchmark/micro/string/like_regular.benchmark	3	0.048645
+benchmark/micro/string/like_regular.benchmark	4	0.048673
+benchmark/micro/string/like_regular.benchmark	5	0.048669
+
+name	run	timing
+benchmark/micro/string/regexp_matches.benchmark	1	0.036995
+benchmark/micro/string/regexp_matches.benchmark	2	0.036983
+benchmark/micro/string/regexp_matches.benchmark	3	0.035605
+benchmark/micro/string/regexp_matches.benchmark	4	0.035290
+benchmark/micro/string/regexp_matches.benchmark	5	0.037252
+
+name	run	timing
+benchmark/micro/string/string_agg_long.benchmark	1	0.324087
+benchmark/micro/string/string_agg_long.benchmark	2	0.304711
+benchmark/micro/string/string_agg_long.benchmark	3	0.313520
+benchmark/micro/string/string_agg_long.benchmark	4	0.317136
+benchmark/micro/string/string_agg_long.benchmark	5	0.314233
+
+name	run	timing
+benchmark/micro/string/string_agg_order_by.benchmark	1	1.629011
+benchmark/micro/string/string_agg_order_by.benchmark	2	1.728205
+benchmark/micro/string/string_agg_order_by.benchmark	3	1.672815
+benchmark/micro/string/string_agg_order_by.benchmark	4	1.664835
+benchmark/micro/string/string_agg_order_by.benchmark	5	1.646931
+
+name	run	timing
+benchmark/micro/string/string_agg_short.benchmark	1	0.102034
+benchmark/micro/string/string_agg_short.benchmark	2	0.083007
+benchmark/micro/string/string_agg_short.benchmark	3	0.096620
+benchmark/micro/string/string_agg_short.benchmark	4	0.074847
+benchmark/micro/string/string_agg_short.benchmark	5	0.078355
+
+name	run	timing
+benchmark/micro/string/url_encode.benchmark	1	4.000293
+benchmark/micro/string/url_encode.benchmark	2	4.027055
+benchmark/micro/string/url_encode.benchmark	3	4.013925
+benchmark/micro/string/url_encode.benchmark	4	4.010985
+benchmark/micro/string/url_encode.benchmark	5	4.013367
+
+name	run	timing
+benchmark/micro/timestamp/extract_month.benchmark	1	0.006181
+benchmark/micro/timestamp/extract_month.benchmark	2	0.006091
+benchmark/micro/timestamp/extract_month.benchmark	3	0.006154
+benchmark/micro/timestamp/extract_month.benchmark	4	0.006059
+benchmark/micro/timestamp/extract_month.benchmark	5	0.006106
+
+name	run	timing
+benchmark/micro/timestamp/extract_year.benchmark	1	0.005893
+benchmark/micro/timestamp/extract_year.benchmark	2	0.005931
+benchmark/micro/timestamp/extract_year.benchmark	3	0.006042
+benchmark/micro/timestamp/extract_year.benchmark	4	0.006081
+benchmark/micro/timestamp/extract_year.benchmark	5	0.005901
+
+name	run	timing
+benchmark/micro/update/update_with_join.benchmark	1	0.155791
+benchmark/micro/update/update_with_join.benchmark	2	0.161136
+benchmark/micro/update/update_with_join.benchmark	3	0.159572
+benchmark/micro/update/update_with_join.benchmark	4	0.161740
+benchmark/micro/update/update_with_join.benchmark	5	0.161819
+
+name	run	timing
+benchmark/micro/view/many_values.benchmark	1	0.007576
+benchmark/micro/view/many_values.benchmark	2	0.007534
+benchmark/micro/view/many_values.benchmark	3	0.007414
+benchmark/micro/view/many_values.benchmark	4	0.007441
+benchmark/micro/view/many_values.benchmark	5	0.007229
+
+name	run	timing
+benchmark/micro/window/streaming_lag.benchmark	1	0.095473
+benchmark/micro/window/streaming_lag.benchmark	2	0.095922
+benchmark/micro/window/streaming_lag.benchmark	3	0.095397
+benchmark/micro/window/streaming_lag.benchmark	4	0.095678
+benchmark/micro/window/streaming_lag.benchmark	5	0.095521
+
+name	run	timing
+benchmark/micro/window/streaming_lead.benchmark	1	0.104937
+benchmark/micro/window/streaming_lead.benchmark	2	0.105265
+benchmark/micro/window/streaming_lead.benchmark	3	0.105463
+benchmark/micro/window/streaming_lead.benchmark	4	0.104845
+benchmark/micro/window/streaming_lead.benchmark	5	0.104712
+
+name	run	timing
+benchmark/micro/window/window_constant_aggregates.benchmark	1	0.232396
+benchmark/micro/window/window_constant_aggregates.benchmark	2	0.223185
+benchmark/micro/window/window_constant_aggregates.benchmark	3	0.235216
+benchmark/micro/window/window_constant_aggregates.benchmark	4	0.190389
+benchmark/micro/window/window_constant_aggregates.benchmark	5	0.215232
+
+name	run	timing
+benchmark/micro/window/window_constant_count.benchmark	1	0.098962
+benchmark/micro/window/window_constant_count.benchmark	2	0.096011
+benchmark/micro/window/window_constant_count.benchmark	3	0.097981
+benchmark/micro/window/window_constant_count.benchmark	4	0.100643
+benchmark/micro/window/window_constant_count.benchmark	5	0.100007
+
+name	run	timing
+benchmark/micro/window/window_count_star_fixed_100.benchmark	1	0.371148
+benchmark/micro/window/window_count_star_fixed_100.benchmark	2	0.370934
+benchmark/micro/window/window_count_star_fixed_100.benchmark	3	0.379438
+benchmark/micro/window/window_count_star_fixed_100.benchmark	4	0.374026
+benchmark/micro/window/window_count_star_fixed_100.benchmark	5	0.376650
+
+name	run	timing
+benchmark/micro/window/window_count_star_variable_100.benchmark	1	0.368981
+benchmark/micro/window/window_count_star_variable_100.benchmark	2	0.352240
+benchmark/micro/window/window_count_star_variable_100.benchmark	3	0.366748
+benchmark/micro/window/window_count_star_variable_100.benchmark	4	0.358820
+benchmark/micro/window/window_count_star_variable_100.benchmark	5	0.343118
+
+name	run	timing
+benchmark/micro/window/window_iqr_fixed_100.benchmark	1	1.265030
+benchmark/micro/window/window_iqr_fixed_100.benchmark	2	1.232970
+benchmark/micro/window/window_iqr_fixed_100.benchmark	3	1.224404
+benchmark/micro/window/window_iqr_fixed_100.benchmark	4	1.272376
+benchmark/micro/window/window_iqr_fixed_100.benchmark	5	1.233274
+
+name	run	timing
+benchmark/micro/window/window_iqr_variable_100.benchmark	1	4.634710
+benchmark/micro/window/window_iqr_variable_100.benchmark	2	5.091591
+benchmark/micro/window/window_iqr_variable_100.benchmark	3	5.028822
+benchmark/micro/window/window_iqr_variable_100.benchmark	4	4.756579
+benchmark/micro/window/window_iqr_variable_100.benchmark	5	4.972089
+
+name	run	timing
+benchmark/micro/window/window_list_aggr.benchmark	1	1.465881
+benchmark/micro/window/window_list_aggr.benchmark	2	0.960922
+benchmark/micro/window/window_list_aggr.benchmark	3	0.945315
+benchmark/micro/window/window_list_aggr.benchmark	4	0.893670
+benchmark/micro/window/window_list_aggr.benchmark	5	0.918199
+
+name	run	timing
+benchmark/micro/window/window_mad_fixed_100.benchmark	1	1.779139
+benchmark/micro/window/window_mad_fixed_100.benchmark	2	1.943917
+benchmark/micro/window/window_mad_fixed_100.benchmark	3	1.927194
+benchmark/micro/window/window_mad_fixed_100.benchmark	4	1.916665
+benchmark/micro/window/window_mad_fixed_100.benchmark	5	1.950592
+
+name	run	timing
+benchmark/micro/window/window_mad_variable_100.benchmark	1	3.807476
+benchmark/micro/window/window_mad_variable_100.benchmark	2	4.469880
+benchmark/micro/window/window_mad_variable_100.benchmark	3	4.104738
+benchmark/micro/window/window_mad_variable_100.benchmark	4	3.942162
+benchmark/micro/window/window_mad_variable_100.benchmark	5	4.017196
+
+name	run	timing
+benchmark/micro/window/window_median_fixed_100.benchmark	1	0.879142
+benchmark/micro/window/window_median_fixed_100.benchmark	2	0.838671
+benchmark/micro/window/window_median_fixed_100.benchmark	3	0.868164
+benchmark/micro/window/window_median_fixed_100.benchmark	4	1.011462
+benchmark/micro/window/window_median_fixed_100.benchmark	5	0.852826
+
+name	run	timing
+benchmark/micro/window/window_median_variable_100.benchmark	1	2.976528
+benchmark/micro/window/window_median_variable_100.benchmark	2	3.009534
+benchmark/micro/window/window_median_variable_100.benchmark	3	3.116808
+benchmark/micro/window/window_median_variable_100.benchmark	4	2.802939
+benchmark/micro/window/window_median_variable_100.benchmark	5	2.509295
+
+name	run	timing
+benchmark/micro/window/window_mode_fixed_100.benchmark	1	0.794361
+benchmark/micro/window/window_mode_fixed_100.benchmark	2	0.642614
+benchmark/micro/window/window_mode_fixed_100.benchmark	3	0.828081
+benchmark/micro/window/window_mode_fixed_100.benchmark	4	0.671418
+benchmark/micro/window/window_mode_fixed_100.benchmark	5	0.665800
+
+name	run	timing
+benchmark/micro/window/window_partition.benchmark	1	0.064329
+benchmark/micro/window/window_partition.benchmark	2	0.063909
+benchmark/micro/window/window_partition.benchmark	3	0.065975
+benchmark/micro/window/window_partition.benchmark	4	0.063888
+benchmark/micro/window/window_partition.benchmark	5	0.066161
+
+name	run	timing
+benchmark/micro/window/window_streamed_sum.benchmark	1	0.402297
+benchmark/micro/window/window_streamed_sum.benchmark	2	0.397678
+benchmark/micro/window/window_streamed_sum.benchmark	3	0.400189
+benchmark/micro/window/window_streamed_sum.benchmark	4	0.399517
+benchmark/micro/window/window_streamed_sum.benchmark	5	0.427378
+
+name	run	timing
+benchmark/micro/window/window_sum.benchmark	1	0.019326
+benchmark/micro/window/window_sum.benchmark	2	0.020567
+benchmark/micro/window/window_sum.benchmark	3	0.018807
+benchmark/micro/window/window_sum.benchmark	4	0.020359
+benchmark/micro/window/window_sum.benchmark	5	0.020325
+
+name	run	timing
+benchmark/micro/zonemaps/data_skipping.benchmark	1	0.000484
+benchmark/micro/zonemaps/data_skipping.benchmark	2	0.000458
+benchmark/micro/zonemaps/data_skipping.benchmark	3	0.000511
+benchmark/micro/zonemaps/data_skipping.benchmark	4	0.000522
+benchmark/micro/zonemaps/data_skipping.benchmark	5	0.000486
+
+name	run	timing
+benchmark/micro/zonemaps/zonemaps.benchmark	1	0.057331
+benchmark/micro/zonemaps/zonemaps.benchmark	2	0.057333
+benchmark/micro/zonemaps/zonemaps.benchmark	3	0.057317
+benchmark/micro/zonemaps/zonemaps.benchmark	4	0.056861
+benchmark/micro/zonemaps/zonemaps.benchmark	5	0.057180
+
+name	run	timing
+benchmark/micro/aggregate/any_value_uuid.benchmark	1	0.011846
+benchmark/micro/aggregate/any_value_uuid.benchmark	2	0.011319
+benchmark/micro/aggregate/any_value_uuid.benchmark	3	0.013546
+benchmark/micro/aggregate/any_value_uuid.benchmark	4	0.011653
+benchmark/micro/aggregate/any_value_uuid.benchmark	5	0.010437
+
+name	run	timing
+benchmark/micro/aggregate/bitstring_aggregate.benchmark	1	0.095824
+benchmark/micro/aggregate/bitstring_aggregate.benchmark	2	0.101106
+benchmark/micro/aggregate/bitstring_aggregate.benchmark	3	0.096530
+benchmark/micro/aggregate/bitstring_aggregate.benchmark	4	0.095939
+benchmark/micro/aggregate/bitstring_aggregate.benchmark	5	0.100344
+
+name	run	timing
+benchmark/micro/aggregate/bitwise_aggregate.benchmark	1	0.007978
+benchmark/micro/aggregate/bitwise_aggregate.benchmark	2	0.007850
+benchmark/micro/aggregate/bitwise_aggregate.benchmark	3	0.007255
+benchmark/micro/aggregate/bitwise_aggregate.benchmark	4	0.007804
+benchmark/micro/aggregate/bitwise_aggregate.benchmark	5	0.007873
+
+name	run	timing
+benchmark/micro/aggregate/grouped_distinct.benchmark	1	0.066659
+benchmark/micro/aggregate/grouped_distinct.benchmark	2	0.066541
+benchmark/micro/aggregate/grouped_distinct.benchmark	3	0.066610
+benchmark/micro/aggregate/grouped_distinct.benchmark	4	0.066438
+benchmark/micro/aggregate/grouped_distinct.benchmark	5	0.068616
+
+name	run	timing
+benchmark/micro/aggregate/ordered_first.benchmark	1	0.055454
+benchmark/micro/aggregate/ordered_first.benchmark	2	0.054067
+benchmark/micro/aggregate/ordered_first.benchmark	3	0.055169
+benchmark/micro/aggregate/ordered_first.benchmark	4	0.055059
+benchmark/micro/aggregate/ordered_first.benchmark	5	0.055026
+
+name	run	timing
+benchmark/micro/aggregate/quantile/quantile.benchmark	1	0.214162
+benchmark/micro/aggregate/quantile/quantile.benchmark	2	0.204185
+benchmark/micro/aggregate/quantile/quantile.benchmark	3	0.163258
+benchmark/micro/aggregate/quantile/quantile.benchmark	4	0.194026
+benchmark/micro/aggregate/quantile/quantile.benchmark	5	0.202619
+
+name	run	timing
+benchmark/micro/aggregate/quantile/quantile_approx.benchmark	1	0.063006
+benchmark/micro/aggregate/quantile/quantile_approx.benchmark	2	0.065862
+benchmark/micro/aggregate/quantile/quantile_approx.benchmark	3	0.062787
+benchmark/micro/aggregate/quantile/quantile_approx.benchmark	4	0.062582
+benchmark/micro/aggregate/quantile/quantile_approx.benchmark	5	0.063879
+
+name	run	timing
+benchmark/micro/aggregate/quantile/quantile_many.benchmark	1	0.323069
+benchmark/micro/aggregate/quantile/quantile_many.benchmark	2	0.357380
+benchmark/micro/aggregate/quantile/quantile_many.benchmark	3	0.331550
+benchmark/micro/aggregate/quantile/quantile_many.benchmark	4	0.326494
+benchmark/micro/aggregate/quantile/quantile_many.benchmark	5	0.331439
+
+name	run	timing
+benchmark/micro/aggregate/quantile/quantile_sampling.benchmark	1	0.007500
+benchmark/micro/aggregate/quantile/quantile_sampling.benchmark	2	0.007551
+benchmark/micro/aggregate/quantile/quantile_sampling.benchmark	3	0.007420
+benchmark/micro/aggregate/quantile/quantile_sampling.benchmark	4	0.007576
+benchmark/micro/aggregate/quantile/quantile_sampling.benchmark	5	0.007494
+
+name	run	timing
+benchmark/micro/aggregate/simple_aggregate.benchmark	1	0.001850
+benchmark/micro/aggregate/simple_aggregate.benchmark	2	0.002041
+benchmark/micro/aggregate/simple_aggregate.benchmark	3	0.002123
+benchmark/micro/aggregate/simple_aggregate.benchmark	4	0.001972
+benchmark/micro/aggregate/simple_aggregate.benchmark	5	0.002151
+
+name	run	timing
+benchmark/micro/aggregate/simple_distinct.benchmark	1	0.053026
+benchmark/micro/aggregate/simple_distinct.benchmark	2	0.054935
+benchmark/micro/aggregate/simple_distinct.benchmark	3	0.055251
+benchmark/micro/aggregate/simple_distinct.benchmark	4	0.052733
+benchmark/micro/aggregate/simple_distinct.benchmark	5	0.053015
+
+name	run	timing
+benchmark/micro/aggregate/simple_group.benchmark	1	0.005356
+benchmark/micro/aggregate/simple_group.benchmark	2	0.005403
+benchmark/micro/aggregate/simple_group.benchmark	3	0.005273
+benchmark/micro/aggregate/simple_group.benchmark	4	0.005390
+benchmark/micro/aggregate/simple_group.benchmark	5	0.005543
+
+name	run	timing
+benchmark/micro/aggregate/sorted_last.benchmark	1	0.754239
+benchmark/micro/aggregate/sorted_last.benchmark	2	0.750965
+benchmark/micro/aggregate/sorted_last.benchmark	3	0.762194
+benchmark/micro/aggregate/sorted_last.benchmark	4	0.757308
+benchmark/micro/aggregate/sorted_last.benchmark	5	0.759099
+
+name	run	timing
+benchmark/micro/arithmetic/multiplications.benchmark	1	0.003890
+benchmark/micro/arithmetic/multiplications.benchmark	2	0.003899
+benchmark/micro/arithmetic/multiplications.benchmark	3	0.003908
+benchmark/micro/arithmetic/multiplications.benchmark	4	0.003981
+benchmark/micro/arithmetic/multiplications.benchmark	5	0.003994
+
+name	run	timing
+benchmark/micro/case/big_case.benchmark	1	2.505670
+benchmark/micro/case/big_case.benchmark	2	2.508835
+benchmark/micro/case/big_case.benchmark	3	2.496697
+benchmark/micro/case/big_case.benchmark	4	2.508236
+benchmark/micro/case/big_case.benchmark	5	2.491773
+
+name	run	timing
+benchmark/micro/case/integer_case_alternate.benchmark	1	0.071372
+benchmark/micro/case/integer_case_alternate.benchmark	2	0.072153
+benchmark/micro/case/integer_case_alternate.benchmark	3	0.071819
+benchmark/micro/case/integer_case_alternate.benchmark	4	0.071201
+benchmark/micro/case/integer_case_alternate.benchmark	5	0.072107
+
+name	run	timing
+benchmark/micro/case/integer_case_predictable.benchmark	1	0.024708
+benchmark/micro/case/integer_case_predictable.benchmark	2	0.024350
+benchmark/micro/case/integer_case_predictable.benchmark	3	0.024369
+benchmark/micro/case/integer_case_predictable.benchmark	4	0.024224
+benchmark/micro/case/integer_case_predictable.benchmark	5	0.024848
+
+name	run	timing
+benchmark/micro/cast/cast_constant_string_to_enum.benchmark	1	0.032455
+benchmark/micro/cast/cast_constant_string_to_enum.benchmark	2	0.032580
+benchmark/micro/cast/cast_constant_string_to_enum.benchmark	3	0.032446
+benchmark/micro/cast/cast_constant_string_to_enum.benchmark	4	0.032395
+benchmark/micro/cast/cast_constant_string_to_enum.benchmark	5	0.032745
+
+name	run	timing
+benchmark/micro/cast/cast_date_string.benchmark	1	0.056823
+benchmark/micro/cast/cast_date_string.benchmark	2	0.056726
+benchmark/micro/cast/cast_date_string.benchmark	3	0.056861
+benchmark/micro/cast/cast_date_string.benchmark	4	0.056949
+benchmark/micro/cast/cast_date_string.benchmark	5	0.058368
+
+name	run	timing
+benchmark/micro/cast/cast_decimal_double_1.benchmark	1	1.634765
+benchmark/micro/cast/cast_decimal_double_1.benchmark	2	1.634051
+benchmark/micro/cast/cast_decimal_double_1.benchmark	3	1.638050
+benchmark/micro/cast/cast_decimal_double_1.benchmark	4	1.634403
+benchmark/micro/cast/cast_decimal_double_1.benchmark	5	1.633658
+
+name	run	timing
+benchmark/micro/cast/cast_decimal_double_2.benchmark	1	1.035339
+benchmark/micro/cast/cast_decimal_double_2.benchmark	2	1.035230
+benchmark/micro/cast/cast_decimal_double_2.benchmark	3	1.034612
+benchmark/micro/cast/cast_decimal_double_2.benchmark	4	1.035498
+benchmark/micro/cast/cast_decimal_double_2.benchmark	5	1.035184
+
+name	run	timing
+benchmark/micro/cast/cast_decimal_double_3.benchmark	1	0.029884
+benchmark/micro/cast/cast_decimal_double_3.benchmark	2	0.029828
+benchmark/micro/cast/cast_decimal_double_3.benchmark	3	0.029724
+benchmark/micro/cast/cast_decimal_double_3.benchmark	4	0.031007
+benchmark/micro/cast/cast_decimal_double_3.benchmark	5	0.029922
+
+name	run	timing
+benchmark/micro/cast/cast_decimal_double_4.benchmark	1	0.023461
+benchmark/micro/cast/cast_decimal_double_4.benchmark	2	0.023424
+benchmark/micro/cast/cast_decimal_double_4.benchmark	3	0.023249
+benchmark/micro/cast/cast_decimal_double_4.benchmark	4	0.023364
+benchmark/micro/cast/cast_decimal_double_4.benchmark	5	0.023347
+
+name	run	timing
+benchmark/micro/cast/cast_double_string.benchmark	1	0.154870
+benchmark/micro/cast/cast_double_string.benchmark	2	0.164308
+benchmark/micro/cast/cast_double_string.benchmark	3	0.162340
+benchmark/micro/cast/cast_double_string.benchmark	4	0.158800
+benchmark/micro/cast/cast_double_string.benchmark	5	0.160813
+
+name	run	timing
+benchmark/micro/cast/cast_enum_string.benchmark	1	0.134995
+benchmark/micro/cast/cast_enum_string.benchmark	2	0.135282
+benchmark/micro/cast/cast_enum_string.benchmark	3	0.135190
+benchmark/micro/cast/cast_enum_string.benchmark	4	0.135178
+benchmark/micro/cast/cast_enum_string.benchmark	5	0.135484
+
+name	run	timing
+benchmark/micro/cast/cast_huge_hugeint_string_benchmark.benchmark	1	0.339665
+benchmark/micro/cast/cast_huge_hugeint_string_benchmark.benchmark	2	0.333706
+benchmark/micro/cast/cast_huge_hugeint_string_benchmark.benchmark	3	0.341658
+benchmark/micro/cast/cast_huge_hugeint_string_benchmark.benchmark	4	0.334552
+benchmark/micro/cast/cast_huge_hugeint_string_benchmark.benchmark	5	0.336109
+
+name	run	timing
+benchmark/micro/cast/cast_huge_string_hugeint.benchmark	1	0.160912
+benchmark/micro/cast/cast_huge_string_hugeint.benchmark	2	0.160868
+benchmark/micro/cast/cast_huge_string_hugeint.benchmark	3	0.160479
+benchmark/micro/cast/cast_huge_string_hugeint.benchmark	4	0.161386
+benchmark/micro/cast/cast_huge_string_hugeint.benchmark	5	0.161850
+
+name	run	timing
+benchmark/micro/cast/cast_hugeint_string.benchmark	1	0.043517
+benchmark/micro/cast/cast_hugeint_string.benchmark	2	0.043392
+benchmark/micro/cast/cast_hugeint_string.benchmark	3	0.042986
+benchmark/micro/cast/cast_hugeint_string.benchmark	4	0.042571
+benchmark/micro/cast/cast_hugeint_string.benchmark	5	0.042432
+
+name	run	timing
+benchmark/micro/cast/cast_int32_int64.benchmark	1	0.009491
+benchmark/micro/cast/cast_int32_int64.benchmark	2	0.008487
+benchmark/micro/cast/cast_int32_int64.benchmark	3	0.008449
+benchmark/micro/cast/cast_int32_int64.benchmark	4	0.008511
+benchmark/micro/cast/cast_int32_int64.benchmark	5	0.009253
+
+name	run	timing
+benchmark/micro/cast/cast_int64_int32.benchmark	1	0.012817
+benchmark/micro/cast/cast_int64_int32.benchmark	2	0.012744
+benchmark/micro/cast/cast_int64_int32.benchmark	3	0.012704
+benchmark/micro/cast/cast_int64_int32.benchmark	4	0.013077
+benchmark/micro/cast/cast_int64_int32.benchmark	5	0.012686
+
+name	run	timing
+benchmark/micro/cast/cast_int_string.benchmark	1	0.035828
+benchmark/micro/cast/cast_int_string.benchmark	2	0.035818
+benchmark/micro/cast/cast_int_string.benchmark	3	0.036780
+benchmark/micro/cast/cast_int_string.benchmark	4	0.036852
+benchmark/micro/cast/cast_int_string.benchmark	5	0.036965
+
+name	run	timing
+benchmark/micro/cast/cast_list_string.benchmark	1	0.142038
+benchmark/micro/cast/cast_list_string.benchmark	2	0.135943
+benchmark/micro/cast/cast_list_string.benchmark	3	0.133292
+benchmark/micro/cast/cast_list_string.benchmark	4	0.130145
+benchmark/micro/cast/cast_list_string.benchmark	5	0.140329
+
+name	run	timing
+benchmark/micro/cast/cast_string_double.benchmark	1	0.007664
+benchmark/micro/cast/cast_string_double.benchmark	2	0.007639
+benchmark/micro/cast/cast_string_double.benchmark	3	0.007610
+benchmark/micro/cast/cast_string_double.benchmark	4	0.007624
+benchmark/micro/cast/cast_string_double.benchmark	5	0.007625
+
+name	run	timing
+benchmark/micro/cast/cast_string_hugeint.benchmark	1	0.084523
+benchmark/micro/cast/cast_string_hugeint.benchmark	2	0.077362
+benchmark/micro/cast/cast_string_hugeint.benchmark	3	0.080926
+benchmark/micro/cast/cast_string_hugeint.benchmark	4	0.080579
+benchmark/micro/cast/cast_string_hugeint.benchmark	5	0.080379
+
+name	run	timing
+benchmark/micro/cast/cast_string_int.benchmark	1	0.046365
+benchmark/micro/cast/cast_string_int.benchmark	2	0.050283
+benchmark/micro/cast/cast_string_int.benchmark	3	0.050383
+benchmark/micro/cast/cast_string_int.benchmark	4	0.046900
+benchmark/micro/cast/cast_string_int.benchmark	5	0.045884
+
+name	run	timing
+benchmark/micro/cast/cast_string_list.benchmark	1	0.243993
+benchmark/micro/cast/cast_string_list.benchmark	2	0.235627
+benchmark/micro/cast/cast_string_list.benchmark	3	0.238582
+benchmark/micro/cast/cast_string_list.benchmark	4	0.237188
+benchmark/micro/cast/cast_string_list.benchmark	5	0.255564
+
+name	run	timing
+benchmark/micro/cast/cast_string_map.benchmark	1	0.845051
+benchmark/micro/cast/cast_string_map.benchmark	2	0.844885
+benchmark/micro/cast/cast_string_map.benchmark	3	0.860009
+benchmark/micro/cast/cast_string_map.benchmark	4	0.850842
+benchmark/micro/cast/cast_string_map.benchmark	5	0.863076
+
+name	run	timing
+benchmark/micro/cast/cast_string_struct.benchmark	1	0.280878
+benchmark/micro/cast/cast_string_struct.benchmark	2	0.262190
+benchmark/micro/cast/cast_string_struct.benchmark	3	0.261605
+benchmark/micro/cast/cast_string_struct.benchmark	4	0.261057
+benchmark/micro/cast/cast_string_struct.benchmark	5	0.282754
+
+name	run	timing
+benchmark/micro/cast/cast_string_struct_missing_val.benchmark	1	0.264978
+benchmark/micro/cast/cast_string_struct_missing_val.benchmark	2	0.266007
+benchmark/micro/cast/cast_string_struct_missing_val.benchmark	3	0.264583
+benchmark/micro/cast/cast_string_struct_missing_val.benchmark	4	0.264703
+benchmark/micro/cast/cast_string_struct_missing_val.benchmark	5	0.265833
+
+name	run	timing
+benchmark/micro/cast/cast_struct_string.benchmark	1	0.661394
+benchmark/micro/cast/cast_struct_string.benchmark	2	0.660402
+benchmark/micro/cast/cast_struct_string.benchmark	3	0.660380
+benchmark/micro/cast/cast_struct_string.benchmark	4	0.661111
+benchmark/micro/cast/cast_struct_string.benchmark	5	0.660509
+
+name	run	timing
+benchmark/micro/cast/cast_timestamp_string.benchmark	1	0.056812
+benchmark/micro/cast/cast_timestamp_string.benchmark	2	0.058841
+benchmark/micro/cast/cast_timestamp_string.benchmark	3	0.056988
+benchmark/micro/cast/cast_timestamp_string.benchmark	4	0.056892
+benchmark/micro/cast/cast_timestamp_string.benchmark	5	0.056888
+
+name	run	timing
+benchmark/micro/cast/format_int_string.benchmark	1	0.117767
+benchmark/micro/cast/format_int_string.benchmark	2	0.113808
+benchmark/micro/cast/format_int_string.benchmark	3	0.113300
+benchmark/micro/cast/format_int_string.benchmark	4	0.113527
+benchmark/micro/cast/format_int_string.benchmark	5	0.112798
+
+name	run	timing
+benchmark/micro/cast/strftime.benchmark	1	0.217719
+benchmark/micro/cast/strftime.benchmark	2	0.223553
+benchmark/micro/cast/strftime.benchmark	3	0.216432
+benchmark/micro/cast/strftime.benchmark	4	0.209492
+benchmark/micro/cast/strftime.benchmark	5	0.223328
+
+name	run	timing
+benchmark/micro/cast/strptime.benchmark	1	0.022814
+benchmark/micro/cast/strptime.benchmark	2	0.022251
+benchmark/micro/cast/strptime.benchmark	3	0.020751
+benchmark/micro/cast/strptime.benchmark	4	0.022593
+benchmark/micro/cast/strptime.benchmark	5	0.011562
+
+name	run	timing
+benchmark/micro/catalog/add_column_empty.benchmark	1	1.846744
+benchmark/micro/catalog/add_column_empty.benchmark	2	1.847070
+benchmark/micro/catalog/add_column_empty.benchmark	3	1.830802
+benchmark/micro/catalog/add_column_empty.benchmark	4	1.838553
+benchmark/micro/catalog/add_column_empty.benchmark	5	1.850150
+
+name	run	timing
+benchmark/micro/compression/alp/alp_read.benchmark	1	0.025079
+benchmark/micro/compression/alp/alp_read.benchmark	2	0.024894
+benchmark/micro/compression/alp/alp_read.benchmark	3	0.024984
+benchmark/micro/compression/alp/alp_read.benchmark	4	0.024893
+benchmark/micro/compression/alp/alp_read.benchmark	5	0.024943
+
+name	run	timing
+benchmark/micro/compression/alp/alp_read_best_case.benchmark	1	0.054138
+benchmark/micro/compression/alp/alp_read_best_case.benchmark	2	0.055015
+benchmark/micro/compression/alp/alp_read_best_case.benchmark	3	0.054788
+benchmark/micro/compression/alp/alp_read_best_case.benchmark	4	0.054130
+benchmark/micro/compression/alp/alp_read_best_case.benchmark	5	0.054112
+
+name	run	timing
+benchmark/micro/compression/alp/alp_read_worst_case.benchmark	1	0.083529
+benchmark/micro/compression/alp/alp_read_worst_case.benchmark	2	0.083095
+benchmark/micro/compression/alp/alp_read_worst_case.benchmark	3	0.083502
+benchmark/micro/compression/alp/alp_read_worst_case.benchmark	4	0.083137
+benchmark/micro/compression/alp/alp_read_worst_case.benchmark	5	0.083172
+
+name	run	timing
+benchmark/micro/compression/alp/alp_store.benchmark	1	0.566165
+benchmark/micro/compression/alp/alp_store.benchmark	2	0.569762
+benchmark/micro/compression/alp/alp_store.benchmark	3	0.564835
+benchmark/micro/compression/alp/alp_store.benchmark	4	0.568717
+benchmark/micro/compression/alp/alp_store.benchmark	5	0.566705
+
+name	run	timing
+benchmark/micro/compression/alp/alp_store_best_case.benchmark	1	3.656297
+benchmark/micro/compression/alp/alp_store_best_case.benchmark	2	3.654470
+benchmark/micro/compression/alp/alp_store_best_case.benchmark	3	3.669928
+benchmark/micro/compression/alp/alp_store_best_case.benchmark	4	3.652584
+benchmark/micro/compression/alp/alp_store_best_case.benchmark	5	3.663377
+
+name	run	timing
+benchmark/micro/compression/alp/alp_store_worst_case.benchmark	1	3.244714
+benchmark/micro/compression/alp/alp_store_worst_case.benchmark	2	3.252596
+benchmark/micro/compression/alp/alp_store_worst_case.benchmark	3	3.259082
+benchmark/micro/compression/alp/alp_store_worst_case.benchmark	4	3.339786
+benchmark/micro/compression/alp/alp_store_worst_case.benchmark	5	3.260741
+
+name	run	timing
+benchmark/micro/compression/alprd/alprd_read.benchmark	1	0.034902
+benchmark/micro/compression/alprd/alprd_read.benchmark	2	0.034762
+benchmark/micro/compression/alprd/alprd_read.benchmark	3	0.034570
+benchmark/micro/compression/alprd/alprd_read.benchmark	4	0.034741
+benchmark/micro/compression/alprd/alprd_read.benchmark	5	0.034859
+
+name	run	timing
+benchmark/micro/compression/alprd/alprd_read_best_case.benchmark	1	0.079443
+benchmark/micro/compression/alprd/alprd_read_best_case.benchmark	2	0.079712
+benchmark/micro/compression/alprd/alprd_read_best_case.benchmark	3	0.079488
+benchmark/micro/compression/alprd/alprd_read_best_case.benchmark	4	0.079425
+benchmark/micro/compression/alprd/alprd_read_best_case.benchmark	5	0.079596
+
+name	run	timing
+benchmark/micro/compression/alprd/alprd_read_worst_case.benchmark	1	0.086237
+benchmark/micro/compression/alprd/alprd_read_worst_case.benchmark	2	0.086348
+benchmark/micro/compression/alprd/alprd_read_worst_case.benchmark	3	0.086470
+benchmark/micro/compression/alprd/alprd_read_worst_case.benchmark	4	0.086350
+benchmark/micro/compression/alprd/alprd_read_worst_case.benchmark	5	0.086700
+
+name	run	timing
+benchmark/micro/compression/alprd/alprd_store.benchmark	1	0.656012
+benchmark/micro/compression/alprd/alprd_store.benchmark	2	0.676054
+benchmark/micro/compression/alprd/alprd_store.benchmark	3	0.655038
+benchmark/micro/compression/alprd/alprd_store.benchmark	4	0.686594
+benchmark/micro/compression/alprd/alprd_store.benchmark	5	0.654094
+
+name	run	timing
+benchmark/micro/compression/alprd/alprd_store_best_case.benchmark	1	2.658361
+benchmark/micro/compression/alprd/alprd_store_best_case.benchmark	2	2.643331
+benchmark/micro/compression/alprd/alprd_store_best_case.benchmark	3	2.650868
+benchmark/micro/compression/alprd/alprd_store_best_case.benchmark	4	2.651861
+benchmark/micro/compression/alprd/alprd_store_best_case.benchmark	5	2.643658
+
+name	run	timing
+benchmark/micro/compression/alprd/alprd_store_worst_case.benchmark	1	4.230985
+benchmark/micro/compression/alprd/alprd_store_worst_case.benchmark	2	4.230729
+benchmark/micro/compression/alprd/alprd_store_worst_case.benchmark	3	4.244479
+benchmark/micro/compression/alprd/alprd_store_worst_case.benchmark	4	4.231774
+benchmark/micro/compression/alprd/alprd_store_worst_case.benchmark	5	4.227454
+
+name	run	timing
+benchmark/micro/compression/bitpacking/bitpacking_read_constant.benchmark	1	0.051474
+benchmark/micro/compression/bitpacking/bitpacking_read_constant.benchmark	2	0.051194
+benchmark/micro/compression/bitpacking/bitpacking_read_constant.benchmark	3	0.050950
+benchmark/micro/compression/bitpacking/bitpacking_read_constant.benchmark	4	0.051245
+benchmark/micro/compression/bitpacking/bitpacking_read_constant.benchmark	5	0.051228
+
+name	run	timing
+benchmark/micro/compression/bitpacking/bitpacking_read_constant_delta.benchmark	1	0.060073
+benchmark/micro/compression/bitpacking/bitpacking_read_constant_delta.benchmark	2	0.059761
+benchmark/micro/compression/bitpacking/bitpacking_read_constant_delta.benchmark	3	0.059889
+benchmark/micro/compression/bitpacking/bitpacking_read_constant_delta.benchmark	4	0.059924
+benchmark/micro/compression/bitpacking/bitpacking_read_constant_delta.benchmark	5	0.060063
+
+name	run	timing
+benchmark/micro/compression/bitpacking/bitpacking_read_dfor.benchmark	1	0.072210
+benchmark/micro/compression/bitpacking/bitpacking_read_dfor.benchmark	2	0.071445
+benchmark/micro/compression/bitpacking/bitpacking_read_dfor.benchmark	3	0.071551
+benchmark/micro/compression/bitpacking/bitpacking_read_dfor.benchmark	4	0.072152
+benchmark/micro/compression/bitpacking/bitpacking_read_dfor.benchmark	5	0.071615
+
+name	run	timing
+benchmark/micro/compression/bitpacking/bitpacking_read_for.benchmark	1	0.070946
+benchmark/micro/compression/bitpacking/bitpacking_read_for.benchmark	2	0.070724
+benchmark/micro/compression/bitpacking/bitpacking_read_for.benchmark	3	0.070757
+benchmark/micro/compression/bitpacking/bitpacking_read_for.benchmark	4	0.071134
+benchmark/micro/compression/bitpacking/bitpacking_read_for.benchmark	5	0.070924
+
+name	run	timing
+benchmark/micro/compression/bitpacking/bitpacking_store_constant.benchmark	1	5.454705
+benchmark/micro/compression/bitpacking/bitpacking_store_constant.benchmark	2	5.450630
+benchmark/micro/compression/bitpacking/bitpacking_store_constant.benchmark	3	5.459050
+benchmark/micro/compression/bitpacking/bitpacking_store_constant.benchmark	4	5.451446
+benchmark/micro/compression/bitpacking/bitpacking_store_constant.benchmark	5	5.431265
+
+name	run	timing
+benchmark/micro/compression/bitpacking/bitpacking_store_constant_delta.benchmark	1	5.272812
+benchmark/micro/compression/bitpacking/bitpacking_store_constant_delta.benchmark	2	5.123406
+benchmark/micro/compression/bitpacking/bitpacking_store_constant_delta.benchmark	3	5.129508
+benchmark/micro/compression/bitpacking/bitpacking_store_constant_delta.benchmark	4	5.131379
+benchmark/micro/compression/bitpacking/bitpacking_store_constant_delta.benchmark	5	5.146588
+
+name	run	timing
+benchmark/micro/compression/bitpacking/bitpacking_store_dfor.benchmark	1	6.250047
+benchmark/micro/compression/bitpacking/bitpacking_store_dfor.benchmark	2	6.165520
+benchmark/micro/compression/bitpacking/bitpacking_store_dfor.benchmark	3	6.162619
+benchmark/micro/compression/bitpacking/bitpacking_store_dfor.benchmark	4	6.205312
+benchmark/micro/compression/bitpacking/bitpacking_store_dfor.benchmark	5	6.221458
+
+name	run	timing
+benchmark/micro/compression/bitpacking/bitpacking_store_for.benchmark	1	6.010371
+benchmark/micro/compression/bitpacking/bitpacking_store_for.benchmark	2	5.948882
+benchmark/micro/compression/bitpacking/bitpacking_store_for.benchmark	3	5.988905
+benchmark/micro/compression/bitpacking/bitpacking_store_for.benchmark	4	5.983181
+benchmark/micro/compression/bitpacking/bitpacking_store_for.benchmark	5	6.004476
+
+name	run	timing
+benchmark/micro/compression/bitpacking_hugeint/bitpacking_hugeint_read_constant.benchmark	1	0.215361
+benchmark/micro/compression/bitpacking_hugeint/bitpacking_hugeint_read_constant.benchmark	2	0.215368
+benchmark/micro/compression/bitpacking_hugeint/bitpacking_hugeint_read_constant.benchmark	3	0.214494
+benchmark/micro/compression/bitpacking_hugeint/bitpacking_hugeint_read_constant.benchmark	4	0.215480
+benchmark/micro/compression/bitpacking_hugeint/bitpacking_hugeint_read_constant.benchmark	5	0.216104
+
+name	run	timing
+benchmark/micro/compression/bitpacking_hugeint/bitpacking_hugeint_store_constant.benchmark	1	11.418803
+benchmark/micro/compression/bitpacking_hugeint/bitpacking_hugeint_store_constant.benchmark	2	11.339394
+benchmark/micro/compression/bitpacking_hugeint/bitpacking_hugeint_store_constant.benchmark	3	11.389620
+benchmark/micro/compression/bitpacking_hugeint/bitpacking_hugeint_store_constant.benchmark	4	11.377023
+benchmark/micro/compression/bitpacking_hugeint/bitpacking_hugeint_store_constant.benchmark	5	11.389380
+
+name	run	timing
+benchmark/micro/compression/dictionary/dictionary_read.benchmark	1	0.341780
+benchmark/micro/compression/dictionary/dictionary_read.benchmark	2	0.342329
+benchmark/micro/compression/dictionary/dictionary_read.benchmark	3	0.341965
+benchmark/micro/compression/dictionary/dictionary_read.benchmark	4	0.341704
+benchmark/micro/compression/dictionary/dictionary_read.benchmark	5	0.342514
+
+name	run	timing
+benchmark/micro/compression/dictionary/dictionary_read_best_case.benchmark	1	0.334772
+benchmark/micro/compression/dictionary/dictionary_read_best_case.benchmark	2	0.334849
+benchmark/micro/compression/dictionary/dictionary_read_best_case.benchmark	3	0.335471
+benchmark/micro/compression/dictionary/dictionary_read_best_case.benchmark	4	0.335262
+benchmark/micro/compression/dictionary/dictionary_read_best_case.benchmark	5	0.334799
+
+name	run	timing
+benchmark/micro/compression/dictionary/dictionary_read_worst_case.benchmark	1	0.997981
+benchmark/micro/compression/dictionary/dictionary_read_worst_case.benchmark	2	1.003574
+benchmark/micro/compression/dictionary/dictionary_read_worst_case.benchmark	3	1.001979
+benchmark/micro/compression/dictionary/dictionary_read_worst_case.benchmark	4	0.996638
+benchmark/micro/compression/dictionary/dictionary_read_worst_case.benchmark	5	0.999556
+
+name	run	timing
+benchmark/micro/compression/dictionary/dictionary_store.benchmark	1	14.070620
+benchmark/micro/compression/dictionary/dictionary_store.benchmark	2	14.098145
+benchmark/micro/compression/dictionary/dictionary_store.benchmark	3	14.028260
+benchmark/micro/compression/dictionary/dictionary_store.benchmark	4	14.167103
+benchmark/micro/compression/dictionary/dictionary_store.benchmark	5	14.151626
+
+name	run	timing
+benchmark/micro/compression/dictionary/dictionary_store_worst_case.benchmark	1	18.902229
+benchmark/micro/compression/dictionary/dictionary_store_worst_case.benchmark	2	18.572905
+benchmark/micro/compression/dictionary/dictionary_store_worst_case.benchmark	3	18.619489
+benchmark/micro/compression/dictionary/dictionary_store_worst_case.benchmark	4	18.785419
+benchmark/micro/compression/dictionary/dictionary_store_worst_case.benchmark	5	19.030142
+
+name	run	timing
+benchmark/micro/compression/fsst/fsst_late_decompression.benchmark	1	0.148400
+benchmark/micro/compression/fsst/fsst_late_decompression.benchmark	2	0.149923
+benchmark/micro/compression/fsst/fsst_late_decompression.benchmark	3	0.147817
+benchmark/micro/compression/fsst/fsst_late_decompression.benchmark	4	0.146804
+benchmark/micro/compression/fsst/fsst_late_decompression.benchmark	5	0.149280
+
+name	run	timing
+benchmark/micro/compression/fsst/fsst_read.benchmark	1	0.196494
+benchmark/micro/compression/fsst/fsst_read.benchmark	2	0.196494
+benchmark/micro/compression/fsst/fsst_read.benchmark	3	0.194614
+benchmark/micro/compression/fsst/fsst_read.benchmark	4	0.196764
+benchmark/micro/compression/fsst/fsst_read.benchmark	5	0.192899
+
+name	run	timing
+benchmark/micro/compression/fsst/fsst_read_worst_case.benchmark	1	0.173096
+benchmark/micro/compression/fsst/fsst_read_worst_case.benchmark	2	0.178589
+benchmark/micro/compression/fsst/fsst_read_worst_case.benchmark	3	0.174899
+benchmark/micro/compression/fsst/fsst_read_worst_case.benchmark	4	0.174630
+benchmark/micro/compression/fsst/fsst_read_worst_case.benchmark	5	0.172903
+
+name	run	timing
+benchmark/micro/compression/fsst/fsst_store.benchmark	1	0.396877
+benchmark/micro/compression/fsst/fsst_store.benchmark	2	0.396014
+benchmark/micro/compression/fsst/fsst_store.benchmark	3	0.394265
+benchmark/micro/compression/fsst/fsst_store.benchmark	4	0.395989
+benchmark/micro/compression/fsst/fsst_store.benchmark	5	0.398395
+
+name	run	timing
+benchmark/micro/compression/fsst/fsst_store_worst_case.benchmark	1	0.692278
+benchmark/micro/compression/fsst/fsst_store_worst_case.benchmark	2	0.698037
+benchmark/micro/compression/fsst/fsst_store_worst_case.benchmark	3	0.710222
+benchmark/micro/compression/fsst/fsst_store_worst_case.benchmark	4	0.698157
+benchmark/micro/compression/fsst/fsst_store_worst_case.benchmark	5	0.699343
+
+name	run	timing
+benchmark/micro/compression/store_tpch_sf1.benchmark	1	10.839766
+benchmark/micro/compression/store_tpch_sf1.benchmark	2	11.013768
+benchmark/micro/compression/store_tpch_sf1.benchmark	3	10.999756
+benchmark/micro/compression/store_tpch_sf1.benchmark	4	11.027950
+benchmark/micro/compression/store_tpch_sf1.benchmark	5	10.852361
+
+name	run	timing
+benchmark/micro/copy/from_parquet_large_row_groups.benchmark	1	0.356428
+benchmark/micro/copy/from_parquet_large_row_groups.benchmark	2	0.356833
+benchmark/micro/copy/from_parquet_large_row_groups.benchmark	3	0.357714
+benchmark/micro/copy/from_parquet_large_row_groups.benchmark	4	0.358660
+benchmark/micro/copy/from_parquet_large_row_groups.benchmark	5	0.355477
+
+name	run	timing
+benchmark/micro/copy/from_parquet_medium_row_groups.benchmark	1	0.338045
+benchmark/micro/copy/from_parquet_medium_row_groups.benchmark	2	0.337332
+benchmark/micro/copy/from_parquet_medium_row_groups.benchmark	3	0.339224
+benchmark/micro/copy/from_parquet_medium_row_groups.benchmark	4	0.339075
+benchmark/micro/copy/from_parquet_medium_row_groups.benchmark	5	0.337206
+
+name	run	timing
+benchmark/micro/copy/from_parquet_small_row_groups.benchmark	1	0.568286
+benchmark/micro/copy/from_parquet_small_row_groups.benchmark	2	0.574108
+benchmark/micro/copy/from_parquet_small_row_groups.benchmark	3	0.571429
+benchmark/micro/copy/from_parquet_small_row_groups.benchmark	4	0.564629
+benchmark/micro/copy/from_parquet_small_row_groups.benchmark	5	0.565961
+
+name	run	timing
+benchmark/micro/copy/to_parquet_partition_by_few.benchmark	1	0.259379
+benchmark/micro/copy/to_parquet_partition_by_few.benchmark	2	0.258051
+benchmark/micro/copy/to_parquet_partition_by_few.benchmark	3	0.264365
+benchmark/micro/copy/to_parquet_partition_by_few.benchmark	4	0.262780
+benchmark/micro/copy/to_parquet_partition_by_few.benchmark	5	0.267067
+
+name	run	timing
+benchmark/micro/copy/to_parquet_partition_by_many.benchmark	1	0.981252
+benchmark/micro/copy/to_parquet_partition_by_many.benchmark	2	0.910391
+benchmark/micro/copy/to_parquet_partition_by_many.benchmark	3	0.897074
+benchmark/micro/copy/to_parquet_partition_by_many.benchmark	4	0.904118
+benchmark/micro/copy/to_parquet_partition_by_many.benchmark	5	0.889467
+
+name	run	timing
+benchmark/micro/cte/cte.benchmark	1	20.551871
+benchmark/micro/cte/cte.benchmark	2	22.487347
+benchmark/micro/cte/cte.benchmark	3	20.412907
+benchmark/micro/cte/cte.benchmark	4	18.261264
+benchmark/micro/cte/cte.benchmark	5	22.475153
+
+name	run	timing
+benchmark/micro/cte/materialized_cte.benchmark	1	22.141075
+benchmark/micro/cte/materialized_cte.benchmark	2	22.040288
+benchmark/micro/cte/materialized_cte.benchmark	3	22.262289
+benchmark/micro/cte/materialized_cte.benchmark	4	22.180957
+benchmark/micro/cte/materialized_cte.benchmark	5	22.254490
+
+name	run	timing
+benchmark/micro/cte/stacked_materialized_cte.benchmark	1	0.275916
+benchmark/micro/cte/stacked_materialized_cte.benchmark	2	0.233595
+benchmark/micro/cte/stacked_materialized_cte.benchmark	3	0.292009
+benchmark/micro/cte/stacked_materialized_cte.benchmark	4	0.348134
+benchmark/micro/cte/stacked_materialized_cte.benchmark	5	0.313812
+
+name	run	timing
+benchmark/micro/date/extract_month.benchmark	1	0.204601
+benchmark/micro/date/extract_month.benchmark	2	0.204775
+benchmark/micro/date/extract_month.benchmark	3	0.205617
+benchmark/micro/date/extract_month.benchmark	4	0.206341
+benchmark/micro/date/extract_month.benchmark	5	0.208327
+
+name	run	timing
+benchmark/micro/date/extract_multiple.benchmark	1	0.049560
+benchmark/micro/date/extract_multiple.benchmark	2	0.049609
+benchmark/micro/date/extract_multiple.benchmark	3	0.049575
+benchmark/micro/date/extract_multiple.benchmark	4	0.046381
+benchmark/micro/date/extract_multiple.benchmark	5	0.045950
+
+name	run	timing
+benchmark/micro/date/extract_multiple_icu.benchmark	1	1.631577
+benchmark/micro/date/extract_multiple_icu.benchmark	2	1.632451
+benchmark/micro/date/extract_multiple_icu.benchmark	3	1.616457
+benchmark/micro/date/extract_multiple_icu.benchmark	4	1.609916
+benchmark/micro/date/extract_multiple_icu.benchmark	5	1.612654
+
+name	run	timing
+benchmark/micro/date/extract_struct.benchmark	1	0.290442
+benchmark/micro/date/extract_struct.benchmark	2	0.290496
+benchmark/micro/date/extract_struct.benchmark	3	0.290440
+benchmark/micro/date/extract_struct.benchmark	4	0.290182
+benchmark/micro/date/extract_struct.benchmark	5	0.290343
+
+name	run	timing
+benchmark/micro/date/extract_struct_icu.benchmark	1	0.396651
+benchmark/micro/date/extract_struct_icu.benchmark	2	0.410344
+benchmark/micro/date/extract_struct_icu.benchmark	3	0.397403
+benchmark/micro/date/extract_struct_icu.benchmark	4	0.399588
+benchmark/micro/date/extract_struct_icu.benchmark	5	0.397286
+
+name	run	timing
+benchmark/micro/date/extract_year.benchmark	1	0.204210
+benchmark/micro/date/extract_year.benchmark	2	0.211744
+benchmark/micro/date/extract_year.benchmark	3	0.203667
+benchmark/micro/date/extract_year.benchmark	4	0.204804
+benchmark/micro/date/extract_year.benchmark	5	0.216128
+
+name	run	timing
+benchmark/micro/distinct/distinct_on_pushdown.benchmark	1	0.048506
+benchmark/micro/distinct/distinct_on_pushdown.benchmark	2	0.048632
+benchmark/micro/distinct/distinct_on_pushdown.benchmark	3	0.050175
+benchmark/micro/distinct/distinct_on_pushdown.benchmark	4	0.050179
+benchmark/micro/distinct/distinct_on_pushdown.benchmark	5	0.050021
+
+name	run	timing
+benchmark/micro/filter/in_conversion.benchmark	1	0.165209
+benchmark/micro/filter/in_conversion.benchmark	2	0.177454
+benchmark/micro/filter/in_conversion.benchmark	3	0.164887
+benchmark/micro/filter/in_conversion.benchmark	4	0.165238
+benchmark/micro/filter/in_conversion.benchmark	5	0.164049
+
+name	run	timing
+benchmark/micro/filter/parallel_complex_filter.benchmark	1	0.013184
+benchmark/micro/filter/parallel_complex_filter.benchmark	2	0.013087
+benchmark/micro/filter/parallel_complex_filter.benchmark	3	0.012923
+benchmark/micro/filter/parallel_complex_filter.benchmark	4	0.012796
+benchmark/micro/filter/parallel_complex_filter.benchmark	5	0.012939
+
+name	run	timing
+benchmark/micro/functions/random.benchmark	1	0.104052
+benchmark/micro/functions/random.benchmark	2	0.103956
+benchmark/micro/functions/random.benchmark	3	0.103920
+benchmark/micro/functions/random.benchmark	4	0.103880
+benchmark/micro/functions/random.benchmark	5	0.103948
+
+name	run	timing
+benchmark/micro/functions/random_uuid.benchmark	1	0.235001
+benchmark/micro/functions/random_uuid.benchmark	2	0.235114
+benchmark/micro/functions/random_uuid.benchmark	3	0.236228
+benchmark/micro/functions/random_uuid.benchmark	4	0.234688
+benchmark/micro/functions/random_uuid.benchmark	5	0.234517
+
+name	run	timing
+benchmark/micro/groupby-parallel/large_groups.benchmark	1	0.027268
+benchmark/micro/groupby-parallel/large_groups.benchmark	2	0.023733
+benchmark/micro/groupby-parallel/large_groups.benchmark	3	0.027559
+benchmark/micro/groupby-parallel/large_groups.benchmark	4	0.026715
+benchmark/micro/groupby-parallel/large_groups.benchmark	5	0.026069
+
+name	run	timing
+benchmark/micro/groupby-parallel/many_groups_large_values.benchmark	1	1.998179
+benchmark/micro/groupby-parallel/many_groups_large_values.benchmark	2	2.191371
+benchmark/micro/groupby-parallel/many_groups_large_values.benchmark	3	2.297240
+benchmark/micro/groupby-parallel/many_groups_large_values.benchmark	4	1.966407
+benchmark/micro/groupby-parallel/many_groups_large_values.benchmark	5	1.933238
+
+name	run	timing
+benchmark/micro/groupby-parallel/many_groups_large_values_small.benchmark	1	0.180491
+benchmark/micro/groupby-parallel/many_groups_large_values_small.benchmark	2	0.175088
+benchmark/micro/groupby-parallel/many_groups_large_values_small.benchmark	3	0.178312
+benchmark/micro/groupby-parallel/many_groups_large_values_small.benchmark	4	0.170723
+benchmark/micro/groupby-parallel/many_groups_large_values_small.benchmark	5	0.174072
+
+name	run	timing
+benchmark/micro/groupby-parallel/medium_groups.benchmark	1	0.081590
+benchmark/micro/groupby-parallel/medium_groups.benchmark	2	0.079997
+benchmark/micro/groupby-parallel/medium_groups.benchmark	3	0.078096
+benchmark/micro/groupby-parallel/medium_groups.benchmark	4	0.077354
+benchmark/micro/groupby-parallel/medium_groups.benchmark	5	0.080776
+
+name	run	timing
+benchmark/micro/groupby-parallel/tiny_groups.benchmark	1	0.007859
+benchmark/micro/groupby-parallel/tiny_groups.benchmark	2	0.007468
+benchmark/micro/groupby-parallel/tiny_groups.benchmark	3	0.007500
+benchmark/micro/groupby-parallel/tiny_groups.benchmark	4	0.007926
+benchmark/micro/groupby-parallel/tiny_groups.benchmark	5	0.007498
+
+name	run	timing
+benchmark/micro/index/checkpoint/checkpoint_art.benchmark	1	4.133167
+benchmark/micro/index/checkpoint/checkpoint_art.benchmark	2	4.360464
+benchmark/micro/index/checkpoint/checkpoint_art.benchmark	3	4.473130
+benchmark/micro/index/checkpoint/checkpoint_art.benchmark	4	4.681348
+benchmark/micro/index/checkpoint/checkpoint_art.benchmark	5	4.930321
+
+name	run	timing
+benchmark/micro/index/create/create_art.benchmark	1	0.532613
+benchmark/micro/index/create/create_art.benchmark	2	0.534597
+benchmark/micro/index/create/create_art.benchmark	3	0.527438
+benchmark/micro/index/create/create_art.benchmark	4	0.528141
+benchmark/micro/index/create/create_art.benchmark	5	0.526687
+
+name	run	timing
+benchmark/micro/index/create/create_art_duplicates.benchmark	1	1.015730
+benchmark/micro/index/create/create_art_duplicates.benchmark	2	1.025087
+benchmark/micro/index/create/create_art_duplicates.benchmark	3	1.015042
+benchmark/micro/index/create/create_art_duplicates.benchmark	4	1.037040
+benchmark/micro/index/create/create_art_duplicates.benchmark	5	1.021479
+
+name	run	timing
+benchmark/micro/index/create/create_art_random.benchmark	1	0.611756
+benchmark/micro/index/create/create_art_random.benchmark	2	0.585013
+benchmark/micro/index/create/create_art_random.benchmark	3	0.598691
+benchmark/micro/index/create/create_art_random.benchmark	4	0.599338
+benchmark/micro/index/create/create_art_random.benchmark	5	0.613943
+
+name	run	timing
+benchmark/micro/index/create/create_art_sorted.benchmark	1	0.030991
+benchmark/micro/index/create/create_art_sorted.benchmark	2	0.027998
+benchmark/micro/index/create/create_art_sorted.benchmark	3	0.027359
+benchmark/micro/index/create/create_art_sorted.benchmark	4	0.028626
+benchmark/micro/index/create/create_art_sorted.benchmark	5	0.026488
+
+Failed to run benchmark benchmark/micro/index/create/create_art_varchar.benchmark
+====================================================
+==============         STDERR          =============
+====================================================
+
+name	run	timing
+terminate called after throwing an instance of 'duckdb::Exception'
+  what():  {"exception_type":"Catalog","exception_message":"Index with name idx does not exist!","type":"Index","name":"idx","error_subtype":"MISSING_ENTRY"}
+
+====================================================
+==============         STDOUT          =============
+====================================================
+
+
+name	run	timing
+benchmark/micro/index/create/create_art_varchar_long.benchmark	1	1.009676
+benchmark/micro/index/create/create_art_varchar_long.benchmark	2	1.009549
+benchmark/micro/index/create/create_art_varchar_long.benchmark	3	1.017306
+benchmark/micro/index/create/create_art_varchar_long.benchmark	4	1.022227
+benchmark/micro/index/create/create_art_varchar_long.benchmark	5	1.037418
+
+name	run	timing
+benchmark/micro/index/create/create_art_varchar_short.benchmark	1	0.865270
+benchmark/micro/index/create/create_art_varchar_short.benchmark	2	0.883859
+benchmark/micro/index/create/create_art_varchar_short.benchmark	3	0.846228
+benchmark/micro/index/create/create_art_varchar_short.benchmark	4	0.850293
+benchmark/micro/index/create/create_art_varchar_short.benchmark	5	0.880062
+
+name	run	timing
+benchmark/micro/index/delete/delete_art.benchmark	1	2.939626
+benchmark/micro/index/delete/delete_art.benchmark	2	2.436110
+benchmark/micro/index/delete/delete_art.benchmark	3	2.955888
+benchmark/micro/index/delete/delete_art.benchmark	4	2.435227
+benchmark/micro/index/delete/delete_art.benchmark	5	2.527096
+
+name	run	timing
+benchmark/micro/index/insert/insert_art.benchmark	1	4.045423
+benchmark/micro/index/insert/insert_art.benchmark	2	3.793374
+benchmark/micro/index/insert/insert_art.benchmark	3	4.420530
+benchmark/micro/index/insert/insert_art.benchmark	4	3.720448
+benchmark/micro/index/insert/insert_art.benchmark	5	3.821677
+
+name	run	timing
+benchmark/micro/index/insert/insert_pk_fk.benchmark	1	0.510521
+benchmark/micro/index/insert/insert_pk_fk.benchmark	2	0.504746
+benchmark/micro/index/insert/insert_pk_fk.benchmark	3	0.507539
+benchmark/micro/index/insert/insert_pk_fk.benchmark	4	0.507528
+benchmark/micro/index/insert/insert_pk_fk.benchmark	5	0.513714
+
+name	run	timing
+benchmark/micro/index/point/point_query_with_art.benchmark	1	0.000456
+benchmark/micro/index/point/point_query_with_art.benchmark	2	0.000377
+benchmark/micro/index/point/point_query_with_art.benchmark	3	0.000340
+benchmark/micro/index/point/point_query_with_art.benchmark	4	0.000357
+benchmark/micro/index/point/point_query_with_art.benchmark	5	0.000279
+
+name	run	timing
+benchmark/micro/index/point/point_query_with_art_and_many_keys.benchmark	1	0.007102
+benchmark/micro/index/point/point_query_with_art_and_many_keys.benchmark	2	0.007573
+benchmark/micro/index/point/point_query_with_art_and_many_keys.benchmark	3	0.007046
+benchmark/micro/index/point/point_query_with_art_and_many_keys.benchmark	4	0.006645
+benchmark/micro/index/point/point_query_with_art_and_many_keys.benchmark	5	0.006989
+
+name	run	timing
+benchmark/micro/index/point/point_query_without_index.benchmark	1	0.055002
+benchmark/micro/index/point/point_query_without_index.benchmark	2	0.055531
+benchmark/micro/index/point/point_query_without_index.benchmark	3	0.054884
+benchmark/micro/index/point/point_query_without_index.benchmark	4	0.056243
+benchmark/micro/index/point/point_query_without_index.benchmark	5	0.054940
+
+name	run	timing
+benchmark/micro/index/point/point_query_without_index_sequential.benchmark	1	0.000774
+benchmark/micro/index/point/point_query_without_index_sequential.benchmark	2	0.000802
+benchmark/micro/index/point/point_query_without_index_sequential.benchmark	3	0.000837
+benchmark/micro/index/point/point_query_without_index_sequential.benchmark	4	0.000727
+benchmark/micro/index/point/point_query_without_index_sequential.benchmark	5	0.000677
+
+name	run	timing
+benchmark/micro/index/range/range_query_with_art.benchmark	1	0.000602
+benchmark/micro/index/range/range_query_with_art.benchmark	2	0.000624
+benchmark/micro/index/range/range_query_with_art.benchmark	3	0.000525
+benchmark/micro/index/range/range_query_with_art.benchmark	4	0.000564
+benchmark/micro/index/range/range_query_with_art.benchmark	5	0.000522
+
+name	run	timing
+benchmark/micro/index/range/range_query_without_index.benchmark	1	0.000905
+benchmark/micro/index/range/range_query_without_index.benchmark	2	0.000922
+benchmark/micro/index/range/range_query_without_index.benchmark	3	0.000918
+benchmark/micro/index/range/range_query_without_index.benchmark	4	0.000852
+benchmark/micro/index/range/range_query_without_index.benchmark	5	0.000864
+
+name	run	timing
+benchmark/micro/index/range/wide_range_query_with_art.benchmark	1	0.005935
+benchmark/micro/index/range/wide_range_query_with_art.benchmark	2	0.005808
+benchmark/micro/index/range/wide_range_query_with_art.benchmark	3	0.005476
+benchmark/micro/index/range/wide_range_query_with_art.benchmark	4	0.005496
+benchmark/micro/index/range/wide_range_query_with_art.benchmark	5	0.005383
+
+name	run	timing
+benchmark/micro/index/range/wide_range_query_without_index.benchmark	1	0.002355
+benchmark/micro/index/range/wide_range_query_without_index.benchmark	2	0.002352
+benchmark/micro/index/range/wide_range_query_without_index.benchmark	3	0.002544
+benchmark/micro/index/range/wide_range_query_without_index.benchmark	4	0.002740
+benchmark/micro/index/range/wide_range_query_without_index.benchmark	5	0.002467
+
+name	run	timing
+benchmark/micro/join/asof_join.benchmark	1	0.205483
+benchmark/micro/join/asof_join.benchmark	2	0.203477
+benchmark/micro/join/asof_join.benchmark	3	0.201450
+benchmark/micro/join/asof_join.benchmark	4	0.203638
+benchmark/micro/join/asof_join.benchmark	5	0.215167
+
+name	run	timing
+benchmark/micro/join/asof_join_small_probe.benchmark	1	0.066087
+benchmark/micro/join/asof_join_small_probe.benchmark	2	0.065008
+benchmark/micro/join/asof_join_small_probe.benchmark	3	0.065054
+benchmark/micro/join/asof_join_small_probe.benchmark	4	0.064050
+benchmark/micro/join/asof_join_small_probe.benchmark	5	0.062860
+
+name	run	timing
+benchmark/micro/join/blockwise_nl_join.benchmark	1	1.093206
+benchmark/micro/join/blockwise_nl_join.benchmark	2	1.083888
+benchmark/micro/join/blockwise_nl_join.benchmark	3	1.093206
+benchmark/micro/join/blockwise_nl_join.benchmark	4	1.087262
+benchmark/micro/join/blockwise_nl_join.benchmark	5	1.085115
+
+name	run	timing
+benchmark/micro/join/delim_join_no_blowup.benchmark	1	0.731467
+benchmark/micro/join/delim_join_no_blowup.benchmark	2	0.741318
+benchmark/micro/join/delim_join_no_blowup.benchmark	3	0.737753
+benchmark/micro/join/delim_join_no_blowup.benchmark	4	0.739106
+benchmark/micro/join/delim_join_no_blowup.benchmark	5	0.748222
+
+name	run	timing
+benchmark/micro/join/hashjoin_dups_rhs.benchmark	1	1.085733
+benchmark/micro/join/hashjoin_dups_rhs.benchmark	2	1.082588
+benchmark/micro/join/hashjoin_dups_rhs.benchmark	3	1.085182
+benchmark/micro/join/hashjoin_dups_rhs.benchmark	4	1.089583
+benchmark/micro/join/hashjoin_dups_rhs.benchmark	5	1.086976
+
+name	run	timing
+benchmark/micro/join/hashjoin_highcardinality.benchmark	1	0.002684
+benchmark/micro/join/hashjoin_highcardinality.benchmark	2	0.002512
+benchmark/micro/join/hashjoin_highcardinality.benchmark	3	0.001904
+benchmark/micro/join/hashjoin_highcardinality.benchmark	4	0.002222
+benchmark/micro/join/hashjoin_highcardinality.benchmark	5	0.002180
+
+name	run	timing
+benchmark/micro/join/hashjoin_lhsarithmetic.benchmark	1	0.001925
+benchmark/micro/join/hashjoin_lhsarithmetic.benchmark	2	0.002010
+benchmark/micro/join/hashjoin_lhsarithmetic.benchmark	3	0.001718
+benchmark/micro/join/hashjoin_lhsarithmetic.benchmark	4	0.001621
+benchmark/micro/join/hashjoin_lhsarithmetic.benchmark	5	0.001609
+
+name	run	timing
+benchmark/micro/join/iejoin_employees.benchmark	1	3.743401
+benchmark/micro/join/iejoin_employees.benchmark	2	3.759422
+benchmark/micro/join/iejoin_employees.benchmark	3	3.770966
+benchmark/micro/join/iejoin_employees.benchmark	4	3.836160
+benchmark/micro/join/iejoin_employees.benchmark	5	3.773573
+
+name	run	timing
+benchmark/micro/join/iejoin_events.benchmark	1	0.026710
+benchmark/micro/join/iejoin_events.benchmark	2	0.025263
+benchmark/micro/join/iejoin_events.benchmark	3	0.025220
+benchmark/micro/join/iejoin_events.benchmark	4	0.026659
+benchmark/micro/join/iejoin_events.benchmark	5	0.028463
+
+name	run	timing
+benchmark/micro/join/iejoin_selectivity.benchmark	1	9.351289
+benchmark/micro/join/iejoin_selectivity.benchmark	2	9.151254
+benchmark/micro/join/iejoin_selectivity.benchmark	3	9.279759
+benchmark/micro/join/iejoin_selectivity.benchmark	4	9.294200
+benchmark/micro/join/iejoin_selectivity.benchmark	5	8.997510
+
+name	run	timing
+benchmark/micro/join/join_from_parquet.benchmark	1	0.241943
+benchmark/micro/join/join_from_parquet.benchmark	2	0.232327
+benchmark/micro/join/join_from_parquet.benchmark	3	0.220665
+benchmark/micro/join/join_from_parquet.benchmark	4	0.216450
+benchmark/micro/join/join_from_parquet.benchmark	5	0.218559
+
+name	run	timing
+benchmark/micro/join/join_order_optimizer_should_respect_limit.benchmark	1	0.002582
+benchmark/micro/join/join_order_optimizer_should_respect_limit.benchmark	2	0.002683
+benchmark/micro/join/join_order_optimizer_should_respect_limit.benchmark	3	0.002406
+benchmark/micro/join/join_order_optimizer_should_respect_limit.benchmark	4	0.002455
+benchmark/micro/join/join_order_optimizer_should_respect_limit.benchmark	5	0.002312
+
+name	run	timing
+benchmark/micro/join/left_outer_join_right_big.benchmark	1	0.292841
+benchmark/micro/join/left_outer_join_right_big.benchmark	2	0.299843
+benchmark/micro/join/left_outer_join_right_big.benchmark	3	0.306497
+benchmark/micro/join/left_outer_join_right_big.benchmark	4	0.300659
+benchmark/micro/join/left_outer_join_right_big.benchmark	5	0.304505
+
+name	run	timing
+benchmark/micro/join/many_inner_joins.benchmark	1	1.611980
+benchmark/micro/join/many_inner_joins.benchmark	2	1.616754
+benchmark/micro/join/many_inner_joins.benchmark	3	1.622597
+benchmark/micro/join/many_inner_joins.benchmark	4	1.609271
+benchmark/micro/join/many_inner_joins.benchmark	5	1.619041
+
+name	run	timing
+benchmark/micro/join/many_left_joins.benchmark	1	0.007116
+benchmark/micro/join/many_left_joins.benchmark	2	0.006818
+benchmark/micro/join/many_left_joins.benchmark	3	0.006913
+benchmark/micro/join/many_left_joins.benchmark	4	0.006919
+benchmark/micro/join/many_left_joins.benchmark	5	0.006853
+
+name	run	timing
+benchmark/micro/join/nary_positional_join.benchmark	1	0.183188
+benchmark/micro/join/nary_positional_join.benchmark	2	0.181778
+benchmark/micro/join/nary_positional_join.benchmark	3	0.188124
+benchmark/micro/join/nary_positional_join.benchmark	4	0.182089
+benchmark/micro/join/nary_positional_join.benchmark	5	0.180543
+
+name	run	timing
+benchmark/micro/join/positional_join.benchmark	1	0.026006
+benchmark/micro/join/positional_join.benchmark	2	0.025944
+benchmark/micro/join/positional_join.benchmark	3	0.025833
+benchmark/micro/join/positional_join.benchmark	4	0.026135
+benchmark/micro/join/positional_join.benchmark	5	0.025981
+
+name	run	timing
+benchmark/micro/join/prefer_right_deep_join_trees.benchmark	1	0.733944
+benchmark/micro/join/prefer_right_deep_join_trees.benchmark	2	0.723047
+benchmark/micro/join/prefer_right_deep_join_trees.benchmark	3	0.718209
+benchmark/micro/join/prefer_right_deep_join_trees.benchmark	4	0.728497
+benchmark/micro/join/prefer_right_deep_join_trees.benchmark	5	0.725843
+
+name	run	timing
+benchmark/micro/join/range_join.benchmark	1	0.026504
+benchmark/micro/join/range_join.benchmark	2	0.027914
+benchmark/micro/join/range_join.benchmark	3	0.027699
+benchmark/micro/join/range_join.benchmark	4	0.028062
+benchmark/micro/join/range_join.benchmark	5	0.028235
+
+name	run	timing
+benchmark/micro/join/range_join_big_result.benchmark	1	8.139560
+benchmark/micro/join/range_join_big_result.benchmark	2	8.157078
+benchmark/micro/join/range_join_big_result.benchmark	3	8.263480
+benchmark/micro/join/range_join_big_result.benchmark	4	8.254558
+benchmark/micro/join/range_join_big_result.benchmark	5	8.187307
+
+name	run	timing
+benchmark/micro/join/range_join_small_rhs.benchmark	1	0.452454
+benchmark/micro/join/range_join_small_rhs.benchmark	2	0.452120
+benchmark/micro/join/range_join_small_rhs.benchmark	3	0.452621
+benchmark/micro/join/range_join_small_rhs.benchmark	4	0.453097
+benchmark/micro/join/range_join_small_rhs.benchmark	5	0.452613
+
+name	run	timing
+benchmark/micro/join/right_outer_join_left_big.benchmark	1	0.295604
+benchmark/micro/join/right_outer_join_left_big.benchmark	2	0.307262
+benchmark/micro/join/right_outer_join_left_big.benchmark	3	0.302203
+benchmark/micro/join/right_outer_join_left_big.benchmark	4	0.301155
+benchmark/micro/join/right_outer_join_left_big.benchmark	5	0.300614
+
+name	run	timing
+benchmark/micro/join/skinny_probe_wide_build.benchmark	1	0.108908
+benchmark/micro/join/skinny_probe_wide_build.benchmark	2	0.132758
+benchmark/micro/join/skinny_probe_wide_build.benchmark	3	0.092854
+benchmark/micro/join/skinny_probe_wide_build.benchmark	4	0.104843
+benchmark/micro/join/skinny_probe_wide_build.benchmark	5	0.108393
+
+name	run	timing
+benchmark/micro/json/inconsistent_schema.benchmark	1	0.091094
+benchmark/micro/json/inconsistent_schema.benchmark	2	0.092523
+benchmark/micro/json/inconsistent_schema.benchmark	3	0.089839
+benchmark/micro/json/inconsistent_schema.benchmark	4	0.089565
+benchmark/micro/json/inconsistent_schema.benchmark	5	0.095012
+
+name	run	timing
+benchmark/micro/lambdas/list_filter_where.benchmark	1	0.003691
+benchmark/micro/lambdas/list_filter_where.benchmark	2	0.004423
+benchmark/micro/lambdas/list_filter_where.benchmark	3	0.004321
+benchmark/micro/lambdas/list_filter_where.benchmark	4	0.003565
+benchmark/micro/lambdas/list_filter_where.benchmark	5	0.004256
+
+name	run	timing
+benchmark/micro/lambdas/list_reduce/complex_expression.benchmark	1	0.251043
+benchmark/micro/lambdas/list_reduce/complex_expression.benchmark	2	0.220023
+benchmark/micro/lambdas/list_reduce/complex_expression.benchmark	3	0.251791
+benchmark/micro/lambdas/list_reduce/complex_expression.benchmark	4	0.247864
+benchmark/micro/lambdas/list_reduce/complex_expression.benchmark	5	0.218199
+
+name	run	timing
+benchmark/micro/lambdas/list_reduce/list_length_2.benchmark	1	0.047184
+benchmark/micro/lambdas/list_reduce/list_length_2.benchmark	2	0.046088
+benchmark/micro/lambdas/list_reduce/list_length_2.benchmark	3	0.049899
+benchmark/micro/lambdas/list_reduce/list_length_2.benchmark	4	0.046505
+benchmark/micro/lambdas/list_reduce/list_length_2.benchmark	5	0.046654
+
+name	run	timing
+benchmark/micro/lambdas/list_reduce/list_length_5000.benchmark	1	0.750012
+benchmark/micro/lambdas/list_reduce/list_length_5000.benchmark	2	0.745530
+benchmark/micro/lambdas/list_reduce/list_length_5000.benchmark	3	0.746524
+benchmark/micro/lambdas/list_reduce/list_length_5000.benchmark	4	0.747532
+benchmark/micro/lambdas/list_reduce/list_length_5000.benchmark	5	0.740243
+
+name	run	timing
+benchmark/micro/lambdas/list_reduce/list_variable_length.benchmark	1	5.425737
+benchmark/micro/lambdas/list_reduce/list_variable_length.benchmark	2	5.474147
+benchmark/micro/lambdas/list_reduce/list_variable_length.benchmark	3	5.397769
+benchmark/micro/lambdas/list_reduce/list_variable_length.benchmark	4	5.385924
+benchmark/micro/lambdas/list_reduce/list_variable_length.benchmark	5	5.408938
+
+name	run	timing
+benchmark/micro/lambdas/list_reduce/varchar.benchmark	1	1.341276
+benchmark/micro/lambdas/list_reduce/varchar.benchmark	2	1.342135
+benchmark/micro/lambdas/list_reduce/varchar.benchmark	3	1.323458
+benchmark/micro/lambdas/list_reduce/varchar.benchmark	4	1.332780
+benchmark/micro/lambdas/list_reduce/varchar.benchmark	5	1.475318
+
+name	run	timing
+benchmark/micro/lambdas/list_transform_select.benchmark	1	0.002333
+benchmark/micro/lambdas/list_transform_select.benchmark	2	0.002222
+benchmark/micro/lambdas/list_transform_select.benchmark	3	0.001361
+benchmark/micro/lambdas/list_transform_select.benchmark	4	0.002202
+benchmark/micro/lambdas/list_transform_select.benchmark	5	0.002147
+
+name	run	timing
+benchmark/micro/lambdas/list_transform_zip.benchmark	1	0.008517
+benchmark/micro/lambdas/list_transform_zip.benchmark	2	0.008303
+benchmark/micro/lambdas/list_transform_zip.benchmark	3	0.008349
+benchmark/micro/lambdas/list_transform_zip.benchmark	4	0.006211
+benchmark/micro/lambdas/list_transform_zip.benchmark	5	0.006841
+
+name	run	timing
+benchmark/micro/limit/parallel_limit.benchmark	1	0.064213
+benchmark/micro/limit/parallel_limit.benchmark	2	0.064498
+benchmark/micro/limit/parallel_limit.benchmark	3	0.064517
+benchmark/micro/limit/parallel_limit.benchmark	4	0.064625
+benchmark/micro/limit/parallel_limit.benchmark	5	0.064575
+
+name	run	timing
+benchmark/micro/limit/parallel_streaming_limit.benchmark	1	0.065683
+benchmark/micro/limit/parallel_streaming_limit.benchmark	2	0.066004
+benchmark/micro/limit/parallel_streaming_limit.benchmark	3	0.066064
+benchmark/micro/limit/parallel_streaming_limit.benchmark	4	0.065897
+benchmark/micro/limit/parallel_streaming_limit.benchmark	5	0.066103
+
+name	run	timing
+benchmark/micro/limit/parquet_parallel_limit.benchmark	1	0.230424
+benchmark/micro/limit/parquet_parallel_limit.benchmark	2	0.229831
+benchmark/micro/limit/parquet_parallel_limit.benchmark	3	0.231152
+benchmark/micro/limit/parquet_parallel_limit.benchmark	4	0.230969
+benchmark/micro/limit/parquet_parallel_limit.benchmark	5	0.230936
+
+name	run	timing
+benchmark/micro/limit/parquet_parallel_limit_glob.benchmark	1	0.231089
+benchmark/micro/limit/parquet_parallel_limit_glob.benchmark	2	0.230854
+benchmark/micro/limit/parquet_parallel_limit_glob.benchmark	3	0.232994
+benchmark/micro/limit/parquet_parallel_limit_glob.benchmark	4	0.230476
+benchmark/micro/limit/parquet_parallel_limit_glob.benchmark	5	0.230619
+
+name	run	timing
+benchmark/micro/list/column_data_collection_copy/large_lists.benchmark	1	2.798204
+benchmark/micro/list/column_data_collection_copy/large_lists.benchmark	2	2.789522
+benchmark/micro/list/column_data_collection_copy/large_lists.benchmark	3	2.519365
+benchmark/micro/list/column_data_collection_copy/large_lists.benchmark	4	2.540845
+benchmark/micro/list/column_data_collection_copy/large_lists.benchmark	5	2.830623
+
+name	run	timing
+benchmark/micro/list/column_data_collection_copy/small_lists.benchmark	1	0.061090
+benchmark/micro/list/column_data_collection_copy/small_lists.benchmark	2	0.061209
+benchmark/micro/list/column_data_collection_copy/small_lists.benchmark	3	0.061264
+benchmark/micro/list/column_data_collection_copy/small_lists.benchmark	4	0.029744
+benchmark/micro/list/column_data_collection_copy/small_lists.benchmark	5	0.023944
+
+name	run	timing
+benchmark/micro/list/column_data_collection_copy/unnest.benchmark	1	0.024056
+benchmark/micro/list/column_data_collection_copy/unnest.benchmark	2	0.024624
+benchmark/micro/list/column_data_collection_copy/unnest.benchmark	3	0.010182
+benchmark/micro/list/column_data_collection_copy/unnest.benchmark	4	0.010165
+benchmark/micro/list/column_data_collection_copy/unnest.benchmark	5	0.024054
+
+name	run	timing
+benchmark/micro/list/list_extract.benchmark	1	0.024181
+benchmark/micro/list/list_extract.benchmark	2	0.022275
+benchmark/micro/list/list_extract.benchmark	3	0.023126
+benchmark/micro/list/list_extract.benchmark	4	0.017726
+benchmark/micro/list/list_extract.benchmark	5	0.021908
+
+name	run	timing
+benchmark/micro/list/list_extract_null.benchmark	1	0.022295
+benchmark/micro/list/list_extract_null.benchmark	2	0.023704
+benchmark/micro/list/list_extract_null.benchmark	3	0.023373
+benchmark/micro/list/list_extract_null.benchmark	4	0.023168
+benchmark/micro/list/list_extract_null.benchmark	5	0.023018
+
+name	run	timing
+benchmark/micro/list/list_extract_struct.benchmark	1	0.209880
+benchmark/micro/list/list_extract_struct.benchmark	2	0.214351
+benchmark/micro/list/list_extract_struct.benchmark	3	0.213442
+benchmark/micro/list/list_extract_struct.benchmark	4	0.215397
+benchmark/micro/list/list_extract_struct.benchmark	5	0.205263
+
+name	run	timing
+benchmark/micro/list/list_extract_struct_null.benchmark	1	0.210172
+benchmark/micro/list/list_extract_struct_null.benchmark	2	0.215587
+benchmark/micro/list/list_extract_struct_null.benchmark	3	0.215241
+benchmark/micro/list/list_extract_struct_null.benchmark	4	0.216314
+benchmark/micro/list/list_extract_struct_null.benchmark	5	0.217584
+
+name	run	timing
+benchmark/micro/list/list_few_rows.benchmark	1	0.055168
+benchmark/micro/list/list_few_rows.benchmark	2	0.055345
+benchmark/micro/list/list_few_rows.benchmark	3	0.053840
+benchmark/micro/list/list_few_rows.benchmark	4	0.055113
+benchmark/micro/list/list_few_rows.benchmark	5	0.053369
+
+name	run	timing
+benchmark/micro/list/list_has_any.benchmark	1	0.832368
+benchmark/micro/list/list_has_any.benchmark	2	0.854383
+benchmark/micro/list/list_has_any.benchmark	3	0.841534
+benchmark/micro/list/list_has_any.benchmark	4	0.843491
+benchmark/micro/list/list_has_any.benchmark	5	0.862885
+
+name	run	timing
+benchmark/micro/list/list_many_rows.benchmark	1	0.026458
+benchmark/micro/list/list_many_rows.benchmark	2	0.027603
+benchmark/micro/list/list_many_rows.benchmark	3	0.036432
+benchmark/micro/list/list_many_rows.benchmark	4	0.026468
+benchmark/micro/list/list_many_rows.benchmark	5	0.027374
+
+name	run	timing
+benchmark/micro/list/list_min_max.benchmark	1	1.542500
+benchmark/micro/list/list_min_max.benchmark	2	1.540795
+benchmark/micro/list/list_min_max.benchmark	3	1.541594
+benchmark/micro/list/list_min_max.benchmark	4	1.540371
+benchmark/micro/list/list_min_max.benchmark	5	1.541378
+
+name	run	timing
+benchmark/micro/list/list_order_by.benchmark	1	0.540322
+benchmark/micro/list/list_order_by.benchmark	2	0.540550
+benchmark/micro/list/list_order_by.benchmark	3	0.536274
+benchmark/micro/list/list_order_by.benchmark	4	0.560076
+benchmark/micro/list/list_order_by.benchmark	5	0.524606
+
+name	run	timing
+benchmark/micro/list/list_value.benchmark	1	0.648362
+benchmark/micro/list/list_value.benchmark	2	0.647593
+benchmark/micro/list/list_value.benchmark	3	0.647783
+benchmark/micro/list/list_value.benchmark	4	0.648016
+benchmark/micro/list/list_value.benchmark	5	0.647206
+
+name	run	timing
+benchmark/micro/list/string_split.benchmark	1	0.091736
+benchmark/micro/list/string_split.benchmark	2	0.091558
+benchmark/micro/list/string_split.benchmark	3	0.091580
+benchmark/micro/list/string_split.benchmark	4	0.091690
+benchmark/micro/list/string_split.benchmark	5	0.091573
+
+name	run	timing
+benchmark/micro/list/string_split_regexp.benchmark	1	0.508771
+benchmark/micro/list/string_split_regexp.benchmark	2	0.511515
+benchmark/micro/list/string_split_regexp.benchmark	3	0.509115
+benchmark/micro/list/string_split_regexp.benchmark	4	0.510766
+benchmark/micro/list/string_split_regexp.benchmark	5	0.509989
+
+name	run	timing
+benchmark/micro/list/string_split_unicode.benchmark	1	0.071842
+benchmark/micro/list/string_split_unicode.benchmark	2	0.071759
+benchmark/micro/list/string_split_unicode.benchmark	3	0.071736
+benchmark/micro/list/string_split_unicode.benchmark	4	0.071730
+benchmark/micro/list/string_split_unicode.benchmark	5	0.071798
+
+name	run	timing
+benchmark/micro/list/unnest.benchmark	1	0.022279
+benchmark/micro/list/unnest.benchmark	2	0.022386
+benchmark/micro/list/unnest.benchmark	3	0.019644
+benchmark/micro/list/unnest.benchmark	4	0.020827
+benchmark/micro/list/unnest.benchmark	5	0.019401
+
+name	run	timing
+benchmark/micro/list/unnest_rewrite.benchmark	1	0.100338
+benchmark/micro/list/unnest_rewrite.benchmark	2	0.087436
+benchmark/micro/list/unnest_rewrite.benchmark	3	0.094655
+benchmark/micro/list/unnest_rewrite.benchmark	4	0.087530
+benchmark/micro/list/unnest_rewrite.benchmark	5	0.090253
+
+name	run	timing
+benchmark/micro/map/map_extract.benchmark	1	0.005218
+benchmark/micro/map/map_extract.benchmark	2	0.005223
+benchmark/micro/map/map_extract.benchmark	3	0.005232
+benchmark/micro/map/map_extract.benchmark	4	0.009725
+benchmark/micro/map/map_extract.benchmark	5	0.009544
+
+name	run	timing
+benchmark/micro/map/map_lookup.benchmark	1	0.035588
+benchmark/micro/map/map_lookup.benchmark	2	0.034158
+benchmark/micro/map/map_lookup.benchmark	3	0.034605
+benchmark/micro/map/map_lookup.benchmark	4	0.028906
+benchmark/micro/map/map_lookup.benchmark	5	0.029229
+
+name	run	timing
+benchmark/micro/nulls/no_nulls_addition.benchmark	1	0.022548
+benchmark/micro/nulls/no_nulls_addition.benchmark	2	0.022412
+benchmark/micro/nulls/no_nulls_addition.benchmark	3	0.022780
+benchmark/micro/nulls/no_nulls_addition.benchmark	4	0.022581
+benchmark/micro/nulls/no_nulls_addition.benchmark	5	0.022457
+
+name	run	timing
+benchmark/micro/nulls/null_addition.benchmark	1	0.022416
+benchmark/micro/nulls/null_addition.benchmark	2	0.022327
+benchmark/micro/nulls/null_addition.benchmark	3	0.022764
+benchmark/micro/nulls/null_addition.benchmark	4	0.022462
+benchmark/micro/nulls/null_addition.benchmark	5	0.022704
+
+name	run	timing
+benchmark/micro/optimizer/topn_optimization.benchmark	1	0.064809
+benchmark/micro/optimizer/topn_optimization.benchmark	2	0.064840
+benchmark/micro/optimizer/topn_optimization.benchmark	3	0.064569
+benchmark/micro/optimizer/topn_optimization.benchmark	4	0.064673
+benchmark/micro/optimizer/topn_optimization.benchmark	5	0.064560
+
+name	run	timing
+benchmark/micro/order/orderby.benchmark	1	0.024985
+benchmark/micro/order/orderby.benchmark	2	0.019677
+benchmark/micro/order/orderby.benchmark	3	0.021518
+benchmark/micro/order/orderby.benchmark	4	0.021001
+benchmark/micro/order/orderby.benchmark	5	0.020205
+
+name	run	timing
+benchmark/micro/pushdown/or_pushdown.benchmark	1	0.003780
+benchmark/micro/pushdown/or_pushdown.benchmark	2	0.003728
+benchmark/micro/pushdown/or_pushdown.benchmark	3	0.003772
+benchmark/micro/pushdown/or_pushdown.benchmark	4	0.004059
+benchmark/micro/pushdown/or_pushdown.benchmark	5	0.004057
+
+name	run	timing
+benchmark/micro/pushdown/window_partition_pushdown.benchmark	1	0.285619
+benchmark/micro/pushdown/window_partition_pushdown.benchmark	2	0.285000
+benchmark/micro/pushdown/window_partition_pushdown.benchmark	3	0.296448
+benchmark/micro/pushdown/window_partition_pushdown.benchmark	4	0.219630
+benchmark/micro/pushdown/window_partition_pushdown.benchmark	5	0.272381
+
+name	run	timing
+benchmark/micro/result_collection/arrow_result.benchmark	1	1.061119
+benchmark/micro/result_collection/arrow_result.benchmark	2	1.020395
+benchmark/micro/result_collection/arrow_result.benchmark	3	1.009963
+benchmark/micro/result_collection/arrow_result.benchmark	4	1.012512
+benchmark/micro/result_collection/arrow_result.benchmark	5	1.011276
+
+Failed to run benchmark benchmark/micro/result_collection/batched_arrow_result.benchmark
+====================================================
+==============         STDERR          =============
+====================================================
+
+name	run	timing
+benchmark/micro/result_collection/batched_arrow_result.benchmark	1	2.426431
+benchmark/micro/result_collection/batched_arrow_result.benchmark	2	2.194158
+benchmark/micro/result_collection/batched_arrow_result.benchmark	3	
+====================================================
+==============         STDOUT          =============
+====================================================
+
+
+name	run	timing
+benchmark/micro/result_collection/batched_stream_query.benchmark	1	1.289929
+benchmark/micro/result_collection/batched_stream_query.benchmark	2	1.098238
+benchmark/micro/result_collection/batched_stream_query.benchmark	3	1.162080
+benchmark/micro/result_collection/batched_stream_query.benchmark	4	1.032828
+benchmark/micro/result_collection/batched_stream_query.benchmark	5	1.113542
+
+name	run	timing
+benchmark/micro/simd/auto-vectorization.benchmark	1	3.150122
+benchmark/micro/simd/auto-vectorization.benchmark	2	3.143949
+benchmark/micro/simd/auto-vectorization.benchmark	3	3.137761
+benchmark/micro/simd/auto-vectorization.benchmark	4	3.171961
+benchmark/micro/simd/auto-vectorization.benchmark	5	3.170976
+
+name	run	timing
+benchmark/micro/string/bitstring.benchmark	1	0.035703
+benchmark/micro/string/bitstring.benchmark	2	0.035707
+benchmark/micro/string/bitstring.benchmark	3	0.035750
+benchmark/micro/string/bitstring.benchmark	4	0.033638
+benchmark/micro/string/bitstring.benchmark	5	0.033631
+
+name	run	timing
+benchmark/micro/string/concat_long.benchmark	1	0.067087
+benchmark/micro/string/concat_long.benchmark	2	0.063660
+benchmark/micro/string/concat_long.benchmark	3	0.062648
+benchmark/micro/string/concat_long.benchmark	4	0.063079
+benchmark/micro/string/concat_long.benchmark	5	0.063400
+
+name	run	timing
+benchmark/micro/string/concat_short.benchmark	1	0.068107
+benchmark/micro/string/concat_short.benchmark	2	0.064088
+benchmark/micro/string/concat_short.benchmark	3	0.064452
+benchmark/micro/string/concat_short.benchmark	4	0.064003
+benchmark/micro/string/concat_short.benchmark	5	0.062729
+
+name	run	timing
+benchmark/micro/string/contains_integers.benchmark	1	0.038134
+benchmark/micro/string/contains_integers.benchmark	2	0.038205
+benchmark/micro/string/contains_integers.benchmark	3	0.036172
+benchmark/micro/string/contains_integers.benchmark	4	0.036232
+benchmark/micro/string/contains_integers.benchmark	5	0.036099
+
+name	run	timing
+benchmark/micro/string/contains_long.benchmark	1	0.046981
+benchmark/micro/string/contains_long.benchmark	2	0.047165
+benchmark/micro/string/contains_long.benchmark	3	0.046960
+benchmark/micro/string/contains_long.benchmark	4	0.044175
+benchmark/micro/string/contains_long.benchmark	5	0.043485
+
+name	run	timing
+benchmark/micro/string/contains_r.benchmark	1	0.043041
+benchmark/micro/string/contains_r.benchmark	2	0.043109
+benchmark/micro/string/contains_r.benchmark	3	0.042544
+benchmark/micro/string/contains_r.benchmark	4	0.042833
+benchmark/micro/string/contains_r.benchmark	5	0.042484
+
+name	run	timing
+benchmark/micro/string/contains_re.benchmark	1	0.048193
+benchmark/micro/string/contains_re.benchmark	2	0.048169
+benchmark/micro/string/contains_re.benchmark	3	0.048113
+benchmark/micro/string/contains_re.benchmark	4	0.048100
+benchmark/micro/string/contains_re.benchmark	5	0.048049
+
+name	run	timing
+benchmark/micro/string/contains_reg.benchmark	1	0.049008
+benchmark/micro/string/contains_reg.benchmark	2	0.049290
+benchmark/micro/string/contains_reg.benchmark	3	0.049320
+benchmark/micro/string/contains_reg.benchmark	4	0.048874
+benchmark/micro/string/contains_reg.benchmark	5	0.049386
+
+name	run	timing
+benchmark/micro/string/contains_regular.benchmark	1	0.048973
+benchmark/micro/string/contains_regular.benchmark	2	0.048881
+benchmark/micro/string/contains_regular.benchmark	3	0.049215
+benchmark/micro/string/contains_regular.benchmark	4	0.048759
+benchmark/micro/string/contains_regular.benchmark	5	0.052556
+
+name	run	timing
+benchmark/micro/string/equality_long.benchmark	1	0.043618
+benchmark/micro/string/equality_long.benchmark	2	0.041241
+benchmark/micro/string/equality_long.benchmark	3	0.041270
+benchmark/micro/string/equality_long.benchmark	4	0.041110
+benchmark/micro/string/equality_long.benchmark	5	0.041178
+
+name	run	timing
+benchmark/micro/string/equality_short.benchmark	1	0.049838
+benchmark/micro/string/equality_short.benchmark	2	0.049853
+benchmark/micro/string/equality_short.benchmark	3	0.046688
+benchmark/micro/string/equality_short.benchmark	4	0.046528
+benchmark/micro/string/equality_short.benchmark	5	0.046495
+
+name	run	timing
+benchmark/micro/string/greater_than_long.benchmark	1	0.045169
+benchmark/micro/string/greater_than_long.benchmark	2	0.042641
+benchmark/micro/string/greater_than_long.benchmark	3	0.045128
+benchmark/micro/string/greater_than_long.benchmark	4	0.042780
+benchmark/micro/string/greater_than_long.benchmark	5	0.045042
+
+name	run	timing
+benchmark/micro/string/greater_than_short.benchmark	1	0.051276
+benchmark/micro/string/greater_than_short.benchmark	2	0.051292
+benchmark/micro/string/greater_than_short.benchmark	3	0.049392
+benchmark/micro/string/greater_than_short.benchmark	4	0.049382
+benchmark/micro/string/greater_than_short.benchmark	5	0.046577
+
+Failed to run benchmark benchmark/micro/string/inet_escape_function.benchmark
+====================================================
+==============         STDERR          =============
+====================================================
+
+name	run	timing
+terminate called after throwing an instance of 'duckdb::InvalidInputException'
+  what():  {"exception_type":"Invalid Input","exception_message":"Extension inet is not available/was not compiled. Cannot run this benchmark."}
+
+====================================================
+==============         STDOUT          =============
+====================================================
+
+
+Failed to run benchmark benchmark/micro/string/inet_unescape_charrefs.benchmark
+====================================================
+==============         STDERR          =============
+====================================================
+
+name	run	timing
+terminate called after throwing an instance of 'duckdb::InvalidInputException'
+  what():  {"exception_type":"Invalid Input","exception_message":"Extension inet is not available/was not compiled. Cannot run this benchmark."}
+
+====================================================
+==============         STDOUT          =============
+====================================================
+
+
+Failed to run benchmark benchmark/micro/string/inet_unescape_codepoints.benchmark
+====================================================
+==============         STDERR          =============
+====================================================
+
+name	run	timing
+terminate called after throwing an instance of 'duckdb::InvalidInputException'
+  what():  {"exception_type":"Invalid Input","exception_message":"Extension inet is not available/was not compiled. Cannot run this benchmark."}
+
+====================================================
+==============         STDOUT          =============
+====================================================
+
+
+name	run	timing
+benchmark/micro/string/length_long.benchmark	1	0.047762
+benchmark/micro/string/length_long.benchmark	2	0.045173
+benchmark/micro/string/length_long.benchmark	3	0.047573
+benchmark/micro/string/length_long.benchmark	4	0.047603
+benchmark/micro/string/length_long.benchmark	5	0.047693
+
+name	run	timing
+benchmark/micro/string/length_short.benchmark	1	0.054007
+benchmark/micro/string/length_short.benchmark	2	0.053928
+benchmark/micro/string/length_short.benchmark	3	0.050532
+benchmark/micro/string/length_short.benchmark	4	0.050583
+benchmark/micro/string/length_short.benchmark	5	0.053978
+
+name	run	timing
+benchmark/micro/string/like_regular.benchmark	1	0.049141
+benchmark/micro/string/like_regular.benchmark	2	0.049156
+benchmark/micro/string/like_regular.benchmark	3	0.048696
+benchmark/micro/string/like_regular.benchmark	4	0.048695
+benchmark/micro/string/like_regular.benchmark	5	0.048771
+
+name	run	timing
+benchmark/micro/string/regexp_matches.benchmark	1	0.036925
+benchmark/micro/string/regexp_matches.benchmark	2	0.037142
+benchmark/micro/string/regexp_matches.benchmark	3	0.035156
+benchmark/micro/string/regexp_matches.benchmark	4	0.037005
+benchmark/micro/string/regexp_matches.benchmark	5	0.036935
+
+name	run	timing
+benchmark/micro/string/string_agg_long.benchmark	1	0.325949
+benchmark/micro/string/string_agg_long.benchmark	2	0.313979
+benchmark/micro/string/string_agg_long.benchmark	3	0.311387
+benchmark/micro/string/string_agg_long.benchmark	4	0.310295
+benchmark/micro/string/string_agg_long.benchmark	5	0.316091
+
+name	run	timing
+benchmark/micro/string/string_agg_order_by.benchmark	1	1.640547
+benchmark/micro/string/string_agg_order_by.benchmark	2	1.670990
+benchmark/micro/string/string_agg_order_by.benchmark	3	1.626753
+benchmark/micro/string/string_agg_order_by.benchmark	4	1.654870
+benchmark/micro/string/string_agg_order_by.benchmark	5	1.658314
+
+name	run	timing
+benchmark/micro/string/string_agg_short.benchmark	1	0.102250
+benchmark/micro/string/string_agg_short.benchmark	2	0.096511
+benchmark/micro/string/string_agg_short.benchmark	3	0.096415
+benchmark/micro/string/string_agg_short.benchmark	4	0.101820
+benchmark/micro/string/string_agg_short.benchmark	5	0.097845
+
+name	run	timing
+benchmark/micro/string/url_encode.benchmark	1	4.018068
+benchmark/micro/string/url_encode.benchmark	2	4.050727
+benchmark/micro/string/url_encode.benchmark	3	4.026159
+benchmark/micro/string/url_encode.benchmark	4	4.017300
+benchmark/micro/string/url_encode.benchmark	5	4.029156
+
+name	run	timing
+benchmark/micro/timestamp/extract_month.benchmark	1	0.006136
+benchmark/micro/timestamp/extract_month.benchmark	2	0.006079
+benchmark/micro/timestamp/extract_month.benchmark	3	0.006305
+benchmark/micro/timestamp/extract_month.benchmark	4	0.006057
+benchmark/micro/timestamp/extract_month.benchmark	5	0.006058
+
+name	run	timing
+benchmark/micro/timestamp/extract_year.benchmark	1	0.005920
+benchmark/micro/timestamp/extract_year.benchmark	2	0.005862
+benchmark/micro/timestamp/extract_year.benchmark	3	0.005842
+benchmark/micro/timestamp/extract_year.benchmark	4	0.005850
+benchmark/micro/timestamp/extract_year.benchmark	5	0.005886
+
+name	run	timing
+benchmark/micro/update/update_with_join.benchmark	1	0.158270
+benchmark/micro/update/update_with_join.benchmark	2	0.162931
+benchmark/micro/update/update_with_join.benchmark	3	0.165167
+benchmark/micro/update/update_with_join.benchmark	4	0.152868
+benchmark/micro/update/update_with_join.benchmark	5	0.157134
+
+name	run	timing
+benchmark/micro/view/many_values.benchmark	1	0.007749
+benchmark/micro/view/many_values.benchmark	2	0.007574
+benchmark/micro/view/many_values.benchmark	3	0.007635
+benchmark/micro/view/many_values.benchmark	4	0.007667
+benchmark/micro/view/many_values.benchmark	5	0.007357
+
+name	run	timing
+benchmark/micro/window/streaming_lag.benchmark	1	0.097229
+benchmark/micro/window/streaming_lag.benchmark	2	0.096239
+benchmark/micro/window/streaming_lag.benchmark	3	0.096482
+benchmark/micro/window/streaming_lag.benchmark	4	0.096620
+benchmark/micro/window/streaming_lag.benchmark	5	0.096308
+
+name	run	timing
+benchmark/micro/window/streaming_lead.benchmark	1	0.106570
+benchmark/micro/window/streaming_lead.benchmark	2	0.105908
+benchmark/micro/window/streaming_lead.benchmark	3	0.105864
+benchmark/micro/window/streaming_lead.benchmark	4	0.105448
+benchmark/micro/window/streaming_lead.benchmark	5	0.105632
+
+name	run	timing
+benchmark/micro/window/window_constant_aggregates.benchmark	1	0.213234
+benchmark/micro/window/window_constant_aggregates.benchmark	2	0.251034
+benchmark/micro/window/window_constant_aggregates.benchmark	3	0.227390
+benchmark/micro/window/window_constant_aggregates.benchmark	4	0.208582
+benchmark/micro/window/window_constant_aggregates.benchmark	5	0.202462
+
+name	run	timing
+benchmark/micro/window/window_constant_count.benchmark	1	0.100600
+benchmark/micro/window/window_constant_count.benchmark	2	0.100238
+benchmark/micro/window/window_constant_count.benchmark	3	0.100098
+benchmark/micro/window/window_constant_count.benchmark	4	0.098807
+benchmark/micro/window/window_constant_count.benchmark	5	0.097555
+
+name	run	timing
+benchmark/micro/window/window_count_star_fixed_100.benchmark	1	0.375042
+benchmark/micro/window/window_count_star_fixed_100.benchmark	2	0.369840
+benchmark/micro/window/window_count_star_fixed_100.benchmark	3	0.389827
+benchmark/micro/window/window_count_star_fixed_100.benchmark	4	0.372264
+benchmark/micro/window/window_count_star_fixed_100.benchmark	5	0.345499
+
+name	run	timing
+benchmark/micro/window/window_count_star_variable_100.benchmark	1	0.393166
+benchmark/micro/window/window_count_star_variable_100.benchmark	2	0.384101
+benchmark/micro/window/window_count_star_variable_100.benchmark	3	0.345960
+benchmark/micro/window/window_count_star_variable_100.benchmark	4	0.347797
+benchmark/micro/window/window_count_star_variable_100.benchmark	5	0.385886
+
+name	run	timing
+benchmark/micro/window/window_iqr_fixed_100.benchmark	1	1.268102
+benchmark/micro/window/window_iqr_fixed_100.benchmark	2	1.224539
+benchmark/micro/window/window_iqr_fixed_100.benchmark	3	1.207689
+benchmark/micro/window/window_iqr_fixed_100.benchmark	4	1.354695
+benchmark/micro/window/window_iqr_fixed_100.benchmark	5	1.286633
+
+name	run	timing
+benchmark/micro/window/window_iqr_variable_100.benchmark	1	4.161134
+benchmark/micro/window/window_iqr_variable_100.benchmark	2	4.476127
+benchmark/micro/window/window_iqr_variable_100.benchmark	3	4.451449
+benchmark/micro/window/window_iqr_variable_100.benchmark	4	4.360225
+benchmark/micro/window/window_iqr_variable_100.benchmark	5	4.271655
+
+name	run	timing
+benchmark/micro/window/window_list_aggr.benchmark	1	1.077226
+benchmark/micro/window/window_list_aggr.benchmark	2	0.940903
+benchmark/micro/window/window_list_aggr.benchmark	3	0.924017
+benchmark/micro/window/window_list_aggr.benchmark	4	0.917022
+benchmark/micro/window/window_list_aggr.benchmark	5	0.966142
+
+name	run	timing
+benchmark/micro/window/window_mad_fixed_100.benchmark	1	1.899041
+benchmark/micro/window/window_mad_fixed_100.benchmark	2	2.014154
+benchmark/micro/window/window_mad_fixed_100.benchmark	3	1.785765
+benchmark/micro/window/window_mad_fixed_100.benchmark	4	1.746587
+benchmark/micro/window/window_mad_fixed_100.benchmark	5	1.973321
+
+name	run	timing
+benchmark/micro/window/window_mad_variable_100.benchmark	1	4.158715
+benchmark/micro/window/window_mad_variable_100.benchmark	2	4.652189
+benchmark/micro/window/window_mad_variable_100.benchmark	3	4.596133
+benchmark/micro/window/window_mad_variable_100.benchmark	4	3.943924
+benchmark/micro/window/window_mad_variable_100.benchmark	5	3.935486
+
+name	run	timing
+benchmark/micro/window/window_median_fixed_100.benchmark	1	0.918447
+benchmark/micro/window/window_median_fixed_100.benchmark	2	0.880674
+benchmark/micro/window/window_median_fixed_100.benchmark	3	1.010968
+benchmark/micro/window/window_median_fixed_100.benchmark	4	0.922655
+benchmark/micro/window/window_median_fixed_100.benchmark	5	0.916885
+
+name	run	timing
+benchmark/micro/window/window_median_variable_100.benchmark	1	2.486813
+benchmark/micro/window/window_median_variable_100.benchmark	2	2.637236
+benchmark/micro/window/window_median_variable_100.benchmark	3	2.828488
+benchmark/micro/window/window_median_variable_100.benchmark	4	2.995095
+benchmark/micro/window/window_median_variable_100.benchmark	5	2.816127
+
+name	run	timing
+benchmark/micro/window/window_mode_fixed_100.benchmark	1	0.728086
+benchmark/micro/window/window_mode_fixed_100.benchmark	2	0.717574
+benchmark/micro/window/window_mode_fixed_100.benchmark	3	0.795563
+benchmark/micro/window/window_mode_fixed_100.benchmark	4	0.833031
+benchmark/micro/window/window_mode_fixed_100.benchmark	5	0.670380
+
+name	run	timing
+benchmark/micro/window/window_partition.benchmark	1	0.068319
+benchmark/micro/window/window_partition.benchmark	2	0.066167
+benchmark/micro/window/window_partition.benchmark	3	0.065952
+benchmark/micro/window/window_partition.benchmark	4	0.065187
+benchmark/micro/window/window_partition.benchmark	5	0.063344
+
+name	run	timing
+benchmark/micro/window/window_streamed_sum.benchmark	1	0.404515
+benchmark/micro/window/window_streamed_sum.benchmark	2	0.403990
+benchmark/micro/window/window_streamed_sum.benchmark	3	0.399370
+benchmark/micro/window/window_streamed_sum.benchmark	4	0.404804
+benchmark/micro/window/window_streamed_sum.benchmark	5	0.404757
+
+name	run	timing
+benchmark/micro/window/window_sum.benchmark	1	0.019186
+benchmark/micro/window/window_sum.benchmark	2	0.018493
+benchmark/micro/window/window_sum.benchmark	3	0.018770
+benchmark/micro/window/window_sum.benchmark	4	0.018579
+benchmark/micro/window/window_sum.benchmark	5	0.018950
+
+name	run	timing
+benchmark/micro/zonemaps/data_skipping.benchmark	1	0.000735
+benchmark/micro/zonemaps/data_skipping.benchmark	2	0.000629
+benchmark/micro/zonemaps/data_skipping.benchmark	3	0.000671
+benchmark/micro/zonemaps/data_skipping.benchmark	4	0.000608
+benchmark/micro/zonemaps/data_skipping.benchmark	5	0.000778
+
+name	run	timing
+benchmark/micro/zonemaps/zonemaps.benchmark	1	0.057738
+benchmark/micro/zonemaps/zonemaps.benchmark	2	0.057729
+benchmark/micro/zonemaps/zonemaps.benchmark	3	0.057689
+benchmark/micro/zonemaps/zonemaps.benchmark	4	0.057576
+benchmark/micro/zonemaps/zonemaps.benchmark	5	0.057865
+
+====================================================
+==============  REGRESSIONS DETECTED   =============
+====================================================
+
+benchmark/micro/index/create/create_art_varchar.benchmark
+Old timing: Failed to run benchmark benchmark/micro/index/create/create_art_varchar.benchmark
+New timing: Failed to run benchmark benchmark/micro/index/create/create_art_varchar.benchmark
+
+benchmark/micro/result_collection/batched_arrow_result.benchmark
+Old timing: Failed to run benchmark benchmark/micro/result_collection/batched_arrow_result.benchmark
+New timing: Failed to run benchmark benchmark/micro/result_collection/batched_arrow_result.benchmark
+
+benchmark/micro/string/inet_escape_function.benchmark
+Old timing: Failed to run benchmark benchmark/micro/string/inet_escape_function.benchmark
+New timing: Failed to run benchmark benchmark/micro/string/inet_escape_function.benchmark
+
+benchmark/micro/string/inet_unescape_charrefs.benchmark
+Old timing: Failed to run benchmark benchmark/micro/string/inet_unescape_charrefs.benchmark
+New timing: Failed to run benchmark benchmark/micro/string/inet_unescape_charrefs.benchmark
+
+benchmark/micro/string/inet_unescape_codepoints.benchmark
+Old timing: Failed to run benchmark benchmark/micro/string/inet_unescape_codepoints.benchmark
+New timing: Failed to run benchmark benchmark/micro/string/inet_unescape_codepoints.benchmark
+
+====================================================
+==============     OTHER TIMINGS       =============
+====================================================
+
+benchmark/micro/aggregate/any_value_uuid.benchmark
+Old timing: 0.01358
+New timing: 0.011653
+
+benchmark/micro/aggregate/bitstring_aggregate.benchmark
+Old timing: 0.100202
+New timing: 0.09653
+
+benchmark/micro/aggregate/bitwise_aggregate.benchmark
+Old timing: 0.007851
+New timing: 0.00785
+
+benchmark/micro/aggregate/grouped_distinct.benchmark
+Old timing: 0.066594
+New timing: 0.06661
+
+benchmark/micro/aggregate/ordered_first.benchmark
+Old timing: 0.055024
+New timing: 0.055059
+
+benchmark/micro/aggregate/quantile/quantile.benchmark
+Old timing: 0.210164
+New timing: 0.202619
+
+benchmark/micro/aggregate/quantile/quantile_approx.benchmark
+Old timing: 0.063695
+New timing: 0.063006
+
+benchmark/micro/aggregate/quantile/quantile_many.benchmark
+Old timing: 0.318744
+New timing: 0.331439
+
+benchmark/micro/aggregate/quantile/quantile_sampling.benchmark
+Old timing: 0.007482
+New timing: 0.0075
+
+benchmark/micro/aggregate/simple_aggregate.benchmark
+Old timing: 0.001792
+New timing: 0.002041
+
+benchmark/micro/aggregate/simple_distinct.benchmark
+Old timing: 0.051497
+New timing: 0.053026
+
+benchmark/micro/aggregate/simple_group.benchmark
+Old timing: 0.005225
+New timing: 0.00539
+
+benchmark/micro/aggregate/sorted_last.benchmark
+Old timing: 0.752755
+New timing: 0.757308
+
+benchmark/micro/arithmetic/multiplications.benchmark
+Old timing: 0.003846
+New timing: 0.003908
+
+benchmark/micro/case/big_case.benchmark
+Old timing: 2.50769
+New timing: 2.50567
+
+benchmark/micro/case/integer_case_alternate.benchmark
+Old timing: 0.071481
+New timing: 0.071819
+
+benchmark/micro/case/integer_case_predictable.benchmark
+Old timing: 0.024204
+New timing: 0.024369
+
+benchmark/micro/cast/cast_constant_string_to_enum.benchmark
+Old timing: 0.032336
+New timing: 0.032455
+
+benchmark/micro/cast/cast_date_string.benchmark
+Old timing: 0.056789
+New timing: 0.056861
+
+benchmark/micro/cast/cast_decimal_double_1.benchmark
+Old timing: 1.633895
+New timing: 1.634403
+
+benchmark/micro/cast/cast_decimal_double_2.benchmark
+Old timing: 1.03464
+New timing: 1.03523
+
+benchmark/micro/cast/cast_decimal_double_3.benchmark
+Old timing: 0.029822
+New timing: 0.029884
+
+benchmark/micro/cast/cast_decimal_double_4.benchmark
+Old timing: 0.023241
+New timing: 0.023364
+
+benchmark/micro/cast/cast_double_string.benchmark
+Old timing: 0.162401
+New timing: 0.160813
+
+benchmark/micro/cast/cast_enum_string.benchmark
+Old timing: 0.134794
+New timing: 0.13519
+
+benchmark/micro/cast/cast_huge_hugeint_string_benchmark.benchmark
+Old timing: 0.334808
+New timing: 0.336109
+
+benchmark/micro/cast/cast_huge_string_hugeint.benchmark
+Old timing: 0.16112
+New timing: 0.160912
+
+benchmark/micro/cast/cast_hugeint_string.benchmark
+Old timing: 0.043444
+New timing: 0.042986
+
+benchmark/micro/cast/cast_int32_int64.benchmark
+Old timing: 0.008514
+New timing: 0.008511
+
+benchmark/micro/cast/cast_int64_int32.benchmark
+Old timing: 0.013015
+New timing: 0.012744
+
+benchmark/micro/cast/cast_int_string.benchmark
+Old timing: 0.037038
+New timing: 0.03678
+
+benchmark/micro/cast/cast_list_string.benchmark
+Old timing: 0.134065
+New timing: 0.135943
+
+benchmark/micro/cast/cast_string_double.benchmark
+Old timing: 0.007653
+New timing: 0.007625
+
+benchmark/micro/cast/cast_string_hugeint.benchmark
+Old timing: 0.077834
+New timing: 0.080579
+
+benchmark/micro/cast/cast_string_int.benchmark
+Old timing: 0.046389
+New timing: 0.0469
+
+benchmark/micro/cast/cast_string_list.benchmark
+Old timing: 0.236254
+New timing: 0.238582
+
+benchmark/micro/cast/cast_string_map.benchmark
+Old timing: 0.845837
+New timing: 0.850842
+
+benchmark/micro/cast/cast_string_struct.benchmark
+Old timing: 0.261732
+New timing: 0.26219
+
+benchmark/micro/cast/cast_string_struct_missing_val.benchmark
+Old timing: 0.273199
+New timing: 0.264978
+
+benchmark/micro/cast/cast_struct_string.benchmark
+Old timing: 0.661537
+New timing: 0.660509
+
+benchmark/micro/cast/cast_timestamp_string.benchmark
+Old timing: 0.058978
+New timing: 0.056892
+
+benchmark/micro/cast/format_int_string.benchmark
+Old timing: 0.113408
+New timing: 0.113527
+
+benchmark/micro/cast/strftime.benchmark
+Old timing: 0.222068
+New timing: 0.217719
+
+benchmark/micro/cast/strptime.benchmark
+Old timing: 0.022304
+New timing: 0.022251
+
+benchmark/micro/catalog/add_column_empty.benchmark
+Old timing: 1.889412
+New timing: 1.846744
+
+benchmark/micro/compression/alp/alp_read.benchmark
+Old timing: 0.024961
+New timing: 0.024943
+
+benchmark/micro/compression/alp/alp_read_best_case.benchmark
+Old timing: 0.054008
+New timing: 0.054138
+
+benchmark/micro/compression/alp/alp_read_worst_case.benchmark
+Old timing: 0.083736
+New timing: 0.083172
+
+benchmark/micro/compression/alp/alp_store.benchmark
+Old timing: 0.566568
+New timing: 0.566705
+
+benchmark/micro/compression/alp/alp_store_best_case.benchmark
+Old timing: 3.65383
+New timing: 3.656297
+
+benchmark/micro/compression/alp/alp_store_worst_case.benchmark
+Old timing: 3.238848
+New timing: 3.259082
+
+benchmark/micro/compression/alprd/alprd_read.benchmark
+Old timing: 0.03492
+New timing: 0.034762
+
+benchmark/micro/compression/alprd/alprd_read_best_case.benchmark
+Old timing: 0.079558
+New timing: 0.079488
+
+benchmark/micro/compression/alprd/alprd_read_worst_case.benchmark
+Old timing: 0.0865
+New timing: 0.08635
+
+benchmark/micro/compression/alprd/alprd_store.benchmark
+Old timing: 0.66928
+New timing: 0.656012
+
+benchmark/micro/compression/alprd/alprd_store_best_case.benchmark
+Old timing: 2.643949
+New timing: 2.650868
+
+benchmark/micro/compression/alprd/alprd_store_worst_case.benchmark
+Old timing: 4.198054
+New timing: 4.230985
+
+benchmark/micro/compression/bitpacking/bitpacking_read_constant.benchmark
+Old timing: 0.051142
+New timing: 0.051228
+
+benchmark/micro/compression/bitpacking/bitpacking_read_constant_delta.benchmark
+Old timing: 0.059886
+New timing: 0.059924
+
+benchmark/micro/compression/bitpacking/bitpacking_read_dfor.benchmark
+Old timing: 0.071351
+New timing: 0.071615
+
+benchmark/micro/compression/bitpacking/bitpacking_read_for.benchmark
+Old timing: 0.070956
+New timing: 0.070924
+
+benchmark/micro/compression/bitpacking/bitpacking_store_constant.benchmark
+Old timing: 5.434651
+New timing: 5.451446
+
+benchmark/micro/compression/bitpacking/bitpacking_store_constant_delta.benchmark
+Old timing: 5.120791
+New timing: 5.131379
+
+benchmark/micro/compression/bitpacking/bitpacking_store_dfor.benchmark
+Old timing: 6.172833
+New timing: 6.205312
+
+benchmark/micro/compression/bitpacking/bitpacking_store_for.benchmark
+Old timing: 5.778447
+New timing: 5.988905
+
+benchmark/micro/compression/bitpacking_hugeint/bitpacking_hugeint_read_constant.benchmark
+Old timing: 0.214766
+New timing: 0.215368
+
+benchmark/micro/compression/bitpacking_hugeint/bitpacking_hugeint_store_constant.benchmark
+Old timing: 11.318163
+New timing: 11.38938
+
+benchmark/micro/compression/dictionary/dictionary_read.benchmark
+Old timing: 0.341703
+New timing: 0.341965
+
+benchmark/micro/compression/dictionary/dictionary_read_best_case.benchmark
+Old timing: 0.334038
+New timing: 0.334849
+
+benchmark/micro/compression/dictionary/dictionary_read_worst_case.benchmark
+Old timing: 0.998525
+New timing: 0.999556
+
+benchmark/micro/compression/dictionary/dictionary_store.benchmark
+Old timing: 14.115683
+New timing: 14.098145
+
+benchmark/micro/compression/dictionary/dictionary_store_worst_case.benchmark
+Old timing: 19.049012
+New timing: 18.785419
+
+benchmark/micro/compression/fsst/fsst_late_decompression.benchmark
+Old timing: 0.148619
+New timing: 0.1484
+
+benchmark/micro/compression/fsst/fsst_read.benchmark
+Old timing: 0.196916
+New timing: 0.196494
+
+benchmark/micro/compression/fsst/fsst_read_worst_case.benchmark
+Old timing: 0.179134
+New timing: 0.17463
+
+benchmark/micro/compression/fsst/fsst_store.benchmark
+Old timing: 0.404711
+New timing: 0.396014
+
+benchmark/micro/compression/fsst/fsst_store_worst_case.benchmark
+Old timing: 0.687486
+New timing: 0.698157
+
+benchmark/micro/compression/store_tpch_sf1.benchmark
+Old timing: 11.188159
+New timing: 10.999756
+
+benchmark/micro/copy/from_parquet_large_row_groups.benchmark
+Old timing: 0.358891
+New timing: 0.356833
+
+benchmark/micro/copy/from_parquet_medium_row_groups.benchmark
+Old timing: 0.33991
+New timing: 0.338045
+
+benchmark/micro/copy/from_parquet_small_row_groups.benchmark
+Old timing: 0.587657
+New timing: 0.568286
+
+benchmark/micro/copy/to_parquet_partition_by_few.benchmark
+Old timing: 0.267466
+New timing: 0.26278
+
+benchmark/micro/copy/to_parquet_partition_by_many.benchmark
+Old timing: 0.923993
+New timing: 0.904118
+
+benchmark/micro/cte/cte.benchmark
+Old timing: 22.885165
+New timing: 20.551871
+
+benchmark/micro/cte/materialized_cte.benchmark
+Old timing: 22.273428
+New timing: 22.180957
+
+benchmark/micro/cte/stacked_materialized_cte.benchmark
+Old timing: 0.281214
+New timing: 0.292009
+
+benchmark/micro/date/extract_month.benchmark
+Old timing: 0.2068
+New timing: 0.205617
+
+benchmark/micro/date/extract_multiple.benchmark
+Old timing: 0.045685
+New timing: 0.04956
+
+benchmark/micro/date/extract_multiple_icu.benchmark
+Old timing: 1.61421
+New timing: 1.616457
+
+benchmark/micro/date/extract_struct.benchmark
+Old timing: 0.290268
+New timing: 0.29044
+
+benchmark/micro/date/extract_struct_icu.benchmark
+Old timing: 0.39871
+New timing: 0.397403
+
+benchmark/micro/date/extract_year.benchmark
+Old timing: 0.204529
+New timing: 0.204804
+
+benchmark/micro/distinct/distinct_on_pushdown.benchmark
+Old timing: 0.0499
+New timing: 0.050021
+
+benchmark/micro/filter/in_conversion.benchmark
+Old timing: 0.165395
+New timing: 0.165209
+
+benchmark/micro/filter/parallel_complex_filter.benchmark
+Old timing: 0.013038
+New timing: 0.012939
+
+benchmark/micro/functions/random.benchmark
+Old timing: 0.103948
+New timing: 0.103948
+
+benchmark/micro/functions/random_uuid.benchmark
+Old timing: 0.23509
+New timing: 0.235001
+
+benchmark/micro/groupby-parallel/large_groups.benchmark
+Old timing: 0.025969
+New timing: 0.026715
+
+benchmark/micro/groupby-parallel/many_groups_large_values.benchmark
+Old timing: 2.033109
+New timing: 1.998179
+
+benchmark/micro/groupby-parallel/many_groups_large_values_small.benchmark
+Old timing: 0.175485
+New timing: 0.175088
+
+benchmark/micro/groupby-parallel/medium_groups.benchmark
+Old timing: 0.079552
+New timing: 0.079997
+
+benchmark/micro/groupby-parallel/tiny_groups.benchmark
+Old timing: 0.007665
+New timing: 0.0075
+
+benchmark/micro/index/checkpoint/checkpoint_art.benchmark
+Old timing: 4.461022
+New timing: 4.47313
+
+benchmark/micro/index/create/create_art.benchmark
+Old timing: 0.53088
+New timing: 0.528141
+
+benchmark/micro/index/create/create_art_duplicates.benchmark
+Old timing: 1.008082
+New timing: 1.021479
+
+benchmark/micro/index/create/create_art_random.benchmark
+Old timing: 0.592008
+New timing: 0.599338
+
+benchmark/micro/index/create/create_art_sorted.benchmark
+Old timing: 0.028413
+New timing: 0.027998
+
+benchmark/micro/index/create/create_art_varchar_long.benchmark
+Old timing: 1.015445
+New timing: 1.017306
+
+benchmark/micro/index/create/create_art_varchar_short.benchmark
+Old timing: 0.881226
+New timing: 0.86527
+
+benchmark/micro/index/delete/delete_art.benchmark
+Old timing: 2.525378
+New timing: 2.527096
+
+benchmark/micro/index/insert/insert_art.benchmark
+Old timing: 3.850047
+New timing: 3.821677
+
+benchmark/micro/index/insert/insert_pk_fk.benchmark
+Old timing: 0.512602
+New timing: 0.507539
+
+benchmark/micro/index/point/point_query_with_art.benchmark
+Old timing: 0.000388
+New timing: 0.000357
+
+benchmark/micro/index/point/point_query_with_art_and_many_keys.benchmark
+Old timing: 0.007392
+New timing: 0.007046
+
+benchmark/micro/index/point/point_query_without_index.benchmark
+Old timing: 0.056019
+New timing: 0.055002
+
+benchmark/micro/index/point/point_query_without_index_sequential.benchmark
+Old timing: 0.000787
+New timing: 0.000774
+
+benchmark/micro/index/range/range_query_with_art.benchmark
+Old timing: 0.000678
+New timing: 0.000564
+
+benchmark/micro/index/range/range_query_without_index.benchmark
+Old timing: 0.00096
+New timing: 0.000905
+
+benchmark/micro/index/range/wide_range_query_with_art.benchmark
+Old timing: 0.005506
+New timing: 0.005496
+
+benchmark/micro/index/range/wide_range_query_without_index.benchmark
+Old timing: 0.002737
+New timing: 0.002467
+
+benchmark/micro/join/asof_join.benchmark
+Old timing: 0.217295
+New timing: 0.203638
+
+benchmark/micro/join/asof_join_small_probe.benchmark
+Old timing: 0.063749
+New timing: 0.065008
+
+benchmark/micro/join/blockwise_nl_join.benchmark
+Old timing: 1.082168
+New timing: 1.087262
+
+benchmark/micro/join/delim_join_no_blowup.benchmark
+Old timing: 0.745383
+New timing: 0.739106
+
+benchmark/micro/join/hashjoin_dups_rhs.benchmark
+Old timing: 1.08665
+New timing: 1.085733
+
+benchmark/micro/join/hashjoin_highcardinality.benchmark
+Old timing: 0.002411
+New timing: 0.002222
+
+benchmark/micro/join/hashjoin_lhsarithmetic.benchmark
+Old timing: 0.001774
+New timing: 0.001718
+
+benchmark/micro/join/iejoin_employees.benchmark
+Old timing: 3.836435
+New timing: 3.770966
+
+benchmark/micro/join/iejoin_events.benchmark
+Old timing: 0.028096
+New timing: 0.026659
+
+benchmark/micro/join/iejoin_selectivity.benchmark
+Old timing: 9.276559
+New timing: 9.279759
+
+benchmark/micro/join/join_from_parquet.benchmark
+Old timing: 0.218905
+New timing: 0.220665
+
+benchmark/micro/join/join_order_optimizer_should_respect_limit.benchmark
+Old timing: 0.002299
+New timing: 0.002455
+
+benchmark/micro/join/left_outer_join_right_big.benchmark
+Old timing: 0.298863
+New timing: 0.300659
+
+benchmark/micro/join/many_inner_joins.benchmark
+Old timing: 1.629485
+New timing: 1.616754
+
+benchmark/micro/join/many_left_joins.benchmark
+Old timing: 0.006928
+New timing: 0.006913
+
+benchmark/micro/join/nary_positional_join.benchmark
+Old timing: 0.181662
+New timing: 0.182089
+
+benchmark/micro/join/positional_join.benchmark
+Old timing: 0.026048
+New timing: 0.025981
+
+benchmark/micro/join/prefer_right_deep_join_trees.benchmark
+Old timing: 0.74855
+New timing: 0.725843
+
+benchmark/micro/join/range_join.benchmark
+Old timing: 0.027754
+New timing: 0.027914
+
+benchmark/micro/join/range_join_big_result.benchmark
+Old timing: 8.209344
+New timing: 8.187307
+
+benchmark/micro/join/range_join_small_rhs.benchmark
+Old timing: 0.453227
+New timing: 0.452613
+
+benchmark/micro/join/right_outer_join_left_big.benchmark
+Old timing: 0.307151
+New timing: 0.301155
+
+benchmark/micro/join/skinny_probe_wide_build.benchmark
+Old timing: 0.107888
+New timing: 0.108393
+
+benchmark/micro/json/inconsistent_schema.benchmark
+Old timing: 0.09262
+New timing: 0.091094
+
+benchmark/micro/lambdas/list_filter_where.benchmark
+Old timing: 0.004403
+New timing: 0.004256
+
+benchmark/micro/lambdas/list_reduce/complex_expression.benchmark
+Old timing: 0.2234
+New timing: 0.247864
+
+benchmark/micro/lambdas/list_reduce/list_length_2.benchmark
+Old timing: 0.046829
+New timing: 0.046654
+
+benchmark/micro/lambdas/list_reduce/list_length_5000.benchmark
+Old timing: 0.745038
+New timing: 0.746524
+
+benchmark/micro/lambdas/list_reduce/list_variable_length.benchmark
+Old timing: 5.519744
+New timing: 5.408938
+
+benchmark/micro/lambdas/list_reduce/varchar.benchmark
+Old timing: 1.347311
+New timing: 1.341276
+
+benchmark/micro/lambdas/list_transform_select.benchmark
+Old timing: 0.002186
+New timing: 0.002202
+
+benchmark/micro/lambdas/list_transform_zip.benchmark
+Old timing: 0.008775
+New timing: 0.008303
+
+benchmark/micro/limit/parallel_limit.benchmark
+Old timing: 0.064892
+New timing: 0.064517
+
+benchmark/micro/limit/parallel_streaming_limit.benchmark
+Old timing: 0.066049
+New timing: 0.066004
+
+benchmark/micro/limit/parquet_parallel_limit.benchmark
+Old timing: 0.233331
+New timing: 0.230936
+
+benchmark/micro/limit/parquet_parallel_limit_glob.benchmark
+Old timing: 0.232724
+New timing: 0.230854
+
+benchmark/micro/list/column_data_collection_copy/large_lists.benchmark
+Old timing: 2.593433
+New timing: 2.789522
+
+benchmark/micro/list/column_data_collection_copy/small_lists.benchmark
+Old timing: 0.03155
+New timing: 0.06109
+
+benchmark/micro/list/column_data_collection_copy/unnest.benchmark
+Old timing: 0.02483
+New timing: 0.024054
+
+benchmark/micro/list/list_extract.benchmark
+Old timing: 0.022819
+New timing: 0.022275
+
+benchmark/micro/list/list_extract_null.benchmark
+Old timing: 0.025422
+New timing: 0.023168
+
+benchmark/micro/list/list_extract_struct.benchmark
+Old timing: 0.216492
+New timing: 0.213442
+
+benchmark/micro/list/list_extract_struct_null.benchmark
+Old timing: 0.218178
+New timing: 0.215587
+
+benchmark/micro/list/list_few_rows.benchmark
+Old timing: 0.053421
+New timing: 0.055113
+
+benchmark/micro/list/list_has_any.benchmark
+Old timing: 0.855791
+New timing: 0.843491
+
+benchmark/micro/list/list_many_rows.benchmark
+Old timing: 0.027533
+New timing: 0.027374
+
+benchmark/micro/list/list_min_max.benchmark
+Old timing: 1.543879
+New timing: 1.541378
+
+benchmark/micro/list/list_order_by.benchmark
+Old timing: 0.562773
+New timing: 0.540322
+
+benchmark/micro/list/list_value.benchmark
+Old timing: 0.648189
+New timing: 0.647783
+
+benchmark/micro/list/string_split.benchmark
+Old timing: 0.091625
+New timing: 0.09158
+
+benchmark/micro/list/string_split_regexp.benchmark
+Old timing: 0.512292
+New timing: 0.509989
+
+benchmark/micro/list/string_split_unicode.benchmark
+Old timing: 0.071655
+New timing: 0.071759
+
+benchmark/micro/list/unnest.benchmark
+Old timing: 0.021147
+New timing: 0.020827
+
+benchmark/micro/list/unnest_rewrite.benchmark
+Old timing: 0.089585
+New timing: 0.090253
+
+benchmark/micro/map/map_extract.benchmark
+Old timing: 0.009181
+New timing: 0.005232
+
+benchmark/micro/map/map_lookup.benchmark
+Old timing: 0.034888
+New timing: 0.034158
+
+benchmark/micro/nulls/no_nulls_addition.benchmark
+Old timing: 0.02267
+New timing: 0.022548
+
+benchmark/micro/nulls/null_addition.benchmark
+Old timing: 0.023345
+New timing: 0.022462
+
+benchmark/micro/optimizer/topn_optimization.benchmark
+Old timing: 0.064775
+New timing: 0.064673
+
+benchmark/micro/order/orderby.benchmark
+Old timing: 0.022231
+New timing: 0.021001
+
+benchmark/micro/pushdown/or_pushdown.benchmark
+Old timing: 0.003908
+New timing: 0.00378
+
+benchmark/micro/pushdown/window_partition_pushdown.benchmark
+Old timing: 0.28117
+New timing: 0.285
+
+benchmark/micro/result_collection/arrow_result.benchmark
+Old timing: 1.021686
+New timing: 1.012512
+
+benchmark/micro/result_collection/batched_stream_query.benchmark
+Old timing: 1.118388
+New timing: 1.113542
+
+benchmark/micro/simd/auto-vectorization.benchmark
+Old timing: 3.164744
+New timing: 3.150122
+
+benchmark/micro/string/bitstring.benchmark
+Old timing: 0.035682
+New timing: 0.035703
+
+benchmark/micro/string/concat_long.benchmark
+Old timing: 0.063688
+New timing: 0.0634
+
+benchmark/micro/string/concat_short.benchmark
+Old timing: 0.068379
+New timing: 0.064088
+
+benchmark/micro/string/contains_integers.benchmark
+Old timing: 0.036111
+New timing: 0.036232
+
+benchmark/micro/string/contains_long.benchmark
+Old timing: 0.04328
+New timing: 0.04696
+
+benchmark/micro/string/contains_r.benchmark
+Old timing: 0.042541
+New timing: 0.042833
+
+benchmark/micro/string/contains_re.benchmark
+Old timing: 0.048109
+New timing: 0.048113
+
+benchmark/micro/string/contains_reg.benchmark
+Old timing: 0.048994
+New timing: 0.04929
+
+benchmark/micro/string/contains_regular.benchmark
+Old timing: 0.048638
+New timing: 0.048973
+
+benchmark/micro/string/equality_long.benchmark
+Old timing: 0.042791
+New timing: 0.041241
+
+benchmark/micro/string/equality_short.benchmark
+Old timing: 0.046566
+New timing: 0.046688
+
+benchmark/micro/string/greater_than_long.benchmark
+Old timing: 0.043455
+New timing: 0.045042
+
+benchmark/micro/string/greater_than_short.benchmark
+Old timing: 0.051428
+New timing: 0.049392
+
+benchmark/micro/string/length_long.benchmark
+Old timing: 0.047576
+New timing: 0.047603
+
+benchmark/micro/string/length_short.benchmark
+Old timing: 0.050948
+New timing: 0.053928
+
+benchmark/micro/string/like_regular.benchmark
+Old timing: 0.048669
+New timing: 0.048771
+
+benchmark/micro/string/regexp_matches.benchmark
+Old timing: 0.036983
+New timing: 0.036935
+
+benchmark/micro/string/string_agg_long.benchmark
+Old timing: 0.314233
+New timing: 0.313979
+
+benchmark/micro/string/string_agg_order_by.benchmark
+Old timing: 1.664835
+New timing: 1.65487
+
+benchmark/micro/string/string_agg_short.benchmark
+Old timing: 0.083007
+New timing: 0.097845
+
+benchmark/micro/string/url_encode.benchmark
+Old timing: 4.013367
+New timing: 4.026159
+
+benchmark/micro/timestamp/extract_month.benchmark
+Old timing: 0.006106
+New timing: 0.006079
+
+benchmark/micro/timestamp/extract_year.benchmark
+Old timing: 0.005931
+New timing: 0.005862
+
+benchmark/micro/update/update_with_join.benchmark
+Old timing: 0.161136
+New timing: 0.15827
+
+benchmark/micro/view/many_values.benchmark
+Old timing: 0.007441
+New timing: 0.007635
+
+benchmark/micro/window/streaming_lag.benchmark
+Old timing: 0.095521
+New timing: 0.096482
+
+benchmark/micro/window/streaming_lead.benchmark
+Old timing: 0.104937
+New timing: 0.105864
+
+benchmark/micro/window/window_constant_aggregates.benchmark
+Old timing: 0.223185
+New timing: 0.213234
+
+benchmark/micro/window/window_constant_count.benchmark
+Old timing: 0.098962
+New timing: 0.100098
+
+benchmark/micro/window/window_count_star_fixed_100.benchmark
+Old timing: 0.374026
+New timing: 0.372264
+
+benchmark/micro/window/window_count_star_variable_100.benchmark
+Old timing: 0.35882
+New timing: 0.384101
+
+benchmark/micro/window/window_iqr_fixed_100.benchmark
+Old timing: 1.233274
+New timing: 1.268102
+
+benchmark/micro/window/window_iqr_variable_100.benchmark
+Old timing: 4.972089
+New timing: 4.360225
+
+benchmark/micro/window/window_list_aggr.benchmark
+Old timing: 0.945315
+New timing: 0.940903
+
+benchmark/micro/window/window_mad_fixed_100.benchmark
+Old timing: 1.927194
+New timing: 1.899041
+
+benchmark/micro/window/window_mad_variable_100.benchmark
+Old timing: 4.017196
+New timing: 4.158715
+
+benchmark/micro/window/window_median_fixed_100.benchmark
+Old timing: 0.868164
+New timing: 0.918447
+
+benchmark/micro/window/window_median_variable_100.benchmark
+Old timing: 2.976528
+New timing: 2.816127
+
+benchmark/micro/window/window_mode_fixed_100.benchmark
+Old timing: 0.671418
+New timing: 0.728086
+
+benchmark/micro/window/window_partition.benchmark
+Old timing: 0.064329
+New timing: 0.065952
+
+benchmark/micro/window/window_streamed_sum.benchmark
+Old timing: 0.400189
+New timing: 0.404515
+
+benchmark/micro/window/window_sum.benchmark
+Old timing: 0.020325
+New timing: 0.01877
+
+benchmark/micro/zonemaps/data_skipping.benchmark
+Old timing: 0.000486
+New timing: 0.000671
+
+benchmark/micro/zonemaps/zonemaps.benchmark
+Old timing: 0.057317
+New timing: 0.057729
+
+
+Old timing geometric mean: 0.14366144605482262
+New timing geometric mean: 0.1429443332759822

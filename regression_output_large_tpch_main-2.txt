@@ -1,0 +1,408 @@
+====================================================
+==============      ITERATION 0        =============
+==============      REMAINING 22        =============
+====================================================
+
+name	run	timing
+benchmark/large/tpch-sf100/q01.benchmark	1	2.197521
+benchmark/large/tpch-sf100/q01.benchmark	2	2.195951
+benchmark/large/tpch-sf100/q01.benchmark	3	2.197011
+benchmark/large/tpch-sf100/q01.benchmark	4	2.191187
+benchmark/large/tpch-sf100/q01.benchmark	5	2.188144
+
+name	run	timing
+benchmark/large/tpch-sf100/q02.benchmark	1	0.281913
+benchmark/large/tpch-sf100/q02.benchmark	2	0.277549
+benchmark/large/tpch-sf100/q02.benchmark	3	0.277513
+benchmark/large/tpch-sf100/q02.benchmark	4	0.283290
+benchmark/large/tpch-sf100/q02.benchmark	5	0.275403
+
+name	run	timing
+benchmark/large/tpch-sf100/q03.benchmark	1	1.491342
+benchmark/large/tpch-sf100/q03.benchmark	2	1.473532
+benchmark/large/tpch-sf100/q03.benchmark	3	1.479977
+benchmark/large/tpch-sf100/q03.benchmark	4	1.467903
+benchmark/large/tpch-sf100/q03.benchmark	5	1.469069
+
+name	run	timing
+benchmark/large/tpch-sf100/q04.benchmark	1	1.252987
+benchmark/large/tpch-sf100/q04.benchmark	2	1.204556
+benchmark/large/tpch-sf100/q04.benchmark	3	1.205151
+benchmark/large/tpch-sf100/q04.benchmark	4	1.212640
+benchmark/large/tpch-sf100/q04.benchmark	5	1.252657
+
+name	run	timing
+benchmark/large/tpch-sf100/q05.benchmark	1	1.513378
+benchmark/large/tpch-sf100/q05.benchmark	2	1.519415
+benchmark/large/tpch-sf100/q05.benchmark	3	1.524122
+benchmark/large/tpch-sf100/q05.benchmark	4	1.509724
+benchmark/large/tpch-sf100/q05.benchmark	5	1.527874
+
+name	run	timing
+benchmark/large/tpch-sf100/q06.benchmark	1	0.420751
+benchmark/large/tpch-sf100/q06.benchmark	2	0.420694
+benchmark/large/tpch-sf100/q06.benchmark	3	0.420318
+benchmark/large/tpch-sf100/q06.benchmark	4	0.421019
+benchmark/large/tpch-sf100/q06.benchmark	5	0.422584
+
+name	run	timing
+benchmark/large/tpch-sf100/q07.benchmark	1	1.511508
+benchmark/large/tpch-sf100/q07.benchmark	2	1.500416
+benchmark/large/tpch-sf100/q07.benchmark	3	1.495694
+benchmark/large/tpch-sf100/q07.benchmark	4	1.492343
+benchmark/large/tpch-sf100/q07.benchmark	5	1.513777
+
+name	run	timing
+benchmark/large/tpch-sf100/q08.benchmark	1	1.432370
+benchmark/large/tpch-sf100/q08.benchmark	2	1.465407
+benchmark/large/tpch-sf100/q08.benchmark	3	1.436416
+benchmark/large/tpch-sf100/q08.benchmark	4	1.433765
+benchmark/large/tpch-sf100/q08.benchmark	5	1.448968
+
+name	run	timing
+benchmark/large/tpch-sf100/q09.benchmark	1	6.719285
+benchmark/large/tpch-sf100/q09.benchmark	2	6.769671
+benchmark/large/tpch-sf100/q09.benchmark	3	6.705127
+benchmark/large/tpch-sf100/q09.benchmark	4	6.682020
+benchmark/large/tpch-sf100/q09.benchmark	5	6.642194
+
+name	run	timing
+benchmark/large/tpch-sf100/q10.benchmark	1	2.129765
+benchmark/large/tpch-sf100/q10.benchmark	2	2.178690
+benchmark/large/tpch-sf100/q10.benchmark	3	2.136471
+benchmark/large/tpch-sf100/q10.benchmark	4	2.085771
+benchmark/large/tpch-sf100/q10.benchmark	5	2.144947
+
+name	run	timing
+benchmark/large/tpch-sf100/q11.benchmark	1	0.191762
+benchmark/large/tpch-sf100/q11.benchmark	2	0.188284
+benchmark/large/tpch-sf100/q11.benchmark	3	0.190327
+benchmark/large/tpch-sf100/q11.benchmark	4	0.191430
+benchmark/large/tpch-sf100/q11.benchmark	5	0.189596
+
+name	run	timing
+benchmark/large/tpch-sf100/q12.benchmark	1	1.086116
+benchmark/large/tpch-sf100/q12.benchmark	2	1.079627
+benchmark/large/tpch-sf100/q12.benchmark	3	1.167487
+benchmark/large/tpch-sf100/q12.benchmark	4	1.080267
+benchmark/large/tpch-sf100/q12.benchmark	5	1.084147
+
+name	run	timing
+benchmark/large/tpch-sf100/q13.benchmark	1	4.976657
+benchmark/large/tpch-sf100/q13.benchmark	2	4.823604
+benchmark/large/tpch-sf100/q13.benchmark	3	4.796569
+benchmark/large/tpch-sf100/q13.benchmark	4	4.796888
+benchmark/large/tpch-sf100/q13.benchmark	5	4.855329
+
+name	run	timing
+benchmark/large/tpch-sf100/q14.benchmark	1	0.973245
+benchmark/large/tpch-sf100/q14.benchmark	2	0.951794
+benchmark/large/tpch-sf100/q14.benchmark	3	0.952131
+benchmark/large/tpch-sf100/q14.benchmark	4	0.954315
+benchmark/large/tpch-sf100/q14.benchmark	5	0.948578
+
+name	run	timing
+benchmark/large/tpch-sf100/q15.benchmark	1	0.738306
+benchmark/large/tpch-sf100/q15.benchmark	2	0.739795
+benchmark/large/tpch-sf100/q15.benchmark	3	0.738037
+benchmark/large/tpch-sf100/q15.benchmark	4	0.736286
+benchmark/large/tpch-sf100/q15.benchmark	5	0.742283
+
+name	run	timing
+benchmark/large/tpch-sf100/q16.benchmark	1	0.645053
+benchmark/large/tpch-sf100/q16.benchmark	2	0.641570
+benchmark/large/tpch-sf100/q16.benchmark	3	0.641278
+benchmark/large/tpch-sf100/q16.benchmark	4	0.626847
+benchmark/large/tpch-sf100/q16.benchmark	5	0.636283
+
+name	run	timing
+benchmark/large/tpch-sf100/q17.benchmark	1	1.643228
+benchmark/large/tpch-sf100/q17.benchmark	2	1.643364
+benchmark/large/tpch-sf100/q17.benchmark	3	1.644712
+benchmark/large/tpch-sf100/q17.benchmark	4	1.647013
+benchmark/large/tpch-sf100/q17.benchmark	5	1.641826
+
+name	run	timing
+benchmark/large/tpch-sf100/q18.benchmark	1	3.726700
+benchmark/large/tpch-sf100/q18.benchmark	2	3.695180
+benchmark/large/tpch-sf100/q18.benchmark	3	3.720701
+benchmark/large/tpch-sf100/q18.benchmark	4	3.818858
+benchmark/large/tpch-sf100/q18.benchmark	5	3.704097
+
+name	run	timing
+benchmark/large/tpch-sf100/q19.benchmark	1	1.757962
+benchmark/large/tpch-sf100/q19.benchmark	2	1.754474
+benchmark/large/tpch-sf100/q19.benchmark	3	1.752550
+benchmark/large/tpch-sf100/q19.benchmark	4	1.758397
+benchmark/large/tpch-sf100/q19.benchmark	5	1.763340
+
+name	run	timing
+benchmark/large/tpch-sf100/q20.benchmark	1	1.118372
+benchmark/large/tpch-sf100/q20.benchmark	2	1.096107
+benchmark/large/tpch-sf100/q20.benchmark	3	1.098041
+benchmark/large/tpch-sf100/q20.benchmark	4	1.097176
+benchmark/large/tpch-sf100/q20.benchmark	5	1.097278
+
+name	run	timing
+benchmark/large/tpch-sf100/q21.benchmark	1	4.610873
+benchmark/large/tpch-sf100/q21.benchmark	2	4.529549
+benchmark/large/tpch-sf100/q21.benchmark	3	4.472873
+benchmark/large/tpch-sf100/q21.benchmark	4	4.484503
+benchmark/large/tpch-sf100/q21.benchmark	5	4.564695
+
+name	run	timing
+benchmark/large/tpch-sf100/q22.benchmark	1	0.890565
+benchmark/large/tpch-sf100/q22.benchmark	2	0.894322
+benchmark/large/tpch-sf100/q22.benchmark	3	0.895066
+benchmark/large/tpch-sf100/q22.benchmark	4	0.884891
+benchmark/large/tpch-sf100/q22.benchmark	5	0.884303
+
+name	run	timing
+benchmark/large/tpch-sf100/q01.benchmark	1	2.181699
+benchmark/large/tpch-sf100/q01.benchmark	2	2.202097
+benchmark/large/tpch-sf100/q01.benchmark	3	2.260236
+benchmark/large/tpch-sf100/q01.benchmark	4	2.188814
+benchmark/large/tpch-sf100/q01.benchmark	5	2.190963
+
+name	run	timing
+benchmark/large/tpch-sf100/q02.benchmark	1	0.280857
+benchmark/large/tpch-sf100/q02.benchmark	2	0.278372
+benchmark/large/tpch-sf100/q02.benchmark	3	0.279908
+benchmark/large/tpch-sf100/q02.benchmark	4	0.274732
+benchmark/large/tpch-sf100/q02.benchmark	5	0.279114
+
+name	run	timing
+benchmark/large/tpch-sf100/q03.benchmark	1	1.484815
+benchmark/large/tpch-sf100/q03.benchmark	2	1.496603
+benchmark/large/tpch-sf100/q03.benchmark	3	1.471916
+benchmark/large/tpch-sf100/q03.benchmark	4	1.494057
+benchmark/large/tpch-sf100/q03.benchmark	5	1.497396
+
+name	run	timing
+benchmark/large/tpch-sf100/q04.benchmark	1	1.254558
+benchmark/large/tpch-sf100/q04.benchmark	2	1.253929
+benchmark/large/tpch-sf100/q04.benchmark	3	1.217591
+benchmark/large/tpch-sf100/q04.benchmark	4	1.213602
+benchmark/large/tpch-sf100/q04.benchmark	5	1.229057
+
+name	run	timing
+benchmark/large/tpch-sf100/q05.benchmark	1	1.542244
+benchmark/large/tpch-sf100/q05.benchmark	2	1.500750
+benchmark/large/tpch-sf100/q05.benchmark	3	1.506400
+benchmark/large/tpch-sf100/q05.benchmark	4	1.576856
+benchmark/large/tpch-sf100/q05.benchmark	5	1.536758
+
+name	run	timing
+benchmark/large/tpch-sf100/q06.benchmark	1	0.421371
+benchmark/large/tpch-sf100/q06.benchmark	2	0.421156
+benchmark/large/tpch-sf100/q06.benchmark	3	0.419949
+benchmark/large/tpch-sf100/q06.benchmark	4	0.420931
+benchmark/large/tpch-sf100/q06.benchmark	5	0.421873
+
+name	run	timing
+benchmark/large/tpch-sf100/q07.benchmark	1	1.505589
+benchmark/large/tpch-sf100/q07.benchmark	2	1.507678
+benchmark/large/tpch-sf100/q07.benchmark	3	1.494186
+benchmark/large/tpch-sf100/q07.benchmark	4	1.499488
+benchmark/large/tpch-sf100/q07.benchmark	5	1.526062
+
+name	run	timing
+benchmark/large/tpch-sf100/q08.benchmark	1	1.446409
+benchmark/large/tpch-sf100/q08.benchmark	2	1.447720
+benchmark/large/tpch-sf100/q08.benchmark	3	1.430465
+benchmark/large/tpch-sf100/q08.benchmark	4	1.446163
+benchmark/large/tpch-sf100/q08.benchmark	5	1.428298
+
+name	run	timing
+benchmark/large/tpch-sf100/q09.benchmark	1	6.684620
+benchmark/large/tpch-sf100/q09.benchmark	2	6.663313
+benchmark/large/tpch-sf100/q09.benchmark	3	6.697171
+benchmark/large/tpch-sf100/q09.benchmark	4	6.674718
+benchmark/large/tpch-sf100/q09.benchmark	5	6.672391
+
+name	run	timing
+benchmark/large/tpch-sf100/q10.benchmark	1	2.239833
+benchmark/large/tpch-sf100/q10.benchmark	2	2.183402
+benchmark/large/tpch-sf100/q10.benchmark	3	2.149959
+benchmark/large/tpch-sf100/q10.benchmark	4	2.185101
+benchmark/large/tpch-sf100/q10.benchmark	5	2.191995
+
+name	run	timing
+benchmark/large/tpch-sf100/q11.benchmark	1	0.190802
+benchmark/large/tpch-sf100/q11.benchmark	2	0.189073
+benchmark/large/tpch-sf100/q11.benchmark	3	0.190312
+benchmark/large/tpch-sf100/q11.benchmark	4	0.190019
+benchmark/large/tpch-sf100/q11.benchmark	5	0.188033
+
+name	run	timing
+benchmark/large/tpch-sf100/q12.benchmark	1	1.090207
+benchmark/large/tpch-sf100/q12.benchmark	2	1.079807
+benchmark/large/tpch-sf100/q12.benchmark	3	1.081757
+benchmark/large/tpch-sf100/q12.benchmark	4	1.060329
+benchmark/large/tpch-sf100/q12.benchmark	5	1.079914
+
+name	run	timing
+benchmark/large/tpch-sf100/q13.benchmark	1	4.976095
+benchmark/large/tpch-sf100/q13.benchmark	2	4.869208
+benchmark/large/tpch-sf100/q13.benchmark	3	4.780391
+benchmark/large/tpch-sf100/q13.benchmark	4	4.838207
+benchmark/large/tpch-sf100/q13.benchmark	5	4.875758
+
+name	run	timing
+benchmark/large/tpch-sf100/q14.benchmark	1	0.958712
+benchmark/large/tpch-sf100/q14.benchmark	2	0.953779
+benchmark/large/tpch-sf100/q14.benchmark	3	0.963693
+benchmark/large/tpch-sf100/q14.benchmark	4	0.955855
+benchmark/large/tpch-sf100/q14.benchmark	5	0.954868
+
+name	run	timing
+benchmark/large/tpch-sf100/q15.benchmark	1	0.739110
+benchmark/large/tpch-sf100/q15.benchmark	2	0.735730
+benchmark/large/tpch-sf100/q15.benchmark	3	0.742897
+benchmark/large/tpch-sf100/q15.benchmark	4	0.737811
+benchmark/large/tpch-sf100/q15.benchmark	5	0.738213
+
+name	run	timing
+benchmark/large/tpch-sf100/q16.benchmark	1	0.646026
+benchmark/large/tpch-sf100/q16.benchmark	2	0.627819
+benchmark/large/tpch-sf100/q16.benchmark	3	0.624247
+benchmark/large/tpch-sf100/q16.benchmark	4	0.635812
+benchmark/large/tpch-sf100/q16.benchmark	5	0.717383
+
+name	run	timing
+benchmark/large/tpch-sf100/q17.benchmark	1	1.647382
+benchmark/large/tpch-sf100/q17.benchmark	2	1.641535
+benchmark/large/tpch-sf100/q17.benchmark	3	1.640667
+benchmark/large/tpch-sf100/q17.benchmark	4	1.649433
+benchmark/large/tpch-sf100/q17.benchmark	5	1.647958
+
+name	run	timing
+benchmark/large/tpch-sf100/q18.benchmark	1	3.891554
+benchmark/large/tpch-sf100/q18.benchmark	2	3.699162
+benchmark/large/tpch-sf100/q18.benchmark	3	3.673652
+benchmark/large/tpch-sf100/q18.benchmark	4	3.706049
+benchmark/large/tpch-sf100/q18.benchmark	5	3.726431
+
+name	run	timing
+benchmark/large/tpch-sf100/q19.benchmark	1	1.754534
+benchmark/large/tpch-sf100/q19.benchmark	2	1.751656
+benchmark/large/tpch-sf100/q19.benchmark	3	1.752387
+benchmark/large/tpch-sf100/q19.benchmark	4	1.754792
+benchmark/large/tpch-sf100/q19.benchmark	5	1.761844
+
+name	run	timing
+benchmark/large/tpch-sf100/q20.benchmark	1	1.098825
+benchmark/large/tpch-sf100/q20.benchmark	2	1.094636
+benchmark/large/tpch-sf100/q20.benchmark	3	1.097055
+benchmark/large/tpch-sf100/q20.benchmark	4	1.101534
+benchmark/large/tpch-sf100/q20.benchmark	5	1.093047
+
+name	run	timing
+benchmark/large/tpch-sf100/q21.benchmark	1	4.472194
+benchmark/large/tpch-sf100/q21.benchmark	2	4.455091
+benchmark/large/tpch-sf100/q21.benchmark	3	4.546614
+benchmark/large/tpch-sf100/q21.benchmark	4	4.613982
+benchmark/large/tpch-sf100/q21.benchmark	5	4.466570
+
+name	run	timing
+benchmark/large/tpch-sf100/q22.benchmark	1	0.887972
+benchmark/large/tpch-sf100/q22.benchmark	2	0.904286
+benchmark/large/tpch-sf100/q22.benchmark	3	0.888997
+benchmark/large/tpch-sf100/q22.benchmark	4	0.885737
+benchmark/large/tpch-sf100/q22.benchmark	5	0.885986
+
+====================================================
+============== NO REGRESSIONS DETECTED  =============
+====================================================
+
+benchmark/large/tpch-sf100/q01.benchmark
+Old timing: 2.195951
+New timing: 2.190963
+
+benchmark/large/tpch-sf100/q02.benchmark
+Old timing: 0.277549
+New timing: 0.279114
+
+benchmark/large/tpch-sf100/q03.benchmark
+Old timing: 1.473532
+New timing: 1.494057
+
+benchmark/large/tpch-sf100/q04.benchmark
+Old timing: 1.21264
+New timing: 1.229057
+
+benchmark/large/tpch-sf100/q05.benchmark
+Old timing: 1.519415
+New timing: 1.536758
+
+benchmark/large/tpch-sf100/q06.benchmark
+Old timing: 0.420751
+New timing: 0.421156
+
+benchmark/large/tpch-sf100/q07.benchmark
+Old timing: 1.500416
+New timing: 1.505589
+
+benchmark/large/tpch-sf100/q08.benchmark
+Old timing: 1.436416
+New timing: 1.446163
+
+benchmark/large/tpch-sf100/q09.benchmark
+Old timing: 6.705127
+New timing: 6.674718
+
+benchmark/large/tpch-sf100/q10.benchmark
+Old timing: 2.136471
+New timing: 2.185101
+
+benchmark/large/tpch-sf100/q11.benchmark
+Old timing: 0.190327
+New timing: 0.190019
+
+benchmark/large/tpch-sf100/q12.benchmark
+Old timing: 1.084147
+New timing: 1.079914
+
+benchmark/large/tpch-sf100/q13.benchmark
+Old timing: 4.823604
+New timing: 4.869208
+
+benchmark/large/tpch-sf100/q14.benchmark
+Old timing: 0.952131
+New timing: 0.955855
+
+benchmark/large/tpch-sf100/q15.benchmark
+Old timing: 0.738306
+New timing: 0.738213
+
+benchmark/large/tpch-sf100/q16.benchmark
+Old timing: 0.641278
+New timing: 0.635812
+
+benchmark/large/tpch-sf100/q17.benchmark
+Old timing: 1.643364
+New timing: 1.647382
+
+benchmark/large/tpch-sf100/q18.benchmark
+Old timing: 3.720701
+New timing: 3.706049
+
+benchmark/large/tpch-sf100/q19.benchmark
+Old timing: 1.757962
+New timing: 1.754534
+
+benchmark/large/tpch-sf100/q20.benchmark
+Old timing: 1.097278
+New timing: 1.097055
+
+benchmark/large/tpch-sf100/q21.benchmark
+Old timing: 4.529549
+New timing: 4.472194
+
+benchmark/large/tpch-sf100/q22.benchmark
+Old timing: 0.890565
+New timing: 0.887972
+
+
+Old timing geometric mean: 1.3241616124386744
+New timing geometric mean: 1.3266835364339178
