@@ -1,4 +1,5 @@
-name: Test issue filing, when there is a failing build and a regression
+name: Test - file issue when no regressions detected
+# https://github.com/duckdblabs/duckdb-internal/issues/2931
 on:
   workflow_dispatch:
 env:
