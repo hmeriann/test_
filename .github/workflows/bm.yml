@@ -1,0 +1,61 @@
+name: Test - Benchmark timings (RN)
+on:
+  workflow_dispatch:
+env:
+  gh_issue_repo: hmeriann/test_
+  GH_TOKEN: ${{ github.token }}
+jobs:
+  build-duckdb-versions-and-setup-benchmarks:
+    name: Build DuckDB versions and link the benchmarks
+    runs-on: ubuntu-latest
+    env:
+      GEN: ninja
+      BUILD_BENCHMARK: 1
+      BUILD_TPCH: 1
+      BUILD_TPCDS: 1
+      BUILD_JSON: 1
+      BUILD_HTTPFS: 1
+      BUILD_ICU: 1
+      BUILD_INET: 1
+      BUILD_JEMALLOC: 1
+      regression_output: regression_output.txt
+
+    steps:
+      - name: checkout duckdb-curr
+        uses: actions/checkout@v4
+        with:
+          repository: 'hmeriann/duckdb'
+          ref: real-nest-benchmarks
+          fetch-depth: 0
+          path: duckdb-curr
+
+      - name: checkout duckdb-old
+        uses: actions/checkout@v4
+        with:
+          repository: 'hmeriann/duckdb'
+          ref: real-nest-benchmarks
+          fetch-depth: 0
+          path: duckdb-old
+
+      - name: Build old and current
+        shell: bash
+        run: |
+          cd duckdb-curr && make clean && make 
+          cd ..
+          cd duckdb-old && make clean && make
+        
+  run-tests:
+    name: Run Benchmarks
+    runs-on: ubuntu-latest
+    steps:    
+      - run: |
+          python duckdb-curr/scripts/regression_test_runner.py \
+            --old=duckdb-old/build/release/benchmark/benchmark_runner \
+            --new=duckdb-curr/build/release/benchmark/benchmark_runner \
+            --benchmarks=duckdb-curr/.github/regression/realnest.csv \
+            --verbose > real_nest.txt
+      - name: Upload result
+        uses: actions/upload-artifact@v4
+        with:
+          path: real_nest.txt
+          name: real_nest.txt
