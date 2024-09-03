@@ -1,0 +1,78 @@
+name: Test issue filing, when there is a failing build and a regression
+on:
+  workflow_dispatch:
+env:
+  gh_issue_repo: hmeriann/test_
+  GH_TOKEN: ${{ github.token }}
+jobs:
+  run-tests:
+    name: Run Regression Tests
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        test: ['large/tpch.csv', 'tpcds.csv', 'large/ingestion.csv', 'micro_extended.csv']
+    outputs:
+      file_name: ${{ steps.create.outputs.file_name }}
+    steps:    
+      - name: get reports
+        uses: actions/download-artifact@v4
+        with:
+          name: regression*.txt
+          path: https://github.com/duckdblabs/duckdb-internal/actions/runs/10664396821
+           
+  collect-issues:
+    name: Collect Issues
+    needs: 
+      - run-tests
+    if: always() && contains(github.ref_name, 'main')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Collect issues
+        run: |
+          # collect issues on benchmarks runs
+          for output in regression*/*.txt; do
+            echo ❇️ $(cat $output)
+            printf "Regression Output \n \`\`\` \n $(awk '/REGRESSIONS DETECTED/,/OTHER TIMINGS/' $output) \n \`\`\` \n"  >> issue_body_${{ matrix.branch }}.txt
+          done
+      - name: Upload issue_body
+        uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          path: ./issue_*.txt
+          name: issue_body_${{ matrix.branch }}
+
+  # file-issue:
+  #   name: File Issue
+  #   needs: 
+  #     - run-tests
+  #     - collect-issues
+  #   if: always()
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #     - name: File issue on preparation steps
+  #       if: contains(github.ref_name, 'main') && needs.build.result != 'success'
+  #       run: |
+  #         gh issue create --repo "${{ env.gh_issue_repo }}" \
+  #           --title "PREP: Failed to run Weekly Regression Benchmarks" \
+  #           --body "Benchmark preparation steps have failed, please check the \
+  #           [workflow run](https://github.com/hmeriann/test_/actions/runs/${{ github.run_id }}) for details."
+  #       env:
+  #         GH_TOKEN: ${{ github.token }}
+    
+  #     - name: Download artifacts
+  #       if: always()
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         pattern: issue_body_*
+  #         merge-multiple: true
+  #     - run: ls -R issue_body
+          
+  #     - name: File issue on Benchmarks
+  #       if: contains(github.ref_name, 'main') && needs.build.result != 'success'
+  #       run: |
+  #         if grep -q "REGRESSIONS DETECTED" issue_body*.txt; then
+  #           cat issue_body*.txt >> report.txt
+  #           gh issue create --repo ${{ env.gh_issue_repo }} --title "TEST: Weekly Regression Test Failure" --body-file report.txt
+  #         fi
