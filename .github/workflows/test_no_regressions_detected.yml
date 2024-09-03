@@ -1,5 +1,4 @@
 name: Test - file issue when no regressions detected
-# https://github.com/duckdblabs/duckdb-internal/issues/2931
 on:
   workflow_dispatch:
 env:
@@ -11,24 +10,21 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       file_name: ${{ steps.create.outputs.file_name }}
-    steps:    
-       - name: Checkout repository
-         uses: actions/checkout@v4
-       - name: Collect issues
-           run: |
-            # collect issues on benchmarks runs
-            for output in regression*.txt; do
-              echo ❇️ $(cat $output)
-              printf " *️⃣ [ Regression Test $output ]\n" >> issue_body.txt
-              printf "Regression Output \n \`\`\` \n $(awk '/REGRESSIONS DETECTED/,/OTHER TIMINGS/' $output) \n \`\`\` \n"  >> issue_body.txt
-            done
-            echo ✅
-        - run: ls -lah
-        - name: Upload issue_body
-          uses: actions/upload-artifact@v4
-          with:
-            path: ./issue_*.txt
-            name: issue_body
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - run: |
+          for output in regression*.txt; do
+            echo ❇️ $(cat $output)
+            printf " *️⃣ [ Regression Test $output ]\n" >> issue_body.txt
+            printf "Regression Output \n \`\`\` \n $(awk '/REGRESSIONS DETECTED/,/OTHER TIMINGS/' $output) \n \`\`\` \n"  >> issue_body.txt
+          done
+          echo ✅
+      - name: Upload issue_body
+        uses: actions/upload-artifact@v4
+        with:
+          path: ./issue_*.txt
+          name: issue_body
 
   file-issue:
     name: File Issue
