@@ -5,6 +5,18 @@ env:
   gh_issue_repo: hmeriann/test_
   GH_TOKEN: ${{ github.token }}
 jobs:
+  configure:
+    name: Config
+    runs-on: ubuntu-latest
+    steps:
+      - run: exit 0
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - run: exit 1
+      
   run-tests:
     name: Setup
     strategy:
@@ -29,11 +41,13 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           path: ./issue_*.txt
-          name: issue_body
+          name: issue_body_${{ matrix.branch }}
 
   file-issue:
     name: File Issue
     needs: 
+      - configure
+      - build
       - run-tests
     if: always()
     runs-on: ubuntu-latest
@@ -46,10 +60,24 @@ jobs:
           pattern: issue_body*
           merge-multiple: true
           
-      - name: File issue on Benchmarks
-        if: contains(github.ref_name, 'main') && needs.build.result != 'success'
+      - name: File issue on preparation steps
+        if: |
+            contains(github.ref_name, 'main') && 
+            (needs.configure.result != 'success' ||
+            needs.build.result != 'success')
         run: |
-          if grep -q "REGRESSIONS DETECTED" issue_body*; then
-            cat issue_body* >> report.txt
-            gh issue create --repo ${{ env.gh_issue_repo }} --title "TEST: Weekly Regression Test Failure" --body-file report.txt
+          echo "Benchmark preparation steps have failed, please check the \
+            [workflow run](https://github.com/duckdblabs/duckdb-internal/actions/runs/${{ github.run_id }}) for details." > report.txt
+
+      - name: Create a Report
+        run: |
+          if grep -q "REGRESSIONS DETECTED" issue_body*.txt; then
+            echo "Regressions detected, GitHub issue will be filed."
+            cat issue_body*.txt >> report.txt
           fi
+
+      - name: Send issue to gh
+        if: success()
+        run: |
+          # create issue
+          gh issue create --repo ${{ env.gh_issue_repo }} --title "Weekly Regression Test Failure" --body-file report.txt
