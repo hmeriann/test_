@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: hmeriann/duckdb
-          ref: 902af6f21cf5e15979ecab02f15223a0f9a0baff
+          ref: bab3bd355bd5804e12abb5151ade29b41d96a536
           fetch-depth: 0
 
       - uses: actions/setup-python@v5
@@ -31,20 +31,12 @@ jobs:
         shell: bash
         run: sudo apt-get update -y -qq && sudo apt-get install -y -qq ninja-build && pip install requests
 
-      - run: ls -lah
-      - run: git status
       - name: Build
         shell: bash
-        run: |
-          make 
-          cd ..
-          
-      # - run: ls -lah ./build/release/benchmark
+        run: make 
+
       - run: ls -lah
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      - run: ls -lah
-        
+      
       - run: |
           python scripts/regression_test_runner.py --old=build/release/benchmark/benchmark_runner --new=build/release/benchmark/benchmark_runner --benchmarks=.github/regression/realnest_test.csv  --verbose --threads=2
  
