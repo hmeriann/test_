@@ -37,7 +37,7 @@ jobs:
       - name: Build
         shell: bash
         run: |
-          wget https://drive.google.com/uc?export=download&id=1ytDKfQu4IX6_U5Y1gIBQI1CRkocJ4cTf --output-document realnest_benchmark_data.duckdb
+          wget https://duckdb-blobs.s3.amazonaws.com/realnest_benchmark_data.duckdb --output-document realnest_benchmark_data.duckdb
           make 
           cd ..
   
