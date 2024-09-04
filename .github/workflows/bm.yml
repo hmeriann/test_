@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: hmeriann/duckdb
-          ref: bab3bd355bd5804e12abb5151ade29b41d96a536
+          ref: real-nest-test
           fetch-depth: 0
 
       - uses: actions/setup-python@v5
