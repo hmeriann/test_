@@ -81,6 +81,9 @@ jobs:
           if grep -q "REGRESSIONS DETECTED" issue_body*.txt; then
             echo "Regressions detected, GitHub issue will be filed."
             cat issue_body*.txt >> report.txt
+          elif
+            echo "No Regressions detected. Doesn't need to file an issue. The next step should be skipped."
+            exit 1
           fi
 
       - name: Send issue to gh
