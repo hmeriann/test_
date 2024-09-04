@@ -41,10 +41,9 @@ jobs:
           
       # - run: ls -lah ./build/release/benchmark
       - run: ls -lah
-      - uses: actions/download-artifact@v4
-        with:
-          name: realnest_benchmark_data.duckdb
-          path: .
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - run: ls -lah
         
       - run: |
           python scripts/regression_test_runner.py --old=build/release/benchmark/benchmark_runner --new=build/release/benchmark/benchmark_runner --benchmarks=.github/regression/realnest_test.csv  --verbose --threads=2
