@@ -40,6 +40,8 @@ jobs:
           make
           git clone --branch real-nest-test https://github.com/hmeriann/duckdb.git --depth=1
           cd duckdb
+          wget https://drive.google.com/uc?export=download&id=1ytDKfQu4IX6_U5Y1gIBQI1CRkocJ4cTf 
+          mv uc\?export=download\&id=1ytDKfQu4IX6_U5Y1gIBQI1CRkocJ4cTf realnest_benchmark_data.duckdb
           make 
           cd ..
   
