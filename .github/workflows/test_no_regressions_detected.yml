@@ -9,7 +9,7 @@ jobs:
     name: Config
     runs-on: ubuntu-latest
     steps:
-      - run: exit 1
+      - run: exit 0
 
   build:
     name: Build
@@ -80,15 +80,11 @@ jobs:
           if grep -q "REGRESSIONS DETECTED" issue_body*.txt; then
             echo "Regressions detected, GitHub issue will be filed."
             cat issue_body*.txt >> report.txt
-          elif [ -f report.txt ]; then
-            echo "There is an issue only on prep step. Need to file it."
-          else
-            echo "No Regressions detected. Doesn't need to file an issue. The next step should be skipped."
-            exit 1
           fi
 
-      - name: Send issue to gh
-        if: success()
+      - name: Create issue
         run: |
-          # create issue
-          gh issue create --repo ${{ env.gh_issue_repo }} --title "Weekly Regression Test Failure" --body-file report.txt
+          if [ -f report.txt ]; then
+            # create issue
+            gh issue create --repo ${{ env.gh_issue_repo }} --title "Weekly Regression Test Failure" --body-file report.txt
+          fi
