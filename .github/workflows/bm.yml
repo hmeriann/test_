@@ -21,37 +21,37 @@ jobs:
       regression_output: regression_output.txt
 
     steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: hmeriann/duckdb
+          ref: real-nest-test
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
       - name: Install
         shell: bash
-        run: sudo apt-get update -y -qq && sudo apt-get install -y -qq g++ ninja-build cmake make python-is-python3 libssl-dev pip gh python3-requests
-      - name: checkout duckdb-curr
-        uses: actions/checkout@v4
-        with:
-          repository: 'hmeriann/duckdb'
-          ref: real-nest-benchmarks
-          fetch-depth: 0
-          path: duckdb-curr
+        run: sudo apt-get update -y -qq && sudo apt-get install -y -qq ninja-build && pip install requests
 
-      - name: checkout duckdb-old
-        uses: actions/checkout@v4
-        with:
-          repository: 'hmeriann/duckdb'
-          ref: real-nest-benchmarks
-          fetch-depth: 0
-          path: duckdb-old
-
-      - name: Build old and current
+      - name: Build
         shell: bash
         run: |
-          cd duckdb-curr && make clean && make 
+          make
+          git clone --branch real-nest-test https://github.com/hmeriann/duckdb.git --depth=1
+          cd duckdb
+          make
           cd ..
-          cd duckdb-old && make clean && make  
+  
+      - name: Set up benchmarks
+        shell: bash
+        run: |
+          cp -r benchmark duckdb/
+        
       - run: |
-          python duckdb-curr/scripts/regression_test_runner.py \
-            --old=duckdb-old/build/release/benchmark/benchmark_runner \
-            --new=duckdb-curr/build/release/benchmark/benchmark_runner \
-            --benchmarks=duckdb-curr/.github/regression/realnest.csv \
-            --verbose > real_nest.txt
+          python scripts/regression_test_runner.py --old=duckdb/build/release/benchmark/benchmark_runner --new=build/release/benchmark/benchmark_runner --benchmarks=.github/regression/realnest.csv --threads=2 --verbose >> real_nest.txt
+ 
       - name: Upload result
         uses: actions/upload-artifact@v4
         with:
