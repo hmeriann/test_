@@ -47,6 +47,7 @@ jobs:
         with:
           path: ./issue_*.txt
           name: issue_body_${{ matrix.branch }}
+          if-no-files-found: ignore
 
   file-issue:
     name: File Issue
@@ -64,6 +65,7 @@ jobs:
         with:
           pattern: issue_body*
           merge-multiple: true
+          if-no-files-found: ignore
           
       - name: File issue on preparation steps
         if: |
