@@ -19,6 +19,7 @@ jobs:
       
   run-tests:
     name: Setup
+    if: always()
     needs:
       - configure
       - build
