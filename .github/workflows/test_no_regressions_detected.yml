@@ -15,7 +15,7 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - run: exit 1
+      - run: exit 0
       
   run-tests:
     name: Setup
@@ -70,7 +70,7 @@ jobs:
             (needs.configure.result != 'success' ||
             needs.build.result != 'success')
         run: |
-          echo "Benchmark preparation steps have failed, please check the \
+          echo "⚠️ Benchmark preparation steps have failed, please check the \
             [workflow run](https://github.com/duckdblabs/duckdb-internal/actions/runs/${{ github.run_id }}) for details." > report.txt
 
       - name: Create a Report
