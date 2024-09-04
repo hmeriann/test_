@@ -19,6 +19,9 @@ jobs:
       
   run-tests:
     name: Setup
+    needs:
+      - configure
+      - build
     strategy:
       matrix:
         branch: ["main", "feature"]
