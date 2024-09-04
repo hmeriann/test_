@@ -7,6 +7,9 @@ env:
 jobs:
   run-tests:
     name: Setup
+    strategy:
+      matrix:
+        branch: ["main", "feature"]
     runs-on: ubuntu-latest
     outputs:
       file_name: ${{ steps.create.outputs.file_name }}
@@ -17,8 +20,8 @@ jobs:
           for output in regression*.txt; do
             # if ! grep -q "NO REGRESSIONS DETECTED" "$output"; then
               echo ❇️ $(cat $output)
-              printf " *️⃣ [ Regression Test $output ]\n" > issue_body.txt
-              printf "Regression Output \n \`\`\` \n $(awk '/REGRESSIONS DETECTED/,/OTHER TIMINGS/ { if ($0 !~ /NO REGRESSIONS DETECTED/) print }' $output) \n \`\`\` \n"  >> issue_body.txt
+              printf " *️⃣ [ Regression Test $output ]\n" > issue_body_$output_${{ matrix.branch }}.txt
+              printf "Regression Output \n \`\`\` \n $(awk '/REGRESSIONS DETECTED/,/OTHER TIMINGS/ { if ($0 !~ /NO REGRESSIONS DETECTED/) print }' $output) \n \`\`\` \n"  >> issue_body_$output_${{ matrix.branch }}.txt
             # fi
           done
           echo ✅
