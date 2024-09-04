@@ -43,10 +43,11 @@ jobs:
           make 
           cd ..
           
-      - run: ls -lah duckdb/benchmarks/
+      - run: ls -lah ./build/release/benchmark
+      - run: cat .github/regression/realnest_test.csv
         
       - run: |
-          python scripts/regression_test_runner.py --old=duckdb/build/release/benchmark/benchmark_runner --new=build/release/benchmark/benchmark_runner --benchmarks=.github/regression/realnest_test.csv  --verbose --threads=2 >> real_nest.txt
+          python scripts/regression_test_runner.py --old=build/release/benchmark/benchmark_runner --new=build/release/benchmark/benchmark_runner --benchmarks=.github/regression/realnest_test.csv  --verbose --threads=2 >> real_nest.txt
  
       - name: Upload result
         uses: actions/upload-artifact@v4
