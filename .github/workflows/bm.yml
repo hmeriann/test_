@@ -34,17 +34,16 @@ jobs:
         shell: bash
         run: sudo apt-get update -y -qq && sudo apt-get install -y -qq ninja-build && pip install requests
 
+      - run: ls -lah
+      - run: git status
       - name: Build
         shell: bash
         run: |
           wget https://duckdb-blobs.s3.amazonaws.com/realnest_benchmark_data.duckdb --output-document realnest_benchmark_data.duckdb
           make 
           cd ..
-  
-      # - name: Set up benchmarks
-      #   shell: bash
-      #   run: |
-      #     cp -r benchmark duckdb/
+          
+      - run: ls -lah duckdb/benchmarks/
         
       - run: |
           python scripts/regression_test_runner.py --old=duckdb/build/release/benchmark/benchmark_runner --new=build/release/benchmark/benchmark_runner --benchmarks=.github/regression/realnest_test.csv  --verbose --threads=2 >> real_nest.txt
