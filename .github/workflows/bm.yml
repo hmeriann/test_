@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: hmeriann/duckdb
-          ref: 245049114587da4624f92224b556c0eab8a4700f
+          ref: eb5cd8a9d9da8153c8638b24b9663a2fdedbe7ba
           fetch-depth: 0
 
       - uses: actions/setup-python@v5
@@ -36,12 +36,11 @@ jobs:
       - name: Build
         shell: bash
         run: |
-          wget https://duckdb-blobs.s3.amazonaws.com/realnest_benchmark_data.duckdb --output-document realnest_benchmark_data.duckdb
           make 
           cd ..
           
       - run: ls -lah ./build/release/benchmark
-      # - run: cat .github/regression/realnest_test.csv
+      - run: ls -lah | grep realnest_db
       - run: ls -lah benchmark/realnest/benchmarks
         
       - run: |
