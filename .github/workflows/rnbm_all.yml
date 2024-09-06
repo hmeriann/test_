@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: hmeriann/duckdb
-          ref: 0e1492944c3496fb9f3944e192f0e411eb7f8db3
+          ref: c921e402f7e615707cbf298689e5ee9402b8cd7f
           fetch-depth: 0
 
       - uses: actions/setup-python@v5
