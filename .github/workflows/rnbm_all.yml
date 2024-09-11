@@ -21,9 +21,6 @@ jobs:
       # CORE_EXTENSIONS: "inet"
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup upterm session
-        uses: lhotari/action-upterm@v1
       - uses: actions/checkout@v4
         with:
           repository: hmeriann/duckdb
@@ -66,7 +63,9 @@ jobs:
           python scripts/regression_test_runner.py --old=duckdb/build/debug/benchmark/benchmark_runner --new=build/debug/benchmark/benchmark_runner --benchmarks=.github/regression/csv.csv --verbose --threads=2
       - run: |
           python scripts/regression_test_runner.py --old=build/debug/benchmark/benchmark_runner --new=build/debug/benchmark/benchmark_runner --benchmarks=.github/regression/realnest.csv  --verbose --threads=2
- 
+      - uses: actions/checkout@v2
+      - name: Setup upterm session
+        uses: lhotari/action-upterm@v1
       # - name: Upload result
       #   uses: actions/upload-artifact@v4
       #   with:
