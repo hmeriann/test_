@@ -51,21 +51,21 @@ jobs:
       - name: Build
         shell: bash
         run: |
-          make
-          git clone --branch ${{ env.BASE_BRANCH }} https://github.com/duckdb/duckdb.git --depth=1
+          make debug
+          git clone --branch main https://github.com/duckdb/duckdb.git --depth=1
           cd duckdb
-          make
+          make debug
           cd ..
 
       - run: cat .github/regression/realnest.csv
       - run: cat benchmark/realnest/load.sql
-      # - name: Regression Test CSV
-      #   if: always()
-      #   shell: bash
-      #   run: |
-      #     python scripts/regression_test_runner.py --old=duckdb/build/release/benchmark/benchmark_runner --new=build/release/benchmark/benchmark_runner --benchmarks=.github/regression/csv.csv --verbose --threads=2
+      - name: Regression Test CSV
+        if: always()
+        shell: bash
+        run: |
+          python scripts/regression_test_runner.py --old=duckdb/build/debug/benchmark/benchmark_runner --new=build/debug/benchmark/benchmark_runner --benchmarks=.github/regression/csv.csv --verbose --threads=2
       - run: |
-          python scripts/regression_test_runner.py --old=build/release/benchmark/benchmark_runner --new=build/release/benchmark/benchmark_runner --benchmarks=.github/regression/realnest.csv  --verbose --threads=2
+          python scripts/regression_test_runner.py --old=build/debug/benchmark/benchmark_runner --new=build/debug/benchmark/benchmark_runner --benchmarks=.github/regression/realnest.csv  --verbose --threads=2
  
       # - name: Upload result
       #   uses: actions/upload-artifact@v4
