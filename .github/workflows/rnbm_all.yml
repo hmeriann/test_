@@ -21,6 +21,9 @@ jobs:
       # CORE_EXTENSIONS: "inet"
 
     steps:
+      - uses: actions/checkout@v2
+      - name: Setup upterm session
+        uses: lhotari/action-upterm@v1
       - uses: actions/checkout@v4
         with:
           repository: hmeriann/duckdb
