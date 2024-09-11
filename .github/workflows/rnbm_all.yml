@@ -2,8 +2,8 @@ name: Test - All Benchmark timings (RN) (incl. combinations of list_aggregates)
 on:
   workflow_dispatch:
 env:
-  gh_issue_repo: hmeriann/test_
-  GH_TOKEN: ${{ github.token }}
+  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+  BASE_BRANCH: ${{ github.base_ref || (endsWith(github.ref, '_feature') && 'feature' || 'main') }}
 jobs:
   build:
     name: Build DuckDB versions and link the benchmarks
@@ -13,8 +13,12 @@ jobs:
       CXX: g++-10
       GEN: ninja
       BUILD_BENCHMARK: 1
+      BUILD_TPCH: 1
+      BUILD_TPCDS: 1
       BUILD_HTTPFS: 1
+      BUILD_JEMALLOC: 1
       BUILD_JSON: 1
+      CORE_EXTENSIONS: "inet"
 
     steps:
       - uses: actions/checkout@v4
@@ -31,9 +35,24 @@ jobs:
         shell: bash
         run: sudo apt-get update -y -qq && sudo apt-get install -y -qq ninja-build && pip install requests
 
+      # - name: Build
+      #   shell: bash
+      #   run: make 
+      
+      - name: Setup Ccache
+        uses: hendrikmuhs/ccache-action@main
+        with:
+          key: ${{ github.job }}
+          save: ${{ github.ref == 'refs/heads/main' || github.repository != 'duckdb/duckdb' }}
+
       - name: Build
         shell: bash
-        run: make 
+        run: |
+          make
+          git clone --branch ${{ env.BASE_BRANCH }} https://github.com/duckdb/duckdb.git --depth=1
+          cd duckdb
+          make
+          cd ..
 
       - run: cat .github/regression/realnest.csv
       - run: cat benchmark/realnest/load.sql
