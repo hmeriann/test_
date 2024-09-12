@@ -7,7 +7,7 @@ env:
 jobs:
   build:
     name: Build DuckDB versions and link the benchmarks
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     env:
       CC: gcc-10
       CXX: g++-10
@@ -33,7 +33,7 @@ jobs:
 
       - name: Install
         shell: bash
-        run: sudo apt-get update -y -qq && sudo apt-get install -y -qq ninja-build && pip install requests
+        run: sudo apt-get update -y -qq && sudo apt-get install -y -qq ninja-build wget && pip install requests
 
       # - name: Build
       #   shell: bash
@@ -53,9 +53,13 @@ jobs:
           cd duckdb
           make debug
           cd ..
-
-      - run: cat .github/regression/realnest.csv
-      - run: cat benchmark/realnest/load.sql
+          mkdir duckdb_benchmark_data
+          mkdir duckdb/duckdb_benchmark_data
+          wget https://duckdb-blobs.s3.amazonaws.com/data/realnest/realnest.duckdb --output-document=duckdb_benchmark_data/real_nest.duckdb
+          cp duckdb_benchmark_data/real_nest.duckdb duckdb/duckdb_benchmark_data/real_nest.duckdb
+     
+      # - run: cat .github/regression/realnest.csv
+      # - run: cat benchmark/realnest/load.sql
       - name: Regression Test CSV
         if: always()
         shell: bash
