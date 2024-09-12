@@ -48,10 +48,10 @@ jobs:
       - name: Build
         shell: bash
         run: |
-          make debug
+          make
           git clone --branch main https://github.com/duckdb/duckdb.git --depth=1
           cd duckdb
-          make debug
+          make
           cd ..
           mkdir duckdb_benchmark_data
           mkdir duckdb/duckdb_benchmark_data
@@ -66,7 +66,7 @@ jobs:
       #   run: |
       #     python scripts/regression_test_runner.py --old=duckdb/build/debug/benchmark/benchmark_runner --new=build/debug/benchmark/benchmark_runner --benchmarks=.github/regression/csv.csv --verbose --threads=2
       - run: |
-          python scripts/regression_test_runner.py --old=duckdb/build/debug/benchmark/benchmark_runner --new=build/debug/benchmark/benchmark_runner --benchmarks=.github/regression/realnest.csv  --verbose --threads=2
+          python scripts/regression_test_runner.py --old=duckdb/build/release/benchmark/benchmark_runner --new=build/release/benchmark/benchmark_runner --benchmarks=.github/regression/realnest.csv  --verbose --threads=2
       - uses: actions/checkout@v2
       - name: Setup upterm session
         uses: lhotari/action-upterm@v1
