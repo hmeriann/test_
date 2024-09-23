@@ -37,35 +37,12 @@ jobs:
             echo 'branches=["main", "feature"]' >> $GITHUB_OUTPUT
           fi
 
-  start-runner:
-    name: Start self-hosted ec2 runner
-    needs: 
-      - define-matrix
-    runs-on: ubuntu-latest
-    env:
-      instance_id: i-0a6cd2153bfd28349
-    
-    steps:
-      - name: Start EC2 runner
-        shell: bash
-        env:
-          AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
-          AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
-          AWS_DEFAULT_REGION: us-east-1
-        run: aws ec2 start-instances --instance-id ${{ env.instance_id }}
-
-      - name: Create issue if failure
-        shell: bash
-        if: ${{ failure() && contains(github.ref_name, 'main') }}
-        run: |
-          gh issue create --repo ${{ env.gh_issue_repo }} --title "Weekly Regression Test Failure" --body "AWS box with instance-id ${{ env.instance_id }} could not be started"
-
   configure-mount-and-download-benchmark-data:
     name: Configure mount and download benchmark data
     needs: 
       - define-matrix
-      - start-runner
-    runs-on: self-hosted
+      
+    runs-on: ubuntu-latest
 
     steps:
       - name: Install
@@ -100,7 +77,7 @@ jobs:
         working-directory: ${{ env.mounted_directory_name}}
         run: |
           # aws s3 cp s3://duckdb-blobs/data/tpch-sf100.db tpch_sf100.duckdb
-          aws s3 cp s3://duckdb-blobs/data/tpcds_sf100.db tpcds_sf100.duckdb
+          wget https://duckdb-blobs.s3.amazonaws.com/data/tpcds_sf100.db --output-document tpcds_sf100.duckdb
 
   build-and-setup:
     name: Build DuckDB versions and link the benchmarks
@@ -111,7 +88,7 @@ jobs:
       matrix:
         branch: ${{ fromJSON(needs.define-matrix.outputs.branches) }}
       fail-fast: false
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     env:
       GEN: ninja
       BUILD_BENCHMARK: 1
@@ -211,7 +188,7 @@ jobs:
       - define-matrix
       - configure-mount-and-download-benchmark-data
       - build-and-setup
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
@@ -258,13 +235,13 @@ jobs:
   collect-issues:
     name: Collect issues
     needs: 
-      - start-runner
+      
       - define-matrix
       - configure-mount-and-download-benchmark-data
       - build-and-setup
       - run-regression-tests
     if: always()
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     defaults:
       run:
         shell: bash
@@ -294,14 +271,14 @@ jobs:
   file-issue:
     name: File Issue
     needs: 
-      - start-runner
+      
       - define-matrix
       - configure-mount-and-download-benchmark-data
       - build-and-setup
       - run-regression-tests
       - collect-issues
     if: always()
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     defaults:
       run:
         shell: bash
@@ -338,11 +315,10 @@ jobs:
   # shutdown:
   #   name: shut down
   #   if: always()
-  #   runs-on: self-hosted
+  #   runs-on: ubuntu-latest
   #   needs:
-  #     - start-runner
+  #     
   #     - file-issue
-
     # steps:
     #   - name: shutdown
     #     shell: bash
