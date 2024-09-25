@@ -39,32 +39,3 @@ jobs:
     secrets:
       FUZZEROFDUCKSKEY: ${{ secrets.FUZZEROFDUCKSKEY }}
       DUCKDB_HASH: ${{ needs.build-duckdb.outputs.duckdb-hash }}
-
-  check-issues:
-    name: Check existing issues
-    needs:
-    - build-duckdb
-    runs-on: ubuntu-latest
-    env:
-      FUZZEROFDUCKSKEY: ${{ secrets.FUZZEROFDUCKSKEY }}
-      DUCKDB_HASH: ${{ needs.build-duckdb.outputs.duckdb-hash }}
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          repository: duckdb/duckdb_sqlsmith
-          path: duckdb_sqlsmith
-          sparse-checkout: |
-            scripts
-
-      - name: Download a single artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: duckdb
-
-      - name: Fuzz
-        shell: bash
-        run: |
-            chmod +x duckdb
-            cd duckdb_sqlsmith
-            python3 scripts/run_fuzzer.py --duckfuzz --alltypes --shell=../duckdb
