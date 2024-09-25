@@ -26,7 +26,6 @@ on:
       randoms_config_filepath:
         required: false
         type: string
-
     secrets:
       FUZZEROFDUCKSKEY:
         required: false
@@ -54,9 +53,6 @@ jobs:
 
       - name: Fuzz
         shell: bash
-        env:
-          FUZZEROFDUCKSKEY: ${{ secrets.FUZZEROFDUCKSKEY }}
-          DUCKDB_HASH: ${{ secrets.DUCKDB_HASH }}
         run: |
           chmod +x duckdb
           runtime="1 minute"
