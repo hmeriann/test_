@@ -1,0 +1,82 @@
+name: Fuzz DuckDb HV
+on:
+  workflow_call:
+    inputs:
+      fuzzer: 
+        required: true
+        type: string
+      data:
+        required: true
+        type: string
+      timeout-minutes:
+        required: true
+        type: number
+        default: 120
+      no-git-checks:
+        required: false
+        type: boolean
+        default: true
+      max_queries:
+        required: true
+        type: number
+        default: 1000
+      enable_verification:
+        required: true
+        type: boolean
+      randoms_config_filepath:
+        required: false
+        type: string
+
+    secrets:
+      FUZZEROFDUCKSKEY:
+        required: false
+      DUCKDB_HASH: 
+        required: false
+
+jobs:
+  fuzzer:
+    name: Fuzzer
+    runs-on: ubuntu-latest
+    timeout-minutes: ${{ inputs.timeout-minutes }}
+    steps:
+      - name: checkout duckdb_sqlsmith
+        uses: actions/checkout@v4
+        with:
+          repository: hmeriann/duckdb_sqlsmith
+          path: duckdb_sqlsmith
+          sparse-checkout: |
+            scripts
+
+      - name: Download a single artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: duckdb
+
+      - name: Fuzz
+        shell: bash
+        env:
+          FUZZEROFDUCKSKEY: ${{ secrets.FUZZEROFDUCKSKEY }}
+          DUCKDB_HASH: ${{ secrets.DUCKDB_HASH }}
+        run: |
+          chmod +x duckdb
+          runtime="1 minute"
+          endtime=$(date -ud "$runtime" +%s)
+          cd duckdb_sqlsmith
+      
+          while [[ $(date -u +%s) -le $endtime ]]
+          do
+              echo "Time Now: `date +%H:%M:%S`"
+              python3 scripts/run_fuzzer.py --no-git-checks=${{ inputs.no-git-checks }} --no_checks \
+                --${{ inputs.fuzzer }} --${{ inputs.data }} --max_queries=${{ inputs.max_queries }} \
+                --enable_verification=${{ inputs.enable_verification}} --randoms_config_filepath=${{ inputs.randoms_config_filepath }} --shell=../duckdb
+          done
+
+      - name: Rename Artifact
+        run: mv duckdb_sqlsmith/sqlsmith.complete.log duckdb_sqlsmith/fuzz_complete_logs_${{ inputs.fuzzer }}_${{ inputs.data }}_ev_is_${{ inputs.enable_verification }}.sql
+
+      - name: Upload fuzz_clogs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fuzz_complete_logs_${{ inputs.fuzzer }}_${{ inputs.data }}_ev_is_${{ inputs.enable_verification }}.sql
+          path: duckdb_sqlsmith/sqlsmith.complete.log
