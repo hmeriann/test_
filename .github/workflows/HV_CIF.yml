@@ -7,7 +7,7 @@ on:
 jobs:
   build-duckdb:
     name: Build DuckDB
-    uses: duckdblabs/.github/workflows/build_fuzzer.yml@main
+    uses: duckdblabs/duckdb-fuzzer-ci/.github/workflows/build_fuzzer.yml@main
     with:
       git_url: duckdb/duckdb_sqlsmith
       git_tag: random-values-from-file
