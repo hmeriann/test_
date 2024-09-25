@@ -1,0 +1,70 @@
+name: HV_CIFuzz
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/107 * * * *"
+
+jobs:
+  build-duckdb:
+    name: Build DuckDB
+    uses: ./.github/workflows/build_fuzzer.yml
+    with:
+      git_url: duckdb/duckdb_sqlsmith
+      git_tag: random-values-from-file
+      timeout-minutes: 120
+
+  fuzzer:
+    name: Fuzzer
+    needs:
+    - build-duckdb
+    strategy:
+      fail-fast: false
+      matrix:
+        fuzzer: [duckfuzz, sqlsmith, duckfuzz_functions]
+        data: [alltypes, tpch, emptyalltypes]
+        enable_verification: [true, false]
+        exclude:
+          - enable_verification: true
+            fuzzer: sqlsmith
+          - enable_verification: true
+            fuzzer: duckfuzz_functions
+    uses: ./.github/workflows/test_H_vals.yml
+    with:
+      fuzzer: ${{ matrix.fuzzer }}
+      data: ${{ matrix.data }}
+      timeout-minutes: 120
+      max_queries: 1000
+      no-git-checks: false
+      enable_verification: ${{ matrix.enable_verification }}
+    secrets:
+      FUZZEROFDUCKSKEY: ${{ secrets.FUZZEROFDUCKSKEY }}
+      DUCKDB_HASH: ${{ needs.build-duckdb.outputs.duckdb-hash }}
+
+  check-issues:
+    name: Check existing issues
+    needs:
+    - build-duckdb
+    runs-on: ubuntu-latest
+    env:
+      FUZZEROFDUCKSKEY: ${{ secrets.FUZZEROFDUCKSKEY }}
+      DUCKDB_HASH: ${{ needs.build-duckdb.outputs.duckdb-hash }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: duckdb/duckdb_sqlsmith
+          path: duckdb_sqlsmith
+          sparse-checkout: |
+            scripts
+
+      - name: Download a single artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: duckdb
+
+      - name: Fuzz
+        shell: bash
+        run: |
+            chmod +x duckdb
+            cd duckdb_sqlsmith
+            python3 scripts/run_fuzzer.py --duckfuzz --alltypes --shell=../duckdb
