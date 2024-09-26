@@ -68,11 +68,11 @@ jobs:
           done
 
       - name: Rename Artifact
-        run: mv duckdb_sqlsmith/sqlsmith.complete.log duckdb_sqlsmith/fuzz_complete_logs_${{ inputs.fuzzer }}_${{ inputs.data }}_ev_is_${{ inputs.enable_verification }}.sql
+        run: mv duckdb_sqlsmith/sqlsmith.complete.log duckdb_sqlsmith/fuzz_complete_logs_${{ inputs.fuzzer }}_${{ inputs.data }}_ev_is_${{ inputs.enable_verification }}${{ inputs.randoms_config_filepath }}.sql
 
       - name: Upload fuzz_clogs
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: fuzz_complete_logs_${{ inputs.fuzzer }}_${{ inputs.data }}_ev_is_${{ inputs.enable_verification }}.sql
+          name: fuzz_complete_logs_${{ inputs.fuzzer }}_${{ inputs.data }}_ev_is_${{ inputs.enable_verification }}${{ inputs.randoms_config_filepath }}.sql
           path: .
