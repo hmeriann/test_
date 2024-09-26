@@ -26,11 +26,11 @@ on:
       randoms_config_filepath:
         required: false
         type: string
-    secrets:
-      FUZZEROFDUCKSKEY:
-        required: false
-      DUCKDB_HASH: 
-        required: false
+    # secrets:
+    #   FUZZEROFDUCKSKEY:
+    #     required: false
+    #   DUCKDB_HASH: 
+    #     required: false
 
 jobs:
   fuzzer:
