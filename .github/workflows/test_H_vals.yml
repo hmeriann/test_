@@ -75,4 +75,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: fuzz_complete_logs_${{ inputs.fuzzer }}_${{ inputs.data }}_ev_is_${{ inputs.enable_verification }}.sql
-          path: duckdb_sqlsmith/sqlsmith.complete.log
+          path: .
