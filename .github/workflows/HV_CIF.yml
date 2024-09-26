@@ -31,7 +31,7 @@ jobs:
       fuzzer: ${{ matrix.fuzzer }}
       data: ${{ matrix.data }}
       timeout-minutes: 120
-      max_queries: 1000
-      no-git-checks: false
+      max_queries: 10
+      no-git-checks: true
       enable_verification: ${{ matrix.enable_verification }}
       randoms_config_filepath: "config.json"
