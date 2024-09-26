@@ -21,6 +21,7 @@ jobs:
         fuzzer: [duckfuzz, sqlsmith, duckfuzz_functions]
         data: [alltypes, tpch, emptyalltypes]
         enable_verification: [true, false]
+        randoms_config_filepath: [ "config.json" , "" ]
         exclude:
           - enable_verification: true
             fuzzer: sqlsmith
@@ -34,4 +35,4 @@ jobs:
       max_queries: 10
       no-git-checks: true
       enable_verification: ${{ matrix.enable_verification }}
-      randoms_config_filepath: "config.json"
+      randoms_config_filepath: ${{ matrix.randoms_config_filepath }}
