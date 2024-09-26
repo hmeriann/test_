@@ -34,3 +34,4 @@ jobs:
       max_queries: 1000
       no-git-checks: false
       enable_verification: ${{ matrix.enable_verification }}
+      randoms_config_filepath: "config.json"
