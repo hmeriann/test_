@@ -26,11 +26,11 @@ on:
       randoms_config_filepath:
         required: false
         type: string
-    # secrets:
-    #   FUZZEROFDUCKSKEY:
-    #     required: false
-    #   DUCKDB_HASH: 
-    #     required: false
+    secrets:
+      FUZZEROFDUCKSKEY:
+        required: false
+      DUCKDB_HASH: 
+        required: false
 
 jobs:
   fuzzer:
@@ -64,7 +64,7 @@ jobs:
               echo "Time Now: `date +%H:%M:%S`"
               python3 scripts/run_fuzzer.py --no-git-checks=${{ inputs.no-git-checks }} --no_checks \
                 --${{ inputs.fuzzer }} --${{ inputs.data }} --max_queries=${{ inputs.max_queries }} \
-                --enable_verification=${{ inputs.enable_verification}} --randoms_config_filepath=${{ inputs.randoms_config_filepath }} --shell=../duckdb
+                --enable_verification=${{ inputs.enable_verification }} --randoms_config_filepath=${{ inputs.randoms_config_filepath }} --shell=../duckdb
           done
 
       - name: Rename Artifact
