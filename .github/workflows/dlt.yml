@@ -94,6 +94,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
+          repository: duckdb/duckdb_delta
+          ref: 6feb423c11119d106c8a4e7e6ba9080c84ac0552
           fetch-depth: 0
           submodules: 'true'
 
