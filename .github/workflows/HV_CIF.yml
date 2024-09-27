@@ -27,6 +27,14 @@ jobs:
             fuzzer: sqlsmith
           - enable_verification: true
             fuzzer: duckfuzz_functions
+          - randoms_config_filepath: "config.json"
+            fuzzer: sqlsmith
+          - randoms_config_filepath: ""
+            fuzzer: duckfuzz_functions
+          - randoms_config_filepath: "config.json"
+            fuzzer: sqlsmith
+          - randoms_config_filepath: ""
+            fuzzer: duckfuzz_functions
     uses: ./.github/workflows/test_H_vals.yml
     with:
       fuzzer: ${{ matrix.fuzzer }}
