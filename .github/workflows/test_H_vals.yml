@@ -43,6 +43,7 @@ jobs:
         with:
           repository: hmeriann/duckdb_sqlsmith
           path: duckdb_sqlsmith
+          ref: random-values-from-file
           sparse-checkout: |
             scripts
 
