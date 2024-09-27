@@ -36,3 +36,14 @@ jobs:
       no-git-checks: true
       enable_verification: ${{ matrix.enable_verification }}
       randoms_config_filepath: ${{ matrix.randoms_config_filepath }}
+  upterm:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup upterm session
+      uses: lhotari/action-upterm@v1
+      with:
+        ## limits ssh access and adds the ssh public key for the user which triggered the workflow
+        limit-access-to-actor: true
+        ## limits ssh access and adds the ssh public keys of the listed GitHub users
+        limit-access-to-users: hmeriann
