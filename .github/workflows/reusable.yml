@@ -1,0 +1,20 @@
+name: Test reusable wf
+on: 
+  workflow_call:
+
+jobs:
+  create-files:
+    name: Create Files
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        file: [1, 2, 3]
+    steps:
+      - run: mkdir duckdb_sqlsmith
+      - run: touch duckdb_sqlsmith/file_${{ matrix.file }}.log
+      - name: Upload Files
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: file_${{ matrix.file }}.log
+          path: duckdb_sqlsmith/file_${{ matrix.file }}.log
