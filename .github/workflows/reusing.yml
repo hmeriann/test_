@@ -1,0 +1,10 @@
+name: Test reusing the workflow
+on:
+  workflow_dispatch:
+
+jobs:
+  reuse:
+    name: Reuse the file creating workflow
+    strategy:
+      fail-fast: false
+    uses: ./.github/workflows/reusable.yml
