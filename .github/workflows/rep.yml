@@ -104,6 +104,16 @@ jobs:
             benchmark/tpcds/sf1/remote/delta/
             .github/regression/tpcds_sf1_local.csv
           path: ${{ github.workspace }}/duckdb-old-${{ matrix.branch }}/
+
+      - name: Set up benchmarks 
+        shell: bash
+        working-directory: ${{ github.workspace }}/duckdb-old-${{ matrix.branch }}
+        run: |
+          # we do this so new added benchmarks that break duckdb old
+          # do not cause failures.
+          rm -rf ../duckdb-curr-${{ matrix.branch }}/benchmark
+          mkdir ../duckdb-curr-${{ matrix.branch }}/benchmark
+          cp -r benchmark ../duckdb-curr-${{ matrix.branch }}
       
       - name: fetch scripts
         uses: actions/checkout@v4
@@ -119,13 +129,8 @@ jobs:
         shell: bash
         working-directory: ${{ github.workspace }}/duckdb-old-${{ matrix.branch }}
         run: |
-          # we do this so new added benchmarks that break duckdb old
-          # do not cause failures.
-          rm -rf ../duckdb-curr-${{ matrix.branch }}/benchmark
-          mkdir ../duckdb-curr-${{ matrix.branch }}/benchmark
-          cp -r benchmark ../duckdb-curr-${{ matrix.branch }}
           cp scripts/regression_test_runner.py ../duckdb-curr-${{ matrix.branch }}
-
+          
       - uses: actions/download-artifact@v4
         with:
           name: benchmark_runner
