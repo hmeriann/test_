@@ -5,9 +5,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-${{ github.head_ref || '' }}-${{ github.base_ref || '' }}-${{ github.ref != 'refs/heads/main' || github.sha }}
   cancel-in-progress: true
 
-env:
-  mounted_directory_name: mount-point
-
 jobs:
   define-matrix:
     name: Check if there are recent commits to feature and define matrix
@@ -83,17 +80,17 @@ jobs:
           repository: 'duckdb/duckdb'
           ref: ${{ matrix.branch }}
           fetch-depth: 0
-          path: ${{ env.mounted_directory_name}}/duckdb-old-${{ matrix.branch }}
+          path: duckdb-old-${{ matrix.branch }}
 
       - name: Checkout duckdb-old to week ago version
         shell: bash
-        working-directory: ${{ env.mounted_directory_name }}/duckdb-old-${{ matrix.branch }}
+        working-directory: duckdb-old-${{ matrix.branch }}
         run: |
           git checkout $( cat ../../duckdb_curr_version_${{ matrix.branch }}.txt )
 
       - name: Store current git hash of duckdb-curr
         shell: bash
-        working-directory: ${{ env.mounted_directory_name }}/duckdb-curr-${{ matrix.branch }}
+        working-directory: duckdb-curr-${{ matrix.branch }}
         run: |
           # update duckdb_curr_version_${{ matrix.branch }}.txt
           git rev-parse --verify HEAD > ../../duckdb_curr_version_${{ matrix.branch }}.txt
@@ -139,7 +136,7 @@ jobs:
 
       - name: Set up benchmarks 
         shell: bash
-        working-directory: ${{ env.mounted_directory_name }}/duckdb-old-${{ matrix.branch }}
+        working-directory: duckdb-old-${{ matrix.branch }}
         run: |
           # we do this so new added benchmarks that break duckdb old
           # do not cause failures.
@@ -149,25 +146,25 @@ jobs:
 
       - name: Link duckdb-curr/duckdb_benchmark_data to tpch_sf100.duckdb and tpcds_sf100.duckdb
         shell: bash 
-        working-directory: ${{ env.mounted_directory_name }}/duckdb-curr-${{ matrix.branch }}
+        working-directory: duckdb-curr-${{ matrix.branch }}
         run: |
           mkdir duckdb_benchmark_data
           cd duckdb_benchmark_data
-          ln -s ${{ github.workspace }}/${{ env.mounted_directory_name }}/tpch_sf100.duckdb .
-          ln -s ${{ github.workspace }}/${{ env.mounted_directory_name }}/tpcds_sf100.duckdb .
+          ln -s ${{ github.workspace }}/tpch_sf100.duckdb .
+          ln -s ${{ github.workspace }}/tpcds_sf100.duckdb .
     
       - name: Link duckdb-old/duckdb_benchmark_data to tpch_sf100.duckdb and tpcds_sf100.duckdb
         shell: bash 
-        working-directory: ${{ env.mounted_directory_name }}/duckdb-old-${{ matrix.branch }}
+        working-directory: duckdb-old-${{ matrix.branch }}
         run: |
           mkdir duckdb_benchmark_data
           cd duckdb_benchmark_data
-          ln -s ${{ github.workspace }}/${{ env.mounted_directory_name }}/tpch_sf100.duckdb .
-          ln -s ${{ github.workspace }}/${{ env.mounted_directory_name }}/tpcds_sf100.duckdb .
+          ln -s ${{ github.workspace }}/tpch_sf100.duckdb .
+          ln -s ${{ github.workspace }}/tpcds_sf100.duckdb .
       
       # - name: Generate micro_extended.csv and copy to duckdb-curr-${{ matrix.branch }}
       #   shell: bash
-      #   working-directory: ${{ env.mounted_directory_name }}/duckdb-old-${{ matrix.branch }}
+      #   working-directory: duckdb-old-${{ matrix.branch }}
       #   run: |
       #     find benchmark/micro | grep ".*.benchmark" | sort > .github/regression/micro_extended.csv
       #     cp .github/regression/micro_extended.csv ../duckdb-curr-${{ matrix.branch }}/.github/regression/micro_extended.csv
@@ -226,7 +223,7 @@ jobs:
         if: success()
         with:
           name: ${{ steps.create.outputs.file_name }}
-          path: ${{ env.mounted_directory_name }}/${{ steps.create.outputs.file_name }}
+          path: ${{ steps.create.outputs.file_name }}
           if-no-files-found: error
   
   collect-issues:
