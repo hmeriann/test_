@@ -89,15 +89,15 @@ jobs:
           cd ..
           cd duckdb-old-${{ matrix.branch }} && make clean && make
 
-      # - uses: actions/upload-artifact@v4
-      #   with:
-      #     name: duckdb-curr-${{ matrix.branch }}
-      #     path: ${{ github.workspace }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ github.workspace }}/duckdb-curr-${{ matrix.branch }}/build/release/benchmark/benchmark_runner
+          path: ${{ github.workspace }}/duckdb-curr-${{ matrix.branch }}/build/release/benchmark/benchmark_runner
 
-      # - uses: actions/upload-artifact@v4
-      #   with:
-      #     name: duckdb-old-${{ matrix.branch }}
-      #     path: ${{ github.workspace }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ github.workspace }}/duckdb-old-${{ matrix.branch }}/build/release/benchmark/benchmark_runner
+          path: ${{ github.workspace }}/duckdb-old-${{ matrix.branch }}/build/release/benchmark/benchmark_runner
           
       - name: fetch test-files for delta
         uses: actions/checkout@v4
@@ -109,7 +109,16 @@ jobs:
             benchmark/tpcds/sf1/remote/delta/
             .github/regression/tpcds_sf1_local.csv
           path: ${{ github.workspace }}/duckdb-old-${{ matrix.branch }}/
-
+      
+      - name: fetch scripts
+        uses: actions/checkout@v4
+        with:
+          repository: 'duckdb/duckdb'
+          ref: main
+          fetch-depth: 1
+          sparse-checkout: |
+            scripts/regression_test_runner.py
+          path: duckdb-old-${{ matrix.branch }}
 
       - name: Set up benchmarks 
         shell: bash
@@ -120,7 +129,17 @@ jobs:
           rm -rf ../duckdb-curr-${{ matrix.branch }}/benchmark
           mkdir ../duckdb-curr-${{ matrix.branch }}/benchmark
           cp -r benchmark ../duckdb-curr-${{ matrix.branch }}
-      
+          cp scripts/regression_test_runner.py ../duckdb-curr-${{ matrix.branch }}
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ github.workspace }}/duckdb-old-${{ matrix.branch }}/build/release/benchmark/benchmark_runner
+          path: ${{ github.workspace }}/duckdb-old-${{ matrix.branch }}/build/release/benchmark/benchmark_runner
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ github.workspace }}/duckdb-curr-${{ matrix.branch }}/build/release/benchmark/benchmark_runner
+          path: ${{ github.workspace }}/duckdb-curr-${{ matrix.branch }}/build/release/benchmark/benchmark_runner
+          
       - name: Run Regression Test
         continue-on-error: true
         shell: bash
