@@ -91,13 +91,8 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: ${{ github.workspace }}/duckdb-curr-${{ matrix.branch }}/build/release/benchmark/benchmark_runner
+          name: benchmark_runner
           path: ${{ github.workspace }}/duckdb-curr-${{ matrix.branch }}/build/release/benchmark/benchmark_runner
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: ${{ github.workspace }}/duckdb-old-${{ matrix.branch }}/build/release/benchmark/benchmark_runner
-          path: ${{ github.workspace }}/duckdb-old-${{ matrix.branch }}/build/release/benchmark/benchmark_runner
           
       - name: fetch test-files for delta
         uses: actions/checkout@v4
@@ -133,11 +128,11 @@ jobs:
 
       - uses: actions/download-artifact@v4
         with:
-          name: ${{ github.workspace }}/duckdb-old-${{ matrix.branch }}/build/release/benchmark/benchmark_runner
-          path: ${{ github.workspace }}/duckdb-old-${{ matrix.branch }}/build/release/benchmark/benchmark_runner
+          name: benchmark_runner
+          path: ${{ github.workspace }}/duckdb-curr-${{ matrix.branch }}/build/release/benchmark/benchmark_runner
       - uses: actions/download-artifact@v4
         with:
-          name: ${{ github.workspace }}/duckdb-curr-${{ matrix.branch }}/build/release/benchmark/benchmark_runner
+          name: benchmark_runner
           path: ${{ github.workspace }}/duckdb-curr-${{ matrix.branch }}/build/release/benchmark/benchmark_runner
           
       - name: Run Regression Test
