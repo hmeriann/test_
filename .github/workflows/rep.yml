@@ -104,7 +104,7 @@ jobs:
       - name: copy fetched files
         working-directory: duckdb-old-${{ matrix.branch }}
         run: |
-          sed -i '' 's/\/local\//\/remote\//g' .github/regression/tpcds_sf1_local.csv
+          sed -i 's/\/local\//\/remote\//g' .github/regression/tpcds_sf1_local.csv
           cp -r benchmark/tpcds/sf1/remote/delta/ benchmark/tpcds/sf1/
           cp .github/regression/tpcds_sf1_local.csv .github/regression/
 
