@@ -100,7 +100,13 @@ jobs:
             benchmark/tpcds/sf1/remote/delta/
             .github/regression/tpcds_sf1_local.csv
           path: duckdb-old-${{ matrix.branch }}/
-      
+          
+      - name: copy fetched files
+        working-directory: duckdb-old-${{ matrix.branch }}
+        run: |
+          sed -i '' 's/\/local\//\/remote\//g' .github/regression/tpcds_sf1_local.csv
+          cp -r benchmark/tpcds/sf1/remote/delta/ benchmark/tpcds/sf1/
+          cp .github/regression/tpcds_sf1_local.csv .github/regression/
 
       - name: Set up benchmarks 
         shell: bash
@@ -123,16 +129,11 @@ jobs:
             --benchmarks=duckdb-curr-${{ matrix.branch }}/.github/regression/tpcds_sf1_local.csv \
             --verbose > ${{ steps.create.outputs.file_name }}
 
-  upterm:
-    runs-on: ubuntu-latest
-    needs:
-      - build-and-setup
-    steps:
-    - uses: actions/checkout@v2
-    - name: Setup upterm session
-      uses: lhotari/action-upterm@v1
-      with:
-        ## limits ssh access and adds the ssh public key for the user which triggered the workflow
-        limit-access-to-actor: true
-        ## limits ssh access and adds the ssh public keys of the listed GitHub users
-        limit-access-to-users: hmeriann
+      - uses: actions/checkout@v2
+      - name: Setup upterm session
+        uses: lhotari/action-upterm@v1
+        with:
+          ## limits ssh access and adds the ssh public key for the user which triggered the workflow
+          limit-access-to-actor: true
+          ## limits ssh access and adds the ssh public keys of the listed GitHub users
+          limit-access-to-users: hmeriann
