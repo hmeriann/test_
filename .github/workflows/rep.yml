@@ -72,7 +72,7 @@ jobs:
           repository: 'duckdb/duckdb'
           ref: ${{ matrix.branch }}
           fetch-depth: 0
-          path: ${{ env.mounted_directory_name}}/duckdb-curr-${{ matrix.branch }}
+          path: duckdb-curr-${{ matrix.branch }}
 
       - name: checkout duckdb-old
         uses: actions/checkout@v4
@@ -131,7 +131,7 @@ jobs:
           sparse-checkout: |
             benchmark/tpcds/sf1/remote/delta/
             .github/regression/tpcds_sf1_local.csv
-          path: ${{ env.mounted_directory_name}}/duckdb-old-${{ matrix.branch }}/
+          path:/duckdb-old-${{ matrix.branch }}/
       
 
       - name: Set up benchmarks 
