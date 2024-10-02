@@ -131,7 +131,6 @@ jobs:
             --new=duckdb-curr-${{ matrix.branch }}/build/release/benchmark/benchmark_runner \
             --benchmarks=duckdb-curr-${{ matrix.branch }}/.github/regression/tpcds_sf1_local.csv 
 
-      - uses: actions/checkout@v2
       - name: Setup upterm session
         uses: lhotari/action-upterm@v1
         with:
