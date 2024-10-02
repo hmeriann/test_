@@ -1,17 +1,11 @@
-name: Weekly Regression
+name: Test Sparse-Checkout
 on:
-  # schedule:
-    # - cron:  '0 1 * * MON' # runs at 2am CET MONDAY
   workflow_dispatch:
-
-
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-${{ github.head_ref || '' }}-${{ github.base_ref || '' }}-${{ github.ref != 'refs/heads/main' || github.sha }}
   cancel-in-progress: true
 
 env:
-  # GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  # gh_issue_repo: duckdblabs/duckdb-internal
   mounted_directory_name: mount-point
 
 jobs:
@@ -48,37 +42,7 @@ jobs:
       - name: Install
         shell: bash
         run: sudo apt-get update -y -qq && sudo apt-get install -y -qq g++ ninja-build cmake make python-is-python3 libssl-dev pip gh python3-requests
-
-      - name: umount mount-point (helps with debugging)
-        shell: bash
-        run: |
-          if [ ! -d ${{ env.mounted_directory_name }} ] ; then 
-            mkdir ${{ env.mounted_directory_name }}
-            exit 0;
-          fi 
-          if mountpoint -q ${{ env.mounted_directory_name }} ; then
-            # unmount mount-point. During debugging the mount can cause steps
-            # to fail when copying duckdb-main to duckdb-old
-            rm -rf ${{ env.mounted_directory_name }}/*
-            sudo umount ${{ env.mounted_directory_name }}
-          fi
-
-      - name: Mount to instance storage
-        shell: bash
-        run: |
-          rm -rf ${{ env.mounted_directory_name }}
-          sudo mkfs -t xfs -f /dev/nvme1n1
-          mkdir ${{ env.mounted_directory_name }}
-          sudo mount /dev/nvme1n1 ${{ env.mounted_directory_name }}
-          sudo chown -R ubuntu ${{ env.mounted_directory_name }}
-
-      - name: Load data for sf100 benchmarks.
-        shell: bash
-        working-directory: ${{ env.mounted_directory_name}}
-        run: |
-          # aws s3 cp s3://duckdb-blobs/data/tpch-sf100.db tpch_sf100.duckdb
-          wget https://duckdb-blobs.s3.amazonaws.com/data/tpcds_sf100.db --output-document tpcds_sf100.duckdb
-
+        
   build-and-setup:
     name: Build DuckDB versions and link the benchmarks
     needs: 
@@ -98,7 +62,9 @@ jobs:
       BUILD_HTTPFS: 1
       BUILD_ICU: 1
       BUILD_JEMALLOC: 1
-      CORE_EXTENSIONS: "inet"
+      CORE_EXTENSIONS: "inet;delta"
+      VCPKG_TARGET_TRIPLET: x64-linux
+      VCPKG_TOOLCHAIN_PATH: ${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
       regression_output: regression_output.txt
     outputs:
       failed_build: ${{ steps.failed-build.outputs.failed_build }}
@@ -107,7 +73,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: 'duckdb/duckdb'
-          ref: 0fe7708eef
+          ref: ${{ matrix.branch }}
           fetch-depth: 0
           path: ${{ env.mounted_directory_name}}/duckdb-curr-${{ matrix.branch }}
 
@@ -115,22 +81,40 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: 'duckdb/duckdb'
-          ref: 1fa8f7c8736a6e3442deaaece2404268fdef55d6
+          ref: ${{ matrix.branch }}
           fetch-depth: 0
           path: ${{ env.mounted_directory_name}}/duckdb-old-${{ matrix.branch }}
 
-      # - name: Checkout duckdb-old to week ago version
-      #   shell: bash
-      #   working-directory: ${{ env.mounted_directory_name }}/duckdb-old-${{ matrix.branch }}
-      #   run: |
-      #     git checkout $( cat ../../duckdb_curr_version_${{ matrix.branch }}.txt )
+      - name: Checkout duckdb-old to week ago version
+        shell: bash
+        working-directory: ${{ env.mounted_directory_name }}/duckdb-old-${{ matrix.branch }}
+        run: |
+          git checkout $( cat ../../duckdb_curr_version_${{ matrix.branch }}.txt )
 
-      # - name: Store current git hash of duckdb-curr
-      #   shell: bash
-      #   working-directory: ${{ env.mounted_directory_name }}/duckdb-curr-${{ matrix.branch }}
-      #   run: |
-      #     # update duckdb_curr_version_${{ matrix.branch }}.txt
-      #     git rev-parse --verify HEAD > ../../duckdb_curr_version_${{ matrix.branch }}.txt
+      - name: Store current git hash of duckdb-curr
+        shell: bash
+        working-directory: ${{ env.mounted_directory_name }}/duckdb-curr-${{ matrix.branch }}
+        run: |
+          # update duckdb_curr_version_${{ matrix.branch }}.txt
+          git rev-parse --verify HEAD > ../../duckdb_curr_version_${{ matrix.branch }}.txt
+
+      - name: Setup Ccache
+        uses: hendrikmuhs/ccache-action@main
+        with:
+          key: ${{ github.job }}
+
+      - name: Setup vcpkg
+        uses: lukka/run-vcpkg@v11.1
+        with:
+          vcpkgGitCommitId: a1a1cbc975abf909a6c8985a6a2b8fe20bbd9bd6
+
+      - name: Configure OpenSSL for Rust
+        run: |
+          echo "OPENSSL_ROOT_DIR=`pwd`/build/release/vcpkg_installed/x64-linux" >> $GITHUB_ENV
+          echo "OPENSSL_DIR=`pwd`/build/release/vcpkg_installed/x64-linux" >> $GITHUB_ENV
+          echo "OPENSSL_USE_STATIC_LIBS=true" >> $GITHUB_ENV
+      
+
 
       - name: Build old and current
         shell: bash
@@ -139,6 +123,19 @@ jobs:
           cd duckdb-curr-${{ matrix.branch }} && make clean && make
           cd ..
           cd duckdb-old-${{ matrix.branch }} && make clean && make
+
+
+      - name: fetch test-files for delta
+        uses: actions/checkout@v4
+        with:
+          repository: 'duckdb/duckdb_delta'
+          ref: main
+          fetch-depth: 1
+          sparse-checkout: |
+            benchmark/tpcds/sf1/remote/delta/
+            .github/regression/tpcds_sf1_local.csv
+          path: ${{ env.mounted_directory_name}}/duckdb-old-${{ matrix.branch }}/
+      
 
       - name: Set up benchmarks 
         shell: bash
@@ -193,7 +190,7 @@ jobs:
       fail-fast: false
       matrix:
         branch: ${{ fromJSON(needs.define-matrix.outputs.branches) }}
-        test: [ 'large/tpcds.csv' ]
+        test: [ 'tpcds_sf1_local.csv' ]
         exclude: 
           - branch: ${{ needs.build-and-setup.outputs.failed_build }}
     outputs:
@@ -268,42 +265,42 @@ jobs:
             printf "Regression Output \n \`\`\` \n $(awk '/REGRESSIONS DETECTED/,/OTHER TIMINGS/' $output) \n \`\`\` \n"  >> issue_body_${{ matrix.branch }}.txt
           done
       
-  file-issue:
-    name: File Issue
-    needs: 
+  # file-issue:
+  #   name: File Issue
+  #   needs: 
       
-      - define-matrix
-      - configure-mount-and-download-benchmark-data
-      - build-and-setup
-      - run-regression-tests
-      - collect-issues
-    if: always()
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
-        working-directory: ${{ env.mounted_directory_name }}
-    steps:
-      - name: File issue on preparation steps
-        if: |
-            contains(github.ref_name, 'main') && 
-            (needs.configure-mount-and-download-benchmark-data.result != 'success' ||
-            needs.build-and-setup.result != 'success')
-        run: |
-          echo -e "Benchmark preparation steps have failed, please check the \
-            [workflow run](https://github.com/duckdblabs/duckdb-internal/actions/runs/${{ github.run_id }}) for details.\n\n" > report.txt
+  #     - define-matrix
+  #     - configure-mount-and-download-benchmark-data
+  #     - build-and-setup
+  #     - run-regression-tests
+  #     - collect-issues
+  #   if: always()
+  #   runs-on: ubuntu-latest
+  #   defaults:
+  #     run:
+  #       shell: bash
+  #       working-directory: ${{ env.mounted_directory_name }}
+  #   steps:
+  #     - name: File issue on preparation steps
+  #       if: |
+  #           contains(github.ref_name, 'main') && 
+  #           (needs.configure-mount-and-download-benchmark-data.result != 'success' ||
+  #           needs.build-and-setup.result != 'success')
+  #       run: |
+  #         echo -e "Benchmark preparation steps have failed, please check the \
+  #           [workflow run](https://github.com/duckdblabs/duckdb-internal/actions/runs/${{ github.run_id }}) for details.\n\n" > report.txt
 
-      - name: Create Report
-        run: |
-          if grep -q "REGRESSIONS DETECTED" issue_body*.txt; then
-            echo "Regressions detected, GitHub issue will be filed."
-            cat issue_body*.txt >> report.txt
-          fi
+  #     - name: Create Report
+  #       run: |
+  #         if grep -q "REGRESSIONS DETECTED" issue_body*.txt; then
+  #           echo "Regressions detected, GitHub issue will be filed."
+  #           cat issue_body*.txt >> report.txt
+  #         fi
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: report
-          path: report.txt
+  #     - uses: actions/upload-artifact@v4
+  #       with:
+  #         name: report
+  #         path: report.txt
       # - name: Create Issue
       #   if: success()
       #   run: |
@@ -323,3 +320,21 @@ jobs:
     #   - name: shutdown
     #     shell: bash
     #     run: sudo shutdown
+
+  upterm:
+    runs-on: ubuntu-latest
+    needs:
+      - define-matrix
+      - configure-mount-and-download-benchmark-data
+      - build-and-setup
+      - run-regression-tests
+      - collect-issues
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup upterm session
+      uses: lhotari/action-upterm@v1
+      with:
+        ## limits ssh access and adds the ssh public key for the user which triggered the workflow
+        limit-access-to-actor: true
+        ## limits ssh access and adds the ssh public keys of the listed GitHub users
+        limit-access-to-users: hmeriann
