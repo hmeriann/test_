@@ -111,9 +111,9 @@ jobs:
         run: |
           # we do this so new added benchmarks that break duckdb old
           # do not cause failures.
-          rm -rf ../duckdb-curr-${{ matrix.branch }}/benchmark
-          mkdir ../duckdb-curr-${{ matrix.branch }}/benchmark
-          cp -r benchmark ../duckdb-curr-${{ matrix.branch }}
+          rm -rf ../duckdb-old-${{ matrix.branch }}/benchmark
+          mkdir ../duckdb-old-${{ matrix.branch }}/benchmark
+          cp -r benchmark ../duckdb-old-${{ matrix.branch }}
       
       - name: fetch scripts
         uses: actions/checkout@v4
