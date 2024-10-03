@@ -57,24 +57,12 @@ jobs:
           echo "OPENSSL_ROOT_DIR=`pwd`/build/release/vcpkg_installed/x64-linux" >> $GITHUB_ENV
           echo "OPENSSL_DIR=`pwd`/build/release/vcpkg_installed/x64-linux" >> $GITHUB_ENV
           echo "OPENSSL_USE_STATIC_LIBS=true" >> $GITHUB_ENV
-      
-
 
       - name: Build old and current
         shell: bash
         working-directory: ${{ github.workspace }}
         run: |
           cd duckdb-curr-${{ matrix.branch }} && make clean && make
-
-      # - uses: actions/upload-artifact@v4
-      #   with:
-      #     name: build
-      #     path: ${{ github.workspace }}/duckdb-curr-${{ matrix.branch }}/build
-          
-      # - uses: actions/download-artifact@v4
-      #   with:
-      #     name: build
-      #     path: ${{ github.workspace }}/duckdb-curr-${{ matrix.branch }}
           
       - name: fetch test-files for delta
         uses: actions/checkout@v4
