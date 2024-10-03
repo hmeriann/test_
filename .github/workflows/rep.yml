@@ -42,31 +42,10 @@ jobs:
           fetch-depth: 0
           path: duckdb-curr-${{ matrix.branch }}
 
-      - name: checkout duckdb-old
-        uses: actions/checkout@v4
-        with:
-          repository: 'duckdb/duckdb'
-          ref: ${{ matrix.branch }}
-          fetch-depth: 0
-          path: duckdb-curr-${{ matrix.branch }}
-
-      - name: Checkout duckdb-old to week ago version
-        shell: bash
-        working-directory: ${{ github.workspace }}/duckdb-curr-${{ matrix.branch }}
-        run: |
-          git checkout $( cat ../../duckdb_curr_version_${{ matrix.branch }}.txt )
-
-      - name: Store current git hash of duckdb-curr
-        shell: bash
-        working-directory: ${{ github.workspace }}/duckdb-curr-${{ matrix.branch }}
-        run: |
-          # update duckdb_curr_version_${{ matrix.branch }}.txt
-          git rev-parse --verify HEAD > ../../duckdb_curr_version_${{ matrix.branch }}.txt
-
-      - name: Setup Ccache
-        uses: hendrikmuhs/ccache-action@main
-        with:
-          key: ${{ github.job }}
+      # - name: Setup Ccache
+      #   uses: hendrikmuhs/ccache-action@main
+      #   with:
+      #     key: ${{ github.job }}
 
       - name: Setup vcpkg
         uses: lukka/run-vcpkg@v11.1
@@ -85,14 +64,17 @@ jobs:
         shell: bash
         working-directory: ${{ github.workspace }}
         run: |
-          # cd duckdb-curr-${{ matrix.branch }} && make clean && make
-          # cd ..
           cd duckdb-curr-${{ matrix.branch }} && make clean && make
 
       # - uses: actions/upload-artifact@v4
       #   with:
       #     name: build
       #     path: ${{ github.workspace }}/duckdb-curr-${{ matrix.branch }}/build
+          
+      # - uses: actions/download-artifact@v4
+      #   with:
+      #     name: build
+      #     path: ${{ github.workspace }}/duckdb-curr-${{ matrix.branch }}
           
       - name: fetch test-files for delta
         uses: actions/checkout@v4
@@ -113,17 +95,17 @@ jobs:
       #     # do not cause failures.
       #     rm -rf ../duckdb-curr-${{ matrix.branch }}/benchmark
       #     mkdir ../duckdb-curr-${{ matrix.branch }}/benchmark
-      #     # cp -r benchmark ../duckdb-curr-${{ matrix.branch }}
+      #     cp -r benchmark ../duckdb-curr-${{ matrix.branch }}
       
-      - name: fetch scripts
-        uses: actions/checkout@v4
-        with:
-          repository: 'duckdb/duckdb'
-          ref: main
-          fetch-depth: 1
-          sparse-checkout: |
-            scripts/regression_test_runner.py
-          path: duckdb-curr-${{ matrix.branch }}
+      # - name: fetch scripts
+      #   uses: actions/checkout@v4
+      #   with:
+      #     repository: 'duckdb/duckdb'
+      #     ref: main
+      #     fetch-depth: 1
+      #     sparse-checkout: |
+      #       scripts/regression_test_runner.py
+      #     path: duckdb-curr-${{ matrix.branch }}
 
       # - name: Set up benchmarks 
       #   shell: bash
@@ -131,10 +113,6 @@ jobs:
       #   run: |
       #     cp scripts/regression_test_runner.py ../duckdb-curr-${{ matrix.branch }}
           
-      # - uses: actions/download-artifact@v4
-      #   with:
-      #     name: build
-      #     path: ${{ github.workspace }}/duckdb-curr-${{ matrix.branch }}
           
       # - name: Copy benchmark_runner 
       #   shell: bash
