@@ -89,10 +89,10 @@ jobs:
           # cd ..
           cd duckdb-curr-${{ matrix.branch }} && make clean && make
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: build
-          path: ${{ github.workspace }}/duckdb-curr-${{ matrix.branch }}/build
+      # - uses: actions/upload-artifact@v4
+      #   with:
+      #     name: build
+      #     path: ${{ github.workspace }}/duckdb-curr-${{ matrix.branch }}/build
           
       - name: fetch test-files for delta
         uses: actions/checkout@v4
@@ -131,10 +131,10 @@ jobs:
       #   run: |
       #     cp scripts/regression_test_runner.py ../duckdb-curr-${{ matrix.branch }}
           
-      - uses: actions/download-artifact@v4
-        with:
-          name: build
-          path: ${{ github.workspace }}/duckdb-curr-${{ matrix.branch }}
+      # - uses: actions/download-artifact@v4
+      #   with:
+      #     name: build
+      #     path: ${{ github.workspace }}/duckdb-curr-${{ matrix.branch }}
           
       # - name: Copy benchmark_runner 
       #   shell: bash
