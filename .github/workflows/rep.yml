@@ -88,12 +88,12 @@ jobs:
       - name: Run Regression Test
         continue-on-error: true
         shell: bash
-        working-directory: ${{ github.workspace }}
+        working-directory: ${{ github.workspace }}/duckdb-curr-${{ matrix.branch }}
         run: |
-          python duckdb-curr-${{ matrix.branch }}/scripts/regression_test_runner.py \
-            --old=duckdb-curr-${{ matrix.branch }}/build/release/benchmark/benchmark_runner \
-            --new=duckdb-curr-${{ matrix.branch }}/build/release/benchmark/benchmark_runner \
-            --benchmarks=duckdb-curr-${{ matrix.branch }}/.github/regression/tpcds_sf1_local.csv 
+          python scripts/regression_test_runner.py \
+            --old=build/release/benchmark/benchmark_runner \
+            --new=build/release/benchmark/benchmark_runner \
+            --benchmarks=.github/regression/tpcds_sf1_local.csv 
 
       - name: Setup upterm session
         uses: lhotari/action-upterm@v1
