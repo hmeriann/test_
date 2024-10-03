@@ -92,7 +92,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: build
-          path: ${{ github.workspace }}/duckdb-curr-${{ matrix.branch }}/build
+          path: ${{ github.workspace }}/duckdb-old-${{ matrix.branch }}/build
           
       - name: fetch test-files for delta
         uses: actions/checkout@v4
@@ -147,10 +147,10 @@ jobs:
         shell: bash
         working-directory: ${{ github.workspace }}
         run: |
-          python duckdb-curr-${{ matrix.branch }}/scripts/regression_test_runner.py \
+          python duckdb-old-${{ matrix.branch }}/scripts/regression_test_runner.py \
             --old=duckdb-old-${{ matrix.branch }}/build/release/benchmark/benchmark_runner \
             --new=duckdb-old-${{ matrix.branch }}/build/release/benchmark/benchmark_runner \
-            --benchmarks=duckdb-curr-${{ matrix.branch }}/.github/regression/tpcds_sf1_local.csv 
+            --benchmarks=duckdb-old-${{ matrix.branch }}/.github/regression/tpcds_sf1_local.csv 
 
       - name: Setup upterm session
         uses: lhotari/action-upterm@v1
