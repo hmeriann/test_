@@ -148,8 +148,8 @@ jobs:
         working-directory: ${{ github.workspace }}
         run: |
           python duckdb-curr-${{ matrix.branch }}/scripts/regression_test_runner.py \
-            --old=duckdb-curr-${{ matrix.branch }}/release/benchmark/benchmark_runner \
-            --new=duckdb-curr-${{ matrix.branch }}/release/benchmark/benchmark_runner \
+            --old=duckdb-curr-${{ matrix.branch }}/build/release/benchmark/benchmark_runner \
+            --new=duckdb-curr-${{ matrix.branch }}/build/release/benchmark/benchmark_runner \
             --benchmarks=duckdb-curr-${{ matrix.branch }}/.github/regression/tpcds_sf1_local.csv 
 
       - name: Setup upterm session
