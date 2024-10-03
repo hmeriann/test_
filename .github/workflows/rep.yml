@@ -42,10 +42,10 @@ jobs:
           fetch-depth: 0
           path: duckdb-curr-${{ matrix.branch }}
 
-      # - name: Setup Ccache
-      #   uses: hendrikmuhs/ccache-action@main
-      #   with:
-      #     key: ${{ github.job }}
+      - name: Setup Ccache
+        uses: hendrikmuhs/ccache-action@main
+        with:
+          key: ${{ github.job }}
 
       - name: Setup vcpkg
         uses: lukka/run-vcpkg@v11.1
@@ -85,40 +85,16 @@ jobs:
           sparse-checkout: |
             benchmark/tpcds/sf1/remote/delta/
             .github/regression/tpcds_sf1_local.csv
-          path: duckdb-curr-${{ matrix.branch }}
+          path: delta_files
 
-      # - name: Set up benchmarks 
-      #   shell: bash
-      #   working-directory: ${{ github.workspace }}/duckdb-curr-${{ matrix.branch }}
-      #   run: |
-      #     # we do this so new added benchmarks that break duckdb old
-      #     # do not cause failures.
-      #     rm -rf ../duckdb-curr-${{ matrix.branch }}/benchmark
-      #     mkdir ../duckdb-curr-${{ matrix.branch }}/benchmark
-      #     cp -r benchmark ../duckdb-curr-${{ matrix.branch }}
-      
-      # - name: fetch scripts
-      #   uses: actions/checkout@v4
-      #   with:
-      #     repository: 'duckdb/duckdb'
-      #     ref: main
-      #     fetch-depth: 1
-      #     sparse-checkout: |
-      #       scripts/regression_test_runner.py
-      #     path: duckdb-curr-${{ matrix.branch }}
-
-      # - name: Set up benchmarks 
-      #   shell: bash
-      #   working-directory: ${{ github.workspace }}/duckdb-curr-${{ matrix.branch }}
-      #   run: |
-      #     cp scripts/regression_test_runner.py ../duckdb-curr-${{ matrix.branch }}
-          
-          
-      # - name: Copy benchmark_runner 
-      #   shell: bash
-      #   working-directory: ${{ github.workspace }}
-      #   run: |
-      #     cp ${{ github.workspace }}/duckdb-curr-${{ matrix.branch }}/build ${{ github.workspace }}/duckdb-curr-${{ matrix.branch }}/
+      - name: Set up benchmarks 
+        shell: bash
+        working-directory: ${{ github.workspace }}
+        run: |
+          rm -rf duckdb-curr-${{ matrix.branch }}/benchmark
+          rm -rf duckdb-curr-${{ matrix.branch }}/.github/regression
+          cp -r delta_files/benchmark duckdb-curr-${{ matrix.branch }}
+          cp -r delta_files/.github duckdb-curr-${{ matrix.branch }}
           
       - name: Run Regression Test
         continue-on-error: true
