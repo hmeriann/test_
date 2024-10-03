@@ -23,6 +23,7 @@ jobs:
       BUILD_ICU: 1
       BUILD_JEMALLOC: 1
       CORE_EXTENSIONS: "inet;delta;aws"
+      USE_MERGED_VCPKG_MANIFEST: 1
       VCPKG_TARGET_TRIPLET: x64-linux
       VCPKG_TOOLCHAIN_PATH: ${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
       regression_output: regression_output.txt
