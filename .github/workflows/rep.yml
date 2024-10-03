@@ -32,8 +32,17 @@ jobs:
  
       - name: Install
         shell: bash
-        run: sudo apt-get update -y -qq && sudo apt-get install -y -qq g++ ninja-build cmake make python-is-python3 libssl-dev pip gh python3-requests aws-sdk-cpp
-        
+        run: |
+          sudo apt-get update -y -qq && sudo apt-get install -y -qq g++ ninja-build cmake make python-is-python3 libssl-dev pip gh python3-requests
+          git clone https://github.com/aws/aws-sdk-cpp.git
+          cd aws-sdk-cpp
+          mkdir build
+          cd build
+          # Build only the necessary parts (s3 and core, modify as needed)
+          cmake .. -DCMAKE_BUILD_TYPE=Release -DBUILD_ONLY="s3;core" -DCMAKE_INSTALL_PREFIX=/usr/local/aws-sdk-cpp
+          make -j$(nproc)
+          sudo make install
+      
       - name: checkout duckdb-curr
         uses: actions/checkout@v4
         with:
