@@ -113,7 +113,7 @@ jobs:
           # do not cause failures.
           rm -rf ../duckdb-old-${{ matrix.branch }}/benchmark
           mkdir ../duckdb-old-${{ matrix.branch }}/benchmark
-          cp -r benchmark ../duckdb-old-${{ matrix.branch }}
+          # cp -r benchmark ../duckdb-old-${{ matrix.branch }}
       
       - name: fetch scripts
         uses: actions/checkout@v4
