@@ -83,6 +83,7 @@ jobs:
           rm -rf duckdb-curr-${{ matrix.branch }}/.github/regression
           cp -r delta_files/benchmark duckdb-curr-${{ matrix.branch }}
           cp -r delta_files/.github duckdb-curr-${{ matrix.branch }}
+          sed -i 's/\/local\//\/remote\//g' duckdb-curr-${{ matrix.branch }}/.github/regression/tpcds_sf1_local.csv
           
       - name: Run Regression Test
         continue-on-error: true
