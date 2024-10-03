@@ -103,17 +103,17 @@ jobs:
           sparse-checkout: |
             benchmark/tpcds/sf1/remote/delta/
             .github/regression/tpcds_sf1_local.csv
-          path: ${{ github.workspace }}/duckdb-curr-${{ matrix.branch }}/
+          path: duckdb-curr-${{ matrix.branch }}
 
-      - name: Set up benchmarks 
-        shell: bash
-        working-directory: ${{ github.workspace }}/duckdb-curr-${{ matrix.branch }}
-        run: |
-          # we do this so new added benchmarks that break duckdb old
-          # do not cause failures.
-          rm -rf ../duckdb-curr-${{ matrix.branch }}/benchmark
-          mkdir ../duckdb-curr-${{ matrix.branch }}/benchmark
-          # cp -r benchmark ../duckdb-curr-${{ matrix.branch }}
+      # - name: Set up benchmarks 
+      #   shell: bash
+      #   working-directory: ${{ github.workspace }}/duckdb-curr-${{ matrix.branch }}
+      #   run: |
+      #     # we do this so new added benchmarks that break duckdb old
+      #     # do not cause failures.
+      #     rm -rf ../duckdb-curr-${{ matrix.branch }}/benchmark
+      #     mkdir ../duckdb-curr-${{ matrix.branch }}/benchmark
+      #     # cp -r benchmark ../duckdb-curr-${{ matrix.branch }}
       
       - name: fetch scripts
         uses: actions/checkout@v4
