@@ -22,8 +22,7 @@ jobs:
       BUILD_HTTPFS: 1
       BUILD_ICU: 1
       BUILD_JEMALLOC: 1
-      BUILD_AWS: 1
-      CORE_EXTENSIONS: "inet;delta"
+      CORE_EXTENSIONS: "inet;delta;aws"
       VCPKG_TARGET_TRIPLET: x64-linux
       VCPKG_TOOLCHAIN_PATH: ${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
       regression_output: regression_output.txt
