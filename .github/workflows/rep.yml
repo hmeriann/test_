@@ -45,7 +45,7 @@ jobs:
           path: duckdb-curr-${{ matrix.branch }}
 
       - run: |
-          sed -i 's/\/if (NOT MINGW AND NOT "${OS_NAME}" STREQUAL "linux")\//\/if (DUCKDB_EXTENSION_LOAD_WHITELIST_SET OR NOT MINGW AND NOT "${OS_NAME}" STREQUAL "linux")\//g' duckdb-curr-${{ matrix.branch }}/.github/config/out_of_tree_extensions.cmake
+          sed -i 's/\/if (NOT MINGW AND NOT "${OS_NAME}" STREQUAL "linux")\//\/if (DUCKDB_EXTENSION_LOAD_WHITELIST_SET OR NOT MINGW AND NOT "${OS_NAME}" STREQUAL "linux")\//g' .github/config/out_of_tree_extensions.cmake
 
       - name: Setup Ccache
         uses: hendrikmuhs/ccache-action@main
@@ -84,10 +84,10 @@ jobs:
         shell: bash
         working-directory: ${{ github.workspace }}
         run: |
-          rm -rf duckdb-curr-${{ matrix.branch }}/benchmark
-          rm -rf duckdb-curr-${{ matrix.branch }}/.github/regression
-          cp -r delta_files/benchmark duckdb-curr-${{ matrix.branch }}
-          cp -r delta_files/.github duckdb-curr-${{ matrix.branch }}
+          # rm -rf duckdb-curr-${{ matrix.branch }}/benchmark
+          # rm -rf duckdb-curr-${{ matrix.branch }}/.github/regression
+          cp -r delta_files/benchmark/* duckdb-curr-${{ matrix.branch }}/*
+          cp -r delta_files/.github/* duckdb-curr-${{ matrix.branch }}/*
           sed -i 's/\/local\//\/remote\//g' duckdb-curr-${{ matrix.branch }}/.github/regression/tpcds_sf1_local.csv
           sed -i 's/duckdb\///g' duckdb-curr-${{ matrix.branch }}/benchmark/tpcds/sf1/remote/delta/tpcds_sf1.benchmark.in
       - name: Run Regression Test
