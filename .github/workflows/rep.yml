@@ -70,29 +70,29 @@ jobs:
         run: |
           cd duckdb-curr-${{ matrix.branch }} && make clean
           echo "duckdb_extension_load(autocomplete)
-            #duckdb_extension_load(fts)
-            duckdb_extension_load(httpfs)
-            duckdb_extension_load(icu)
-            #duckdb_extension_load(inet)
-            #duckdb_extension_load(sqlsmith)
-            duckdb_extension_load(tpcds)
-            duckdb_extension_load(tpch)
-            duckdb_extension_load(json)
-            #duckdb_extension_load(sqlite_scanner)
-            
-            duckdb_extension_load(inet
-                GIT_URL https://github.com/duckdb/duckdb_inet
-                GIT_TAG main
-            )
-            
-            
-            if (NOT MINGW AND NOT "${OS_NAME}" STREQUAL "linux")
-                duckdb_extension_load(delta
-                        LOAD_TESTS
-                        GIT_URL https://github.com/duckdb/duckdb_delta
-                        GIT_TAG main
-                )
-            endif()" > extension/extension_config_local.cmake
+          #duckdb_extension_load(fts)
+          duckdb_extension_load(httpfs)
+          duckdb_extension_load(icu)
+          #duckdb_extension_load(inet)
+          #duckdb_extension_load(sqlsmith)
+          duckdb_extension_load(tpcds)
+          duckdb_extension_load(tpch)
+          duckdb_extension_load(json)
+          #duckdb_extension_load(sqlite_scanner)
+          
+          duckdb_extension_load(inet
+              GIT_URL https://github.com/duckdb/duckdb_inet
+              GIT_TAG main
+          )
+          
+          
+          if (DUCKDB_EXTENSION_LOAD_WHITELIST_SET OR NOT MINGW AND NOT "${OS_NAME}" STREQUAL "linux")
+              duckdb_extension_load(delta
+                      LOAD_TESTS
+                      GIT_URL https://github.com/duckdb/duckdb_delta
+                      GIT_TAG main
+              )
+          endif()" > extension/extension_config_local.cmake
           make
           
       - name: fetch test-files for delta
