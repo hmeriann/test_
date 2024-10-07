@@ -13,6 +13,7 @@ jobs:
           fetch-depth: 0
       
       - name: define-matrix
+        if: always()
         run: |
           count=$(git log origin/feature --since="7 days ago" | wc -l)
           if [failure() && $count == 0 ]; then
