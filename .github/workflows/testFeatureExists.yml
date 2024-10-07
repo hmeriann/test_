@@ -21,4 +21,4 @@ jobs:
           else
             echo 'branches=[ "main", "feature" ]' >> $GITHUB_OUTPUT
           fi
-        
+      - run: echo $branches
