@@ -44,9 +44,9 @@ jobs:
           fetch-depth: 0
           path: duckdb-curr-${{ matrix.branch }}
 
-      - run: |
-          cd duckdb-curr-${{ matrix.branch }}
-          sed -i 's/\(if (\)NOT MINGW AND NOT "${OS_NAME}" STREQUAL "linux")/\DUCKDB_EXTENSION_LOAD_WHITELIST_SET OR NOT MINGW AND NOT "${OS_NAME}" STREQUAL "linux")/' .github/config/out_of_tree_extensions.cmake
+      # - run: |
+      #     cd duckdb-curr-${{ matrix.branch }}
+      #     sed -i 's/\(if (\)NOT MINGW AND NOT "${OS_NAME}" STREQUAL "linux")/\DUCKDB_EXTENSION_LOAD_WHITELIST_SET OR (\)NOT MINGW AND NOT "${OS_NAME}" STREQUAL "linux")/' .github/config/out_of_tree_extensions.cmake
 
       - name: Setup Ccache
         uses: hendrikmuhs/ccache-action@main
