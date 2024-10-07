@@ -28,4 +28,7 @@ jobs:
           else
             echo 'branches=[ "main", "feature" ]' >> $GITHUB_OUTPUT
           fi
-      - run: echo "Branches output: ${{ steps.check_branches.outputs.branches }}"
+          
+      - name: View output from previous step
+        run: |
+          echo "Branches output: ${{ steps.check_branches.outputs.branches }}"
