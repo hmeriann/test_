@@ -1,0 +1,13 @@
+name: Test FEATURE Exists
+on: workflow_dispatch
+jobs:
+  check-feature:
+    name: Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: check
+        uses: actions/checkout@4
+        with:
+          repository: duckdb/duckdb
+          ref: blabla
+          fetch-depth: 0
