@@ -86,13 +86,14 @@ jobs:
           )
           
           
-          if (DUCKDB_EXTENSION_LOAD_WHITELIST_SET OR NOT MINGW AND NOT "${OS_NAME}" STREQUAL "linux")
+          if (DUCKDB_EXTENSION_LOAD_WHITELIST_SET OR (NOT MINGW AND NOT "${OS_NAME}" STREQUAL "linux"))
               duckdb_extension_load(delta
                       LOAD_TESTS
                       GIT_URL https://github.com/duckdb/duckdb_delta
                       GIT_TAG main
               )
           endif()" > extension/extension_config_local.cmake
+          make extension_configuration
           make
           
       - name: fetch test-files for delta
