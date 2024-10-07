@@ -15,7 +15,6 @@ jobs:
         continue-on-error: true
         with:
           repository: duckdb/duckdb
-          ref: blahblah
           fetch-depth: 0
       
       - name: define-matrix
