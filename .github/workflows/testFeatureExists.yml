@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: check
-        uses: actions/checkout@4
+        uses: actions/checkout@v4
         with:
           repository: duckdb/duckdb
           ref: blabla
