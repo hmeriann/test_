@@ -1,9 +1,14 @@
+# Here I test that the workflow creates a valid matrix with the branch names.
+# It should be only "main" if the "feature" doesn't exist or exists but doesn't have recent commits to it.
+
 name: Test FEATURE Exists
 on: workflow_dispatch
 jobs:
   check-feature:
     name: Check
     runs-on: ubuntu-latest
+    outputs:
+      branches: ${{ steps.branches.outputs.branches }}
     steps:
       - id: check
         uses: actions/checkout@v4
@@ -14,6 +19,7 @@ jobs:
           fetch-depth: 0
       
       - name: define-matrix
+        id: check_branches
         if: always()
         run: |
           count=$(git log origin/feature --since="7 days ago" | wc -l)
@@ -22,3 +28,4 @@ jobs:
           else
             echo 'branches=[ "main", "feature" ]' >> $GITHUB_OUTPUT
           fi
+      - run: echo "Branches output: ${{ steps.check_branches.outputs.branches }}"
