@@ -105,7 +105,7 @@ jobs:
           # make extension_configuration
           # make
       - name: Print Rust logs
-        if: ${{ steps.build.outcome == "failure" }}
+        if: failure()
         run: |
           for filename in build/release/rust/src/*/*build-*.log; do 
             echo Printing logs for file $filename
