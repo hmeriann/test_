@@ -66,7 +66,9 @@ jobs:
 
       - name: Build old and current
         shell: bash
+        id: build
         working-directory: ${{ github.workspace }}
+        continue-on-error: true
         run: |
           cd duckdb-curr-${{ matrix.branch }} && make clean
           make
@@ -102,6 +104,14 @@ jobs:
           # endif()" > extension/extension_config_local.cmake
           # make extension_configuration
           # make
+      - name: Print Rust logs
+        if: ${{ steps.build.outcome == "failure" }}
+        run: |
+          for filename in build/release/rust/src/*/*build-*.log; do 
+            echo Printing logs for file $filename
+            cat $filename;
+            echo Done printing logs for $filename
+          done
           
       - name: fetch test-files for delta
         uses: actions/checkout@v4
