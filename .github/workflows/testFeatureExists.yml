@@ -16,7 +16,7 @@ jobs:
         if: always()
         run: |
           count=$(git log origin/feature --since="7 days ago" | wc -l)
-          if [steps.check.outcome == 'failure' || $count == 0 ]; then
+          if [ ${{ steps.check.outcome }} == 'failure' || $count == 0 ]; then
             echo 'branches=["main"]' >> $GITHUB_OUTPUT
           else
             echo 'branches=["main", "feature"]' >> $GITHUB_OUTPUT
