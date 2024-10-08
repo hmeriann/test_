@@ -53,10 +53,21 @@ jobs:
         with:
           key: ${{ github.job }}
 
-      - name: Setup Rust
-        uses: dtolnay/rust-toolchain@stable
+      # - name: Setup Rust
+      #   uses: dtolnay/rust-toolchain@stable
+      #   with:
+      #     targets: wasm32-unknown-emscripten
+
+      - name: Set up Rust
+        uses: actions-rs/toolchain@v1
         with:
-          targets: wasm32-unknown-emscripten
+          toolchain: stable        # Specify the Rust toolchain (stable, nightly, etc.)
+          profile: minimal         # Minimal profile for faster builds (optional)
+          override: true           # Set this version as default (optional)
+    
+      # Run the build
+      - name: Build
+        run: cargo build --verbose
           
       - name: Setup vcpkg
         uses: lukka/run-vcpkg@v11.1
