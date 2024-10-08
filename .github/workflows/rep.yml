@@ -26,6 +26,7 @@ jobs:
       USE_MERGED_VCPKG_MANIFEST: 1
       VCPKG_TARGET_TRIPLET: x64-linux
       VCPKG_TOOLCHAIN_PATH: ${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
+      RUST_BACKTRACE: 1
       regression_output: regression_output.txt
     outputs:
       failed_build: ${{ steps.failed-build.outputs.failed_build }}
