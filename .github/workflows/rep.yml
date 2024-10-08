@@ -58,16 +58,8 @@ jobs:
       #   with:
       #     targets: wasm32-unknown-emscripten
 
-      - name: Set up Rust
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable        # Specify the Rust toolchain (stable, nightly, etc.)
-          profile: minimal         # Minimal profile for faster builds (optional)
-          override: true           # Set this version as default (optional)
-    
-      # # Run the build
-      # - name: Build
-      #   run: cargo build --verbose
+      - name: Rust setup
+        run: rustup toolchain install stable --profile minimal
           
       - name: Setup vcpkg
         uses: lukka/run-vcpkg@v11.1
