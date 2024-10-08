@@ -25,6 +25,7 @@ jobs:
       CORE_EXTENSIONS: "inet;delta;aws"
       USE_MERGED_VCPKG_MANIFEST: 1
       VCPKG_TARGET_TRIPLET: x64-linux
+      RUST_BACKTRACE: 1
       VCPKG_TOOLCHAIN_PATH: ${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
       regression_output: regression_output.txt
     outputs:
