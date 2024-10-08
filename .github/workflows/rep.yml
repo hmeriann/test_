@@ -74,8 +74,8 @@ jobs:
 
       - name: Configure OpenSSL for Rust
         run: |
-          echo "OPENSSL_ROOT_DIR=`pwd`/build/release/vcpkg_installed/x64-linux" >> $GITHUB_ENV
-          echo "OPENSSL_DIR=`pwd`/build/release/vcpkg_installed/x64-linux" >> $GITHUB_ENV
+          echo "OPENSSL_ROOT_DIR=`pwd`/duckdb-curr-${{ matrix.branch }}/build/release/vcpkg_installed/x64-linux" >> $GITHUB_ENV
+          echo "OPENSSL_DIR=`pwd`/duckdb-curr-${{ matrix.branch }}/build/release/vcpkg_installed/x64-linux" >> $GITHUB_ENV
           echo "OPENSSL_USE_STATIC_LIBS=true" >> $GITHUB_ENV
 
       - name: Build old and current
