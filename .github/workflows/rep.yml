@@ -65,9 +65,9 @@ jobs:
           profile: minimal         # Minimal profile for faster builds (optional)
           override: true           # Set this version as default (optional)
     
-      # Run the build
-      - name: Build
-        run: cargo build --verbose
+      # # Run the build
+      # - name: Build
+      #   run: cargo build --verbose
           
       - name: Setup vcpkg
         uses: lukka/run-vcpkg@v11.1
