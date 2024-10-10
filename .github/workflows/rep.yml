@@ -25,7 +25,8 @@ jobs:
       CORE_EXTENSIONS: "inet;delta;aws"
       USE_MERGED_VCPKG_MANIFEST: 1
       VCPKG_TARGET_TRIPLET: x64-linux
-      VCPKG_TOOLCHAIN_PATH: ${{ github.workspace }}/duckdb-curr-${{ matrix.branch }}/vcpkg/scripts/buildsystems/vcpkg.cmake
+      VCPKG_TOOLCHAIN_PATH: ${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
+      RUST_BACKTRACE: 1
       regression_output: regression_output.txt
     outputs:
       failed_build: ${{ steps.failed-build.outputs.failed_build }}
@@ -47,7 +48,6 @@ jobs:
       - run: |
           cd duckdb-curr-${{ matrix.branch }}
           sed -i 's/if (\(NOT MINGW AND NOT "${OS_NAME}" STREQUAL "linux"\))/if (DUCKDB_EXTENSION_LOAD_WHITELIST_SET OR (\1))/' .github/config/out_of_tree_extensions.cmake
-
       - name: Setup Ccache
         uses: hendrikmuhs/ccache-action@main
         with:
@@ -58,6 +58,14 @@ jobs:
         with:
           targets: wasm32-unknown-emscripten
 
+      # - name: Rust setup
+      #   run: rustup toolchain install stable --profile minimal
+
+      # - name: Build the project with backtrace enabled
+      #   run: |
+      #     RUST_BACKTRACE=1 cargo build --all-features --target=x86_64-unknown-linux-gnu
+
+          
       - name: Setup vcpkg
         uses: lukka/run-vcpkg@v11.1
         with:
@@ -65,10 +73,9 @@ jobs:
 
       - name: Configure OpenSSL for Rust
         run: |
-          echo "OPENSSL_ROOT_DIR=`pwd`/build/release/vcpkg_installed/x64-linux" >> $GITHUB_ENV
-          echo "OPENSSL_DIR=`pwd`/build/release/vcpkg_installed/x64-linux" >> $GITHUB_ENV
+          echo "OPENSSL_ROOT_DIR=`pwd`/duckdb-curr-${{ matrix.branch }}/build/release/vcpkg_installed/x64-linux" >> $GITHUB_ENV
+          echo "OPENSSL_DIR=`pwd`/duckdb-curr-${{ matrix.branch }}/build/release/vcpkg_installed/x64-linux" >> $GITHUB_ENV
           echo "OPENSSL_USE_STATIC_LIBS=true" >> $GITHUB_ENV
-
       - name: Build old and current
         shell: bash
         id: build
@@ -77,6 +84,46 @@ jobs:
         run: |
           cd duckdb-curr-${{ matrix.branch }} && make clean
           make
+          # echo "duckdb_extension_load(autocomplete)
+          # #duckdb_extension_load(fts)
+          # duckdb_extension_load(httpfs)
+          # duckdb_extension_load(icu)
+          # #duckdb_extension_load(inet)
+          # #duckdb_extension_load(sqlsmith)
+          # duckdb_extension_load(tpcds)
+          # duckdb_extension_load(tpch)
+          # duckdb_extension_load(json)
+          # #duckdb_extension_load(sqlite_scanner)
+          
+          # duckdb_extension_load(inet
+          #     GIT_URL https://github.com/duckdb/duckdb_inet
+          #     GIT_TAG main
+          # )
+          
+          
+          # if (DUCKDB_EXTENSION_LOAD_WHITELIST_SET)
+          #   duckdb_extension_load(delta
+          #     LOAD_TESTS
+          #     GIT_URL https://github.com/duckdb/duckdb_delta
+          #     GIT_TAG main
+          #   )
+          # elseif (NOT MINGW AND NOT "${OS_NAME}" STREQUAL "linux")
+          #   duckdb_extension_load(delta
+          #     LOAD_TESTS
+          #     GIT_URL https://github.com/duckdb/duckdb_delta
+          #     GIT_TAG main
+          #   )
+          # endif()" > extension/extension_config_local.cmake
+          # make extension_configuration
+          # make
+      - name: Print Rust logs
+        if: failure()
+        run: |
+          for filename in build/release/rust/src/*/*build-*.log; do 
+            echo Printing logs for file $filename
+            cat $filename;
+            echo Done printing logs for $filename
+          done
           
       - name: fetch test-files for delta
         uses: actions/checkout@v4
@@ -108,7 +155,6 @@ jobs:
             --old=build/release/benchmark/benchmark_runner \
             --new=build/release/benchmark/benchmark_runner \
             --benchmarks=.github/regression/tpcds_sf1_local.csv 
-
       - name: Setup upterm session
         uses: lhotari/action-upterm@v1
         with:
