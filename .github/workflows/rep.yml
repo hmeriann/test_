@@ -138,7 +138,7 @@ jobs:
         shell: bash
         working-directory: ${{ github.workspace }}/duckdb-curr-${{ matrix.branch }}
         run: |
-          ./build/release/duckdb "create secret s1(TYPE S3, KEY_ID '${{env.AWS_ACCESS_KEY_ID}}', SECRET '${{env.KEY_ID}}', REGION 'env.AWS_DEFAULT_REGION');
+          ./build/release/duckdb "create secret s1(TYPE S3, KEY_ID '${{env.AWS_ACCESS_KEY_ID}}', SECRET '${{env.AWS_SECRET_ACCESS_KEY}}', REGION '${{env.AWS_DEFAULT_REGION}}');
           python scripts/regression_test_runner.py \
             --old=build/release/benchmark/benchmark_runner \
             --new=build/release/benchmark/benchmark_runner \
