@@ -111,10 +111,7 @@ jobs:
           # endif()" > extension/extension_config_local.cmake
           # make extension_configuration
           # make
-      # - name: Set Secrets
-      #   run: |
-      #     ./build/release/duckdb -c "CREATE SECRET my_secret (TYPE S3, KEY_ID ${{ env.AWS_ACCESS_KEY_ID }}, SECRET ${{ env.AWS_SECRET_ACCESS_KEY }}, REGION '${{ env.AWS_DEFAULT_REGION }}');"
-          
+      
       - name: fetch test-files for delta
         uses: actions/checkout@v4
         with:
@@ -141,7 +138,6 @@ jobs:
         shell: bash
         working-directory: ${{ github.workspace }}/duckdb-curr-${{ matrix.branch }}
         run: |
-          ./build/release/duckdb -c "CREATE SECRET my_secret (TYPE S3, KEY_ID ${{ env.AWS_ACCESS_KEY_ID }}, SECRET ${{ env.AWS_SECRET_ACCESS_KEY }}, REGION '${{ env.AWS_DEFAULT_REGION }}');"
           python scripts/regression_test_runner.py \
             --old=build/release/benchmark/benchmark_runner \
             --new=build/release/benchmark/benchmark_runner \
