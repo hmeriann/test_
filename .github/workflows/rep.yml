@@ -27,6 +27,9 @@ jobs:
       VCPKG_TARGET_TRIPLET: x64-linux
       VCPKG_TOOLCHAIN_PATH: ${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
       RUST_BACKTRACE: 1
+      AWS_ACCESS_KEY_ID: ${{ secrets.KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET }}
+      AWS_DEFAULT_REGION: us-east-1
       regression_output: regression_output.txt
     outputs:
       failed_build: ${{ steps.failed-build.outputs.failed_build }}
@@ -116,14 +119,9 @@ jobs:
           # endif()" > extension/extension_config_local.cmake
           # make extension_configuration
           # make
-      - name: Print Rust logs
-        if: failure()
+      - name: Set Secrets
         run: |
-          for filename in build/release/rust/src/*/*build-*.log; do 
-            echo Printing logs for file $filename
-            cat $filename;
-            echo Done printing logs for $filename
-          done
+          ./build/release/duckdb -c "CREATE SECRET my_secret (TYPE S3, KEY_ID ${{ env.AWS_ACCESS_KEY_ID }}, SECRET ${{ env.AWS_SECRET_ACCESS_KEY }}, REGION ${{ env.AWS_DEFAULT_REGION }});"
           
       - name: fetch test-files for delta
         uses: actions/checkout@v4
