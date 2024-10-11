@@ -61,14 +61,6 @@ jobs:
         with:
           targets: wasm32-unknown-emscripten
 
-      # - name: Rust setup
-      #   run: rustup toolchain install stable --profile minimal
-
-      # - name: Build the project with backtrace enabled
-      #   run: |
-      #     RUST_BACKTRACE=1 cargo build --all-features --target=x86_64-unknown-linux-gnu
-
-          
       - name: Setup vcpkg
         uses: lukka/run-vcpkg@v11.1
         with:
@@ -149,6 +141,7 @@ jobs:
         shell: bash
         working-directory: ${{ github.workspace }}/duckdb-curr-${{ matrix.branch }}
         run: |
+          ./build/release/duckdb -c "CREATE SECRET my_secret (TYPE S3, KEY_ID ${{ env.AWS_ACCESS_KEY_ID }}, SECRET ${{ env.AWS_SECRET_ACCESS_KEY }}, REGION ${{ env.AWS_DEFAULT_REGION }});"
           python scripts/regression_test_runner.py \
             --old=build/release/benchmark/benchmark_runner \
             --new=build/release/benchmark/benchmark_runner \
