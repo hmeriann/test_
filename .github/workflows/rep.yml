@@ -27,9 +27,6 @@ jobs:
       VCPKG_TARGET_TRIPLET: x64-linux
       VCPKG_TOOLCHAIN_PATH: ${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
       RUST_BACKTRACE: 1
-      AWS_ACCESS_KEY_ID: ${{ secrets.KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET }}
-      AWS_DEFAULT_REGION: us-east-1
       regression_output: regression_output.txt
     outputs:
       failed_build: ${{ steps.failed-build.outputs.failed_build }}
@@ -136,6 +133,10 @@ jobs:
       - name: Run Regression Test
         continue-on-error: true
         shell: bash
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET }}
+          AWS_DEFAULT_REGION: eu-west-1
         working-directory: ${{ github.workspace }}/duckdb-curr-${{ matrix.branch }}
         run: |
           ./build/release/duckdb "create secret s1(TYPE S3, KEY_ID '${{env.AWS_ACCESS_KEY_ID}}', SECRET '${{env.AWS_SECRET_ACCESS_KEY}}', REGION '${{env.AWS_DEFAULT_REGION}}');"
