@@ -1,1 +1,55 @@
-
+name: Test - Run hep bms
+on:
+  workflow_dispatch:
+env:
+  gh_issue_repo: hmeriann/test_
+  GH_TOKEN: ${{ github.token }}
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    env:
+      GEN: ninja
+      BUILD_BENCHMARK: 1
+      BUILD_TPCH: 1
+      BUILD_TPCDS: 1
+      BUILD_JSON: 1
+      BUILD_HTTPFS: 1
+      BUILD_ICU: 1
+      BUILD_JEMALLOC: 1
+      CORE_EXTENSIONS: "inet"
+      regression_output: regression_output.txt
+    outputs:
+      failed_build: ${{ steps.failed-build.outputs.failed_build }}
+    steps:
+      - name: Install
+        run: sudo apt-get update -y -qq && sudo apt-get install -y -qq g++ ninja-build cmake make python-is-python3 libssl-dev pip gh python3-requests curl zip unzip tar pkg-config
+      - name: checkout duckdb
+        uses: actions/checkout@v4
+        with:
+          repository: 'hmeriann/duckdb'
+          ref: realnest-hep-benchmarks
+          fetch-depth: 0
+          path: duckdb
+      - name: Build old and current
+        id: build
+        run: |
+          cd duckdb && make clean && make
+          echo "DONE! 🥳 🥳 🥳"
+      - name: Run Regression Test
+        continue-on-error: true
+        run: |
+          python duckdb/scripts/regression_test_runner.py \
+            --old=duckdb/build/release/benchmark/benchmark_runner \
+            --new=duckdb/build/release/benchmark/benchmark_runner \
+            --benchmarks=duckdb/.github/regression/realnest_hep.csv \
+            --verbose > hep.txt
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        with:
+          path: hep.txt
+          name: hep.txt
+          if-no-files-found: ignore
