@@ -1,0 +1,12 @@
+name: TEST - Automated check
+on:
+  workflow_dispatch:
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: is CLI available
+      - name: is python client available on pypi
+      - name: are extensions available
+      # I would check whether they are INSTALLable and LOADable from the binaries from the steps above
+      
