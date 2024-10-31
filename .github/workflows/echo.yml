@@ -1,0 +1,12 @@
+name: Test - link creation
+on:
+  push:
+env:
+  gh_repo: hmeriann/test_
+jobs:
+  first:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          gh run list --repo ${{ env.gh_repo }}
+          echo ${{ env.gh_repo }}
