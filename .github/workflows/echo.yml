@@ -3,6 +3,7 @@ on:
   push:
 env:
   gh_repo: hmeriann/test_
+  GH_TOKEN: ${{ github.token }}
 jobs:
   first:
     runs-on: ubuntu-latest
