@@ -10,4 +10,4 @@ jobs:
     steps:
       - run: |
           gh run list --repo ${{ env.gh_repo }}
-          gh issue create --repo ${{ env.gh_repo }} --title "Test Issue" --body "See ${{ env.gh_repo }}/11616401424"
+          gh issue create --repo ${{ env.gh_repo }} --title "Test Issue" --body "See ${{ github.server_url }}/${{ env.gh_repo }}/actions/runs/11616401424"
