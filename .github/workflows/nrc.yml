@@ -13,7 +13,11 @@ jobs:
       - name: Check LinuxRelease
         run: |
           conclusion=$(gh run list --repo ${{ env.gh_repo }} --event repository_dispatch --workflow LinuxRelease --created $(date +%Y-%m-%d) --json conclusion) 
-          if echo $conclusion | grep -q 'success'; then
+          if echo $conclusion | grep -q 'failure'; then
+            gh run list --repo ${{ env.gh_repo }} --event repository_dispatch --workflow LinuxRelease --created $(date +%Y-%m-%d) --json url > url.csv
+            url=$(tail -n 1 url.csv | awk -F "[:}]" '{ print $3 }')
+            printf "\`\`\`\nThe nightly-build LinuxRelease had failed.\n Please see the run https:$url.\n\`\`\`" > issue_body.txt
+          else
             gh run list --repo ${{ env.gh_repo }} --event repository_dispatch --workflow LinuxRelease --created $(date +%Y-%m-%d) --json databaseId > run_id.csv
             run_id=$(tail -n 1 run_id.csv | awk -F "[:}]" '{ print $2}' | tr -d ' "')
             gh run download $run_id --repo ${{ env.gh_repo }}
@@ -25,8 +29,12 @@ jobs:
             if [[ $sha != ^$p_version* ]]; then
               printf "\`\`\`\nThe version in the duckdb_cli-linux-amd64 build ($p_version) is not the same as the version triggered the build ($sha).\n\`\`\`" > issue_body.txt
             fi
-          else
-            gh run list --repo ${{ env.gh_repo }} --event repository_dispatch --workflow LinuxRelease --created $(date +%Y-%m-%d) --json url > url.csv
-            url=$(tail -n 1 url.csv | awk -F "[:}]" '{ print $3 }')
-            printf "\`\`\`\nThe nightly-build LinuxRelease had failed.\n Please see the run https:$url.\n\`\`\`" > issue_body.txt
+            # try to load extension
+            ./duckdb -c "LOAD spatial" 2> failed.txt
+            ./duckdb -c "LOAD unexpected" 2>> failed.txt
+            ./duckdb -c "INSTALL spatial;" 2>> failed.txt 
+            ./duckdb -c "INSTALL unexpected;" 2>> failed.txt 
+            cat failed.txt
           fi
+      - name: Setup upterm session
+        uses: lhotari/action-upterm@v1
