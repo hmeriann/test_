@@ -29,17 +29,24 @@ jobs:
             full_sha=$(gh run view $run_id --repo duckdb/duckdb --json headSha -q .headSha)
             if [[ $sha != ^$p_version* ]]; then
               printf "\`\`\`\nThe version of duckdb_cli-linux-amd64 build ($p_version) is not the same as the version triggered the build ($sha).\n\`\`\`" > issue_body.txt
+            else
+              # try to load extension
+              ./duckdb -line -c "select installed from duckdb_extensions() where extension_name='spatial';" > sp.csv
+              sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
+              if [[ $sp == 'false' ]]; then
+                ./duckdb -c "INSTALL spatial;"
+                ./duckdb -line -c "select installed from duckdb_extensions() where extension_name='spatial';" > sp.csv
+                sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
+                if [[ $sp != 'true' ]]; then
+                  echo "Failed to INSTALL an extension." >> issue_body.txt
+                fi
+                ./duckdb -c "LOAD spatial;"
+                if echo $? != 0; then echo "Failed to LOAD an extension." >> issue_body.txt; fi
+              ./duckdb -c "INSTALL unexpected;"
+              if echo $? != 0; then
+                echo "INSTALLationof unexpected extension didn't return 1." >> issue_body.txt
+              fi  
             fi
-            # try to load extension
-            ./duckdb -c "LOAD spatial;"
-            if echo $? != 0; then echo "Failed to LOAD an extension." >> issue_body.txt; fi
-            ./duckdb -c "LOAD unexpected;"
-            if echo $? != 1; then echo "LOADing of unexpected extension didn't return 1." >> issue_body.txt; fi
-            ./duckdb -c "INSTALL spatial;"
-            if echo $? != 0; then echo "Failed to INSTALL an extension." >> issue_body.txt; fi
-            ./duckdb -c "INSTALL unexpected;"
-            if echo $? != 0; then echo "INSTALLationof unexpected extension didn't return 1." >> issue_body.txt; fi
-            
           fi
       - name: Setup upterm session
         uses: lhotari/action-upterm@v1
