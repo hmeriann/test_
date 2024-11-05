@@ -27,7 +27,7 @@ jobs:
             ./duckdb --version > pragma_version.csv
             short_sha=$(tail -n 2 pragma_version.csv | awk '{ print $2 }')
             full_sha=$(gh run view $run_id --repo duckdb/duckdb --json headSha -q .headSha)
-            if [[ $sha != ^$p_version* ]]; then
+            if [[ $full_sha != ^$short_sha* ]]; then
               printf "\`\`\`\nThe version of duckdb_cli-linux-amd64 build ($p_version) is not the same as the version triggered the build ($sha).\n\`\`\`" > issue_body.txt
             else
               # try to load extension
