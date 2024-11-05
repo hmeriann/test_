@@ -22,23 +22,23 @@ jobs:
             gh run list --repo ${{ env.gh_repo }} --event repository_dispatch --workflow LinuxRelease --created $(date +%Y-%m-%d) --json databaseId > run_id.csv
             run_id=$(tail -n 1 run_id.csv | awk -F "[:}]" '{ print $2 }' | tr -d ' "')
             gh run download $run_id --repo ${{ env.gh_repo }}
-            unzip -l duckdb-binaries-linux/duckdb_cli-linux-amd64.zip || { echo "Unzip failed"; exit 1; }
-            # # verify versions
-            # ./duckdb --version > pragma_version.csv
-            # short_sha=$(tail -n 2 pragma_version.csv | awk '{ print $2 }')
-            # full_sha=$(gh run view $run_id --repo duckdb/duckdb --json headSha -q .headSha)
-            # if [[ $sha != ^$p_version* ]]; then
-            #   printf "\`\`\`\nThe version of duckdb_cli-linux-amd64 build ($p_version) is not the same as the version triggered the build ($sha).\n\`\`\`" > issue_body.txt
-            # fi
-            # # try to load extension
-            # ./duckdb -c "LOAD spatial;"
-            # if echo $? != 0; then echo "Failed to LOAD an extension." >> issue_body.txt; fi
-            # ./duckdb -c "LOAD unexpected;"
-            # if echo $? != 1; then echo "LOADing of unexpected extension didn't return 1." >> issue_body.txt; fi
-            # ./duckdb -c "INSTALL spatial;"
-            # if echo $? != 0; then echo "Failed to INSTALL an extension." >> issue_body.txt; fi
-            # ./duckdb -c "INSTALL unexpected;"
-            # if echo $? != 0; then echo "INSTALLationof unexpected extension didn't return 1." >> issue_body.txt; fi
+            unzip duckdb-binaries-linux/duckdb_cli-linux-amd64.zip || { echo "Unzip failed"; exit 1; }
+            # verify versions
+            ./duckdb --version > pragma_version.csv
+            short_sha=$(tail -n 2 pragma_version.csv | awk '{ print $2 }')
+            full_sha=$(gh run view $run_id --repo duckdb/duckdb --json headSha -q .headSha)
+            if [[ $sha != ^$p_version* ]]; then
+              printf "\`\`\`\nThe version of duckdb_cli-linux-amd64 build ($p_version) is not the same as the version triggered the build ($sha).\n\`\`\`" > issue_body.txt
+            fi
+            # try to load extension
+            ./duckdb -c "LOAD spatial;"
+            if echo $? != 0; then echo "Failed to LOAD an extension." >> issue_body.txt; fi
+            ./duckdb -c "LOAD unexpected;"
+            if echo $? != 1; then echo "LOADing of unexpected extension didn't return 1." >> issue_body.txt; fi
+            ./duckdb -c "INSTALL spatial;"
+            if echo $? != 0; then echo "Failed to INSTALL an extension." >> issue_body.txt; fi
+            ./duckdb -c "INSTALL unexpected;"
+            if echo $? != 0; then echo "INSTALLationof unexpected extension didn't return 1." >> issue_body.txt; fi
             
           fi
       - name: Setup upterm session
