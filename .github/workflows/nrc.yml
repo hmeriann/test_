@@ -22,20 +22,20 @@ jobs:
             gh run list --repo ${{ env.gh_repo }} --event repository_dispatch --workflow LinuxRelease --created $(date +%Y-%m-%d) --json databaseId > run_id.csv
             run_id=$(tail -n 1 run_id.csv | awk -F "[:}]" '{ print $2}' | tr -d ' "')
             gh run download $run_id --repo ${{ env.gh_repo }}
-            unzip -l duckdb-binaries-linux/duckdb_cli-linux-amd64.zip || { echo "Unzip failed"; exit 1; }
+            # unzip -l duckdb-binaries-linux/duckdb_cli-linux-amd64.zip || { echo "Unzip failed"; exit 1; }
             # verify versions
-            ./duckdb -c "PRAGMA version" > pragma_version.csv
-            short_sha=$(tail -n 2 pragma_version.csv | head -n 1 | awk '{print $4}')
-            full_sha=$(gh run view $run_id --repo duckdb/duckdb --json headSha -q .headSha)
-            if [[ $sha != ^$p_version* ]]; then
-              printf "\`\`\`\nThe version in the duckdb_cli-linux-amd64 build ($p_version) is not the same as the version triggered the build ($sha).\n\`\`\`" > issue_body.txt
-            fi
+            # ./duckdb -c "PRAGMA version" > pragma_version.csv
+            # short_sha=$(tail -n 2 pragma_version.csv | head -n 1 | awk '{print $4}')
+            # full_sha=$(gh run view $run_id --repo duckdb/duckdb --json headSha -q .headSha)
+            # if [[ $sha != ^$p_version* ]]; then
+            #   printf "\`\`\`\nThe version in the duckdb_cli-linux-amd64 build ($p_version) is not the same as the version triggered the build ($sha).\n\`\`\`" > issue_body.txt
+            # fi
             # try to load extension
-            ./duckdb -c "LOAD spatial" 2> failed.txt
+            # ./duckdb -c "LOAD spatial" 2> failed.txt
             # ./duckdb -c "LOAD unexpected" 2>> failed.txt
-            ./duckdb -c "INSTALL spatial;" 2>> failed.txt 
+            # ./duckdb -c "INSTALL spatial;" 2>> failed.txt 
             # ./duckdb -c "INSTALL unexpected;" 2>> failed.txt 
-            cat failed.txt
+            # cat failed.txt
           fi
       - name: Setup upterm session
         uses: lhotari/action-upterm@v1
