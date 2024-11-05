@@ -1,6 +1,12 @@
 name: Nightly Builds Check
 on:
-  workflow_call:
+  schedule:
+    - cron: 0 9 * * * # runs at 10am CET DAILY
+  workflow_dispatch:
+  # workflow_call:
+env:
+  GH_TOKEN: ${{ github.token }}
+  gh_repo: duckdb/duckdb
 jobs:
   linux:
     runs-on: ubuntu-latest
