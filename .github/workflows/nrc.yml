@@ -1,0 +1,32 @@
+name: Nightly Builds Check
+on:
+  schedule:
+    - cron: 0 9 * * * # runs at 10am CET DAILY
+  workflow_dispatch:
+env:
+  GH_TOKEN: ${{ github.token }}
+  gh_repo: duckdb/duckdb
+jobs:
+  first:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check LinuxRelease
+        run: |
+          conclusion=$(gh run list --repo ${{ env.gh_repo }} --event repository_dispatch --workflow LinuxRelease --created $(date +%Y-%m-%d) --json conclusion) 
+          if echo $conclusion | grep -q 'success'; then
+            gh run list --repo ${{ env.gh_repo }} --event repository_dispatch --workflow LinuxRelease --created $(date +%Y-%m-%d) --json databaseId > run_id.csv
+            run_id=$(tail -n 1 run_id.csv | awk -F "[:}]" '{ print $2}' | tr -d ' "')
+            gh run download $run_id --repo ${{ env.gh_repo }}
+            unzip duckdb-binaries-linux/duckdb_cli-linux-amd64.zip
+            # verify versions
+            ./duckdb -c "PRAGMA version" > pragma_version.csv
+            short_sha=$(tail -n 2 pragma_version.csv | head -n 1 | awk '{print $4}')
+            full_sha=$(gh run view $run_id --repo duckdb/duckdb --json headSha -q .headSha)
+            if [[ $sha != ^$p_version* ]]; then
+              printf "\`\`\`\nThe version in the duckdb_cli-linux-amd64 build ($p_version) is not the same as the version triggered the build ($sha).\n\`\`\`" > issue_body.txt
+            fi
+          else
+            gh run list --repo ${{ env.gh_repo }} --event repository_dispatch --workflow LinuxRelease --created $(date +%Y-%m-%d) --json url > url.csv
+            url=$(tail -n 1 url.csv | awk -F "[:}]" '{ print $3}')
+            printf "\`\`\`\nThe nightly-build LinuxRelease had failed.\n Please see the run https:$url.\n\`\`\`" > issue_body.txt"
+          fi
