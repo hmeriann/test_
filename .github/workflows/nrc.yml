@@ -32,9 +32,9 @@ jobs:
             fi
             # try to load extension
             ./duckdb -c "LOAD spatial" 2> failed.txt
-            ./duckdb -c "LOAD unexpected" 2>> failed.txt
+            # ./duckdb -c "LOAD unexpected" 2>> failed.txt
             ./duckdb -c "INSTALL spatial;" 2>> failed.txt 
-            ./duckdb -c "INSTALL unexpected;" 2>> failed.txt 
+            # ./duckdb -c "INSTALL unexpected;" 2>> failed.txt 
             cat failed.txt
           fi
       - name: Setup upterm session
