@@ -22,7 +22,7 @@ jobs:
             gh run list --repo ${{ env.gh_repo }} --event repository_dispatch --workflow LinuxRelease --created $(date +%Y-%m-%d) --json databaseId > run_id.csv
             run_id=$(tail -n 1 run_id.csv | awk -F "[:}]" '{ print $2}' | tr -d ' "')
             gh run download $run_id --repo ${{ env.gh_repo }}
-            unzip duckdb-binaries-linux/duckdb_cli-linux-amd64.zip
+            unzip -l duckdb-binaries-linux/duckdb_cli-linux-amd64.zip || { echo "Unzip failed"; exit 1; }
             # verify versions
             ./duckdb -c "PRAGMA version" > pragma_version.csv
             short_sha=$(tail -n 2 pragma_version.csv | head -n 1 | awk '{print $4}')
