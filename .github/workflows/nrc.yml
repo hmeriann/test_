@@ -40,8 +40,7 @@ jobs:
                 if [[ $sp != 'true' ]]; then
                   echo "Failed to INSTALL an extension." >> issue_body.txt
                 fi
-                ./duckdb -c "LOAD spatial;"
-                if echo [ $? -ne 0 ]; then
+                if ! ./duckdb -c "LOAD spatial;" ; then
                   echo "Failed to LOAD an extension." >> issue_body.txt
                 fi
                 if ./duckdb -c "INSTALL unexpected;"; then
