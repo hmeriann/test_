@@ -44,7 +44,7 @@ jobs:
                 if echo [ $? -ne 0 ]; then
                   echo "Failed to LOAD an extension." >> issue_body.txt
                 fi
-                if [ ./duckdb -c "INSTALL unexpected;" | $? -ne 0 ]; then
+                if ./duckdb -c "INSTALL unexpected;"; then
                   echo "INSTALLation of unexpected extension didn't return 1." >> issue_body.txt
                 fi
               fi
