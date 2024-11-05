@@ -32,9 +32,13 @@ jobs:
             fi
             # try to load extension
             ./duckdb -c "LOAD spatial;"
+            if echo $? != 0; then echo "Failed to LOAD an extension." >> issue_body.txt; fi
             ./duckdb -c "LOAD unexpected;"
+            if echo $? != 1; then echo "LOADing of unexpected extension didn't return 1." >> issue_body.txt; fi
             ./duckdb -c "INSTALL spatial;"
+            if echo $? != 0; then echo "Failed to INSTALL an extension." >> issue_body.txt; fi
             ./duckdb -c "INSTALL unexpected;"
+            if echo $? != 0; then echo "INSTALLationof unexpected extension didn't return 1." >> issue_body.txt; fi
             
           fi
       - name: Setup upterm session
