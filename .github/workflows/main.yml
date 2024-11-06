@@ -13,6 +13,7 @@ jobs:
         if: always()
         run: exit 0
       - name: the second exit 1
+        if: always()
         run: exit 1
   continue2:
     runs-on: ubuntu-latest
