@@ -1,0 +1,46 @@
+name: Nightly Builds Check
+on:
+  schedule:
+    - cron: 0 9 * * * # runs at 10am CET DAILY
+  workflow_dispatch:
+env:
+  GH_TOKEN: ${{ github.token }}
+  gh_repo: duckdb/duckdb
+jobs:
+  linux:
+    name: Check LinuxRelease
+    uses: ./.github/workflows/nrc.yml
+    with:
+      git_url: hmeriann/test_
+      git_tag: main
+      nightly-build: LinuxRelease
+      platform: linux
+      version: linux-amd64
+      runs-on: ubuntu-latest
+    
+  osx:
+    name: Check OSX
+    uses: ./.github/workflows/nrc.yml
+    with:
+      git_url: hmeriann/test_
+      git_tag: main
+      nightly-build: OSX
+      platform: osx
+      runs-on: macos-latest
+  
+  create-issue:
+    runs-on: ubuntu-latest
+    needs:
+      - linux
+      - osx
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: issues*
+          path: issues
+      - name: Report an issue
+        run: |
+          cat issues/issues*.txt/* > report.txt
+          gh issue create --repo hmeriann/test_ --title "Nightly Builds Failures" --body-file report.txt
+
