@@ -49,6 +49,13 @@ jobs:
               fi
             fi
           fi
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: issues_linux.txt
+          path: issue_body.txt
+          if-no-files-found: error 
   osx:
     runs-on: macos-latest
     steps:
@@ -90,3 +97,10 @@ jobs:
               fi
             fi
           fi
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: issues_osx.txt
+          path: issue_body.txt
+          if-no-files-found: error 
