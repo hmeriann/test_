@@ -30,7 +30,7 @@ jobs:
   linux-test:
     name: Test LinuxRelease
     needs: linux
-    if: needs.linux.conclusion == 'success'
+    if: needs.linux.conclusion != 'failure'
     uses: ./.github/workflows/tests_nbc.yml
     with:
       nightly-build: LinuxRelease
@@ -67,7 +67,7 @@ jobs:
   osx-test:
     name: Test OSX
     needs: osx
-    if: needs.osx.conclusion == 'success'
+    if: needs.osx.conclusion != 'failure'
     uses: ./.github/workflows/tests_nbc.yml
     with:
       nightly-build: OSX
