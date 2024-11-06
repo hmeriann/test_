@@ -5,7 +5,8 @@ on:
 jobs:
   continue:
     runs-on: ubuntu-latest
-    continue-on-error: true
+    strategy:
+      fail-fast: false
     steps:
       - run: exit 1
       - name: exit 0
@@ -13,7 +14,8 @@ jobs:
         run: exit 0
   continue2:
     runs-on: ubuntu-latest
-    continue-on-error: true
+    strategy:
+      fail-fast: false
     steps:
       - run: exit 0
   # fail:
