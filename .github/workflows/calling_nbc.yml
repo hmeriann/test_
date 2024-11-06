@@ -15,18 +15,22 @@ jobs:
       runs-on: ubuntu-latest
       platform: ${{ matrix.platform }}
       version: ${{ matrix.version }}
+      container: ${{ matrix.container }}
       extension: ${{ matrix.extension }}
     strategy:
       matrix:
         extension: [ arrow, autocomplete, aws, azure, delta, excel, fts, httpfs, iceberg, icu, inet, jemalloc, json, motherduck, mysql_scanner, parquet, postgres_scanner, shell, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]
         platform: [ linux, linux-aarch64 ]
         version: [ linux-amd64, linux-aarch64 ]
+        container: [ quay.io/pypa/manylinux2014_x86_64, ubuntu:18.04 ]
         exclude:
           - platform: linux
             version: linux-aarch64
+            container: ubuntu:18.04
           - platform: linux-aarch64
             version: linux-amd64
-    
+            container: quay.io/pypa/manylinux2014_x86_64
+            
   osx:
     name: Check OSX
     uses: ./.github/workflows/nrc.yml
