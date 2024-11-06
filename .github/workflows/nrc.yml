@@ -23,7 +23,6 @@ jobs:
   check-build:
     runs-on: ${{ inputs.runs-on }}
     # container: ${{ inputs.container }}
-    continue-on-error: true
     steps:
       - name: Check ${{ inputs.nightly-build }}
         run: |
