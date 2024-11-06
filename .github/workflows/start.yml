@@ -1,4 +1,4 @@
-name: Nightly Builds Check
+name: Calling Nightly Builds Check
 on:
   schedule:
     - cron: 0 9 * * * # runs at 10am CET DAILY
