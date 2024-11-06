@@ -5,19 +5,18 @@ on:
 jobs:
   continue:
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
       - name: exit 1
-        continue-on-error: true
         run: exit 1
       - run: exit 0
       - name: the second exit 1
-        continue-on-error: true
         run: exit 1
   continue2:
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
       - name: the second exit 1
-        continue-on-error: true
         run: exit 1
       - run: exit 0
   # fail:
