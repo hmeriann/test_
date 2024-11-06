@@ -90,8 +90,8 @@ jobs:
           pattern: issue*
           path: issue
       
-      - name: Setup upterm session
-        uses: owenthereal/action-upterm@v1
+      # - name: Setup upterm session
+      #   uses: owenthereal/action-upterm@v1
         
       - name: Report an issue
         if: success()
