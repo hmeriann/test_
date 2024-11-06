@@ -84,6 +84,8 @@ jobs:
       - linux-test
       - osx-test
     steps:
+      - name: action/checkout@v4
+        
       - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
