@@ -1,0 +1,71 @@
+name: Test Nightly Builds Check
+on:
+  workflow_call:
+    inputs:
+      nightly-build:
+        required: true
+        type: string
+      platform:
+        required: true
+        type: string
+      version: 
+        required: false
+        type: string
+      # container:
+      #   required: false
+      #   type: string
+      runs-on:
+        required: true
+        type: string
+      extension:
+        required: false
+        type: string
+env:
+  GH_TOKEN: ${{ github.token }}
+jobs:
+  check-build:
+    runs-on: ${{ inputs.runs-on }}
+    # container: ${{ inputs.container }}
+    continue-on-error: true
+    steps:
+      - name: Test ${{ inputs.nightly-build }}
+        run: |
+          gh run list --repo duckdb/duckdb --event repository_dispatch --workflow ${{ inputs.nightly-build }} --created $(date +%Y-%m-%d) --json databaseId > run_id.csv
+          run_id=$(tail -n 1 run_id.csv | awk -F "[:}]" '{ print $2 }' | tr -d ' "')
+          gh run download $run_id --repo duckdb/duckdb
+          unzip duckdb-binaries-${{ inputs.platform }}/duckdb_cli-${{ inputs.version }}.zip || { echo "Unzip failed"; exit 1; }
+          echo verify versions
+          ./duckdb --version > pragma_version.csv
+          short_sha=$(tail -n 2 pragma_version.csv | awk '{ print $2 }')
+          full_sha=$(gh run view $run_id --repo duckdb/duckdb --json headSha -q .headSha)
+          if [[ $full_sha != $short_sha* ]]; then
+            printf "The version of \`${{ inputs.nightly-build }}\` build (\`$short_sha\`) is not the same as the version triggered the build (\`$full_sha\`).\n " > issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
+          else
+            ./duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';"
+            ./duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';" > sp.csv
+            sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
+            if [[ $sp == 'false' ]]; then
+              echo try to INSTALL extension
+              ./duckdb -c "INSTALL ${{ inputs.extension }};"
+              ./duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';"
+              ./duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';" > sp.csv
+              sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
+              if [[ $sp != 'true' ]]; then
+                echo "Failed to INSTALL an extension." >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
+              fi
+              echo try to load extension
+              if ./duckdb -c "LOAD ${{ inputs.extension }};" ; then
+                echo "Failed to LOAD an extension." >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
+              fi
+              # echo install unexpected
+              # if ! ./duckdb -c "INSTALL unexpected;"; then
+              #   echo "INSTALLation of unexpected extension didn't return 1." >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
+              # fi
+            fi
+          fi
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
+          path: issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt 
