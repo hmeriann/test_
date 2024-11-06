@@ -33,10 +33,11 @@ jobs:
             gh run list --repo duckdb/duckdb --event repository_dispatch --workflow ${{ inputs.nightly-build }} --created $(date +%Y-%m-%d) --json url > url.csv
             url=$(tail -n 1 url.csv | awk -F "[:}]" '{ print $3 }')
             printf "The nightly-build \`${{ inputs.nightly-build }}\` had failed: https:$url.\n " > issue_body_${{ inputs.platform }}_${{ inputs.version }}.txt
+            exit 1
           fi
       - name: Upload results
         uses: actions/upload-artifact@v4
-        if: success()
+        if: failure()
         with:
           name: issue_body_${{ inputs.platform }}_${{ inputs.version }}.txt
           path: issue_body_${{ inputs.platform }}_${{ inputs.version }}.txt 
