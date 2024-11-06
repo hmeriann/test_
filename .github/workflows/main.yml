@@ -1,0 +1,21 @@
+name: Test continue on error
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  continue:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - run: exit 0
+      - run: exit 1
+      - run: exit 0
+  fail:
+    runs-on: ubuntu-latest
+    continue-on-error: false
+    steps:
+      - run: exit 0
+      - run: exit 1
+      - run: exit 0
+        
+      
