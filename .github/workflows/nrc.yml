@@ -42,22 +42,22 @@ jobs:
             short_sha=$(tail -n 2 pragma_version.csv | awk '{ print $2 }')
             full_sha=$(gh run view $run_id --repo duckdb/duckdb --json headSha -q .headSha)
             if [[ $full_sha != $short_sha* ]]; then
-              printf "The version of \`${{ input.nightly-build }}\` build (\`$short_sha\`) is not the same as the version triggered the build (\`$full_sha\`).\n " > issue_body.txt
+              printf "The version of \`${{ inputs.nightly-build }}\` build (\`$short_sha\`) is not the same as the version triggered the build (\`$full_sha\`).\n " > issue_body.txt
             else
-              ./duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ input.extension }}';"
-              ./duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ input.extension }}';" > sp.csv
+              ./duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';"
+              ./duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';" > sp.csv
               sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
               if [[ $sp == 'false' ]]; then
                 echo try to INSTALL extension
-                ./duckdb -c "INSTALL ${{ input.extension }};"
-                ./duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ input.extension }}';"
-                ./duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ input.extension }}';" > sp.csv
+                ./duckdb -c "INSTALL ${{ inputs.extension }};"
+                ./duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';"
+                ./duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';" > sp.csv
                 sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
                 if [[ $sp != 'true' ]]; then
                   echo "Failed to INSTALL an extension." >> issue_body.txt
                 fi
                 echo try to load extension
-                if ./duckdb -c "LOAD ${{ input.extension }};" ; then
+                if ./duckdb -c "LOAD ${{ inputs.extension }};" ; then
                   echo "Failed to LOAD an extension." >> issue_body.txt
                 fi
                 # echo install unexpected
