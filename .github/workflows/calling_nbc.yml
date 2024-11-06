@@ -89,6 +89,10 @@ jobs:
         with:
           pattern: issues*
           path: issues
+      
+      - name: Setup upterm session
+        uses: owenthereal/action-upterm@v1
+        
       - name: Report an issue
         if: success()
         run: |
