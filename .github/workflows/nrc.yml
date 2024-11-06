@@ -1,30 +1,39 @@
 name: Nightly Builds Check
 on:
-  schedule:
-    - cron: 0 9 * * * # runs at 10am CET DAILY
-  workflow_dispatch:
-  # workflow_call:
+  workflow_call:
+    inputs:
+      nightly-build:
+        required: true
+        type: string
+      platform:
+        required: true
+        type: string
+      version: 
+        required: false
+        type: string
+      runs-on:
+        required: true
+        type: string
 env:
   GH_TOKEN: ${{ github.token }}
-  gh_repo: duckdb/duckdb
 jobs:
-  linux:
-    runs-on: ubuntu-latest
+  check:
+    runs-on: ${{ inputs.runs-on }}
     continue-on-error: true
     steps:
-      - name: Check LinuxRelease
+      - name: Check ${{ inputs.nightly-build }}
         run: |
-          gh run list --repo duckdb/duckdb --event repository_dispatch --workflow LinuxRelease --created $(date +%Y-%m-%d) --json conclusion
-          conclusion=$(gh run list --repo duckdb/duckdb --event repository_dispatch --workflow LinuxRelease --created $(date +%Y-%m-%d) --json conclusion) 
+          gh run list --repo duckdb/duckdb --event repository_dispatch --workflow ${{ inputs.nightly-build }} --created $(date +%Y-%m-%d) --json conclusion
+          conclusion=$(gh run list --repo duckdb/duckdb --event repository_dispatch --workflow ${{ inputs.nightly-build }} --created $(date +%Y-%m-%d) --json conclusion) 
           if echo $conclusion | grep -q 'failure'; then
-            gh run list --repo duckdb/duckdb --event repository_dispatch --workflow LinuxRelease --created $(date +%Y-%m-%d) --json url > url.csv
+            gh run list --repo duckdb/duckdb --event repository_dispatch --workflow ${{ inputs.nightly-build }} --created $(date +%Y-%m-%d) --json url > url.csv
             url=$(tail -n 1 url.csv | awk -F "[:}]" '{ print $3 }')
-            printf "\`\`\`\nThe nightly-build LinuxRelease had failed.\n Please see the run https:$url.\n\`\`\`" > issue_body.txt
+            printf "\`\`\`\nThe nightly-build ${{ inputs.nightly-build }} had failed.\n Please see the run https:$url.\n\`\`\`" > issue_body.txt
           else
-            gh run list --repo duckdb/duckdb --event repository_dispatch --workflow LinuxRelease --created $(date +%Y-%m-%d) --json databaseId > run_id.csv
+            gh run list --repo duckdb/duckdb --event repository_dispatch --workflow ${{ inputs.nightly-build }} --created $(date +%Y-%m-%d) --json databaseId > run_id.csv
             run_id=$(tail -n 1 run_id.csv | awk -F "[:}]" '{ print $2 }' | tr -d ' "')
             gh run download $run_id --repo duckdb/duckdb
-            unzip duckdb-binaries-linux/duckdb_cli*.zip || { echo "Unzip failed"; exit 1; }
+            unzip duckdb-binaries-${{ inputs.platform }}/duckdb_cli-${{ inputs.version }}.zip || { echo "Unzip failed"; exit 1; }
             echo verify versions
             ./duckdb --version > pragma_version.csv
             short_sha=$(tail -n 2 pragma_version.csv | awk '{ print $2 }')
@@ -62,66 +71,10 @@ jobs:
           name: issues_linux.txt
           path: issue_body.txt
           if-no-files-found: error 
-  osx:
-    runs-on: macos-latest
-    steps:
-      - name: Check OSX
-        run: | 
-          conclusion=$(gh run list --repo duckdb/duckdb --event repository_dispatch --workflow OSX --created $(date +%Y-%m-%d) --json conclusion) 
-          if echo $conclusion | grep -q 'failure'; then
-            gh run list --repo duckdb/duckdb --event repository_dispatch --workflow OSX --created $(date +%Y-%m-%d) --json url > url.csv
-            url=$(tail -n 1 url.csv | awk -F "[:}]" '{ print $3 }')
-            printf "\`\`\`\nThe nightly-build OSX had failed.\n Please see the run https:$url.\n\`\`\`" > issue_body.txt
-          else
-            gh run list --repo duckdb/duckdb --event repository_dispatch --workflow OSX --created $(date +%Y-%m-%d) --json databaseId > run_id.csv
-            run_id=$(tail -n 1 run_id.csv | awk -F "[:}]" '{ print $2 }' | tr -d ' "')
-            gh run download $run_id --repo duckdb/duckdb
-            unzip duckdb-binaries-osx/duckdb_cli*.zip || { echo "Unzip failed"; exit 1; }
-            # verify versions
-            ./duckdb --version > pragma_version.csv
-            short_sha=$(tail -n 2 pragma_version.csv | awk '{ print $2 }')
-            full_sha=$(gh run view $run_id --repo duckdb/duckdb --json headSha -q .headSha)
-            if [[ $full_sha != $short_sha* ]]; then
-              printf "\`\`\`\nThe version of OSX build ($p_version) is not the same as the version triggered the build ($sha).\n\`\`\`" >> issue_body.txt
-            else
-              # try to load extension
-              ./duckdb -line -c "select installed from duckdb_extensions() where extension_name='spatial';" > sp.csv
-              sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
-              if [[ $sp == 'false' ]]; then
-                ./duckdb -c "INSTALL spatial;"
-                ./duckdb -line -c "select installed from duckdb_extensions() where extension_name='spatial';" > sp.csv
-                sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
-                if [[ $sp != 'true' ]]; then
-                  echo "Failed to INSTALL an extension." >> issue_body.txt
-                fi
-                if ! ./duckdb -c "LOAD spatial;" ; then
-                  echo "Failed to LOAD an extension." >> issue_body.txt
-                fi
-                if ./duckdb -c "INSTALL unexpected;"; then
-                  echo "INSTALLation of unexpected extension didn't return 1." >> issue_body.txt
-                fi
-              fi
-            fi
-          fi
       - name: Upload results
         uses: actions/upload-artifact@v4
         if: success()
         with:
-          name: issues_osx.txt
+          name: issues_${{ inputs.platform }}.txt
           path: issue_body.txt
           if-no-files-found: error 
-  create-issue:
-    runs-on: ubuntu-latest
-    needs:
-      - linux
-      - osx
-    steps:
-      - name: Download artifacts
-        uses: actions/download-artifact@v4
-        with:
-          pattern: issues*
-          path: issues
-      - name: Report an issue
-        run: |
-          cat issues/issues*.txt/* > report.txt
-          gh issue create --repo hmeriann/test_ --title "Nightly Builds Failures" --body-file report.txt
