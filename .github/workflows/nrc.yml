@@ -76,5 +76,5 @@ jobs:
         if: success()
         with:
           name: issues_${{ inputs.platform }}.txt
-          path: issue_body.txt
+          path: issue_body_${{ inputs.platform }}.txt
           if-no-files-found: error 
