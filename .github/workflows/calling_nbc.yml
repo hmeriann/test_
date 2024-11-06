@@ -29,6 +29,8 @@ jobs:
   
   linux-test:
     name: Test LinuxRelease
+    needs: linux
+    if: success()
     uses: ./.github/workflows/tests_nbc.yml
     with:
       nightly-build: LinuxRelease
@@ -64,6 +66,8 @@ jobs:
   
   test-osx:
     name: Test OSX
+    needs: osx
+    if: success()
     uses: ./.github/workflows/tests_nbc.yml
     with:
       nightly-build: OSX
