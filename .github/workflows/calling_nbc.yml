@@ -79,6 +79,7 @@ jobs:
         extension: [ arrow, autocomplete, aws, azure, delta, excel, fts, httpfs, iceberg, icu, inet, jemalloc, json, motherduck, mysql_scanner, parquet, postgres_scanner, shell, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]
   create-issue:
     runs-on: ubuntu-latest
+    if: always()
     needs:
       - linux-test
       - osx-test
@@ -89,6 +90,7 @@ jobs:
           pattern: issues*
           path: issues
       - name: Report an issue
+        if: success()
         run: |
           cat issues/issues*.txt/* > report.txt
           gh issue create --repo hmeriann/test_ --title "Nightly Builds Failures" --body-file report.txt
