@@ -1,4 +1,4 @@
-name: Nightly Builds Check
+name: Reusable Nightly Builds Check
 on:
   workflow_call:
     inputs:
