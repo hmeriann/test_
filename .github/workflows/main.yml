@@ -17,5 +17,21 @@ jobs:
       - run: exit 0
       - run: exit 1
       - run: exit 0
+  fast:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    steps:
+      - run: exit 0
+      - run: exit 1
+      - run: exit 0
+  fft:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+    steps:
+      - run: exit 0
+      - run: exit 1
+      - run: exit 0
         
       
