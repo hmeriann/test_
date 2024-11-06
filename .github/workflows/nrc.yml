@@ -11,9 +11,9 @@ on:
       version: 
         required: false
         type: string
-      container:
-        required: false
-        type: string
+      # container:
+      #   required: false
+      #   type: string
       runs-on:
         required: true
         type: string
@@ -25,7 +25,7 @@ env:
 jobs:
   check:
     runs-on: ${{ inputs.runs-on }}
-    container: ${{ inputs.container }}
+    # container: ${{ inputs.container }}
     continue-on-error: true
     steps:
       - name: Check ${{ inputs.nightly-build }}
