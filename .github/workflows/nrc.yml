@@ -13,6 +13,7 @@ jobs:
     steps:
       - name: Check LinuxRelease
         run: |
+          gh run list --repo duckdb/duckdb --event repository_dispatch --workflow LinuxRelease --created $(date +%Y-%m-%d) --json conclusion
           conclusion=$(gh run list --repo duckdb/duckdb --event repository_dispatch --workflow LinuxRelease --created $(date +%Y-%m-%d) --json conclusion) 
           if echo $conclusion | grep -q 'failure'; then
             gh run list --repo duckdb/duckdb --event repository_dispatch --workflow LinuxRelease --created $(date +%Y-%m-%d) --json url > url.csv
@@ -23,14 +24,14 @@ jobs:
             run_id=$(tail -n 1 run_id.csv | awk -F "[:}]" '{ print $2 }' | tr -d ' "')
             gh run download $run_id --repo duckdb/duckdb
             unzip duckdb-binaries-linux/duckdb_cli*.zip || { echo "Unzip failed"; exit 1; }
-            # verify versions
+            echo verify versions
             ./duckdb --version > pragma_version.csv
             short_sha=$(tail -n 2 pragma_version.csv | awk '{ print $2 }')
             full_sha=$(gh run view $run_id --repo duckdb/duckdb --json headSha -q .headSha)
             if [[ $full_sha != $short_sha* ]]; then
               printf "\`\`\`\nThe version of Linux build ($p_version) is not the same as the version triggered the build ($sha).\n\`\`\`" > issue_body.txt
             else
-              # try to load extension
+              echo try to load extension
               ./duckdb -line -c "select installed from duckdb_extensions() where extension_name='spatial';" > sp.csv
               sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
               if [[ $sp == 'false' ]]; then
@@ -40,9 +41,11 @@ jobs:
                 if [[ $sp != 'true' ]]; then
                   echo "Failed to INSTALL an extension." >> issue_body.txt
                 fi
+                echo try to load extension
                 if ! ./duckdb -c "LOAD spatial;" ; then
                   echo "Failed to LOAD an extension." >> issue_body.txt
                 fi
+                echo install unexpected
                 if ./duckdb -c "INSTALL unexpected;"; then
                   echo "INSTALLation of unexpected extension didn't return 1." >> issue_body.txt
                 fi
@@ -104,3 +107,15 @@ jobs:
           name: issues_osx.txt
           path: issue_body.txt
           if-no-files-found: error 
+  create-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: issues*.txt
+          path: issues
+      - name: report an issue
+        run: |
+          cat issues*.txt > report.txt
+          gh issue create --repo hmeriann/test_ --title "Nightly Builds Failures" -- body-file report.txt
