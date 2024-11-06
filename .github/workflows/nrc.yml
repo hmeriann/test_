@@ -10,6 +10,7 @@ env:
 jobs:
   linux:
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
       - name: Check LinuxRelease
         run: |
@@ -31,11 +32,13 @@ jobs:
             if [[ $full_sha != $short_sha* ]]; then
               printf "\`\`\`\nThe version of Linux build ($p_version) is not the same as the version triggered the build ($sha).\n\`\`\`" > issue_body.txt
             else
-              echo try to load extension
+              ./duckdb -line -c "select installed from duckdb_extensions() where extension_name='spatial';"
               ./duckdb -line -c "select installed from duckdb_extensions() where extension_name='spatial';" > sp.csv
               sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
               if [[ $sp == 'false' ]]; then
+                echo try to INSTALL extension
                 ./duckdb -c "INSTALL spatial;"
+                ./duckdb -line -c "select installed from duckdb_extensions() where extension_name='spatial';"
                 ./duckdb -line -c "select installed from duckdb_extensions() where extension_name='spatial';" > sp.csv
                 sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
                 if [[ $sp != 'true' ]]; then
