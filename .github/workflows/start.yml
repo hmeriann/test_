@@ -11,8 +11,6 @@ jobs:
     name: Check LinuxRelease
     uses: ./.github/workflows/nrc.yml
     with:
-      git_url: hmeriann/test_
-      git_tag: main
       nightly-build: LinuxRelease
       platform: linux
       version: linux-amd64
@@ -22,8 +20,6 @@ jobs:
     name: Check OSX
     uses: ./.github/workflows/nrc.yml
     with:
-      git_url: hmeriann/test_
-      git_tag: main
       nightly-build: OSX
       platform: osx
       runs-on: macos-latest
