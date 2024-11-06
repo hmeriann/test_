@@ -84,13 +84,11 @@ jobs:
       - linux-test
       - osx-test
     steps:
-      - uses: action/checkout@v4
-        
       - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
-          pattern: issues*
-          path: issues
+          pattern: issue*
+          path: issue
       
       - name: Setup upterm session
         uses: owenthereal/action-upterm@v1
