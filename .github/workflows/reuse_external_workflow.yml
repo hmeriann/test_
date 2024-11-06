@@ -7,9 +7,6 @@ jobs:
   build-duckdb:
     name: Build 
     uses: hmeriann/base_workflow/.github/workflows/base_workflow.yml@main
-    with:
-      git_url: ${{ github.actor }}
-      git_tag: ${{ github.ref_name }}
       
   fuzzer:
     name: Fuzzer
