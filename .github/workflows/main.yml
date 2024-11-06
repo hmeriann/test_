@@ -8,7 +8,9 @@ jobs:
     continue-on-error: true
     steps:
       - run: exit 1
-      - run: exit 0
+      - name: exit 0
+        if: always()
+        run: exit 0
   continue2:
     runs-on: ubuntu-latest
     continue-on-error: true
