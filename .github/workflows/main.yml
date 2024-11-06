@@ -5,18 +5,20 @@ on:
 jobs:
   continue:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
     steps:
-      - run: exit 1
-      - name: exit 0
-        if: always()
-        run: exit 0
+      - name: exit 1
+        continue-on-error: true
+        run: exit 1
+      - run: exit 0
+      - name: the second exit 1
+        continue-on-error: true
+        run: exit 1
   continue2:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
     steps:
+      - name: the second exit 1
+        continue-on-error: true
+        run: exit 1
       - run: exit 0
   # fail:
   #   runs-on: ubuntu-latest
