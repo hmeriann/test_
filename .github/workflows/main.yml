@@ -7,31 +7,46 @@ jobs:
     runs-on: ubuntu-latest
     continue-on-error: true
     steps:
-      - run: exit 0
       - run: exit 1
+      - run: exit 0
+  continue2:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
       - run: exit 0
   fail:
     runs-on: ubuntu-latest
     continue-on-error: false
     steps:
-      - run: exit 0
       - run: exit 1
+  fail2:
+    runs-on: ubuntu-latest
+    continue-on-error: false
+    steps:
       - run: exit 0
   fast:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
     steps:
-      - run: exit 0
       - run: exit 1
+  fast2:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    steps:
       - run: exit 0
   fft:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
     steps:
-      - run: exit 0
-      - run: exit 1
+      - run: exit 1      
+  fft2:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+    steps:
       - run: exit 0
         
       
