@@ -1,6 +1,6 @@
 name: Test continue on error
 on:
-  push:
+  # push:
   workflow_dispatch:
 jobs:
   continue:
