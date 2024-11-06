@@ -9,12 +9,23 @@ env:
 jobs:
   linux:
     name: Check LinuxRelease
+    strategy:
+      matrix:
+        extension: [ arrow, autocomplete, aws, azure, delta, excel, fts, httpfs, iceberg, icu, inet, jemalloc, json, motherduck, mysql_scanner, parquet, postgres_scanner, shell, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]
+        platform: [ linux, linux-aarch64 ]
+        version: [ linux-amd64, linux-aarch64 ]
+        exclude:
+          - platform: linux
+            version: linux-aarch64
+          - platform: linux-aarch64
+            version: linux-amd64
     uses: ./.github/workflows/nrc.yml
     with:
       nightly-build: LinuxRelease
-      platform: linux
-      version: linux-amd64
       runs-on: ubuntu-latest
+      platform: ${{ matrix.platform }}
+      version: ${{ matrix.version }}
+      extension: ${{ matrix.extension }}
     
   osx:
     name: Check OSX
