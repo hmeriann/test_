@@ -42,11 +42,11 @@ jobs:
                   echo "Failed to INSTALL an extension." >> issue_body.txt
                 fi
                 echo try to load extension
-                if ! ./duckdb -c "LOAD spatial;" ; then
+                if ./duckdb -c "LOAD spatial;" ; then
                   echo "Failed to LOAD an extension." >> issue_body.txt
                 fi
                 echo install unexpected
-                if ./duckdb -c "INSTALL unexpected;"; then
+                if ! ./duckdb -c "INSTALL unexpected;"; then
                   echo "INSTALLation of unexpected extension didn't return 1." >> issue_body.txt
                 fi
               fi
