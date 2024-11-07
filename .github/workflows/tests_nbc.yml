@@ -51,11 +51,11 @@ jobs:
               ./duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';" > sp.csv
               sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
               if [[ $sp != 'true' ]]; then
-                echo "Failed to INSTALL an extension." >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
+                echo "Failed to INSTALL an extension ${{ inputs.extension }} to ${{ inputs.platform }}_${{ inputs.version }}." >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
               fi
               echo try to load extension
               if ./duckdb -c "LOAD ${{ inputs.extension }};" ; then
-                echo "Failed to LOAD an extension." >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
+                echo "Failed to LOAD an extension ${{ inputs.extension }} to ${{ inputs.platform }}_${{ inputs.version }}." >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
               fi
               # echo install unexpected
               # if ! ./duckdb -c "INSTALL unexpected;"; then
