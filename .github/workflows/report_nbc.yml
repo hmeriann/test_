@@ -26,7 +26,7 @@ jobs:
     continue-on-error: true
     steps:
       - name: Create a pattern name
-        run: pattern=$(issue_body_${{ inputs.plarform }}*)
+        run: pattern=issue_body_${{ inputs.plarform }}*
       - name: Download ${{ inputs.platform }} issues
         uses: actions/download-artifact@v4
         with:
