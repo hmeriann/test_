@@ -35,7 +35,7 @@ jobs:
           run_id=$(tail -n 1 run_id.csv | awk -F "[:}]" '{ print $2 }' | tr -d ' "')
           gh run download $run_id --repo duckdb/duckdb
           unzip duckdb-binaries-${{ inputs.platform }}/duckdb_cli-${{ inputs.version }}.zip || { echo "Unzip failed"; exit 1; }
-          echo verify versions
+          echo Verifying versions...
           ./duckdb --version > pragma_version.csv
           short_sha=$(tail -n 2 pragma_version.csv | awk '{ print $2 }')
           full_sha=$(gh run view $run_id --repo duckdb/duckdb --json headSha -q .headSha)
@@ -46,29 +46,19 @@ jobs:
             ./duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';" > sp.csv
             sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
             if [[ $sp == 'false' ]]; then
-              echo try to INSTALL extension
+              echo Installing extension...
               ./duckdb -c "INSTALL ${{ inputs.extension }};"
               ./duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';"
               ./duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';" > sp.csv
               sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
               if [[ $sp != 'true' ]]; then
-                echo "### \`${{ inputs.platform }}_${{ inputs.version }}\`: Extension Installation Failed" >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
-                echo "" >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
-                echo "- **Extension**: \`${{ inputs.extension }}\`" >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
-                echo "- **Status**: **Failed** to install the extension." >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
+                echo "- `${{ inputs.platform }}_${{ inputs.version }}\`: **Extension** \`${{ inputs.extension }}\` **installation failed**" >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
                 echo "" >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
               fi
-              echo try to load extension
+              echo Loading extension...
               if ./duckdb -c "LOAD ${{ inputs.extension }};" ; then
-                echo "### \`${{ inputs.platform }}_${{ inputs.version }}\`: Extension Loading Failed" >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
-                echo "" >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
-                echo "- **Extension**: \`${{ inputs.extension }}\`" >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
-                echo "- **Status**: **Failed** to load the extension." >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
+                echo "- `${{ inputs.platform }}_${{ inputs.version }}\`: **Failed** to load the extension \`${{ inputs.extension }}\`." >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
                 echo "" >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.${{ inputs.extension }}.txt
-                echo "#### Error Output:" >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
-                echo "```" >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
-                ./duckdb -c "LOAD ${{ inputs.extension }};" 2>&1 >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
-                echo "```" >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.${{ inputs.extension }}.txt
               fi
               # echo install unexpected
               # if ! ./duckdb -c "INSTALL unexpected;"; then
