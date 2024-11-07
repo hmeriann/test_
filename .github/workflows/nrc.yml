@@ -80,13 +80,14 @@ jobs:
             failures=$(tail -n +2 result.csv | awk -F ","  '{ print $2 }')
             # if there are more than 4 consecutive failures, file a report
             if [[ $failures -ge 4 ]]; then
-              echo "${{ inputs.nightly-build }} nightly-build had consecutively failed $failures times so far." >> issue_body_${{ inputs.platform }}_${{ inputs.version }}.txt
-              ./duckdb -c "COPY (
-                  SELECT '|' || conclusion || '|' || startedAt || '|[Run Link](' || url || ')|' AS markdown_line
+              # echo "${{ inputs.nightly-build }} nightly-build had consecutively failed $failures times so far." >> issue_body_${{ inputs.platform }}_${{ inputs.version }}.txt
+              ./duckdb -c "
+                COPY (
+                  SELECT '|' || conclusion || '|' || startedAt || '|' || url || ')|' AS markdown_line
                   FROM read_json('${{ inputs.nightly-build }}.json') 
                     WHERE conclusion='failure'
-                  )  
-                  TO 'failures_${{ inputs.platform }}.md' (DELIMITER '|', HEADER 1);"
+                )  
+                TO 'failures_${{ inputs.platform }}.md' (DELIMITER ' ', HEADER 1);"
               {
                 echo "### Windows Nightly Build Report"
                 echo
