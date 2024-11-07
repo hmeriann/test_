@@ -42,7 +42,8 @@ jobs:
             url=$(tail -n 1 url.csv | awk -F "[:}]" '{ print $3 }')
             printf "The nightly-build \`${{ inputs.nightly-build }}\` had failed: https:$url.\n " > issue_body_${{ inputs.platform }}_${{ inputs.version }}.txt
             echo "is_failure=failure" >> $GITHUB_OUTPUT
-            # check consecutive failures
+            
+            echo check consecutive failures
             gh run list --repo duckdb/duckdb --event repository_dispatch --workflow ${{ inputs.nightly-build }} --json conclusion,url,name > ${{ inputs.nightly-build }}.json
             wget https://github.com/duckdb/duckdb/releases/download/v1.1.3/duckdb_cli-linux-amd64.zip
             unzip duckdb_cli-linux-amd64.zip
@@ -63,7 +64,8 @@ jobs:
                 )  
                 WHERE conclusion='failure' GROUP BY freq, conclusion ORDER BY count DESC LIMIT 1;"
               ) > result.csv
-            # get the number of failures
+            
+            echo get the number of failures
             failures=$(tail -n +2 result.csv | awk -F ","  '{ print $2 }')
             # if there are more than 4 consecutive failures, file a report
             if [[ $failures -ge 4 ]]; then
