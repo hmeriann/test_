@@ -11,9 +11,6 @@ on:
       version: 
         required: false
         type: string
-      # container:
-      #   required: false
-      #   type: string
       runs-on:
         required: true
         type: string
