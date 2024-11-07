@@ -99,8 +99,8 @@ jobs:
     runs-on: ubuntu-latest
     if: always()
     needs:
-      - linux-test
-      - osx-test
+      # - linux-test
+      # - osx-test
       - windows-test
     steps:
       - name: Download artifacts
