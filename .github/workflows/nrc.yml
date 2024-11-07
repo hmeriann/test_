@@ -33,6 +33,7 @@ jobs:
     steps:
       - name: Check ${{ inputs.nightly-build }}
         id: check-build
+        shell: bash
         run: |
           gh run list --repo duckdb/duckdb --event repository_dispatch --workflow ${{ inputs.nightly-build }} --created $(date +%Y-%m-%d) --json conclusion
           conclusion=$(gh run list --repo duckdb/duckdb --event repository_dispatch --workflow ${{ inputs.nightly-build }} --created $(date +%Y-%m-%d) --json conclusion) 
