@@ -83,7 +83,7 @@ jobs:
               # echo "${{ inputs.nightly-build }} nightly-build had consecutively failed $failures times so far." >> issue_body_${{ inputs.platform }}_${{ inputs.version }}.txt
               ./duckdb -c "
                 COPY (
-                  SELECT '|' || conclusion || '|' || startedAt || '|' || url || ')|' AS markdown_line
+                  SELECT '|' || conclusion || '|' || startedAt || '|' || url || ')|'
                   FROM read_json('${{ inputs.nightly-build }}.json') 
                     WHERE conclusion='failure'
                 )  
