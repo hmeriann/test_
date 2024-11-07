@@ -72,6 +72,7 @@ jobs:
     with:
       nightly-build: OSX
       platform: osx
+      version: universal
       runs-on: macos-latest
       extension: ${{ matrix.extension }}
     strategy:
@@ -93,7 +94,8 @@ jobs:
     uses: ./.github/workflows/tests_nbc.yml
     with:
       nightly-build: Windows
-      platform: windows-amd64
+      platform: windows
+      version: windows-amd64
       runs-on: windows-2019
       extension: ${{ matrix.extension }}
     strategy:
