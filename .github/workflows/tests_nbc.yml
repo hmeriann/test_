@@ -55,9 +55,10 @@ jobs:
                 echo "\`${{ inputs.platform }}_${{ inputs.version }}\`: Failed to INSTALL an extension \`${{ inputs.extension }}\`." >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
               fi
               echo try to load extension
-              if ./duckdb -c "LOAD ${{ inputs.extension }};" ; then
-                echo "\`${{ inputs.platform }}_${{ inputs.version }}\`: Failed to LOAD an extension \`${{ inputs.extension }}\`." >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
-              fi
+              ./duckdb -c "LOAD ${{ inputs.extension }};" >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt 2>&1
+              # if ./duckdb -c "LOAD ${{ inputs.extension }};" ; then
+              #   echo "\`${{ inputs.platform }}_${{ inputs.version }}\`: Failed to LOAD an extension \`${{ inputs.extension }}\`." >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
+              # fi
               # echo install unexpected
               # if ! ./duckdb -c "INSTALL unexpected;"; then
               #   echo "INSTALLation of unexpected extension didn't return 1." >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
