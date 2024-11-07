@@ -40,11 +40,9 @@ jobs:
           if echo $conclusion | grep -q 'failure'; then
             gh run list --repo duckdb/duckdb --event repository_dispatch --workflow ${{ inputs.nightly-build }} --created $(date +%Y-%m-%d) --json url > url.csv
             url=$(tail -n 1 url.csv | awk -F "[:}]" '{ print $3 }')
-            printf "The nightly-build \`${{ inputs.nightly-build }}\` had failed: https:$url.\n " > issue_body_${{ inputs.platform }}_${{ inputs.version }}.txt
             echo "is_failure=failure" >> $GITHUB_OUTPUT
             
             echo check consecutive failures
-            gh run list --repo duckdb/duckdb --event repository_dispatch --workflow ${{ inputs.nightly-build }}
             gh run list --repo duckdb/duckdb --event repository_dispatch --workflow ${{ inputs.nightly-build }} --json conclusion,url,name,startedAt > ${{ inputs.nightly-build }}.json
             if [[ ${{ inputs.nightly-build }} == Windows ]]; then
               curl -L https://github.com/duckdb/duckdb/releases/download/v1.1.3/duckdb_cli-windows-amd64.zip -o duckdb_cli.zip
@@ -80,7 +78,6 @@ jobs:
             failures=$(tail -n +2 result.csv | awk -F ","  '{ print $2 }')
             # if there are more than 4 consecutive failures, file a report
             if [[ $failures -ge 4 ]]; then
-              # echo "${{ inputs.nightly-build }} nightly-build had consecutively failed $failures times so far." >> issue_body_${{ inputs.platform }}_${{ inputs.version }}.txt
               ./duckdb -c "
                 COPY (
                   SELECT '|' || conclusion || '|' || startedAt || '|' || url || ')|' AS markdown_line
@@ -89,10 +86,7 @@ jobs:
                 )  
                 TO 'failures_${{ inputs.platform }}.md' (HEADER 0, QUOTE '');"
               {
-                echo "### Windows Nightly Build Report"
-                echo
-                echo "- The nightly-build **Windows** has failed: [GitHub Actions Run](https://github.com/duckdb/duckdb/actions/runs/11714296724)."
-                echo "- **Windows nightly-build has consecutively failed 9 times**."
+                echo "- The nightly-build **${{ inputs.nightly-build }}** has consecutively failed 9 times**: https://$url"
                 echo
                 echo "#### Failure Details"
                 echo
