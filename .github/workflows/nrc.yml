@@ -92,9 +92,6 @@ jobs:
             fi
             # exit 1
           fi
-
-      - name: Setup upterm session
-        uses: owenthereal/action-upterm@v1
       
       - name: Upload results
         if: failure()
