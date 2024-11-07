@@ -33,17 +33,17 @@ jobs:
       - name: Consolidate issues into one
         shell: bash
         run: |
-          if grep -q "REGRESSIONS DETECTED" issue_body_${{ inputs.plarform }}/issue_body*.txt; then
+          if grep -q "REGRESSIONS DETECTED" issue_body_${{ inputs.plarform }}/issue_body_${{ inputs.plarform }}*/*; then
             # get the run url
             gh run list --repo duckdb/duckdb --event repository_dispatch --workflow ${{ inputs.nightly-build }} --created $(date +%Y-%m-%d) --json url > url.csv
             url=$(tail -n 1 url.csv | awk -F "[:}]" '{ print $3 }')
             echo "Some extensions had failed with \`duckdb_cli-${{ inputs.version }}\` build produced by run $url :" > report_${{ inputs.platform }}_${{ inputs.version }}.txt
             # append all issues 
-            cat issue_body_${{ inputs.plarform }}/issue_body*.txt >> report_${{ inputs.platform }}_${{ inputs.version }}.txt
+            cat issue_body_${{ inputs.plarform }}/issue_body_${{ inputs.plarform }}*/* >> report_${{ inputs.platform }}_${{ inputs.version }}.txt
           fi
       - name: Upload results
         uses: actions/upload-artifact@v4
         if: success()
         with:
-          name: report_${{ inputs.platform }}_${{ inputs.version }}.txt
-          path: report_${{ inputs.platform }}_${{ inputs.version }}.txt
+          name: report_${{ inputs.platform }}.txt
+          path: report_${{ inputs.platform }}
