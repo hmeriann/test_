@@ -116,8 +116,8 @@ jobs:
           pattern: issue_body*
           path: issue_body
       
-      - name: Setup upterm session
-        uses: owenthereal/action-upterm@v1
+      # - name: Setup upterm session
+      #   uses: owenthereal/action-upterm@v1
         
       - name: Report an issue
         if: success()
