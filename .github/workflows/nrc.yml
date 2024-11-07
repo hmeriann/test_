@@ -75,7 +75,7 @@ jobs:
                   )  
                   TO 'failures_${{ inputs.platform }}.txt' (DELIMITER '|', HEADER 1);"
               echo $(cat failures_${{ inputs.platform }}.txt) >> issue_body_${{ inputs.platform }}_${{ inputs.version }}.txt
-              
+            fi
             exit 1
           fi
       - name: Upload results
