@@ -1,4 +1,4 @@
-name: Test Nightly Builds Check
+name: Test Nightly Builds Check (Reusable)
 on:
   workflow_call:
     inputs:
@@ -52,12 +52,23 @@ jobs:
               ./duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';" > sp.csv
               sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
               if [[ $sp != 'true' ]]; then
-                echo "\`${{ inputs.platform }}_${{ inputs.version }}\`: Failed to INSTALL an extension \`${{ inputs.extension }}\`." >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
+                echo "### \`${{ inputs.platform }}_${{ inputs.version }}\`: Extension Installation Failed" >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
+                echo "" >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
+                echo "- **Extension**: \`${{ inputs.extension }}\`" >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
+                echo "- **Status**: **Failed** to install the extension." >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
+                echo "" >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
               fi
               echo try to load extension
               if ./duckdb -c "LOAD ${{ inputs.extension }};" ; then
-                echo "\`${{ inputs.platform }}_${{ inputs.version }}\`: Failed to LOAD an extension \`${{ inputs.extension }}\`." > issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
-                echo $(./duckdb -c "LOAD ${{ inputs.extension }};" 2>&1) >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
+                echo "### \`${{ inputs.platform }}_${{ inputs.version }}\`: Extension Loading Failed" >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
+                echo "" >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
+                echo "- **Extension**: \`${{ inputs.extension }}\`" >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
+                echo "- **Status**: **Failed** to load the extension." >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
+                echo "" >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.${{ inputs.extension }}.txt
+                echo "#### Error Output:" >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
+                echo "```" >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
+                ./duckdb -c "LOAD ${{ inputs.extension }};" 2>&1 >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
+                echo "```" >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.${{ inputs.extension }}.txt
               fi
               # echo install unexpected
               # if ! ./duckdb -c "INSTALL unexpected;"; then
