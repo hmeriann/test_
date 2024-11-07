@@ -29,6 +29,7 @@ jobs:
     continue-on-error: true
     steps:
       - name: Test ${{ inputs.nightly-build }}
+        shell: bash
         run: |
           gh run list --repo duckdb/duckdb --event repository_dispatch --workflow ${{ inputs.nightly-build }} --created $(date +%Y-%m-%d) --json databaseId > run_id.csv
           run_id=$(tail -n 1 run_id.csv | awk -F "[:}]" '{ print $2 }' | tr -d ' "')
