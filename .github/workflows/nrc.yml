@@ -82,12 +82,23 @@ jobs:
             if [[ $failures -ge 4 ]]; then
               echo "${{ inputs.nightly-build }} nightly-build had consecutively failed $failures times so far." >> issue_body_${{ inputs.platform }}_${{ inputs.version }}.txt
               ./duckdb -c "COPY (
-                  SELECT conclusion, startedAt, url
+                  SELECT '|' || conclusion || '|' || startedAt || '|[Run Link](' || url || ')|' AS markdown_line
                   FROM read_json('${{ inputs.nightly-build }}.json') 
                     WHERE conclusion='failure'
                   )  
-                  TO 'failures_${{ inputs.platform }}.txt' (DELIMITER '|', HEADER 1);"
-              echo $(cat failures_${{ inputs.platform }}.txt) >> issue_body_${{ inputs.platform }}_${{ inputs.version }}.txt
+                  TO 'failures_${{ inputs.platform }}.md' (DELIMITER '|', HEADER 1);"
+              {
+                echo "### Windows Nightly Build Report"
+                echo
+                echo "- The nightly-build **Windows** has failed: [GitHub Actions Run](https://github.com/duckdb/duckdb/actions/runs/11714296724)."
+                echo "- **Windows nightly-build has consecutively failed 9 times**."
+                echo
+                echo "#### Failure Details"
+                echo
+                echo "| Conclusion | Started At | Run URL |"
+                echo "|------------|------------|---------|"
+                cat failures_${{ inputs.platform }}.md 
+              } >> issue_body_${{ inputs.platform }}_${{ inputs.version }}.txt
             fi
             exit 1
           fi
