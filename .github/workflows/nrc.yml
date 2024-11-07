@@ -86,7 +86,8 @@ jobs:
                 )  
                 TO 'failures_${{ inputs.platform }}.md' (HEADER 0, QUOTE '');"
               {
-                echo "- The nightly-build **${{ inputs.nightly-build }}** has consecutively failed 9 times: https:$url "
+                echo
+                echo "- The nightly-build **${{ inputs.nightly-build }}** has consecutively failed 9 times: [ Run Link ](https:$url) "
                 echo
                 echo "#### Failure Details"
                 echo
