@@ -45,10 +45,11 @@ jobs:
             
             echo check consecutive failures
             gh run list --repo duckdb/duckdb --event repository_dispatch --workflow ${{ inputs.nightly-build }} --json conclusion,url,name > ${{ inputs.nightly-build }}.json
-            git clone https://github.com/duckdb/duckdb.git
-            cd duckdb && make
+            curl -L https://github.com/duckdb/duckdb/releases/latest/download/duckdb_linux_cli-amd64.zip -o duckdb_cli.zip
+            unzip duckdb_cli.zip
+            chmod +x duckdb
             # count consecutive failures and write to the result.csv
-            (.duckdb/build/release/duckdb -csv -c "
+            (./duckdb -csv -c "
                 WITH runs AS (
                   SELECT * FROM read_json('${{ inputs.nightly-build }}.json')
                   LIMIT 8
@@ -70,7 +71,7 @@ jobs:
             # if there are more than 4 consecutive failures, file a report
             if [[ $failures -ge 4 ]]; then
               echo "${{ inputs.nightly-build }} nightly-build had consecutively failed $failures times so far.\n" >> issue_body_${{ inputs.platform }}_${{ inputs.version }}.txt
-              ./duckdb/build/release/duckdb -c "COPY (
+              ./duckdb -c "COPY (
                   SELECT conclusion, startedAt, url
                   FROM read_json('input_${{ matrix.nightly_build }}.json') 
                     WHERE conclusion='failure'
