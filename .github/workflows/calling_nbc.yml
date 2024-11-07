@@ -19,14 +19,7 @@ jobs:
       matrix:
         platform: [ linux ]
         version: [ linux-amd64 ]
-        exclude:
-          - platform: linux
-            version: linux-aarch64
-            # container: ubuntu:18.04
-          - platform: linux-aarch64
-            version: linux-amd64
-            # container: quay.io/pypa/manylinux2014_x86_64
-  
+
   linux-test:
     name: Test LinuxRelease
     needs: linux
