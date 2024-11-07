@@ -55,7 +55,7 @@ jobs:
                 echo "\`${{ inputs.platform }}_${{ inputs.version }}\`: Failed to INSTALL an extension \`${{ inputs.extension }}\`." >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
               fi
               echo try to load extension
-              ./duckdb -c "LOAD ${{ inputs.extension }};" >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt 2>&1
+              ./duckdb -c "LOAD ${{ inputs.extension }};" > issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt 2>&1
               # if ./duckdb -c "LOAD ${{ inputs.extension }};" ; then
               #   echo "\`${{ inputs.platform }}_${{ inputs.version }}\`: Failed to LOAD an extension \`${{ inputs.extension }}\`." >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
               # fi
