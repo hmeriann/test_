@@ -55,25 +55,7 @@ jobs:
           - platform: linux-aarch64
             version: linux-amd64
             # container: quay.io/pypa/manylinux2014_x86_64
-  linux-report:
-    name: Create Report on LinuxRelease Issues
-    needs: linux-test
-    uses: ./.github/workflows/report_nbc.yml
-    with:
-      nightly-build: LinuxRelease
-      runs-on: ubuntu-latest
-      platform: ${{ matrix.platform }}
-      version: ${{ matrix.version }}
-    strategy:
-      matrix:
-        platform: [ linux ]
-        version: [ linux-amd64 ]
-        exclude:
-          - platform: linux
-            version: linux-aarch64
-          - platform: linux-aarch64
-            version: linux-amd64
-            
+
   osx:
     name: Check OSX
     uses: ./.github/workflows/nrc.yml
@@ -96,15 +78,6 @@ jobs:
     strategy:
       matrix:
         extension: [ arrow, autocomplete, aws ]
-  osx-report:
-    name: Create Report on OSX Issues
-    needs: osx-test
-    uses: ./.github/workflows/report_nbc.yml
-    with:
-      nightly-build: OSX
-      runs-on: macos-latest
-      platform: osx
-      version: osx-universal
             
   windows:
     name: Check Windows
@@ -133,15 +106,15 @@ jobs:
     runs-on: ubuntu-latest
     if: always()
     needs:
-      - linux-report
-      - osx-report
+      - linux-test
+      - osx-test
       - windows-test
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
-          pattern: report*
-          path: report
+          pattern: issue_body*
+          path: issue_body
       
       - name: Setup upterm session
         uses: owenthereal/action-upterm@v1
@@ -149,6 +122,6 @@ jobs:
       - name: Report an issue
         if: success()
         run: |
-          cat report*/report*/* > report.txt
+          cat issue_body*/issue_body*/* > report.txt
           gh issue create --repo hmeriann/test_ --title "Nightly Builds Failures" --body-file report.txt
 
