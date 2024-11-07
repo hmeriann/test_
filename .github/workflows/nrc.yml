@@ -86,7 +86,7 @@ jobs:
                   FROM read_json('${{ inputs.nightly-build }}.json') 
                     WHERE conclusion='failure'
                   )  
-                  TO 'failures_${{ inputs.platform }}.txt' (DELIMITER ' | ', HEADER 1);"
+                  TO 'failures_${{ inputs.platform }}.txt' (DELIMITER '|', HEADER 1);"
               echo $(cat failures_${{ inputs.platform }}.txt) >> issue_body_${{ inputs.platform }}_${{ inputs.version }}.txt
             fi
             exit 1
