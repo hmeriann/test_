@@ -64,10 +64,8 @@ jobs:
       runs-on: ubuntu-latest
       platform: ${{ matrix.platform }}
       version: ${{ matrix.version }}
-      extension: ${{ matrix.extension }}
     strategy:
       matrix:
-        extension: [ arrow, autocomplete, aws, tpch, vss ]
         platform: [ linux ]
         version: [ linux-amd64 ]
         exclude:
@@ -97,7 +95,7 @@ jobs:
       extension: ${{ matrix.extension }}
     strategy:
       matrix:
-        extension: [ arrow, autocomplete, aws, azure, delta, excel, fts, httpfs, iceberg, icu, inet, jemalloc, json, motherduck, mysql_scanner, parquet, postgres_scanner, shell, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]
+        extension: [ arrow, autocomplete, aws ]
   osx-report:
     name: Create Report on OSX Issues
     needs: osx-test
@@ -105,14 +103,8 @@ jobs:
     with:
       nightly-build: OSX
       runs-on: macos-latest
-      platform: ${{ matrix.platform }}
-      version: ${{ matrix.version }}
-      extension: ${{ matrix.extension }}
-    strategy:
-      matrix:
-        extension: [ arrow, autocomplete, aws, tpch, vss ]
-        platform: osx
-        version: osx-universal
+      platform: osx
+      version: osx-universal
             
   windows:
     name: Check Windows
