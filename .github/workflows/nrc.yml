@@ -48,5 +48,5 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: issue_body_${{ inputs.platform }}_${{ inputs.version }}.txt
-          path: issue_body_${{ inputs.platform }}_${{ inputs.version }}
+          name: issue_body_${{ inputs.platform }}_${{ inputs.version }}
+          path: issue_body_${{ inputs.platform }}_${{ inputs.version }}.txt
