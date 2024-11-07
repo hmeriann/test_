@@ -149,6 +149,6 @@ jobs:
       - name: Report an issue
         if: success()
         run: |
-          cat report*/report*.txt/* > report.txt
+          cat report*/report*/* > report.txt
           gh issue create --repo hmeriann/test_ --title "Nightly Builds Failures" --body-file report.txt
 
