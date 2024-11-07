@@ -69,4 +69,4 @@ jobs:
         if: success()
         with:
           name: issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
-          path: issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt 
+          path: issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}
