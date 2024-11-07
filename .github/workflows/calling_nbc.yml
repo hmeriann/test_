@@ -55,7 +55,27 @@ jobs:
           - platform: linux-aarch64
             version: linux-amd64
             # container: quay.io/pypa/manylinux2014_x86_64
-              
+  linux-report:
+    name: Create Report on LinuxRelease Issues
+    needs: linux-test
+    uses: ./.github/workflows/report_nbc.yml
+    with:
+      nightly-build: LinuxRelease
+      runs-on: ubuntu-latest
+      platform: ${{ matrix.platform }}
+      version: ${{ matrix.version }}
+      extension: ${{ matrix.extension }}
+    strategy:
+      matrix:
+        extension: [ arrow, autocomplete, aws, tpch, vss ]
+        platform: [ linux ]
+        version: [ linux-amd64 ]
+        exclude:
+          - platform: linux
+            version: linux-aarch64
+          - platform: linux-aarch64
+            version: linux-amd64
+            
   osx:
     name: Check OSX
     uses: ./.github/workflows/nrc.yml
@@ -78,7 +98,22 @@ jobs:
     strategy:
       matrix:
         extension: [ arrow, autocomplete, aws, azure, delta, excel, fts, httpfs, iceberg, icu, inet, jemalloc, json, motherduck, mysql_scanner, parquet, postgres_scanner, shell, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]
-        
+  osx-report:
+    name: Create Report on OSX Issues
+    needs: osx-test
+    uses: ./.github/workflows/report_nbc.yml
+    with:
+      nightly-build: OSX
+      runs-on: macos-latest
+      platform: ${{ matrix.platform }}
+      version: ${{ matrix.version }}
+      extension: ${{ matrix.extension }}
+    strategy:
+      matrix:
+        extension: [ arrow, autocomplete, aws, tpch, vss ]
+        platform: osx
+        version: osx-universal
+            
   windows:
     name: Check Windows
     uses: ./.github/workflows/nrc.yml
@@ -113,8 +148,8 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
-          pattern: issue*
-          path: issue
+          pattern: report*
+          path: report
       
       # - name: Setup upterm session
       #   uses: owenthereal/action-upterm@v1
@@ -122,6 +157,6 @@ jobs:
       - name: Report an issue
         if: success()
         run: |
-          cat issue*/issue*.txt/* > report.txt
+          cat report*/report*.txt/* > report.txt
           gh issue create --repo hmeriann/test_ --title "Nightly Builds Failures" --body-file report.txt
 
