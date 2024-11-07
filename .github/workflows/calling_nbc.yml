@@ -77,12 +77,36 @@ jobs:
     strategy:
       matrix:
         extension: [ arrow, autocomplete, aws, azure, delta, excel, fts, httpfs, iceberg, icu, inet, jemalloc, json, motherduck, mysql_scanner, parquet, postgres_scanner, shell, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]
+        
+  windows:
+    name: Check Windows
+    uses: ./.github/workflows/nrc.yml
+    with:
+      nightly-build: Windows
+      platform: windows-amd64
+      runs-on: windows-2019
+  
+  windows-test:
+    name: Test Windows
+    needs: windows
+    if: needs.windows.outputs.is_failure != 'failure'
+    uses: ./.github/workflows/tests_nbc.yml
+    with:
+      nightly-build: Windows
+      platform: windows-amd64
+      runs-on: windows-2019
+      extension: ${{ matrix.extension }}
+    strategy:
+      matrix:
+        extension: [ arrow, autocomplete, aws ]
+        
   create-issue:
     runs-on: ubuntu-latest
     if: always()
     needs:
       - linux-test
       - osx-test
+      - windows-test
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v4
