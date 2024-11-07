@@ -7,70 +7,70 @@ env:
   GH_TOKEN: ${{ github.token }}
   gh_repo: duckdb/duckdb
 jobs:
-  # linux:
-  #   name: Check LinuxRelease
-  #   uses: ./.github/workflows/nrc.yml
-  #   with:
-  #     nightly-build: LinuxRelease
-  #     runs-on: ubuntu-latest
-  #     platform: ${{ matrix.platform }}
-  #     version: ${{ matrix.version }}
-  #   strategy:
-  #     matrix:
-  #       platform: [ linux ]
-  #       version: [ linux-amd64 ]
+  linux:
+    name: Check LinuxRelease
+    uses: ./.github/workflows/nrc.yml
+    with:
+      nightly-build: LinuxRelease
+      runs-on: ubuntu-latest
+      platform: ${{ matrix.platform }}
+      version: ${{ matrix.version }}
+    strategy:
+      matrix:
+        platform: [ linux ]
+        version: [ linux-amd64 ]
 
-  # linux-test:
-  #   name: Test LinuxRelease
-  #   needs: linux
-  #   if: needs.linux.outputs.is_failure != 'failure'
-  #   uses: ./.github/workflows/tests_nbc.yml
-  #   with:
-  #     nightly-build: LinuxRelease
-  #     runs-on: ubuntu-latest
-  #     platform: ${{ matrix.platform }}
-  #     version: ${{ matrix.version }}
-  #     # container: ${{ matrix.container }}
-  #     extension: ${{ matrix.extension }}
-  #   strategy:
-  #     matrix:
-  #       extension: [ arrow, autocomplete, aws, tpch, vss ]
-  #       # extension: [ arrow, autocomplete, aws, azure, delta, excel, fts, httpfs, iceberg, icu, inet, jemalloc, json, motherduck, mysql_scanner, parquet, postgres_scanner, shell, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]
-  #       platform: [ linux ]
-  #       version: [ linux-amd64 ]
-  #       # platform: [ linux, linux-aarch64 ]
-  #       # version: [ linux-amd64, linux-aarch64 ]
-  #       # container: [ "quay.io/pypa/manylinux2014_x86_64", "ubuntu:18.04" ]
-  #       exclude:
-  #         - platform: linux
-  #           version: linux-aarch64
-  #           # container: ubuntu:18.04
-  #         - platform: linux-aarch64
-  #           version: linux-amd64
-  #           # container: quay.io/pypa/manylinux2014_x86_64
+  linux-test:
+    name: Test LinuxRelease
+    needs: linux
+    if: needs.linux.outputs.is_failure != 'failure'
+    uses: ./.github/workflows/tests_nbc.yml
+    with:
+      nightly-build: LinuxRelease
+      runs-on: ubuntu-latest
+      platform: ${{ matrix.platform }}
+      version: ${{ matrix.version }}
+      # container: ${{ matrix.container }}
+      extension: ${{ matrix.extension }}
+    strategy:
+      matrix:
+        extension: [ arrow, autocomplete, aws, tpch, vss ]
+        # extension: [ arrow, autocomplete, aws, azure, delta, excel, fts, httpfs, iceberg, icu, inet, jemalloc, json, motherduck, mysql_scanner, parquet, postgres_scanner, shell, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]
+        platform: [ linux ]
+        version: [ linux-amd64 ]
+        # platform: [ linux, linux-aarch64 ]
+        # version: [ linux-amd64, linux-aarch64 ]
+        # container: [ "quay.io/pypa/manylinux2014_x86_64", "ubuntu:18.04" ]
+        exclude:
+          - platform: linux
+            version: linux-aarch64
+            # container: ubuntu:18.04
+          - platform: linux-aarch64
+            version: linux-amd64
+            # container: quay.io/pypa/manylinux2014_x86_64
 
-  # osx:
-  #   name: Check OSX
-  #   uses: ./.github/workflows/nrc.yml
-  #   with:
-  #     nightly-build: OSX
-  #     platform: osx
-  #     runs-on: macos-latest
+  osx:
+    name: Check OSX
+    uses: ./.github/workflows/nrc.yml
+    with:
+      nightly-build: OSX
+      platform: osx
+      runs-on: macos-latest
   
-  # osx-test:
-  #   name: Test OSX
-  #   needs: osx
-  #   if: needs.osx.outputs.is_failure != 'failure'
-  #   uses: ./.github/workflows/tests_nbc.yml
-  #   with:
-  #     nightly-build: OSX
-  #     platform: osx
-  #     version: osx-universal
-  #     runs-on: macos-latest
-  #     extension: ${{ matrix.extension }}
-  #   strategy:
-  #     matrix:
-  #       extension: [ arrow, autocomplete, aws ]
+  osx-test:
+    name: Test OSX
+    needs: osx
+    if: needs.osx.outputs.is_failure != 'failure'
+    uses: ./.github/workflows/tests_nbc.yml
+    with:
+      nightly-build: OSX
+      platform: osx
+      version: osx-universal
+      runs-on: macos-latest
+      extension: ${{ matrix.extension }}
+    strategy:
+      matrix:
+        extension: [ arrow, autocomplete, aws ]
             
   windows:
     name: Check Windows
