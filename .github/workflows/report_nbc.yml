@@ -1,0 +1,52 @@
+name: Consolidate Issues Nightly Builds Check
+on:
+  workflow_call:
+    inputs:
+      nightly-build:
+        required: true
+        type: string
+      platform:
+        required: true
+        type: string
+      version: 
+        required: false
+        type: string
+      # container:
+      #   required: false
+      #   type: string
+      runs-on:
+        required: true
+        type: string
+      extension:
+        required: false
+        type: string
+env:
+  GH_TOKEN: ${{ github.token }}
+jobs:
+  check-build:
+    runs-on: ${{ inputs.runs-on }}
+    # container: ${{ inputs.container }}
+    continue-on-error: true
+    steps:
+      - name: Download ${{ inputs.platform }} issues
+        uses: actions/download-artifact@v4
+        with:
+          pattern: issue_body_${{ inputs.plarform }}*
+          path: issue_body_${{ inputs.plarform }}
+      - name: Consolidate issues into one
+        shell: bash
+        run: |
+          if grep -q "REGRESSIONS DETECTED" issue_body_${{ inputs.plarform }}/issue_body*.txt; then
+            # get the run url
+            gh run list --repo duckdb/duckdb --event repository_dispatch --workflow ${{ inputs.nightly-build }} --created $(date +%Y-%m-%d) --json url > url.csv
+            url=$(tail -n 1 url.csv | awk -F "[:}]" '{ print $3 }')
+            echo "Some extensions had failed with \`duckdb_cli-${{ inputs.version }}\` build produced by run $url :" > report_${{ inputs.platform }}_${{ inputs.version }}.txt
+            # append all issues 
+            cat issue_body_${{ inputs.plarform }}/issue_body*.txt >> report_${{ inputs.platform }}_${{ inputs.version }}.txt
+          fi
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: report_${{ inputs.platform }}_${{ inputs.version }}.txt
+          path: report_${{ inputs.platform }}_${{ inputs.version }}.txt
