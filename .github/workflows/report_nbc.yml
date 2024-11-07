@@ -25,11 +25,13 @@ jobs:
     # container: ${{ inputs.container }}
     continue-on-error: true
     steps:
+      - name: Create a pattern name
+        run: pattern=$(issue_body_${{ inputs.plarform }}*)
       - name: Download ${{ inputs.platform }} issues
         uses: actions/download-artifact@v4
         with:
-          pattern: issue_body_${{ inputs.plarform }}*
-          path: issue_body_${{ inputs.plarform }}
+          pattern: $pattern
+          path: $pattern
       - name: Consolidate issues into one
         shell: bash
         run: |
