@@ -48,6 +48,7 @@ jobs:
               echo Failed to install ${{ inputs.extension }} extension.
               echo "- \`${{ inputs.architecture }}\`: **Failed** to install \`${{ inputs.extension }}\` extension." >> issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.txt
               echo "" >> issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.${{ inputs.extension }}.txt
+              exit 1
             fi
             echo Loading ${{ inputs.extension }} extension...
             if $duckdb -c "LOAD ${{ inputs.extension }};"; then
@@ -56,6 +57,7 @@ jobs:
               echo Failed to load ${{ inputs.extension }} extension.
               echo "- \`${{ inputs.architecture }}\`: **Failed** to load the extension \`${{ inputs.extension }}\`." >> issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.txt
               echo "" >> issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.${{ inputs.extension }}.txt
+              exit 1
             fi
           fi
       
@@ -64,7 +66,7 @@ jobs:
       
       - name: Upload results
         uses: actions/upload-artifact@v4
-        # if: success()
+        if: failure()
         with:
           name: issue_body_${{ inputs.architecture }}_${{ inputs.extension }}
           path: issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.txt
