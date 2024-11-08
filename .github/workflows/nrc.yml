@@ -99,19 +99,19 @@ jobs:
           run_id=$(tail -n 1 run_id.csv | awk -F "[:}]" '{ print $2 }' | tr -d ' "')
           if gh run download $run_id --repo duckdb/duckdb -n duckdb-binaries-${{ inputs.platform }}; then
             echo Artifact duckdb-binaries-${{ inputs.platform }} is successfuly downloded.
-          #   echo ⚠️
-          #   ls duckdb-binaries-${{ inputs.platform }}
-          #   unzip duckdb-binaries-${{ inputs.platform }}/duckdb_cli-${{ inputs.platform }}-${{ inputs.architecture }}.zip
-          #   echo Verifying version...
-          #   ./duckdb --version > pragma_version.csv
-          #   short_sha=$(tail -n 2 pragma_version.csv | awk '{ print $2 }')
-          #   full_sha=$(gh run view $run_id --repo duckdb/duckdb --json headSha -q .headSha)
-          #   if [[ $full_sha != $short_sha* ]]; then
-          #     printf "#### The version of \`${{ inputs.nightly-build }}\` build (\`$short_sha\`) is not the same as the version triggered the build (\`$full_sha\`).\n " > issue_body_${{ inputs.platform }}-${{ inputs.architecture }}.txt
-          #     exit 1
-          #   fi
-          # else  
-          #   echo FAILED downloading the artifact duckdb-binaries-${{ inputs.platform }}-${{ inputs.architecture }}
+            unzip duckdb_cli-${{ inputs.platform }}-${{ inputs.architecture }}.zip
+            echo Verifying version...
+            ./duckdb --version > pragma_version.csv
+            short_sha=$(tail -n 2 pragma_version.csv | awk '{ print $2 }')
+            full_sha=$(gh run view $run_id --repo duckdb/duckdb --json headSha -q .headSha)
+            if [[ $full_sha != $short_sha* ]]; then
+              printf "#### The version of \`${{ inputs.nightly-build }}\` build (\`$short_sha\`) is not the same as the version triggered the build (\`$full_sha\`).\n " > issue_body_${{ inputs.platform }}-${{ inputs.architecture }}.txt
+              exit 1
+            fi
+          else  
+            echo Downloading duckdb-binaries-${{ inputs.platform }} artifact is failed.
+            printf "#### No artifacts with name duckdb-binaries-${{ inputs.platform }} provided.\n " > issue_body_${{ inputs.platform }}-${{ inputs.architecture }}.txt
+            exit 1
           fi
       - name: Setup upterm session
         uses: owenthereal/action-upterm@v1
@@ -126,4 +126,4 @@ jobs:
         if: success()
         uses: actions/upload-artifact@v4
         with:
-          path: duckdb-binaries-${{ inputs.platform }}-${{ inputs.architecture }}
+          path: duckdb-binaries-${{ inputs.platform }}
