@@ -13,7 +13,6 @@ jobs:
     with:
       nightly-build: LinuxRelease
       runs-on: ubuntu-latest
-      platform: ${{ matrix.platform }}
       version: ${{ matrix.version }}
     strategy:
       matrix:
