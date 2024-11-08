@@ -47,7 +47,7 @@ jobs:
             else
               echo Failed to install ${{ inputs.extension }} extension.
               echo "- \`${{ inputs.architecture }}\`: **Failed** to install \`${{ inputs.extension }}\` extension." >> issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.txt
-              echo "" >> issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.${{ inputs.extension }}.txt
+              echo "" >> issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.txt
               exit 1
             fi
             echo Loading ${{ inputs.extension }} extension...
@@ -56,7 +56,7 @@ jobs:
             else
               echo Failed to load ${{ inputs.extension }} extension.
               echo "- \`${{ inputs.architecture }}\`: **Failed** to load the extension \`${{ inputs.extension }}\`." >> issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.txt
-              echo "" >> issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.${{ inputs.extension }}.txt
+              echo "" >> issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.txt
               exit 1
             fi
           fi
