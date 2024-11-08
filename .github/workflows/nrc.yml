@@ -103,6 +103,12 @@ jobs:
           echo Downloading duckdb-binaries-${{ inputs.platform }} artifact...
           gh run list --repo duckdb/duckdb --event repository_dispatch --workflow ${{ inputs.nightly-build }} --created $(date +%Y-%m-%d) --json databaseId > run_id.csv
           run_id=$(tail -n 1 run_id.csv | awk -F "[:}]" '{ print $2 }' | tr -d ' "')
+
+           
+          echo Listing all artifacts...
+          gh api repos/duckdb/duckdb/actions/runs/$run_id/artifacts --jq '.artifacts[].name'
+
+          
           if gh run download $run_id --repo duckdb/duckdb -n duckdb-binaries-${{ inputs.platform }}; then
             echo Artifact duckdb-binaries-${{ inputs.platform }} is successfuly downloded.
             echo "has_artifact=true" >> $GITHUB_OUTPUT
