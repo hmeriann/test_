@@ -38,7 +38,7 @@ jobs:
           else
             duckdb=./duckdb
           fi
-          unzip duckdb_cli-${{ inputs.architecture }}/duckdb_cli-${{ inputs.architecture }}.zip
+          unzip duckdb_cli-${{ inputs.architecture }}.zip
           $duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';"
           $duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';" > sp.csv
           sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
