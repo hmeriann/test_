@@ -96,6 +96,7 @@ jobs:
                 echo "|------------|------------|---------|"
                 cat failures_.md 
               } >> issue_body_-${{ inputs.architecture }}.txt
+              echo "is_failure=failure" >> $GITHUB_OUTPUT
             fi
             rm $duckdb
           fi
