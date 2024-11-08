@@ -93,14 +93,13 @@ jobs:
                 cat failures_.md 
               } >> issue_body__${{ inputs.platform }}-${{ inputs.architecture }}.txt
             fi
-            exit 1
           fi
-          echo Downloading duckdb-binaries-${{ inputs.platform }}-${{ inputs.architecture }} artifact...
+          echo Downloading duckdb-binaries-${{ inputs.platform }} artifact...
           gh run list --repo duckdb/duckdb --event repository_dispatch --workflow ${{ inputs.nightly-build }} --created $(date +%Y-%m-%d) --json databaseId > run_id.csv
           run_id=$(tail -n 1 run_id.csv | awk -F "[:}]" '{ print $2 }' | tr -d ' "')
-          if gh run download $run_id --repo duckdb/duckdb -n duckdb-binaries-${{ inputs.platform }}-${{ inputs.architecture }}; then
-            echo Artifact duckdb-binaries-${{ inputs.platform }}-${{ inputs.architecture }} is successfuly downloded.
-            unzip duckdb-binaries-${{ inputs.platform }}-${{ inputs.architecture }}/duckdb_cli-${{ inputs.platform }}-${{ inputs.architecture }}.zip
+          if gh run download $run_id --repo duckdb/duckdb -n duckdb-binaries-${{ inputs.platform }}; then
+            echo Artifact duckdb-binaries-${{ inputs.platform }} is successfuly downloded.
+            unzip duckdb-binaries-${{ inputs.platform }}/duckdb_cli-${{ inputs.platform }}-${{ inputs.architecture }}.zip
             echo Verifying version...
             ./duckdb --version > pragma_version.csv
             short_sha=$(tail -n 2 pragma_version.csv | awk '{ print $2 }')
@@ -114,13 +113,14 @@ jobs:
           fi
       
       - name: Upload issue
-        if: failure()
+        if: ${{ needs.check-build.outputs.is_failure }} == failure
         uses: actions/upload-artifact@v4
         with:
           name: issue_body_${{ inputs.platform }}-${{ inputs.architecture }}
           path: issue_body_${{ inputs.platform }}-${{ inputs.architecture }}.txt
 
       - name: Upload build
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           path: duckdb-binaries-${{ inputs.platform }}-${{ inputs.architecture }}
