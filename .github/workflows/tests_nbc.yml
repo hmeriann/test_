@@ -5,7 +5,10 @@ on:
       nightly-build:
         required: true
         type: string
-      version: 
+      platform: 
+        required: false
+        type: string
+      architecture: 
         required: false
         type: string
       runs-on:
@@ -25,7 +28,7 @@ jobs:
       - name: Download artifact 
         uses: actions/download-artifact@v4
         with:
-          name: duckdb-binaries-${{ inputs.version }}
+          name: duckdb_cli-${{ inputs.architecture }}.zip
           
       - name: Test ${{ inputs.nightly-build }}
         shell: bash
@@ -35,7 +38,7 @@ jobs:
           else
             duckdb=./duckdb
           fi
-          unzip duckdb_cli-${{ inputs.platform }}-${{ inputs.architecture }}.zip
+          unzip duckdb_cli-${{ inputs.architecture }}.zip
           $duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';"
           $duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';" > sp.csv
           sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
@@ -46,21 +49,21 @@ jobs:
             $duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';" > sp.csv
             sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
             if [[ $sp != 'true' ]]; then
-              echo "- \`${{ inputs.version }}\`: **Extension** \`${{ inputs.extension }}\` **installation failed**" >> issue_body_${{ inputs.version }}_${{ inputs.extension }}.txt
-              echo "" >> issue_body_${{ inputs.version }}_${{ inputs.extension }}.txt
+              echo "- \`${{ inputs.architecture }}\`: **Extension** \`${{ inputs.extension }}\` **installation failed**" >> issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.txt
+              echo "" >> issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.txt
             fi
             echo Loading ${{ inputs.extension }} extension...
             if $duckdb -c "LOAD ${{ inputs.extension }};"; then
               echo ${{ inputs.extension }} extension loaded.
             else
               echo Failed to load ${{ inputs.extension }} extension.
-              echo "- \`${{ inputs.version }}\`: **Failed** to load the extension \`${{ inputs.extension }}\`." >> issue_body_${{ inputs.version }}_${{ inputs.extension }}.txt
-              echo "" >> issue_body_${{ inputs.version }}_${{ inputs.extension }}.${{ inputs.extension }}.txt
+              echo "- \`${{ inputs.architecture }}\`: **Failed** to load the extension \`${{ inputs.extension }}\`." >> issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.txt
+              echo "" >> issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.${{ inputs.extension }}.txt
             fi
           fi
       - name: Upload results
         uses: actions/upload-artifact@v4
         if: success()
         with:
-          name: issue_body_${{ inputs.version }}_${{ inputs.extension }}
-          path: issue_body_${{ inputs.version }}_${{ inputs.extension }}.txt
+          name: issue_body_${{ inputs.architecture }}_${{ inputs.extension }}
+          path: issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.txt
