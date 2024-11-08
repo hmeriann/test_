@@ -105,12 +105,12 @@ jobs:
             short_sha=$(tail -n 2 pragma_version.csv | awk '{ print $2 }')
             full_sha=$(gh run view $run_id --repo duckdb/duckdb --json headSha -q .headSha)
             if [[ $full_sha != $short_sha* ]]; then
-              printf "#### The version of \`${{ inputs.nightly-build }}\` build (\`$short_sha\`) is not the same as the version triggered the build (\`$full_sha\`).\n " > issue_body_${{ inputs.platform }}-${{ inputs.architecture }}.txt
+              printf "#### The version of \`${{ inputs.nightly-build }}\` build (\`$short_sha\`) is not the same as the version triggered the build (\`$full_sha\`).\n " > issue_body_${{ inputs.architecture }}.txt
               exit 1
             fi
           else  
             echo Downloading duckdb-binaries-${{ inputs.platform }} artifact is failed.
-            printf "#### No artifacts with name duckdb-binaries-${{ inputs.platform }} provided.\n " > issue_body_${{ inputs.platform }}-${{ inputs.architecture }}.txt
+            printf "#### No artifacts with name duckdb-binaries-${{ inputs.platform }} provided.\n " > issue_body_${{ inputs.architecture }}.txt
             exit 1
           fi
       - name: Setup upterm session
@@ -119,8 +119,8 @@ jobs:
         if: ${{ needs.check-build.outputs.is_failure }} == failure
         uses: actions/upload-artifact@v4
         with:
-          name: issue_body_${{ inputs.platform }}-${{ inputs.architecture }}
-          path: issue_body_${{ inputs.platform }}-${{ inputs.architecture }}.txt
+          name: issue_body_${{ inputs.architecture }}
+          path: issue_body_${{ inputs.architecture }}.txt
 
       - name: Upload build
         if: success()
