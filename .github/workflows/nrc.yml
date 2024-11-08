@@ -5,8 +5,11 @@ on:
       nightly-build:
         required: true
         type: string
-      version: 
-        required: false
+      platform: 
+        required: true
+        type: string
+      architecture: 
+        required: true
         type: string
       runs-on:
         required: true
@@ -88,36 +91,36 @@ jobs:
                 echo "| Conclusion | Started At | Run URL |"
                 echo "|------------|------------|---------|"
                 cat failures_.md 
-              } >> issue_body__${{ inputs.version }}.txt
+              } >> issue_body__${{ inputs.platform }}-${{ inputs.architecture }}.txt
             fi
             exit 1
           fi
-          echo Downloading duckdb-binaries-${{ inputs.version }} artifact...
+          echo Downloading duckdb-binaries-${{ inputs.platform }}-${{ inputs.architecture }} artifact...
           gh run list --repo duckdb/duckdb --event repository_dispatch --workflow ${{ inputs.nightly-build }} --created $(date +%Y-%m-%d) --json databaseId > run_id.csv
           run_id=$(tail -n 1 run_id.csv | awk -F "[:}]" '{ print $2 }' | tr -d ' "')
-          if gh run download $run_id --repo duckdb/duckdb -n duckdb-binaries-${{ inputs.version }}; then
-            echo Artifact duckdb-binaries-${{ inputs.version }} is successfuly downloded.
-            unzip duckdb-binaries-${{ inputs.version }}/duckdb_cli-${{ inputs.version }}.zip
+          if gh run download $run_id --repo duckdb/duckdb -n duckdb-binaries-${{ inputs.platform }}-${{ inputs.architecture }}; then
+            echo Artifact duckdb-binaries-${{ inputs.platform }}-${{ inputs.architecture }} is successfuly downloded.
+            unzip duckdb-binaries-${{ inputs.platform }}-${{ inputs.architecture }}/duckdb_cli-${{ inputs.platform }}-${{ inputs.architecture }}.zip
             echo Verifying version...
             ./duckdb --version > pragma_version.csv
             short_sha=$(tail -n 2 pragma_version.csv | awk '{ print $2 }')
             full_sha=$(gh run view $run_id --repo duckdb/duckdb --json headSha -q .headSha)
             if [[ $full_sha != $short_sha* ]]; then
-              printf "#### The version of \`${{ inputs.nightly-build }}\` build (\`$short_sha\`) is not the same as the version triggered the build (\`$full_sha\`).\n " > issue_body_${{ inputs.version }}.txt
+              printf "#### The version of \`${{ inputs.nightly-build }}\` build (\`$short_sha\`) is not the same as the version triggered the build (\`$full_sha\`).\n " > issue_body_${{ inputs.platform }}-${{ inputs.architecture }}.txt
               exit 1
             fi
           else  
-            echo FAILED downloading the artifact duckdb-binaries-${{ inputs.version }}
+            echo FAILED downloading the artifact duckdb-binaries-${{ inputs.platform }}-${{ inputs.architecture }}
           fi
       
       - name: Upload issue
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: issue_body_${{ inputs.version }}
-          path: issue_body_${{ inputs.version }}.txt
+          name: issue_body_${{ inputs.platform }}-${{ inputs.architecture }}
+          path: issue_body_${{ inputs.platform }}-${{ inputs.architecture }}.txt
 
       - name: Upload build
         uses: actions/upload-artifact@v4
         with:
-          path: duckdb-binaries-${{ inputs.version }}
+          path: duckdb-binaries-${{ inputs.platform }}-${{ inputs.architecture }}
