@@ -5,15 +5,9 @@ on:
       nightly-build:
         required: true
         type: string
-      platform:
-        required: true
-        type: string
       version: 
         required: false
         type: string
-      # container:
-      #   required: false
-      #   type: string
       runs-on:
         required: true
         type: string
@@ -28,53 +22,43 @@ jobs:
     # container: ${{ inputs.container }}
     continue-on-error: true
     steps:
+      - name: Download artifact 
+        uses: actions/download-artifact@v4
+        with:
+          name: duckdb-binaries-${{ inputs.version }}
+          
       - name: Test ${{ inputs.nightly-build }}
         shell: bash
         run: |
-          gh run list --repo duckdb/duckdb --event repository_dispatch --workflow ${{ inputs.nightly-build }} --created $(date +%Y-%m-%d) --json databaseId > run_id.csv
-          run_id=$(tail -n 1 run_id.csv | awk -F "[:}]" '{ print $2 }' | tr -d ' "')
-          gh run download $run_id --repo duckdb/duckdb
-          unzip duckdb-binaries-${{ inputs.platform }}/duckdb_cli-${{ inputs.version }}.zip || { echo "Unzip failed"; exit 1; }
-          echo Verifying versions...
-          ./duckdb --version > pragma_version.csv
-          short_sha=$(tail -n 2 pragma_version.csv | awk '{ print $2 }')
-          full_sha=$(gh run view $run_id --repo duckdb/duckdb --json headSha -q .headSha)
-          if [[ $full_sha != $short_sha* ]]; then
-            printf "The version of \`${{ inputs.nightly-build }}\` build (\`$short_sha\`) is not the same as the version triggered the build (\`$full_sha\`).\n " > issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
-          else
-            ./duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';"
-            ./duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';" > sp.csv
+          if ${{ inputs.nightly-build }} == Windows; then
+            duckdb=duckdb.exe
+          fi
+          unzip duckdb-binaries-${{ inputs.version }}/duckdb_cli-${{ inputs.version }}.zip
+          duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';"
+          duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';" > sp.csv
+          sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
+          if [[ $sp == 'false' ]]; then
+            echo Installing ${{ inputs.extension }} extension...
+            duckdb -c "INSTALL ${{ inputs.extension }};"
+            duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';"
+            duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';" > sp.csv
             sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
-            if [[ $sp == 'false' ]]; then
-              echo Installing extension...
-              ./duckdb -c "INSTALL ${{ inputs.extension }};"
-              ./duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';"
-              ./duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';" > sp.csv
-              sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
-              # if [[ $sp != 'true' ]]; then
-              #   echo "\${{ inputs.platform }}_${{ inputs.version }}\: Failed to INSTALL an extension \${{ inputs.extension }}\." >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
-              # fi
-              # echo try to load extension
-              # if ./duckdb -c "LOAD ${{ inputs.extension }};" ; then
-              #   echo "\${{ inputs.platform }}_${{ inputs.version }}\: Failed to LOAD an extension \${{ inputs.extension }}\." > issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
-              #   echo $(./duckdb -c "LOAD ${{ inputs.extension }};" 2>&1) >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
-              # fi
-              if [[ $sp != 'true' ]]; then
-                echo "- \`${{ inputs.platform }}_${{ inputs.version }}\`: **Extension** \`${{ inputs.extension }}\` **installation failed**" >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
-                echo "" >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
-              fi
-              echo Loading extension...
-              if ./duckdb -c "LOAD ${{ inputs.extension }};"; then
-                echo ${{ inputs.extension }} extension loaded.
-              else
-                echo "- \`${{ inputs.platform }}_${{ inputs.version }}\`: **Failed** to load the extension \`${{ inputs.extension }}\`." >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
-                echo "" >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.${{ inputs.extension }}.txt
-              fi
+            if [[ $sp != 'true' ]]; then
+              echo "- \`${{ inputs.version }}\`: **Extension** \`${{ inputs.extension }}\` **installation failed**" >> issue_body_${{ inputs.version }}_${{ inputs.extension }}.txt
+              echo "" >> issue_body_${{ inputs.version }}_${{ inputs.extension }}.txt
+            fi
+            echo Loading ${{ inputs.extension }} extension...
+            if duckdb -c "LOAD ${{ inputs.extension }};"; then
+              echo ${{ inputs.extension }} extension loaded.
+            else
+              echo Failed to load ${{ inputs.extension }} extension.
+              echo "- \`${{ inputs.version }}\`: **Failed** to load the extension \`${{ inputs.extension }}\`." >> issue_body_${{ inputs.version }}_${{ inputs.extension }}.txt
+              echo "" >> issue_body_${{ inputs.version }}_${{ inputs.extension }}.${{ inputs.extension }}.txt
             fi
           fi
       - name: Upload results
         uses: actions/upload-artifact@v4
         if: success()
         with:
-          name: issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}
-          path: issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
+          name: issue_body_${{ inputs.version }}_${{ inputs.extension }}
+          path: issue_body_${{ inputs.version }}_${{ inputs.extension }}.txt
