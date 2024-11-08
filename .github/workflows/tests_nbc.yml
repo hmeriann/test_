@@ -22,7 +22,7 @@ env:
 jobs:
   check-build:
     runs-on: ${{ inputs.runs-on }}
-    # container: ${{ inputs.container }}
+    # container: ${{ inputs.container }}      
     continue-on-error: true
     steps:
       - name: Download artifact 
@@ -37,12 +37,10 @@ jobs:
           unzip duckdb_cli-${{ inputs.architecture }}.zip
           if ${{ inputs.nightly-build }} == Windows; then
             duckdb=./duckdb.exe
-            echo YOU ARE HERE 🥵
           else
             duckdb=./duckdb
-            echo YOU ARE HERE 😀
           fi
-          $duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';"
+          $duckdb -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';"
           $duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';" > sp.csv
           sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
           if [[ $sp == 'false' ]]; then
