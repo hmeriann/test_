@@ -24,13 +24,13 @@ jobs:
     with:
       nightly-build: LinuxRelease
       runs-on: ubuntu-latest
-      version: ${{ matrix.version }}
+      platform: linux
+      architecture: linux-amd64
       # container: ${{ matrix.container }}
       extension: ${{ matrix.extension }}
     strategy:
       matrix:
         extension: [ arrow, autocomplete, aws, tpch, vss ]
-        version: [ linux ]
         # extension: [ arrow, autocomplete, aws, azure, delta, excel, fts, httpfs, iceberg, icu, inet, jemalloc, json, motherduck, mysql_scanner, parquet, postgres_scanner, shell, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]
         # version: [ linux-amd64, linux-aarch64 ]
         # container: [ "quay.io/pypa/manylinux2014_x86_64", "ubuntu:18.04" ]
@@ -51,7 +51,8 @@ jobs:
     uses: ./.github/workflows/tests_nbc.yml
     with:
       nightly-build: OSX
-      version: osx-universal
+      platform: osx
+      architecture: osv-universal
       runs-on: macos-latest
       extension: ${{ matrix.extension }}
     strategy:
@@ -74,7 +75,8 @@ jobs:
     uses: ./.github/workflows/tests_nbc.yml
     with:
       nightly-build: Windows
-      version: windows-amd64
+      platform: windows
+      architecture: windows-amd64
       runs-on: windows-2019
       extension: ${{ matrix.extension }}
     strategy:
