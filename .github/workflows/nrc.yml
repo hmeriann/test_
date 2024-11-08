@@ -88,7 +88,7 @@ jobs:
                 TO 'failures_.md' (HEADER 0, QUOTE '');"
               {
                 echo
-                echo "- At least one job has failed in the nightly-build **${{ inputs.nightly-build }}** consecutively 9 times: [ Run Link ](https:$url) "
+                echo "- **${{ inputs.nightly-build }}**: At least one job has failed in the nightly-build consecutively $failures times: [ Run Link ](https:$url) "
                 echo
                 echo "#### Failure Details"
                 echo
