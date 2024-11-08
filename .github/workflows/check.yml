@@ -1,6 +1,6 @@
 name: TEST - Automated check
 on:
-  workflow_dispatch:
+  # workflow_dispatch:
 jobs:
   checks:
     runs-on: ubuntu-latest
