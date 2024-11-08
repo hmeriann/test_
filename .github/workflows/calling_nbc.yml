@@ -52,7 +52,7 @@ jobs:
     with:
       nightly-build: OSX
       platform: osx
-      architecture: osv-universal
+      architecture: osx-universal
       runs-on: macos-latest
       extension: ${{ matrix.extension }}
     strategy:
