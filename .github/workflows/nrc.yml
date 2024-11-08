@@ -96,7 +96,7 @@ jobs:
             run_id=$(tail -n 1 run_id.csv | awk -F "[:}]" '{ print $2 }' | tr -d ' "')
             if gh run download $run_id --repo duckdb/duckdb -n duckdb-binaries-${{ inputs.version }}; then
               echo Artifact duckdb-binaries-${{ inputs.version }} is successfuly downloded.
-              unzip duckdb-binaries-${{ inputs.version }}/*
+              unzip duckdb-binaries-${{ inputs.version }}/duckdb_cli-${{ inputs.version }}.zip
               echo Verifying version...
               ./duckdb --version > pragma_version.csv
               short_sha=$(tail -n 2 pragma_version.csv | awk '{ print $2 }')
