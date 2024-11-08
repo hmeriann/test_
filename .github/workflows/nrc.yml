@@ -127,4 +127,5 @@ jobs:
         if: success()
         uses: actions/upload-artifact@v4
         with:
+          name: duckdb_cli-${{ inputs.architecture }}
           path: duckdb_cli-${{ inputs.architecture }}.zip
