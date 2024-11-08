@@ -13,11 +13,8 @@ jobs:
     with:
       nightly-build: LinuxRelease
       runs-on: ubuntu-latest
-      version: ${{ matrix.version }}
-    strategy:
-      matrix:
-        platform: [ linux ]
-        architecture: [ amd64 ]
+      platform: linux
+      architecture: amd64
 
   linux-test:
     name: Test LinuxRelease
