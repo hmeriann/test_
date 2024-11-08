@@ -5,15 +5,9 @@ on:
       nightly-build:
         required: true
         type: string
-      platform:
-        required: true
-        type: string
       version: 
         required: false
         type: string
-      # container:
-      #   required: false
-      #   type: string
       runs-on:
         required: true
         type: string
@@ -74,7 +68,7 @@ jobs:
                 WHERE conclusion='failure' GROUP BY freq, conclusion ORDER BY count DESC LIMIT 1;"
               ) > result.csv
             
-            echo get the number of failures
+            echo Counting number of failures...
             failures=$(tail -n +2 result.csv | awk -F ","  '{ print $2 }')
             # if there are more than 4 consecutive failures, file a report
             if [[ $failures -ge 4 ]]; then
@@ -84,7 +78,7 @@ jobs:
                   FROM read_json('${{ inputs.nightly-build }}.json') 
                     WHERE conclusion='failure'
                 )  
-                TO 'failures_${{ inputs.platform }}.md' (HEADER 0, QUOTE '');"
+                TO 'failures_.md' (HEADER 0, QUOTE '');"
               {
                 echo
                 echo "- The nightly-build **${{ inputs.nightly-build }}** has consecutively failed 9 times: [ Run Link ](https:$url) "
@@ -93,15 +87,38 @@ jobs:
                 echo
                 echo "| Conclusion | Started At | Run URL |"
                 echo "|------------|------------|---------|"
-                cat failures_${{ inputs.platform }}.md 
-              } >> issue_body_${{ inputs.platform }}_${{ inputs.version }}.txt
+                cat failures_.md 
+              } >> issue_body__${{ inputs.version }}.txt
+            fi
+
+            echo Downloading duckdb-binaries-${{ inputs.version }} artifact...
+            gh run list --repo duckdb/duckdb --event repository_dispatch --workflow ${{ inputs.nightly-build }} --created $(date +%Y-%m-%d) --json databaseId > run_id.csv
+            run_id=$(tail -n 1 run_id.csv | awk -F "[:}]" '{ print $2 }' | tr -d ' "')
+            if gh run download $run_id --repo duckdb/duckdb -n duckdb-binaries-${{ inputs.version }}; then
+              echo Artifact duckdb-binaries-${{ inputs.version }} is successfuly downloded.
+              unzip duckdb-binaries-${{ inputs.version }}/*
+              echo Verifying version...
+              ./duckdb --version > pragma_version.csv
+              short_sha=$(tail -n 2 pragma_version.csv | awk '{ print $2 }')
+              full_sha=$(gh run view $run_id --repo duckdb/duckdb --json headSha -q .headSha)
+              if [[ $full_sha != $short_sha* ]]; then
+                printf "The version of \`${{ inputs.nightly-build }}\` build (\`$short_sha\`) is not the same as the version triggered the build (\`$full_sha\`).\n " > issue_body_${{ inputs.version }}.txt
+                exit 1
+              fi
+            else  
+              echo FAILED downloading the artifact duckdb-binaries-${{ inputs.version }}
             fi
             exit 1
           fi
       
-      - name: Upload results
+      - name: Upload issue
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: issue_body_${{ inputs.platform }}_${{ inputs.version }}
-          path: issue_body_${{ inputs.platform }}_${{ inputs.version }}.txt
+          name: issue_body_${{ inputs.version }}
+          path: issue_body_${{ inputs.version }}.txt
+
+      - name: Upload build
+        uses: actions/upload-artifact@v4
+        with:
+          path: duckdb-binaries-${{ inputs.version }}
