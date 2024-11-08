@@ -31,24 +31,26 @@ jobs:
         shell: bash
         run: |
           if ${{ inputs.nightly-build }} == Windows; then
-            duckdb=duckdb.exe
+            duckdb=./duckdb.exe
+          else
+            duckdb=./duckdb
           fi
-          unzip duckdb-binaries-${{ inputs.version }}/duckdb_cli-${{ inputs.version }}.zip
-          duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';"
-          duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';" > sp.csv
+          unzip duckdb_cli-${{ inputs.platform }}-${{ inputs.architecture }}.zip
+          $duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';"
+          $duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';" > sp.csv
           sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
           if [[ $sp == 'false' ]]; then
             echo Installing ${{ inputs.extension }} extension...
-            duckdb -c "INSTALL ${{ inputs.extension }};"
-            duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';"
-            duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';" > sp.csv
+            $duckdb -c "INSTALL ${{ inputs.extension }};"
+            $duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';"
+            $duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';" > sp.csv
             sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
             if [[ $sp != 'true' ]]; then
               echo "- \`${{ inputs.version }}\`: **Extension** \`${{ inputs.extension }}\` **installation failed**" >> issue_body_${{ inputs.version }}_${{ inputs.extension }}.txt
               echo "" >> issue_body_${{ inputs.version }}_${{ inputs.extension }}.txt
             fi
             echo Loading ${{ inputs.extension }} extension...
-            if duckdb -c "LOAD ${{ inputs.extension }};"; then
+            if $duckdb -c "LOAD ${{ inputs.extension }};"; then
               echo ${{ inputs.extension }} extension loaded.
             else
               echo Failed to load ${{ inputs.extension }} extension.
