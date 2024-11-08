@@ -16,8 +16,8 @@ jobs:
       version: ${{ matrix.version }}
     strategy:
       matrix:
-        version: [ linux ]
-        # means version: [ linux-amd64 ]
+        platform: [ linux ]
+        architecture: [ amd64 ]
 
   linux-test:
     name: Test LinuxRelease
@@ -43,7 +43,8 @@ jobs:
     uses: ./.github/workflows/nrc.yml
     with:
       nightly-build: OSX
-      version: osx
+      platform: osx
+      architecture: osx-universal
       runs-on: macos-latest
   
   osx-test:
@@ -65,7 +66,8 @@ jobs:
     uses: ./.github/workflows/nrc.yml
     with:
       nightly-build: Windows
-      version: windows-amd64
+      platform: windows
+      architecture: windows-amd64
       runs-on: windows-2019
   
   windows-test:
