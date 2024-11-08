@@ -35,12 +35,12 @@ jobs:
         shell: bash
         run: |
           unzip duckdb_cli-${{ inputs.architecture }}.zip
-          if ${{ inputs.nightly-build }} == Windows; then
+          if [[ ${{ inputs.nightly-build }} == Windows ]]; then
             duckdb=./duckdb.exe
           else
             duckdb=./duckdb
           fi
-          $duckdb -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';"
+          $duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';"
           $duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';" > sp.csv
           sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
           if [[ $sp == 'false' ]]; then
