@@ -22,15 +22,12 @@ env:
 jobs:
   check-build:
     runs-on: ${{ inputs.runs-on }}
-    # container: ${{ inputs.container }}      
     continue-on-error: true
     steps:
       - name: Download artifact 
         uses: actions/download-artifact@v4
         with:
           name: duckdb_cli-${{ inputs.architecture }}
-      # - name: Setup upterm session
-      #   uses: owenthereal/action-upterm@v1
       - name: Test ${{ inputs.nightly-build }}
         shell: bash
         run: |
@@ -45,26 +42,29 @@ jobs:
           sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
           if [[ $sp == 'false' ]]; then
             echo Installing ${{ inputs.extension }} extension...
-            $duckdb -c "INSTALL ${{ inputs.extension }};"
-            $duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';"
-            $duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';" > sp.csv
-            sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
-            if [[ $sp != 'true' ]]; then
-              echo "- \`${{ inputs.architecture }}\`: **Extension** \`${{ inputs.extension }}\` **installation failed**" >> issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.txt
-              echo "" >> issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.txt
+            if $duckdb -c "INSTALL ${{ inputs.extension }};"; then
+              echo ${{ inputs.extension }} extension is installed.
+            else
+              echo Failed to install ${{ inputs.extension }} extension.
+              echo "- \`${{ inputs.architecture }}\`: **Failed** to install \`${{ inputs.extension }}\` extension." >> issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.txt
+              echo "" >> issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.${{ inputs.extension }}.txt
             fi
             echo Loading ${{ inputs.extension }} extension...
             if $duckdb -c "LOAD ${{ inputs.extension }};"; then
-              echo ${{ inputs.extension }} extension loaded.
+              echo ${{ inputs.extension }} extension is loaded.
             else
               echo Failed to load ${{ inputs.extension }} extension.
               echo "- \`${{ inputs.architecture }}\`: **Failed** to load the extension \`${{ inputs.extension }}\`." >> issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.txt
               echo "" >> issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.${{ inputs.extension }}.txt
             fi
           fi
+      
+      - name: Setup upterm session
+        uses: owenthereal/action-upterm@v1
+      
       - name: Upload results
         uses: actions/upload-artifact@v4
-        if: success()
+        # if: success()
         with:
           name: issue_body_${{ inputs.architecture }}_${{ inputs.extension }}
           path: issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.txt
