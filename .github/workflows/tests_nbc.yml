@@ -64,14 +64,12 @@ jobs:
                 echo "" >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
               fi
               echo Loading extension...
-              if ./duckdb -c "LOAD ${{ inputs.extension }};" ; then
+              if ./duckdb -c "LOAD ${{ inputs.extension }};"; then
+                echo ${{ inputs.extension }} extension loaded.
+              else
                 echo "- \`${{ inputs.platform }}_${{ inputs.version }}\`: **Failed** to load the extension \`${{ inputs.extension }}\`." >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
                 echo "" >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.${{ inputs.extension }}.txt
               fi
-              # echo install unexpected
-              # if ! ./duckdb -c "INSTALL unexpected;"; then
-              #   echo "INSTALLation of unexpected extension didn't return 1." >> issue_body_${{ inputs.platform }}_${{ inputs.version }}_${{ inputs.extension }}.txt
-              # fi
             fi
           fi
       - name: Upload results
