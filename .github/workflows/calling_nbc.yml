@@ -19,7 +19,7 @@ jobs:
   linux-test:
     name: Test LinuxRelease
     needs: linux
-    if: needs.linux.outputs.is_failure != 'failure'
+    if: needs.linux.outputs.has_artifact == 'true'
     uses: ./.github/workflows/tests_nbc.yml
     with:
       nightly-build: LinuxRelease
@@ -47,7 +47,7 @@ jobs:
   osx-test:
     name: Test OSX
     needs: osx
-    if: needs.osx.outputs.is_failure != 'failure'
+    if: needs.osx.outputs.has_artifact == 'true'
     uses: ./.github/workflows/tests_nbc.yml
     with:
       nightly-build: OSX
@@ -71,7 +71,7 @@ jobs:
   windows-test:
     name: Test Windows
     needs: windows
-    if: needs.windows.outputs.is_failure != 'failure'
+    if: needs.windows.outputs.has_artifact == 'true'
     uses: ./.github/workflows/tests_nbc.yml
     with:
       nightly-build: Windows
