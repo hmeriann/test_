@@ -95,7 +95,7 @@ jobs:
                 echo "| Conclusion | Started At | Run URL |"
                 echo "|------------|------------|---------|"
                 cat failures_.md 
-              } >> issue_body_-${{ inputs.architecture }}.txt
+              } >> issue_body_${{ inputs.architecture }}.txt
               echo "is_failure=failure" >> $GITHUB_OUTPUT
             fi
             rm $duckdb
