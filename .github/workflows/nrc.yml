@@ -123,14 +123,14 @@ jobs:
       # - name: Setup upterm session
       #   uses: owenthereal/action-upterm@v1
       - name: Upload issue
-        if: ${{ needs.check-build.outputs.is_failure }} == failure
+        if: ${{ steps.check-build.outputs.is_failure }} == failure
         uses: actions/upload-artifact@v4
         with:
           name: issue_body_${{ inputs.architecture }}
           path: issue_body_${{ inputs.architecture }}.txt
 
       - name: Upload build
-        if: ${{ needs.check-build.outputs.has_artifact }} == true
+        if: ${{ steps.check-build.outputs.has_artifact }} == true
         uses: actions/upload-artifact@v4
         with:
           name: duckdb_cli-${{ inputs.architecture }}
