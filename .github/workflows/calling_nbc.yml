@@ -14,7 +14,7 @@ jobs:
       nightly-build: LinuxRelease
       runs-on: ubuntu-latest
       platform: linux
-      architecture: amd64
+      architecture: linux-amd64
 
   linux-test:
     name: Test LinuxRelease
