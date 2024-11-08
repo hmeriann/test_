@@ -95,7 +95,7 @@ jobs:
                 echo "| Conclusion | Started At | Run URL |"
                 echo "|------------|------------|---------|"
                 cat failures_.md 
-              } >> issue_body__${{ inputs.platform }}-${{ inputs.architecture }}.txt
+              } >> issue_body_-${{ inputs.architecture }}.txt
             fi
             rm $duckdb
           fi
