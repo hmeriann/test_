@@ -17,7 +17,8 @@ jobs:
       version: ${{ matrix.version }}
     strategy:
       matrix:
-        version: [ linux-amd64 ]
+        version: [ linux ]
+        # means version: [ linux-amd64 ]
 
   linux-test:
     name: Test LinuxRelease
@@ -33,7 +34,7 @@ jobs:
     strategy:
       matrix:
         extension: [ arrow, autocomplete, aws, tpch, vss ]
-        version: [ linux-amd64 ]
+        version: [ linux ]
         # extension: [ arrow, autocomplete, aws, azure, delta, excel, fts, httpfs, iceberg, icu, inet, jemalloc, json, motherduck, mysql_scanner, parquet, postgres_scanner, shell, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]
         # version: [ linux-amd64, linux-aarch64 ]
         # container: [ "quay.io/pypa/manylinux2014_x86_64", "ubuntu:18.04" ]
