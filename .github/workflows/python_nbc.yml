@@ -31,6 +31,9 @@ jobs:
       is_failure: ${{ steps.check-build.outputs.is_failure }}
       has_artifact: ${{ steps.check-build.outputs.has_artifact }}
     steps:
+      - name: Checkout the repo with the script
+        uses: actions/checkout@v4
+        
       - name: Check ${{ inputs.nightly-build }}
         id: check-build
         shell: bash
