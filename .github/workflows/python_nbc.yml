@@ -92,6 +92,7 @@ jobs:
 
           echo Installing latest Duckdb...
           python3 -m pip install duckdb --pre --upgrade
+          gh run list --repo duckdb/duckdb --event repository_dispatch --workflow ${{ inputs.nightly-build }} --created $(date +%Y-%m-%d) --json databaseId > run_id.csv
           run_id=$(tail -n 1 run_id.csv | awk -F "[:}]" '{ print $2 }' | tr -d ' "')
           
           echo Verifying version...
