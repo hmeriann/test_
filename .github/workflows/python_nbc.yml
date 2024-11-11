@@ -5,12 +5,12 @@ on:
       nightly-build:
         required: true
         type: string
-      platform: 
-        required: true
-        type: string
-      architecture: 
-        required: true
-        type: string
+    #   platform: 
+    #     required: false
+    #     type: string
+    #   architecture: 
+    #     required: true
+    #     type: string
       runs-on:
         required: true
         type: string
@@ -95,19 +95,19 @@ jobs:
 
           echo Verifying version...
           full_sha=$(gh run view $run_id --repo duckdb/duckdb --json headSha -q .headSha)
-          python3 scripts/scripts/verify_version.py $full_sha --workflow ${{ inputs.nightly-build }} --architecture ${{ inputs.architecture }}
+          python3 scripts/scripts/verify_version.py $full_sha --workflow ${{ inputs.nightly-build }} --architecture TEST
       # - name: Setup upterm session
       #   uses: owenthereal/action-upterm@v1
       - name: Upload issue
         if: ${{ steps.check-build.outputs.is_failure }} == failure
         uses: actions/upload-artifact@v4
         with:
-          name: issue_body_${{ inputs.architecture }}
-          path: issue_body_${{ inputs.architecture }}.txt
+          name: issue_body_TEST
+          path: issue_body_TEST.txt
 
-      - name: Upload build
-        if: ${{ steps.check-build.outputs.has_artifact }} == true
-        uses: actions/upload-artifact@v4
-        with:
-          name: duckdb_cli-${{ inputs.architecture }}
-          path: duckdb_cli-${{ inputs.architecture }}.zip
+    #   - name: Upload build
+    #     if: ${{ steps.check-build.outputs.has_artifact }} == true
+    #     uses: actions/upload-artifact@v4
+    #     with:
+    #       name: duckdb_cli-${{ inputs.architecture }}
+    #       path: duckdb_cli-${{ inputs.architecture }}.zip
