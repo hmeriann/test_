@@ -92,7 +92,8 @@ jobs:
 
           echo Installing latest Duckdb...
           python3 -m pip install duckdb --pre --upgrade
-
+          run_id=$(tail -n 1 run_id.csv | awk -F "[:}]" '{ print $2 }' | tr -d ' "')
+          
           echo Verifying version...
           full_sha=$(gh run view $run_id --repo duckdb/duckdb --json headSha -q .headSha)
           python3 scripts/scripts/verify_version.py $full_sha --workflow ${{ inputs.nightly-build }} --architecture TEST
