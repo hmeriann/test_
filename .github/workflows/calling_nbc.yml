@@ -85,27 +85,27 @@ jobs:
 
   python:
     name: Check Python
-    uses: ./.github/workflows/nrc.yml
+    uses: ./.github/workflows/python_nbc.yml
     with:
       nightly-build: Python
-      platform: windows
-      architecture: windows-amd64
+      # platform: 
+      # architecture: 
       runs-on: ubuntu-20.04
   
-  python-test:
-    name: Test Python
-    needs: python
-    if: needs.python.outputs.has_artifact == 'true'
-    uses: ./.github/workflows/tests_nbc.yml
-    with:
-      nightly-build: Python
-      platform: windows
-      architecture: windows-amd64
-      runs-on: ubuntu-20.04
-      extension: ${{ matrix.extension }}
-    strategy:
-      matrix:
-        extension: [ arrow, autocomplete, aws, azure, excel, fts, httpfs, iceberg, icu, inet, json, mysql_scanner, parquet, postgres_scanner, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]
+  # python-test:
+  #   name: Test Python
+  #   needs: python
+  #   if: needs.python.outputs.has_artifact == 'true'
+  #   uses: ./.github/workflows/tests_nbc.yml
+  #   with:
+  #     nightly-build: Python
+  #     platform: windows
+  #     architecture: windows-amd64
+  #     runs-on: ubuntu-20.04
+  #     extension: ${{ matrix.extension }}
+  #   strategy:
+  #     matrix:
+  #       extension: [ arrow, autocomplete, aws, azure, excel, fts, httpfs, iceberg, icu, inet, json, mysql_scanner, parquet, postgres_scanner, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]
         
       
   create-issue:
@@ -115,7 +115,7 @@ jobs:
       # - linux-test
       # - osx-test
       # - windows-test
-      - python-test
+      - python
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v4
