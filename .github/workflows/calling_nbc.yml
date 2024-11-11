@@ -30,8 +30,9 @@ jobs:
       extension: ${{ matrix.extension }}
     strategy:
       matrix:
-        extension: [ arrow, autocomplete, aws, azure, delta, excel, fts, httpfs, iceberg, icu, inet, jemalloc, json, motherduck, mysql_scanner, parquet, postgres_scanner, shell, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]
-        # extension: [ arrow, autocomplete, aws, azure, delta, excel, fts, httpfs, iceberg, icu, inet, jemalloc, json, motherduck, mysql_scanner, parquet, postgres_scanner, shell, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]
+        extension: [ arrow, autocomplete, aws, azure, excel, fts, httpfs, iceberg, icu, inet, json, mysql_scanner, parquet, postgres_scanner, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]
+        # extensions list to be checked before release:
+        # extension: [ arrow, autocomplete, aws, azure, delta, excel, fts, httpfs, iceberg, icu, inet, json, motherduck, mysql_scanner, parquet, postgres_scanner, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]
         # version: [ linux-amd64, linux-aarch64 ]
         # container: [ "quay.io/pypa/manylinux2014_x86_64", "ubuntu:18.04" ]
         
@@ -57,8 +58,7 @@ jobs:
       extension: ${{ matrix.extension }}
     strategy:
       matrix:
-        extension: [ arrow, autocomplete, aws, azure, delta, excel, fts, httpfs, iceberg, icu, inet, jemalloc, json, motherduck, mysql_scanner, parquet, postgres_scanner, shell, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]
-            
+        extension: [ arrow, autocomplete, aws, azure, excel, fts, httpfs, iceberg, icu, inet, json, mysql_scanner, parquet, postgres_scanner, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]            
   windows:
     name: Check Windows
     uses: ./.github/workflows/nrc.yml
@@ -81,7 +81,7 @@ jobs:
       extension: ${{ matrix.extension }}
     strategy:
       matrix:
-        extension: [ arrow, autocomplete, aws, azure, delta, excel, fts, httpfs, iceberg, icu, inet, jemalloc, json, motherduck, mysql_scanner, parquet, postgres_scanner, shell, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]
+        extension: [ arrow, autocomplete, aws, azure, excel, fts, httpfs, iceberg, icu, inet, json, mysql_scanner, parquet, postgres_scanner, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]
         
   create-issue:
     runs-on: ubuntu-latest
