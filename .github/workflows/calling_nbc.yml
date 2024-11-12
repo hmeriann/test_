@@ -121,9 +121,14 @@ jobs:
       # - name: Setup upterm session
       #   uses: owenthereal/action-upterm@v1
         
-      - name: Report an issue
+      # - name: Report an issue
+      #   if: success()
+      #   run: |
+      #     cat issue_body*/issue_body*/* > report.txt
+      #     gh issue create --repo hmeriann/test_ --title "Nightly Builds Failures" --body-file report.txt
+
+      - name: Create a post
         if: success()
-        run: |
-          cat issue_body*/issue_body*/* > report.txt
-          gh issue create --repo hmeriann/test_ --title "Nightly Builds Failures" --body-file report.txt
+        uses: ./.github/workflows/autopost.yml
+
 
