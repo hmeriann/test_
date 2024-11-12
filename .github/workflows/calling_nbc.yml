@@ -7,81 +7,81 @@ env:
   GH_TOKEN: ${{ github.token }}
   gh_repo: duckdb/duckdb
 jobs:
-  # linux:
-  #   name: Check LinuxRelease
-  #   uses: ./.github/workflows/nrc.yml
-  #   with:
-  #     nightly-build: LinuxRelease
-  #     runs-on: ubuntu-latest
-  #     platform: linux
-  #     architecture: linux-amd64
+  linux:
+    name: Check LinuxRelease
+    uses: ./.github/workflows/nrc.yml
+    with:
+      nightly-build: LinuxRelease
+      runs-on: ubuntu-latest
+      platform: linux
+      architecture: linux-amd64
 
-  # linux-test:
-  #   name: Test LinuxRelease
-  #   needs: linux
-  #   if: needs.linux.outputs.has_artifact == 'true'
-  #   uses: ./.github/workflows/tests_nbc.yml
-  #   with:
-  #     nightly-build: LinuxRelease
-  #     runs-on: ubuntu-latest
-  #     platform: linux
-  #     architecture: linux-amd64
-  #     # container: ${{ matrix.container }}
-  #     extension: ${{ matrix.extension }}
-  #   strategy:
-  #     matrix:
-  #       extension: [ arrow, autocomplete, aws, azure, excel, fts, httpfs, iceberg, icu, inet, json, mysql_scanner, parquet, postgres_scanner, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]
-  #       # extensions list to be checked before release:
-  #       # extension: [ arrow, autocomplete, aws, azure, delta, excel, fts, httpfs, iceberg, icu, inet, json, motherduck, mysql_scanner, parquet, postgres_scanner, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]
-  #       # version: [ linux-amd64, linux-aarch64 ]
-  #       # container: [ "quay.io/pypa/manylinux2014_x86_64", "ubuntu:18.04" ]
+  linux-test:
+    name: Test LinuxRelease
+    needs: linux
+    if: needs.linux.outputs.has_artifact == 'true'
+    uses: ./.github/workflows/tests_nbc.yml
+    with:
+      nightly-build: LinuxRelease
+      runs-on: ubuntu-latest
+      platform: linux
+      architecture: linux-amd64
+      # container: ${{ matrix.container }}
+      extension: ${{ matrix.extension }}
+    strategy:
+      matrix:
+        extension: [ arrow, autocomplete, aws, azure, excel, fts, httpfs, iceberg, icu, inet, json, mysql_scanner, parquet, postgres_scanner, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]
+        # extensions list to be checked before release:
+        # extension: [ arrow, autocomplete, aws, azure, delta, excel, fts, httpfs, iceberg, icu, inet, json, motherduck, mysql_scanner, parquet, postgres_scanner, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]
+        # version: [ linux-amd64, linux-aarch64 ]
+        # container: [ "quay.io/pypa/manylinux2014_x86_64", "ubuntu:18.04" ]
         
-  # osx:
-  #   name: Check OSX
-  #   uses: ./.github/workflows/nrc.yml
-  #   with:
-  #     nightly-build: OSX
-  #     platform: osx
-  #     architecture: osx-universal
-  #     runs-on: macos-latest
+  osx:
+    name: Check OSX
+    uses: ./.github/workflows/nrc.yml
+    with:
+      nightly-build: OSX
+      platform: osx
+      architecture: osx-universal
+      runs-on: macos-latest
   
-  # osx-test:
-  #   name: Test OSX
-  #   needs: osx
-  #   if: needs.osx.outputs.has_artifact == 'true'
-  #   uses: ./.github/workflows/tests_nbc.yml
-  #   with:
-  #     nightly-build: OSX
-  #     platform: osx
-  #     architecture: osx-universal
-  #     runs-on: macos-latest
-  #     extension: ${{ matrix.extension }}
-  #   strategy:
-  #     matrix:
-  #       extension: [ arrow, autocomplete, aws, azure, excel, fts, httpfs, iceberg, icu, inet, json, mysql_scanner, parquet, postgres_scanner, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]            
-  # windows:
-  #   name: Check Windows
-  #   uses: ./.github/workflows/nrc.yml
-  #   with:
-  #     nightly-build: Windows
-  #     platform: windows
-  #     architecture: windows-amd64
-  #     runs-on: windows-2019
+  osx-test:
+    name: Test OSX
+    needs: osx
+    if: needs.osx.outputs.has_artifact == 'true'
+    uses: ./.github/workflows/tests_nbc.yml
+    with:
+      nightly-build: OSX
+      platform: osx
+      architecture: osx-universal
+      runs-on: macos-latest
+      extension: ${{ matrix.extension }}
+    strategy:
+      matrix:
+        extension: [ arrow, autocomplete, aws, azure, excel, fts, httpfs, iceberg, icu, inet, json, mysql_scanner, parquet, postgres_scanner, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]            
+  windows:
+    name: Check Windows
+    uses: ./.github/workflows/nrc.yml
+    with:
+      nightly-build: Windows
+      platform: windows
+      architecture: windows-amd64
+      runs-on: windows-2019
   
-  # windows-test:
-  #   name: Test Windows
-  #   needs: windows
-  #   if: needs.windows.outputs.has_artifact == 'true'
-  #   uses: ./.github/workflows/tests_nbc.yml
-  #   with:
-  #     nightly-build: Windows
-  #     platform: windows
-  #     architecture: windows-amd64
-  #     runs-on: windows-2019
-  #     extension: ${{ matrix.extension }}
-  #   strategy:
-  #     matrix:
-  #       extension: [ arrow, autocomplete, aws, azure, excel, fts, httpfs, iceberg, icu, inet, json, mysql_scanner, parquet, postgres_scanner, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]
+  windows-test:
+    name: Test Windows
+    needs: windows
+    if: needs.windows.outputs.has_artifact == 'true'
+    uses: ./.github/workflows/tests_nbc.yml
+    with:
+      nightly-build: Windows
+      platform: windows
+      architecture: windows-amd64
+      runs-on: windows-2019
+      extension: ${{ matrix.extension }}
+    strategy:
+      matrix:
+        extension: [ arrow, autocomplete, aws, azure, excel, fts, httpfs, iceberg, icu, inet, json, mysql_scanner, parquet, postgres_scanner, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]
 
   python:
     name: Check Python
@@ -102,11 +102,6 @@ jobs:
   #     platform: windows
   #     architecture: windows-amd64
   #     runs-on: ubuntu-20.04
-  #     extension: ${{ matrix.extension }}
-  #   strategy:
-  #     matrix:
-  #       extension: [ arrow, autocomplete, aws, azure, excel, fts, httpfs, iceberg, icu, inet, json, mysql_scanner, parquet, postgres_scanner, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]
-        
       
   create-issue:
     runs-on: ubuntu-latest

@@ -5,12 +5,6 @@ on:
       nightly-build:
         required: true
         type: string
-    #   platform: 
-    #     required: false
-    #     type: string
-    #   architecture: 
-    #     required: true
-    #     type: string
       runs-on:
         required: true
         type: string
@@ -101,6 +95,7 @@ jobs:
           echo Verifying version...
           full_sha=$(gh run view $run_id --repo duckdb/duckdb --json headSha -q .headSha)
           python3 scripts/verify_version.py $full_sha --workflow ${{ inputs.nightly-build }} --architecture TEST
+          python3 scripts/test_install_load_extensions.py
     #   - name: Setup upterm session
     #     uses: owenthereal/action-upterm@v1
       - name: Upload issue
