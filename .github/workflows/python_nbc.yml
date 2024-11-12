@@ -63,6 +63,7 @@ jobs:
             ) > result.csv
             
             failures=$(tail -n +2 result.csv | awk -F ","  '{ print $2 }')
+            echo Found $failures consecutive failures
             # if there are more than 4 consecutive failures, file a report
             if [[ $failures -ge 4 ]]; then
               ./duckdb -c "
@@ -81,7 +82,7 @@ jobs:
                 echo "| Conclusion | Started At | Run URL |"
                 echo "|------------|------------|---------|"
                 cat failures_.md 
-              } >> issue_body_Python_extensions.txt
+              } >> issue_body_Python_failures.txt
               echo "is_failure=failure" >> $GITHUB_OUTPUT
             fi
             rm $duckdb
@@ -94,7 +95,8 @@ jobs:
           
           echo Verifying version...
           full_sha=$(gh run view $run_id --repo duckdb/duckdb --json headSha -q .headSha)
-          python3 scripts/verify_version.py $full_sha --workflow ${{ inputs.nightly-build }} --architecture TEST
+          python3 scripts/verify_version.py $full_sha --workflow ${{ inputs.nightly-build }} --architecture Python_extensions
+          echo Trying to INSTALL and LOAD extensions...
           python3 scripts/test_install_load_extensions.py
     #   - name: Setup upterm session
     #     uses: owenthereal/action-upterm@v1
