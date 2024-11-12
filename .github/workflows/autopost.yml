@@ -1,0 +1,69 @@
+name: Automate Jekyll Posts with GH CLI
+
+on:
+  push:
+    branches:
+      - main  # Trigger on push to the main branch (you can change this to any branch you prefer)
+
+jobs:
+  create_post:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Install GitHub CLI and set up Ruby for Jekyll
+      - name: Install GH CLI and Ruby
+        run: |
+          # Install GitHub CLI
+          curl -fsSL https://cli.github.com/packages/release/gh_2.17.0_linux_amd64.deb -o gh.deb
+          sudo dpkg -i gh.deb
+          sudo apt-get install -f  # Fix dependencies
+
+          # Set up Ruby for Jekyll
+          sudo apt-get install ruby-full
+          gem install jekyll bundler
+          bundle install
+
+      # Authenticate using GH CLI
+      - name: Authenticate GH CLI
+        run: |
+          echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
+
+      # Create a new post
+      - name: Create a new Jekyll post
+        run: |
+          POST_TITLE="Nightly Build Check Report - $(date +'%Y-%m-%d')"
+          POST_DATE=$(date +'%Y-%m-%d')
+          POST_SLUG=$(echo "$POST_TITLE" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
+          POST_FILE="_posts/${POST_DATE}-${POST_SLUG}.md"
+
+          # Create the Markdown file for the new post
+          echo "---" > $POST_FILE
+          echo "layout: post" >> $POST_FILE
+          echo "title: $POST_TITLE" >> $POST_FILE
+          echo "date: $POST_DATE" >> $POST_FILE
+          echo "categories: jekyll, automation" >> $POST_FILE
+          echo "---" >> $POST_FILE
+          POST_CONTENT=$(curl -s "https://github.com/hmeriann/test_/issues/137")
+          echo "$POST_CONTENT" >> $POST_FILE
+
+          
+          # Check if the post file was created
+          cat $POST_FILE
+
+      # Commit and push the new post
+      - name: Commit and push the new post
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add _posts/*
+          git commit -m "Add new Jekyll post: $POST_TITLE"
+          git push origin main  # Push to main (or any branch you're working with)
+
+      # Optionally: Use GitHub CLI to create an issue (if needed)
+    #   - name: Create an issue for the post
+    #     run: |
+    #       gh issue create --title "New Jekyll post created: $POST_TITLE" --body "A new post has been created at $POST_FILE."
