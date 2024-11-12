@@ -73,7 +73,7 @@ jobs:
                 COPY (
                   SELECT '|' || conclusion || '|' || startedAt || '|' || url || ')|' AS markdown_line
                   FROM read_json('${{ inputs.nightly-build }}.json') 
-                    WHERE conclusion='failure'
+                    WHERE conclusion='failure' LIMIT $failures
                 )  
                 TO 'failures_.md' (HEADER 0, QUOTE '');"
               {
