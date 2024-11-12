@@ -16,9 +16,8 @@ architecture = args.architecture
 
 short_sha=duckdb.sql("PRAGMA version").fetchone()[1]
 print(short_sha, args.full_sha)
-if args.full_sha.startswith(short_sha):
+if not args.full_sha.startswith(short_sha):
     message = f"#### The version of `{ workflow }` build (`{ short_sha }`) is not the same as the version triggered the build (`{ full_sha }`).\n "
     with open("issue_body_{}.txt".format(architecture), 'w') as f:
         f.write(message)
     print(message)
-
