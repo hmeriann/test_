@@ -14,23 +14,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Install GitHub CLI and set up Ruby for Jekyll
-      - name: Install GH CLI and Ruby
-        run: |
-          # Install GitHub CLI
-          curl -fsSL https://cli.github.com/packages/release/gh_2.17.0_linux_amd64.deb -o gh.deb
-          sudo dpkg -i gh.deb
-          sudo apt-get install -f  # Fix dependencies
+    #   # Install GitHub CLI and set up Ruby for Jekyll
+    #   - name: Install GH CLI and Ruby
+    #     run: |
+    #       # Install GitHub CLI
+    #       curl -fsSL https://cli.github.com/packages/release/gh_2.17.0_linux_amd64.deb -o gh.deb
+    #       sudo dpkg -i gh.deb
+    #       sudo apt-get install -f  # Fix dependencies
 
-          # Set up Ruby for Jekyll
-          sudo apt-get install ruby-full
-          gem install jekyll bundler
-          bundle install
+    #       # Set up Ruby for Jekyll
+    #       sudo apt-get install ruby-full
+    #       gem install jekyll bundler
+    #       bundle install
 
-      # Authenticate using GH CLI
-      - name: Authenticate GH CLI
-        run: |
-          echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
+    #   # Authenticate using GH CLI
+    #   - name: Authenticate GH CLI
+    #     run: |
+    #       echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
 
       # Create a new post
       - name: Create a new Jekyll post
