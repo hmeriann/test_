@@ -1,69 +1,56 @@
-name: Automate Jekyll Posts with GH CLI
+name: Send Post to GitHub Pages
 
 on:
-  push:
-    branches:
-      - main  # Trigger on push to the main branch (you can change this to any branch you prefer)
+  workflow_call:
 
 jobs:
-  create_post:
+  create-post-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repository code
-      - name: Checkout code
+      # Checkout the main branch (where your Jekyll source files are located)
+      - name: Checkout the repository
         uses: actions/checkout@v3
-
-    #   # Install GitHub CLI and set up Ruby for Jekyll
-    #   - name: Install GH CLI and Ruby
-    #     run: |
-    #       # Install GitHub CLI
-    #       curl -fsSL https://cli.github.com/packages/release/gh_2.17.0_linux_amd64.deb -o gh.deb
-    #       sudo dpkg -i gh.deb
-    #       sudo apt-get install -f  # Fix dependencies
-
-    #       # Set up Ruby for Jekyll
-    #       sudo apt-get install ruby-full
-    #       gem install jekyll bundler
-    #       bundle install
-
-    #   # Authenticate using GH CLI
-    #   - name: Authenticate GH CLI
-    #     run: |
-    #       echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
-
-      # Create a new post
-      - name: Create a new Jekyll post
+        with:
+          repository: hmeriann/bc
+          ref: gh-pages  # Change to the branch where your Jekyll source is stored
+            
+      # Fetch content for the post from an external source (e.g., API or another workflow)
+      - name: Fetch content for the post
         run: |
-          POST_TITLE="Nightly Build Check Report - $(date +'%Y-%m-%d')"
-          POST_DATE=$(date +'%Y-%m-%d')
-          POST_SLUG=$(echo "$POST_TITLE" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
-          POST_FILE="_posts/${POST_DATE}-${POST_SLUG}.md"
+          cat issue_body*/issue_body*/* > post_content.txt
 
-          # Create the Markdown file for the new post
-          echo "---" > $POST_FILE
-          echo "layout: post" >> $POST_FILE
-          echo "title: $POST_TITLE" >> $POST_FILE
-          echo "date: $POST_DATE" >> $POST_FILE
-          echo "categories: jekyll, automation" >> $POST_FILE
-          echo "---" >> $POST_FILE
-          POST_CONTENT=$(curl -s "https://github.com/hmeriann/test_/issues/137")
-          echo "$POST_CONTENT" >> $POST_FILE
-
-          
-          # Check if the post file was created
-          cat $POST_FILE
-
-      # Commit and push the new post
-      - name: Commit and push the new post
+      - name: Create Jekyll post
         run: |
+          # Set the date and title for the new post
+          post_date=$(date +'%Y-%m-%d')
+          post_title="My New Post"
+
+          # Create the post file in the _posts directory (Jekyll format)
+          echo "---" > "_posts/$post_date-$post_title.md"
+          echo "layout: post" >> "_posts/$post_date-$post_title.md"
+          echo "title: $post_title" >> "_posts/$post_date-$post_title.md"
+          echo "date: $post_date" >> "_posts/$post_date-$post_title.md"
+          echo "$content" >> "_posts/$post_date-$post_title.md"
+
+      # Commit the new post and push it to the gh-pages branch
+      - name: Commit and push new post
+        run: |
+          # Setup Git configuration
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          git add _posts/*
-          git commit -m "Add new Jekyll post: $POST_TITLE"
-          git push origin main  # Push to main (or any branch you're working with)
 
-      # Optionally: Use GitHub CLI to create an issue (if needed)
-    #   - name: Create an issue for the post
-    #     run: |
-    #       gh issue create --title "New Jekyll post created: $POST_TITLE" --body "A new post has been created at $POST_FILE."
+          # Add and commit the new post
+          git add _posts/$post_date-$post_title.md
+          git commit -m "Add new post: $post_title"
+
+          # Push to gh-pages branch
+          git push origin main  # Change this to the branch you're using for GitHub Pages if needed
+
+      # Deploy to GitHub Pages (GH Pages deploy)
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages  # The branch used for GitHub Pages (can be `main` if set up that way)
+          folder: .  # The folder that contains your Jekyll website (usually the root of the repo)
+
