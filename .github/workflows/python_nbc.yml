@@ -1,4 +1,4 @@
-name: Check Nightly Builds Check (Reusable)
+name: Check Nightly Builds Python
 on:
   workflow_call:
     inputs:
@@ -145,7 +145,7 @@ jobs:
         shell: bash
         run: |  
           echo Trying to INSTALL and LOAD extensions...
-          python scripts/test_install_load_extensions.py ${{ matrix.runs-on }}
+          python scripts/test_install_load_extensions.py ${{ matrix.runs-on }} --version ${{ matrix.python-version }}
 
     #   - name: Setup upterm session
     #     uses: owenthereal/action-upterm@v1
