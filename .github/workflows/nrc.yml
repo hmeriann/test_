@@ -118,6 +118,7 @@ jobs:
             echo Artifact duckdb-binaries-${{ inputs.platform }} is successfuly downloaded.
             # Python doesn't produce artifats to test
             echo "has_artifact=true" >> $GITHUB_OUTPUT
+            echo has_artifact
             unzip duckdb_cli-${{ inputs.architecture }}.zip
             echo Verifying version...
             ./duckdb --version > pragma_version.csv
@@ -125,12 +126,14 @@ jobs:
             full_sha=$(gh run view $run_id --repo duckdb/duckdb --json headSha -q .headSha)
             if [[ $full_sha != $short_sha* ]]; then
               printf "#### The version of \`${{ inputs.nightly-build }}\` build (\`$short_sha\`) is not the same as the version triggered the build (\`$full_sha\`).\n " > issue_body_${{ inputs.architecture }}.txt
+              cat issue_body_${{ inputs.architecture }}.txt
               exit 1
             fi
           else  
             echo Downloading duckdb-binaries-${{ inputs.platform }} artifact is failed.
             printf "#### No artifacts with name duckdb-binaries-${{ inputs.platform }} provided.\n " > issue_body_${{ inputs.architecture }}.txt
             echo "has_artifact=false" >> $GITHUB_OUTPUT
+            echo has_artifact
           fi
       
       # - name: Setup upterm session

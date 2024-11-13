@@ -94,7 +94,7 @@ jobs:
   python-test:
     name: Test Python
     needs: python
-    if: needs.python.outputs.is_failure != 'true'
+    if: needs.python.outputs.is_failure == 'false'
     uses: ./.github/workflows/python_nbc.yml
     with:
       nightly-build: Python
