@@ -85,32 +85,28 @@ jobs:
 
   python:
     name: Check Python
+    uses: ./.github/workflows/nrc.yml
+    with:
+      nightly-build: Python
+      architecture: Python
+      runs-on: ubuntu-20.04
+  
+  python-test:
+    name: Test Python
+    needs: python
+    if: needs.python.outputs.is_failure != 'true'
     uses: ./.github/workflows/python_nbc.yml
     with:
       nightly-build: Python
-      # platform: 
-      # architecture: 
-      runs-on: ubuntu-20.04
-  
-  # python-test:
-  #   name: Test Python
-  #   needs: python
-  #   if: needs.python.outputs.has_artifact == 'true'
-  #   uses: ./.github/workflows/tests_nbc.yml
-  #   with:
-  #     nightly-build: Python
-  #     platform: windows
-  #     architecture: windows-amd64
-  #     runs-on: ubuntu-20.04
       
   create-issue:
     runs-on: ubuntu-latest
     if: always()
     needs:
-      # - linux-test
-      # - osx-test
-      # - windows-test
-      - python
+      - linux-test
+      - osx-test
+      - windows-test
+      - python-test
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v4
