@@ -16,7 +16,7 @@ on:
         type: string
     outputs:
       is_failure: 
-        description: "Stores nightly-build's conclusion."
+        description: "Stores nightly-build's conclusion: 'success' or 'failure'."
         value: ${{ jobs.check-build.outputs.is_failure }}
       has_artifact: 
         description: "If there is an expected artifact, stores 'true'."
@@ -115,10 +115,7 @@ jobs:
           echo Downloading duckdb-binaries-${{ inputs.platform }} artifact...
           if gh run download $run_id --repo duckdb/duckdb -n duckdb-binaries-${{ inputs.platform }}; then
             echo Artifact duckdb-binaries-${{ inputs.platform }} is successfuly downloaded.
-            # Python doesn't produce artifats to test
-            
             echo "has_artifact=true" >> $GITHUB_OUTPUT
-
             unzip duckdb_cli-${{ inputs.architecture }}.zip
             
             echo Verifying version...
