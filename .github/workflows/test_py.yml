@@ -92,6 +92,8 @@ jobs:
         runs-on: [ ubuntu-latest, macos-latest, windows-2019 ]
         python-version: [ '3.7', '3.8', '3.9', '3.10', '3.11', '3.12', '3.13' ]
     steps:
+      - name: Checkout the repo with the script
+        uses: actions/checkout@v4
       - name: Set up Python${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
@@ -119,7 +121,7 @@ jobs:
           python scripts/verify_version.py $full_sha --workflow Python --architecture Python_extensions
         
           echo Trying to INSTALL and LOAD extensions...
-          python scripts/test_install_load_extensions.py ${{ matrix.runs-on }}
+          python scripts/test_install_load_extensions.py 
 
     #   - name: Setup upterm session
     #     uses: owenthereal/action-upterm@v1
