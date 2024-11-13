@@ -122,7 +122,7 @@ jobs:
           python scripts/verify_version.py $full_sha --workflow Python --architecture Python_extensions
         
           echo Trying to INSTALL and LOAD extensions...
-          python scripts/test_install_load_extensions.py 
+          python scripts/test_install_load_extensions.py ${{ matrix.runs-on }}
 
     #   - name: Setup upterm session
     #     uses: owenthereal/action-upterm@v1
