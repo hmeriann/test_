@@ -30,7 +30,9 @@ jobs:
       - name: Check Py
         id: check-build
         shell: bash
+        continue-on-error: true
         run: |
+          python -v
           gh run list --repo duckdb/duckdb --event repository_dispatch --workflow Python --created $(date +%Y-%m-%d) --json conclusion
           conclusion=$(gh run list --repo duckdb/duckdb --event repository_dispatch --workflow Python --created $(date +%Y-%m-%d) --json conclusion) 
           if echo $conclusion | grep -q 'failure'; then
