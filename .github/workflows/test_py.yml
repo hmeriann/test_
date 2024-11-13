@@ -90,7 +90,11 @@ jobs:
     strategy:
       matrix:
         runs-on: [ ubuntu-latest, macos-latest, windows-2019 ]
-        python-version: [ '3.7', '3.8', '3.9', '3.10', '3.11', '3.12', '3.13' ]
+        python-version: [ '3.8', '3.9', '3.10', '3.11', '3.12', '3.13' ]
+        exclude:
+          - runs-on: macos-latest
+            python-version: '3.8'
+
       fail-fast: false
     steps:
       - name: Checkout the repo with the script
@@ -109,7 +113,7 @@ jobs:
         shell: bash
         run: pip install duckdb --pre --upgrade
 
-      - name: Check extensions
+      - name: Verify version
         if: success()
         run: |  
           echo Installing latest Duckdb...
@@ -120,7 +124,10 @@ jobs:
           echo Verifying version...
           full_sha=$(gh run view $run_id --repo duckdb/duckdb --json headSha -q .headSha)
           python scripts/verify_version.py $full_sha --workflow Python --architecture Python_extensions
-        
+  
+      - name: Install extensions
+        if: ${{ hashFiles('issue_body_Python_extensions.txt') == '' }}
+        run: |  
           echo Trying to INSTALL and LOAD extensions...
           python scripts/test_install_load_extensions.py ${{ matrix.runs-on }}
 
