@@ -118,7 +118,7 @@ jobs:
             echo Artifact duckdb-binaries-${{ inputs.platform }} is successfuly downloaded.
             # Python doesn't produce artifats to test
             echo "has_artifact=true" >> $GITHUB_OUTPUT
-            echo has_artifact
+            echo $has_artifact
             unzip duckdb_cli-${{ inputs.architecture }}.zip
             echo Verifying version...
             ./duckdb --version > pragma_version.csv
@@ -133,7 +133,7 @@ jobs:
             echo Downloading duckdb-binaries-${{ inputs.platform }} artifact is failed.
             printf "#### No artifacts with name duckdb-binaries-${{ inputs.platform }} provided.\n " > issue_body_${{ inputs.architecture }}.txt
             echo "has_artifact=false" >> $GITHUB_OUTPUT
-            echo has_artifact
+            echo $has_artifact
           fi
       
       # - name: Setup upterm session
