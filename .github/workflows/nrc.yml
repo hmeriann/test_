@@ -102,7 +102,7 @@ jobs:
           fi
         # Version verification for Python performs in .github/workflows/python_nbc.yml
       - name: Verify version of ${{ inputs.nightly-build }}
-        if: ${{ inputs.nightly-build }} != Python
+        if: ${{ inputs.nightly-build != 'Python' }}
         shell: bash
         run: |
           echo Downloading duckdb-binaries-${{ inputs.platform }} artifact...
@@ -131,7 +131,7 @@ jobs:
             fi
           else  
             echo Downloading duckdb-binaries-${{ inputs.platform }} artifact is failed.
-            printf "#### No artifacts with name duckdb-binaries-${{ inputs.platform }} provided.\n " > issue_body_${{ inputs.architecture }}.txt
+            printf "#### No artifacts with name duckdb-binaries-${{ inputs.platform }} (${{ inputs.nightly-build }}) provided.\n " > issue_body_${{ inputs.architecture }}.txt
             echo "has_artifact=false" >> $GITHUB_OUTPUT
             echo $has_artifact
           fi
