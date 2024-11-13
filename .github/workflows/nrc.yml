@@ -102,37 +102,37 @@ jobs:
           fi
         # Version verification for Python performs in .github/workflows/python_nbc.yml
       - name: Verify version of ${{ inputs.nightly-build }}
-        if: ${{ inputs.nightly-build != 'Python' }}
+        if: inputs.nightly-build != 'Python'
         shell: bash
         run: |
-          echo Downloading duckdb-binaries-${{ inputs.platform }} artifact...
           gh run list --repo duckdb/duckdb --event repository_dispatch --workflow ${{ inputs.nightly-build }} --created $(date +%Y-%m-%d) --json databaseId > run_id.csv
           run_id=$(tail -n 1 run_id.csv | awk -F "[:}]" '{ print $2 }' | tr -d ' "')
-
-          
+          echo Found run_id: $run_id
+        
           # echo Listing all artifacts...
           # gh api repos/duckdb/duckdb/actions/runs/$run_id/artifacts --jq '.artifacts[].name'
-
-          
+        
+          echo Downloading duckdb-binaries-${{ inputs.platform }} artifact...
           if gh run download $run_id --repo duckdb/duckdb -n duckdb-binaries-${{ inputs.platform }}; then
             echo Artifact duckdb-binaries-${{ inputs.platform }} is successfuly downloaded.
             # Python doesn't produce artifats to test
             echo "has_artifact=true" >> $GITHUB_OUTPUT
             echo $has_artifact
             unzip duckdb_cli-${{ inputs.architecture }}.zip
+            
             echo Verifying version...
             ./duckdb --version > pragma_version.csv
             short_sha=$(tail -n 2 pragma_version.csv | awk '{ print $2 }')
             full_sha=$(gh run view $run_id --repo duckdb/duckdb --json headSha -q .headSha)
-            echo $full_sha $short_sha
+            echo Version matches the version triggered the build
             if [[ $full_sha != $short_sha* ]]; then
-              printf "#### The version of \`${{ inputs.nightly-build }}\` build (\`$short_sha\`) is not the same as the version triggered the build (\`$full_sha\`).\n " > issue_body_${{ inputs.architecture }}.txt
+              printf "- The version of \`${{ inputs.nightly-build }}\` build (\`$short_sha\`) doesn't match to the version triggered the build (\`$full_sha\`).\n " > issue_body_${{ inputs.architecture }}.txt
               cat issue_body_${{ inputs.architecture }}.txt
               exit 1
             fi
           else  
             echo Downloading duckdb-binaries-${{ inputs.platform }} artifact is failed.
-            printf "#### No artifacts with name duckdb-binaries-${{ inputs.platform }} (${{ inputs.nightly-build }}) provided.\n " > issue_body_${{ inputs.architecture }}.txt
+            printf "#### No artifacts with name duckdb-binaries-${{ inputs.platform }} provided.\n " > issue_body_${{ inputs.architecture }}.txt
             echo "has_artifact=false" >> $GITHUB_OUTPUT
             echo $has_artifact
           fi
@@ -140,14 +140,14 @@ jobs:
       # - name: Setup upterm session
       #   uses: owenthereal/action-upterm@v1
       - name: Upload issue
-        if: ${{ steps.check-build.outputs.is_failure }} == failure
+        if: steps.check-build.outputs.is_failure == 'failure'
         uses: actions/upload-artifact@v4
         with:
           name: issue_body_${{ inputs.architecture }}
           path: issue_body_${{ inputs.architecture }}.txt
 
       - name: Upload build
-        if: ${{ steps.check-build.outputs.has_artifact }} == true
+        if: steps.check-build.outputs.has_artifact == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: duckdb_cli-${{ inputs.architecture }}

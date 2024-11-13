@@ -18,13 +18,14 @@ jobs:
       # Fetch content for the post from an external source (e.g., API or another workflow)
       - name: Fetch content for the post
         run: |
-          cat issue_body*/issue_body*/* > post_content.txt
+          content=$(cat issue_body*/issue_body*/*)
+          echo $content > post_content.txt
 
       - name: Create Jekyll post
         run: |
           # Set the date and title for the new post
           post_date=$(date +'%Y-%m-%d')
-          post_title="My New Post"
+          post_title="Nightly Build Status Report"
 
           # Create the post file in the _posts directory (Jekyll format)
           echo "---" > "_posts/$post_date-$post_title.md"
