@@ -141,7 +141,7 @@ jobs:
             --platform ${{ matrix.runs-on }} --version ${{ matrix.python-version }}
   
       - name: Install extensions
-        if: ${{ hashFiles('issue_body_Python_extensions_{0}.txt', matrix.runs-on) == '' }}
+        if: ${{ hashFiles(format('issue_body_Python_extensions_{0}.txt', matrix.runs-on)) == '' }}
         shell: bash
         run: |  
           echo Trying to INSTALL and LOAD extensions...
