@@ -123,7 +123,7 @@ jobs:
         if: ${{ steps.check-build.outputs.is_failure }} == failure
         uses: actions/upload-artifact@v4
         with:
-          name: issue_body_Python_extensions
+          name: issue_body_Python_extensions_${{ matrix.runs-on }}
           path: issue_body_*.txt
 
     #   - name: Upload build
