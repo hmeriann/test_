@@ -14,7 +14,7 @@ runs_on = args.runs_on
 extensions = [ "arrow", "autocomplete", "aws", "azure", "excel", "fts", "httpfs", "iceberg", "icu", "inet", "json",
     "mysql_scanner", "parquet", "postgres_scanner", "spatial", "sqlite_scanner", "substrait", "tpcds", "tpch", "vss", "unexpected" ]
 
-with open("issue_body_Python_extensions{}.txt".format(runs_on), 'w') as f:
+with open("issue_body_Python_extensions_{}.txt".format(runs_on), 'w') as f:
     for extension in extensions:
         if extension == "unexpected":
             try:
