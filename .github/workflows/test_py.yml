@@ -1,4 +1,4 @@
-name: Check Nightly Builds Check (Reusable)
+name: Python Nightly Builds Check
 on:
   push:
   workflow_dispatch:
@@ -115,6 +115,7 @@ jobs:
 
       - name: Verify version
         if: success()
+        shell: bash
         run: |  
           echo Installing latest Duckdb...
           python -m pip install duckdb --pre --upgrade
@@ -127,6 +128,7 @@ jobs:
   
       - name: Install extensions
         if: ${{ hashFiles('issue_body_Python_extensions.txt') == '' }}
+        shell: bash
         run: |  
           echo Trying to INSTALL and LOAD extensions...
           python scripts/test_install_load_extensions.py ${{ matrix.runs-on }}
