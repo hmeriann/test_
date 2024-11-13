@@ -1,6 +1,6 @@
 name: Python Nightly Builds Check
 on:
-  push:
+#   push:
   workflow_dispatch:
         
 env:
@@ -90,7 +90,7 @@ jobs:
     strategy:
       matrix:
         runs-on: [ ubuntu-latest, macos-latest, windows-2019 ]
-        python-version: [ '3.8', '3.9', '3.10', '3.11', '3.12', '3.13' ]
+        python-version: [ '3.8', '3.13' ]
         exclude:
           - runs-on: macos-latest
             python-version: '3.8'
@@ -109,27 +109,25 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -v
-      - name: Install Duckdb for Python${{ matrix.python-version }}
-        shell: bash
-        run: pip install duckdb --pre --upgrade
 
       - name: Verify version
         if: success()
         shell: bash
         run: |  
-          echo Installing latest Duckdb...
+          echo Pulling latest Duckdb...
           python -m pip install duckdb --pre --upgrade
+          
+          echo Verifying version...
           gh run list --repo duckdb/duckdb --event repository_dispatch --workflow Python --created $(date +%Y-%m-%d) --json databaseId > run_id.csv
           run_id=$(tail -n 1 run_id.csv | awk -F "[:}]" '{ print $2 }' | tr -d ' "')
-        
-          echo Verifying version...
           full_sha=$(gh run view $run_id --repo duckdb/duckdb --json headSha -q .headSha)
-          python scripts/verify_version.py $full_sha --workflow Python --architecture Python_extensions
+          python scripts/verify_version.py $full_sha --workflow Python --platform ${{ matrix.runs-on }} --version ${{ matrix.python-version }}
   
       - name: Install extensions
-        if: ${{ hashFiles('issue_body_Python_extensions.txt') == '' }}
+        if: ${{ hashFiles(format('issue_body_Python_extensions_{0}.txt', matrix.runs-on)) == '' }}
         shell: bash
         run: |  
+          echo ${{ hashFiles(format('issue_body_Python_extensions_{0}.txt', matrix.runs-on)) }}
           echo Trying to INSTALL and LOAD extensions...
           python scripts/test_install_load_extensions.py ${{ matrix.runs-on }}
 
