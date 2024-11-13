@@ -20,7 +20,7 @@ on:
         value: ${{ jobs.check-build.outputs.is_failure }}
       has_artifact: 
         description: "If there is an expected artifact, stores 'true'."
-        value: ${{ jobs.verify.outputs.has_artifact }}
+        value: ${{ jobs.check-build.outputs.has_artifact }}
         
 env:
   GH_TOKEN: ${{ github.token }}
@@ -30,7 +30,7 @@ jobs:
     # container: ${{ inputs.container }}
     outputs:
       is_failure: ${{ steps.check-build.outputs.is_failure }}
-      has_artifact: ${{ steps.verify.outputs.has_artifact }}
+      has_artifact: ${{ steps.verify-build.outputs.has_artifact }}
     steps:
       - name: Check ${{ inputs.nightly-build }}
         id: check-build
@@ -101,9 +101,9 @@ jobs:
             rm $duckdb
           fi
         # Version verification for Python performs in .github/workflows/python_nbc.yml
-      - name: Verify version of ${{ inputs.nightly-build }}
+      - name: Verify ${{ inputs.nightly-build }} version
         if: inputs.nightly-build != 'Python'
-        id: verify
+        id: verify-build
         shell: bash
         run: |
           gh run list --repo duckdb/duckdb --event repository_dispatch --workflow ${{ inputs.nightly-build }} --created $(date +%Y-%m-%d) --json databaseId > run_id.csv
@@ -116,7 +116,7 @@ jobs:
           echo Downloading duckdb-binaries-${{ inputs.platform }} artifact...
           if gh run download $run_id --repo duckdb/duckdb -n duckdb-binaries-${{ inputs.platform }}; then
             echo Artifact duckdb-binaries-${{ inputs.platform }} is successfuly downloaded.
-            echo "has_artifact=true" >> "${GITHUB_OUTPUT}"
+            echo "has_artifact=true" >> $GITHUB_OUTPUT
             unzip duckdb_cli-${{ inputs.architecture }}.zip
             
             echo Verifying version...
@@ -146,8 +146,8 @@ jobs:
           path: issue_body_${{ inputs.architecture }}.txt
 
       - name: Upload build
+        if: steps.verify-build.outputs.has_artifact == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: duckdb_cli-${{ inputs.architecture }}
           path: duckdb_cli-${{ inputs.architecture }}.zip
-          if-no-files-found: ignore
