@@ -20,7 +20,7 @@ on:
         value: ${{ jobs.check-build.outputs.is_failure }}
       has_artifact: 
         description: "If there is an expected artifact, stores 'true'."
-        value: ${{ jobs.check-build.outputs.has_artifact }}
+        value: ${{ jobs.verify.outputs.has_artifact }}
         
 env:
   GH_TOKEN: ${{ github.token }}
@@ -30,7 +30,7 @@ jobs:
     # container: ${{ inputs.container }}
     outputs:
       is_failure: ${{ steps.check-build.outputs.is_failure }}
-      has_artifact: ${{ steps.check-build.outputs.has_artifact }}
+      has_artifact: ${{ steps.verify.outputs.has_artifact }}
     steps:
       - name: Check ${{ inputs.nightly-build }}
         id: check-build
@@ -103,6 +103,7 @@ jobs:
         # Version verification for Python performs in .github/workflows/python_nbc.yml
       - name: Verify version of ${{ inputs.nightly-build }}
         if: inputs.nightly-build != 'Python'
+        id: verify
         shell: bash
         run: |
           gh run list --repo duckdb/duckdb --event repository_dispatch --workflow ${{ inputs.nightly-build }} --created $(date +%Y-%m-%d) --json databaseId > run_id.csv
