@@ -116,15 +116,16 @@ jobs:
           if gh run download $run_id --repo duckdb/duckdb -n duckdb-binaries-${{ inputs.platform }}; then
             echo Artifact duckdb-binaries-${{ inputs.platform }} is successfuly downloaded.
             # Python doesn't produce artifats to test
+            
             echo "has_artifact=true" >> $GITHUB_OUTPUT
-            echo $has_artifact
+
             unzip duckdb_cli-${{ inputs.architecture }}.zip
             
             echo Verifying version...
             ./duckdb --version > pragma_version.csv
             short_sha=$(tail -n 2 pragma_version.csv | awk '{ print $2 }')
             full_sha=$(gh run view $run_id --repo duckdb/duckdb --json headSha -q .headSha)
-            echo Version matches the version triggered the build
+            echo Build version matches to the version triggered the nightly-build workflow
             if [[ $full_sha != $short_sha* ]]; then
               printf "- The version of \`${{ inputs.nightly-build }}\` build (\`$short_sha\`) doesn't match to the version triggered the build (\`$full_sha\`).\n " > issue_body_${{ inputs.architecture }}.txt
               cat issue_body_${{ inputs.architecture }}.txt
@@ -147,8 +148,8 @@ jobs:
           path: issue_body_${{ inputs.architecture }}.txt
 
       - name: Upload build
-        if: steps.check-build.outputs.has_artifact == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: duckdb_cli-${{ inputs.architecture }}
           path: duckdb_cli-${{ inputs.architecture }}.zip
+          if-no-files-found: ignore
