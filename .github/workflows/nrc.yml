@@ -58,7 +58,7 @@ jobs:
             
             echo Counting consecutive failures...
             python scripts/count_consecutive_failures.py ${{ inputs.nightly-build }}.json --nightly_build ${{ inputs.nightly-build }} --architecture ${{ inputs.architecture }}
-            if [[ echo $? == 1 ]]; then
+            if [[ $? == 1 ]]; then
               echo "is_failure=failure" >> $GITHUB_OUTPUT
             fi
           fi
