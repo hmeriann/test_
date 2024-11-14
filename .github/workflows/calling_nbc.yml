@@ -3,6 +3,7 @@ on:
   schedule:
     - cron: 0 9 * * * # runs at 10am CET DAILY
   workflow_dispatch:
+
 permissions:
   actions: write
   attestations: none
@@ -18,6 +19,7 @@ permissions:
   repository-projects: none
   security-events: none
   statuses: none
+  
 env:
   GH_TOKEN: ${{ github.token }}
   gh_repo: duckdb/duckdb
