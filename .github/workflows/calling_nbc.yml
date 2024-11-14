@@ -5,19 +5,19 @@ on:
   workflow_dispatch:
 permissions:
   actions: write
-  # attestations: read|write|none
-  # checks: read|write|none
-  # contents: read|write|none
-  # deployments: read|write|none
-  # id-token: write|none
-  # issues: read|write|none
-  # discussions: read|write|none
-  # packages: read|write|none
-  # pages: read|write|none
-  # pull-requests: read|write|none
-  # repository-projects: read|write|none
-  # security-events: read|write|none
-  # statuses: read|write|none
+  attestations: none
+  checks: none
+  contents: none
+  deployments: none
+  id-token: none
+  issues: none
+  discussions: none
+  packages: none
+  pages: none
+  pull-requests: none
+  repository-projects: none
+  security-events: none
+  statuses: none
 env:
   GH_TOKEN: ${{ github.token }}
   gh_repo: duckdb/duckdb
