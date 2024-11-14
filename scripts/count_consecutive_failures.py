@@ -8,6 +8,7 @@ parser.add_argument("--nightly_build")
 parser.add_argument("--architecture")
 parser.add_argument("--url")
 args = parser.parse_args()
+
 if not args:
     print("Usage: python scripts/count_consecutive_failures.py <input_file>.json --nightly_build --architecture")
 
@@ -30,9 +31,12 @@ result = duckdb.sql(f"""
                   FROM runs
               )
               WHERE conclusion='failure' GROUP BY freq, conclusion ORDER BY count DESC LIMIT 1;
-              """)
-            
-failures = result.df()['count'][0] # failures=$(tail -n +2 result.csv | awk -F ","  '{ print $2 }')
+              """).fetchall()
+# failures=$(tail -n +2 result.csv | awk -F ","  '{ print $2 }')
+if result:
+    failures = result[0][1]
+else:
+    failures = 0
 
 def create_issue_body():
     failures_list = "failures_list.txt"
