@@ -57,12 +57,16 @@ def create_issue_body():
         f.write(f"|------------|------------|---------|\n")
         with open(failures_list, 'r') as failures_file:
             f.write(failures_file.read())
+    print("HERE!!!")
 
 def main():
     if failures >= 4:
+        print(f"Found '{ failures }' failures.")
         create_issue_body()
         return 1
     else:
+        print(f"No failures found.")
+
         return 0
 
 if __name__ == "__main__":
