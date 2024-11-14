@@ -3,6 +3,21 @@ on:
   schedule:
     - cron: 0 9 * * * # runs at 10am CET DAILY
   workflow_dispatch:
+permissions:
+  actions: write
+  # attestations: read|write|none
+  # checks: read|write|none
+  # contents: read|write|none
+  # deployments: read|write|none
+  # id-token: write|none
+  # issues: read|write|none
+  # discussions: read|write|none
+  # packages: read|write|none
+  # pages: read|write|none
+  # pull-requests: read|write|none
+  # repository-projects: read|write|none
+  # security-events: read|write|none
+  # statuses: read|write|none
 env:
   GH_TOKEN: ${{ github.token }}
   gh_repo: duckdb/duckdb
@@ -94,7 +109,7 @@ jobs:
   python-test:
     name: Test Python
     needs: python
-    if: needs.python.outputs.is_failure == 'false'
+    if: needs.python.outputs.is_failure != 'failure'
     uses: ./.github/workflows/python_nbc.yml
     with:
       nightly-build: Python
