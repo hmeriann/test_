@@ -40,7 +40,7 @@ else:
 
 def create_issue_body():
     failures_list = "failures_list.txt"
-    issue_body_name = f"{ nightly_build }_{ architecture }"
+    issue_body_name = f"{ nightly_build }-{ architecture }"
     duckdb.sql(f"""
                 COPY (
                     SELECT '|' || conclusion || '|' || startedAt || '|' || url || ')|' AS markdown_line
