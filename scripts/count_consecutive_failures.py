@@ -33,10 +33,10 @@ result = duckdb.sql(f"""
               """)
             
 failures = result.df()['count'][0] # failures=$(tail -n +2 result.csv | awk -F ","  '{ print $2 }')
-print(failures)
 
-if failures >= 4:
+def create_issue_body():
     failures_list = "failures_list.txt"
+    issue_body_name = f"{ nightly_build }_{ architecture }"
     duckdb.sql(f"""
                 COPY (
                     SELECT '|' || conclusion || '|' || startedAt || '|' || url || ')|' AS markdown_line
@@ -45,7 +45,7 @@ if failures >= 4:
                 )  
                 TO '{ failures_list }' (HEADER 0, QUOTE '');
                 """)
-    with open("issue_body_{}.txt".format(nightly_build), 'w') as f:
+    with open("issue_body_{}.txt".format(issue_body_name), 'w') as f:
         f.write(f"### '{ nightly_build }':\n\n")
         f.write(f"At least one job had failed in the **'{ nightly_build }'** nightly-build consecutively '{ failures }' times: [ Run Link ](https:'{ url }')\n")
         f.write(f"#### Failure Details\n\n")
@@ -53,3 +53,13 @@ if failures >= 4:
         f.write(f"|------------|------------|---------|\n")
         with open(failures_list, 'r') as failures_file:
             f.write(failures_file.read())
+
+def main():
+    if failures >= 4:
+        create_issue_body()
+        return 1
+    else:
+        return 0
+
+if __name__ == "__main__":
+    main()
