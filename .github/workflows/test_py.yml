@@ -1,6 +1,6 @@
 name: Python Nightly Builds Check
 on:
-  push:
+  # push:
   workflow_dispatch:
         
 env:
