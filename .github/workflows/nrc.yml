@@ -87,6 +87,8 @@ jobs:
             ./duckdb --version > pragma_version.csv
             short_sha=$(tail -n 2 pragma_version.csv | awk '{ print $2 }')
             full_sha=$(gh run view $run_id --repo duckdb/duckdb --json headSha -q .headSha)
+            echo $short_sha
+            echo $full_sha
             echo Build version matches to the version triggered the nightly-build workflow
             if [[ $full_sha != $short_sha* ]]; then
               printf "- The version of \`${{ inputs.nightly-build }}\` build (\`$short_sha\`) doesn't match to the version triggered the build (\`$full_sha\`).\n " > issue_body_${{ inputs.architecture }}.txt
