@@ -40,7 +40,6 @@ else:
 
 def create_issue_body():
     failures_list = "failures_list.txt"
-    issue_body_name = f"{ nightly_build }-{ architecture }"
     duckdb.sql(f"""
                 COPY (
                     SELECT '|' || conclusion || '|' || startedAt || '|' || url || ')|' AS markdown_line
@@ -49,7 +48,7 @@ def create_issue_body():
                 )  
                 TO '{ failures_list }' (HEADER 0, QUOTE '');
                 """)
-    with open("issue_body_{}.txt".format(issue_body_name), 'w') as f:
+    with open("issue_body_{}.txt".format(architecture), 'w') as f:
         f.write(f"### '{ nightly_build }':\n\n")
         f.write(f"At least one job had failed in the **'{ nightly_build }'** nightly-build consecutively '{ failures }' times: [ Run Link ](https:'{ url }')\n")
         f.write(f"#### Failure Details\n\n")
