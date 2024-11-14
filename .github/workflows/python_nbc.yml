@@ -5,13 +5,6 @@ on:
       nightly-build:
         required: true
         type: string
-    outputs:
-      is_failure: 
-        description: "Stores nightly-build's conclusion."
-        value: ${{ jobs.check-build.outputs.is_failure }}
-      has_artifact: 
-        description: "If there is an expected artifact, stores 'true'."
-        value: ${{ jobs.check-build.outputs.has_artifact }}
         
 env:
   GH_TOKEN: ${{ github.token }}
