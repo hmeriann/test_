@@ -106,7 +106,7 @@ jobs:
               docker run --rm -it --platform linux/arm64 -v $(pwd):/duckdb -e full_sha=$full_sha ubuntu:22.04 /bin/bash "
                 cd duckdb
                 ./duckdb --version > pragma_version.csv
-                short_sha=$(tail -n 2 pragma_version.csv | awk '{ print \$2 }')
+                short_sha=\$(tail -n 2 pragma_version.csv | awk '{ print \$2 }')
                 echo \$short_sha
                 echo \$full_sha
                 echo Build version matches to the version triggered the nightly-build workflow
