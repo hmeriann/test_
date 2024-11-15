@@ -71,8 +71,8 @@ jobs:
             fi
           fi
       
-      # - name: Setup upterm session
-      #   uses: owenthereal/action-upterm@v1
+      - name: Setup upterm session
+        uses: owenthereal/action-upterm@v1
         # Version verification for Python performs in .github/workflows/python_nbc.yml
       
       - name: Verify ${{ inputs.nightly-build }} version
