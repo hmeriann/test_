@@ -125,8 +125,8 @@ jobs:
                 # fi
               # "
             fi
-            has_artifact=$(cat ./has_artifact.txt)
-            echo "has_artifact=$has_artifact" >> $GITHUB_OUTPUT
+            # has_artifact=$(cat ./has_artifact.txt)
+            # echo "has_artifact=$has_artifact" >> $GITHUB_OUTPUT
 
       - name: Upload issue
         if: steps.check-build.outputs.is_failure == 'failure'
