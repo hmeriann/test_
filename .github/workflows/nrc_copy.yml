@@ -123,8 +123,8 @@ jobs:
                 fi
               "
             fi
-            echo has_artifact=$(cat ./has_artifact.txt) >> $GITHUB_OUTPUT
-            echo $has_artifact
+            has_artifact=$(cat ./has_artifact.txt)
+            echo "has_artifact=$has_artifact" >> $GITHUB_OUTPUT
 
       - name: Upload issue
         if: steps.check-build.outputs.is_failure == 'failure'
