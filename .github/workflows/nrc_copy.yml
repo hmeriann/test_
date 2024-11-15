@@ -92,7 +92,7 @@ jobs:
             exit 0
           fi
           echo "Resolved name: $name" 🦑
-          gh run download $run_id --repo duckdb/duckdb -n "duckdb-binaries-$name
+          gh run download $run_id --repo duckdb/duckdb -n "duckdb-binaries-$name"
           if gh run download $run_id --repo duckdb/duckdb -n "duckdb-binaries-$name"; then
             echo Artifact duckdb-binaries-${{ inputs.platform }} is successfuly downloaded.
             # echo "has_artifact=true" >> $GITHUB_OUTPUT
@@ -119,7 +119,7 @@ jobs:
                   echo "$short_sha"
                   echo "Build version matches to the version triggered the nightly-build workflow"
                   # if [[ "$full_sha" =~ ^"$short_sha" ]]; then
-                  if [[ "AAAAAA" =~ ^"$short_sha" ]]; then
+                  if [[ "$full_sha" =~ ^"$short_sha" ]]; then
                     printf "- The version of ${{ inputs.nightly-build }} build (\$short_sha) doesn\'t match to the version triggered the build (\$full_sha).\n" > issue_body_${{ inputs.architecture }}.txt
                     cat issue_body_${{ inputs.architecture }}.txt
                     exit 1
