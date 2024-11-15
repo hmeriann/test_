@@ -122,7 +122,7 @@ jobs:
                 #   # echo 'has_artifact=false' >> $GITHUB_OUTPUT
                 #   echo 'has_artifact=false' > /duckdb/has_artifact.txt
                 #   echo \$has_artifact
-                # fi
+                fi
               # "
             fi
             # has_artifact=$(cat ./has_artifact.txt)
