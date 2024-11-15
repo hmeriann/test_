@@ -118,8 +118,8 @@ jobs:
             fi
           fi
           echo "has_artifact=true" >> $GITHUB_OUTPUT
-      - name: Setup upterm session
-        uses: owenthereal/action-upterm@v1
+      # - name: Setup upterm session
+      #   uses: owenthereal/action-upterm@v1
       - name: Upload issue
         if: steps.check-build.outputs.is_failure == 'failure'
         uses: actions/upload-artifact@v4
