@@ -1,0 +1,138 @@
+name: Calling Nightly Builds Check AARCH64
+on:
+  push:
+  schedule:
+    - cron: 0 9 * * * # runs at 10am CET DAILY
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+env:
+  GH_TOKEN: ${{ github.token }}
+  gh_repo: duckdb/duckdb
+jobs:
+  linux:
+    name: Check LinuxRelease
+    uses: ./.github/workflows/nrc.yml
+    with:
+      nightly-build: LinuxRelease
+      runs-on: ubuntu-latest
+      platform: linux
+      architecture: ${{ matrix.architecture }}
+    strategy:
+      matrix:
+        architecture: [ linux-amd64, linux-aarch64 ]
+
+  linux-test:
+    name: Test LinuxRelease
+    needs: linux
+    if: needs.linux.outputs.has_artifact == 'true'
+    uses: ./.github/workflows/tests_nbc.yml
+    with:
+      nightly-build: LinuxRelease
+      runs-on: ubuntu-latest
+      platform: linux
+      architecture: ${{ matrix.architecture }}
+      extension: ${{ matrix.extension }}
+    strategy:
+      matrix:
+        extension: [ arrow ]
+        architecture: [ linux-amd64, linux-aarch64 ]
+        # extensions list to be checked before release:
+        # extension: [ arrow, autocomplete, aws, azure, delta, excel, fts, httpfs, iceberg, icu, inet, json, motherduck, mysql_scanner, parquet, postgres_scanner, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]
+
+        
+  # osx:
+  #   name: Check OSX
+  #   uses: ./.github/workflows/nrc.yml
+  #   with:
+  #     nightly-build: OSX
+  #     platform: osx
+  #     architecture: osx-universal
+  #     runs-on: macos-latest
+  
+  # osx-test:
+  #   name: Test OSX
+  #   needs: osx
+  #   if: needs.osx.outputs.has_artifact == 'true'
+  #   uses: ./.github/workflows/tests_nbc.yml
+  #   with:
+  #     nightly-build: OSX
+  #     platform: osx
+  #     architecture: osx-universal
+  #     runs-on: macos-latest
+  #     extension: ${{ matrix.extension }}
+  #   strategy:
+  #     matrix:
+  #       extension: [ arrow, autocomplete, aws, azure, excel, fts, httpfs, iceberg, icu, inet, json, mysql_scanner, parquet, postgres_scanner, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]            
+  # windows:
+  #   name: Check Windows
+  #   uses: ./.github/workflows/nrc.yml
+  #   with:
+  #     nightly-build: Windows
+  #     platform: windows
+  #     architecture: windows-amd64
+  #     runs-on: windows-2019
+  
+  # windows-test:
+  #   name: Test Windows
+  #   needs: windows
+  #   if: needs.windows.outputs.has_artifact == 'true'
+  #   uses: ./.github/workflows/tests_nbc.yml
+  #   with:
+  #     nightly-build: Windows
+  #     platform: windows
+  #     architecture: windows-amd64
+  #     runs-on: windows-2019
+  #     extension: ${{ matrix.extension }}
+  #   strategy:
+  #     matrix:
+  #       extension: [ arrow, autocomplete, aws, azure, excel, fts, httpfs, iceberg, icu, inet, json, mysql_scanner, parquet, postgres_scanner, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]
+
+  # python:
+  #   name: Check Python
+  #   uses: ./.github/workflows/nrc.yml
+  #   with:
+  #     nightly-build: Python
+  #     architecture: Python
+  #     runs-on: ubuntu-20.04
+  
+  # python-test:
+  #   name: Test Python
+  #   needs: python
+  #   if: needs.python.outputs.is_failure != 'failure'
+  #   uses: ./.github/workflows/python_nbc.yml
+  #   with:
+  #     nightly-build: Python
+      
+  create-issue:
+    runs-on: ubuntu-latest
+    if: always()
+    needs:
+      - linux-test
+      # - osx-test
+      # - windows-test
+      # - python-test
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: issue_body*
+          path: issue_body
+      
+      # - name: Setup upterm session
+      #   uses: owenthereal/action-upterm@v1
+        
+      - name: Report an issue
+        if: success()
+        run: |
+          cat issue_body*/issue_body*/* > report.txt
+          gh issue create --repo hmeriann/test_ --title "Nightly Builds Failures" --body-file report.txt
+
+      # - name: Create a post
+      #   if: success()
+      #   uses: ./.github/workflows/autopost.yml
+
+
