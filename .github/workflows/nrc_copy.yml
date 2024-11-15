@@ -48,6 +48,10 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install duckdb --pre --upgrade
+      - name: Install qemu dependencies
+        if: ${{ inputs.architecture == 'linux-aarch64' }}
+        shell: bash
+        run: |
           sudo apt-get update
           sudo apt-get install -y libc6-arm64-cross qemu-user-static
 
