@@ -70,7 +70,6 @@ jobs:
               echo "is_failure=failure" >> $GITHUB_OUTPUT
             fi
           fi
-          pip uninstall duckdb
       
       # - name: Setup upterm session
       #   uses: owenthereal/action-upterm@v1
