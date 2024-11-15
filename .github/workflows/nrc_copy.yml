@@ -97,7 +97,7 @@ jobs:
           echo "Resolved name: $name" 🦑
           if gh run download $run_id --repo duckdb/duckdb -n "duckdb-binaries-$name"; then
             echo Artifact duckdb-binaries-${{ inputs.platform }} is successfuly downloaded.
-            echo "has_artifact=true" >> $GITHUB_OUTPUT
+            # echo "has_artifact=true" >> $GITHUB_OUTPUT
             unzip duckdb_cli-${{ inputs.architecture }}.zip
             
             echo Verifying version...
