@@ -23,7 +23,8 @@ jobs:
       architecture: ${{ matrix.architecture }}
     strategy:
       matrix:
-        architecture: [ linux-amd64, linux-aarch64 ]
+        architecture: [ linux-aarch64 ]
+        # architecture: [ linux-amd64, linux-aarch64 ]
 
   linux-test:
     name: Test LinuxRelease
