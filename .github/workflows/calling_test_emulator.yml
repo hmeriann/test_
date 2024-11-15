@@ -23,24 +23,23 @@ jobs:
       architecture: ${{ matrix.architecture }}
     strategy:
       matrix:
-        architecture: [ linux-aarch64 ]
-        # architecture: [ linux-amd64, linux-aarch64 ]
-
-  linux-test:
-    name: Test LinuxRelease
-    needs: linux
-    if: needs.linux.outputs.has_artifact == 'true'
-    uses: ./.github/workflows/tests_nbc.yml
-    with:
-      nightly-build: LinuxRelease
-      runs-on: ubuntu-latest
-      platform: linux
-      architecture: ${{ matrix.architecture }}
-      extension: ${{ matrix.extension }}
-    strategy:
-      matrix:
-        extension: [ arrow ]
         architecture: [ linux-amd64, linux-aarch64 ]
+
+  # linux-test:
+  #   name: Test LinuxRelease
+  #   needs: linux
+  #   if: needs.linux.outputs.has_artifact == 'true'
+  #   uses: ./.github/workflows/tests_nbc.yml
+  #   with:
+  #     nightly-build: LinuxRelease
+  #     runs-on: ubuntu-latest
+  #     platform: linux
+  #     architecture: ${{ matrix.architecture }}
+  #     extension: ${{ matrix.extension }}
+  #   strategy:
+  #     matrix:
+  #       extension: [ arrow ]
+  #       architecture: [ linux-amd64, linux-aarch64 ]
         # extensions list to be checked before release:
         # extension: [ arrow, autocomplete, aws, azure, delta, excel, fts, httpfs, iceberg, icu, inet, json, motherduck, mysql_scanner, parquet, postgres_scanner, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]
 
@@ -68,14 +67,17 @@ jobs:
   #   strategy:
   #     matrix:
   #       extension: [ arrow, autocomplete, aws, azure, excel, fts, httpfs, iceberg, icu, inet, json, mysql_scanner, parquet, postgres_scanner, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]            
-  # windows:
-  #   name: Check Windows
-  #   uses: ./.github/workflows/nrc.yml
-  #   with:
-  #     nightly-build: Windows
-  #     platform: windows
-  #     architecture: windows-amd64
-  #     runs-on: windows-2019
+  windows:
+    name: Check Windows
+    uses: ./.github/workflows/nrc_copy.yml
+    with:
+      nightly-build: Windows
+      runs-on: windows-2019
+      platform: windows
+      architecture: ${{ matrix.architecture }}
+    strategy:
+      matrix:
+        architecture: [ windows-amd64, windows-arm64 ]
   
   # windows-test:
   #   name: Test Windows
