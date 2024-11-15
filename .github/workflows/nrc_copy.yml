@@ -92,6 +92,7 @@ jobs:
             name="${{ inputs.architecture }}"
           else 
             name="${{ inputs.platform }}"
+            exit 0
           fi
           echo "Resolved name: $name"
           if gh run download $run_id --repo duckdb/duckdb -n "duckdb-binaries-$name"; then
