@@ -70,6 +70,7 @@ jobs:
               echo "is_failure=failure" >> $GITHUB_OUTPUT
             fi
           fi
+          pip uninstall duckdb
       
       # - name: Setup upterm session
       #   uses: owenthereal/action-upterm@v1
@@ -122,7 +123,7 @@ jobs:
                 fi
               "
             fi
-            has_artifact=$(cat ./has_artifact.txt) >> $GITHUB_OUTPUT
+            echo has_artifact=$(cat ./has_artifact.txt) >> $GITHUB_OUTPUT
             echo $has_artifact
 
       - name: Upload issue
