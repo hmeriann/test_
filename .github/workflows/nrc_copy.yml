@@ -102,6 +102,7 @@ jobs:
             echo Verifying version...
             full_sha=$(gh run view $run_id --repo duckdb/duckdb --json headSha -q .headSha)
             if [[ ${{ inputs.architecture }} == 'linux-aarch64' ]]; then
+              echo ${{ inputs.architecture }}
               docker run --rm -it --platform linux/arm64 -v $(pwd):/duckdb -e full_sha=$full_sha ubuntu:22.04 /bin/bash "
                 cd duckdb
                 ./duckdb --version > pragma_version.csv
