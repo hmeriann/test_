@@ -114,9 +114,9 @@ jobs:
     runs-on: ubuntu-latest
     if: always()
     needs:
-      # - linux
-      # - windows
-      - linux-test
+      - linux
+      - osx
+      # - linux-test
       # - osx-test
       # - windows-test
       # - python-test
