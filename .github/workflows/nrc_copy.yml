@@ -26,7 +26,6 @@ env:
   GH_TOKEN: ${{ github.token }}
 jobs:
   check-build:
-    if: ${{ inputs.architecture == 'linux-aarch64' }}
     runs-on: ${{ inputs.runs-on }}
     outputs:
       is_failure: ${{ steps.check-build.outputs.is_failure }}
@@ -34,7 +33,7 @@ jobs:
     steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
-        # if: ${{ matrix.arch == 'aarch64' }}
+        if: ${{ inputs.architecture == 'linux-aarch64' }}
       - name: Checkout the repo with the script
         uses: actions/checkout@v4
       - name: Set up Python
@@ -68,8 +67,8 @@ jobs:
             fi
           fi
       
-      - name: Setup upterm session
-        uses: owenthereal/action-upterm@v1
+      # - name: Setup upterm session
+      #   uses: owenthereal/action-upterm@v1
         # Version verification for Python performs in .github/workflows/python_nbc.yml
       
       - name: Verify ${{ inputs.nightly-build }} version
