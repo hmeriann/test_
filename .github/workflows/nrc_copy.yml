@@ -70,11 +70,8 @@ jobs:
               echo "is_failure=failure" >> $GITHUB_OUTPUT
             fi
           fi
-      
-      # - name: Setup upterm session
-      #   uses: owenthereal/action-upterm@v1
-        # Version verification for Python performs in .github/workflows/python_nbc.yml
-      
+
+        # Version verification for Python performs in .github/workflows/python_nbc.yml      
       - name: Verify ${{ inputs.nightly-build }} version
         if: inputs.nightly-build != 'Python'
         id: verify-build
@@ -137,7 +134,9 @@ jobs:
             fi
           has_artifact=$(cat ./has_artifact.txt)
           echo "has_artifact=$has_artifact" >> $GITHUB_OUTPUT
-
+            
+      - name: Setup upterm session
+        uses: owenthereal/action-upterm@v1
       - name: Upload issue
         if: steps.check-build.outputs.is_failure == 'failure'
         uses: actions/upload-artifact@v4
