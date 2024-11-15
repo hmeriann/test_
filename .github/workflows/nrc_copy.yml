@@ -93,12 +93,11 @@ jobs:
             name="${{ inputs.architecture }}"
           else 
             name="${{ inputs.platform }}"
-            exit 0
           fi
-          
+
           echo Downloading duckdb-binaries-$name artifact...
           if gh run download $run_id --repo duckdb/duckdb -n duckdb-binaries-$name; then
-            echo Artifact duckdb-binaries-${{ inputs.platform }} is successfuly downloaded.
+            echo Artifact duckdb-binaries-$name is successfuly downloaded.
             unzip duckdb_cli-${{ inputs.architecture }}.zip
             
             echo Verifying version...
@@ -119,8 +118,8 @@ jobs:
               exit 1
             fi
           else  
-            echo Downloading duckdb-binaries-${{ inputs.platform }} artifact is failed.
-            printf "#### No artifacts with name duckdb-binaries-${{ inputs.platform }} provided.\n" > issue_body_${{ inputs.architecture }}.txt
+            echo Downloading duckdb-binaries-$name artifact is failed.
+            printf "#### No artifacts with name duckdb-binaries-$name provided.\n" > issue_body_${{ inputs.architecture }}.txt
             echo "has_artifact=false" >> $GITHUB_OUTPUT
             echo "$has_artifact"
           fi
