@@ -104,7 +104,7 @@ jobs:
             full_sha=$(gh run view $run_id --repo duckdb/duckdb --json headSha -q .headSha)
             if [[  ${{ inputs.architecture }} == 'linux-aarch64' ]]; then
               echo ${{ inputs.architecture }}
-              docker run --rm --platform linux/arm64 -v $(pwd):/duckdb -e full_sha=$full_sha ubuntu:22.04 /bin/bash "
+              docker run --rm --platform linux/arm64 -v $(pwd):/duckdb -e full_sha=$full_sha ubuntu:latest "
                 # echo 'has_artifact=true' > /duckdb/has_artifact.txt
                 # echo \$full_sha 🐠
                 cd duckdb
