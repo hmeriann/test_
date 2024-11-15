@@ -89,13 +89,14 @@ jobs:
           # echo Listing all artifacts...
           # gh api repos/duckdb/duckdb/actions/runs/$run_id/artifacts --jq '.artifacts[].name'
         
-          echo Downloading duckdb-binaries-${{ inputs.platform }} artifact...
           if [[ '${{ inputs.architecture }}' == 'linux-aarch64' ]]; then
             name="${{ inputs.architecture }}"
           else 
             name="${{ inputs.platform }}"
             exit 0
           fi
+          
+          echo Downloading duckdb-binaries-$name artifact...
           if gh run download $run_id --repo duckdb/duckdb -n duckdb-binaries-$name; then
             echo Artifact duckdb-binaries-${{ inputs.platform }} is successfuly downloaded.
             unzip duckdb_cli-${{ inputs.architecture }}.zip
