@@ -115,7 +115,8 @@ jobs:
                 echo "$has_artifact"
               fi
             fi
-            echo "has_artifact=true" >> $GITHUB_OUTPUT
+          fi
+          echo "has_artifact=true" >> $GITHUB_OUTPUT
       - name: Setup upterm session
         uses: owenthereal/action-upterm@v1
       - name: Upload issue
