@@ -78,7 +78,8 @@ jobs:
       architecture: ${{ matrix.architecture }}
     strategy:
       matrix:
-        architecture: [ windows-amd64, windows-arm64 ]
+        architecture: [ windows-amd64 ]
+        # architecture: [ windows-amd64, windows-arm64 ]
   
   windows-test:
     name: Test Windows
