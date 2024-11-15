@@ -15,7 +15,7 @@ env:
 jobs:
   linux:
     name: Check LinuxRelease
-    uses: ./.github/workflows/nrc.yml
+    uses: ./.github/workflows/nrc_copy.yml
     with:
       nightly-build: LinuxRelease
       runs-on: ubuntu-latest
