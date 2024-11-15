@@ -113,7 +113,7 @@ jobs:
             if [[ "$full_sha" == "$short_sha"* ]]; then
               echo "Build version matches to the version triggered the nightly-build workflow."
             else
-              printf '- The version of ${{ inputs.nightly-build }} build (\$short_sha) doesn't match to the version triggered the build (\$full_sha).\n' > issue_body_${{ inputs.architecture }}.txt
+              printf "- The version of \`${{ inputs.nightly-build }}\` build (\`$short_sha\`) doesn't match to the version triggered the build (\`$full_sha\`).\n " > issue_body_${{ inputs.architecture }}.txt
               cat issue_body_${{ inputs.architecture }}.txt
               exit 1
             fi
