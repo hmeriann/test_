@@ -95,6 +95,7 @@ jobs:
             exit 0
           fi
           echo "Resolved name: $name" 🦑
+          gh run download $run_id --repo duckdb/duckdb -n "duckdb-binaries-$name
           if gh run download $run_id --repo duckdb/duckdb -n "duckdb-binaries-$name"; then
             echo Artifact duckdb-binaries-${{ inputs.platform }} is successfuly downloaded.
             # echo "has_artifact=true" >> $GITHUB_OUTPUT
