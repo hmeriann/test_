@@ -71,8 +71,8 @@ jobs:
             fi
           fi
       
-      - name: Setup upterm session
-        uses: owenthereal/action-upterm@v1
+      # - name: Setup upterm session
+      #   uses: owenthereal/action-upterm@v1
         # Version verification for Python performs in .github/workflows/python_nbc.yml
       
       - name: Verify ${{ inputs.nightly-build }} version
@@ -100,24 +100,31 @@ jobs:
             unzip duckdb_cli-${{ inputs.architecture }}.zip
             
             echo Verifying version...
-            ./duckdb --version > pragma_version.csv
-            short_sha=$(tail -n 2 pragma_version.csv | awk '{ print $2 }')
             full_sha=$(gh run view $run_id --repo duckdb/duckdb --json headSha -q .headSha)
-            echo $short_sha
-            echo $full_sha
-            echo Build version matches to the version triggered the nightly-build workflow
-            if [[ $full_sha != $short_sha* ]]; then
-              printf "- The version of \`${{ inputs.nightly-build }}\` build (\`$short_sha\`) doesn't match to the version triggered the build (\`$full_sha\`).\n " > issue_body_${{ inputs.architecture }}.txt
-              cat issue_body_${{ inputs.architecture }}.txt
-              exit 1
+            if [[ ${{ inputs.architecture }} == 'linux-aarch64' ]]; then
+              docker run --rm -it --platform linux/arm64 -v $(pwd):/duckdb -e full_sha=$full_sha ubuntu:22.04 /bin/bash "
+                cd duckdb
+                ./duckdb --version > pragma_version.csv
+                short_sha=$(tail -n 2 pragma_version.csv | awk '{ print \$2 }')
+                echo \$short_sha
+                echo \$full_sha
+                echo Build version matches to the version triggered the nightly-build workflow
+                if [[ \$full_sha != \$short_sha* ]]; then
+                  printf "- The version of \`${{ inputs.nightly-build }}\` build (\`$short_sha\`) doesn't match to the version triggered the build (\`$full_sha\`).\n " > issue_body_${{ inputs.architecture }}.txt
+                  cat issue_body_${{ inputs.architecture }}.txt
+                  exit 1
+                else  
+                  echo Downloading duckdb-binaries-${{ inputs.platform }} artifact is failed.
+                  printf '#### No artifacts with name duckdb-binaries-${{ inputs.platform }} provided.\n' > issue_body_${{ inputs.architecture }}.txt
+                  # echo 'has_artifact=false' >> $GITHUB_OUTPUT
+                  echo 'has_artifact=false' > /duckdb/has_artifact.txt
+                  echo \$has_artifact
+                fi
+              "
             fi
-          else  
-            echo Downloading duckdb-binaries-${{ inputs.platform }} artifact is failed.
-            printf "#### No artifacts with name duckdb-binaries-${{ inputs.platform }} provided.\n " > issue_body_${{ inputs.architecture }}.txt
-            echo "has_artifact=false" >> $GITHUB_OUTPUT
+            has_artifact=$(cat ./has_artifact.txt) >> $GITHUB_OUTPUT
             echo $has_artifact
-          fi
-      
+
       - name: Upload issue
         if: steps.check-build.outputs.is_failure == 'failure'
         uses: actions/upload-artifact@v4
