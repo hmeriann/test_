@@ -93,48 +93,32 @@ jobs:
           fi
           echo "Resolved name: $name" 🦑
           gh run download $run_id --repo duckdb/duckdb -n "duckdb-binaries-$name"
-          # if gh run download $run_id --repo duckdb/duckdb -n "duckdb-binaries-$name"; then
-          #   echo Artifact duckdb-binaries-${{ inputs.platform }} is successfuly downloaded.
-          #   # echo "has_artifact=true" >> $GITHUB_OUTPUT
-          #   ls -lah
-          #   unzip duckdb_cli-${{ inputs.architecture }}.zip
+          if gh run download $run_id --repo duckdb/duckdb -n "duckdb-binaries-$name"; then
+            echo Artifact duckdb-binaries-${{ inputs.platform }} is successfuly downloaded.
+            ls -lah
+            unzip duckdb_cli-${{ inputs.architecture }}.zip
             
-          #   echo Verifying version...
-          #   full_sha=$(gh run view $run_id --repo duckdb/duckdb --json headSha -q .headSha)
-          #   if [[ ${{ inputs.architecture }} == linux-aarch64 ]]; then
-          #     echo ${{ inputs.architecture }}
-          #     docker run --rm --platform linux/arm64 \
-          #       -v $(pwd):/duckdb \
-          #       -e full_sha="$full_sha" \
-          #       ubuntu:22.04 /bin/bash -c '
-          #         echo "has_artifact=true" > /duckdb/has_artifact.txt
-                  
-          #         cat /duckdb/has_artifact.txt
-          #         echo "$full_sha 🐠"
-
-          #         cd /duckdb
-          #         ./duckdb --version
-          #         ./duckdb --version > pragma_version.csv
-          #         short_sha=$(tail -n 2 pragma_version.csv | awk "{ print \$2 }")
-          #         echo "$short_sha"
-          #         echo "Build version matches to the version triggered the nightly-build workflow"
-          #         # if [[ "$full_sha" =~ ^"$short_sha" ]]; then
-          #         if [[ "$full_sha" =~ ^"$short_sha" ]]; then
-          #           printf "- The version of ${{ inputs.nightly-build }} build (\$short_sha) doesn\'t match to the version triggered the build (\$full_sha).\n" > issue_body_${{ inputs.architecture }}.txt
-          #           cat issue_body_${{ inputs.architecture }}.txt
-          #           exit 1
-          #         else  
-          #           echo Downloading duckdb-binaries-${{ inputs.platform }} artifact is failed.
-          #           printf "#### No artifacts with name duckdb-binaries-${{ inputs.platform }} provided.\n" > issue_body_${{ inputs.architecture }}.txt
-          #           # echo "has_artifact=false" >> $GITHUB_OUTPUT
-          #           echo "has_artifact=false" > /duckdb/has_artifact.txt
-          #           echo "$has_artifact"
-          #         fi
-          #       '
-          #     fi
-          #   fi
-          # has_artifact=$(cat ./has_artifact.txt)
-          # echo "has_artifact=$has_artifact" >> $GITHUB_OUTPUT
+            echo Verifying version...
+            full_sha=$(gh run view $run_id --repo duckdb/duckdb --json headSha -q .headSha)
+            if [[ ${{ inputs.architecture }} == linux-aarch64 ]]; then
+              echo ${{ inputs.architecture }}
+              docker run --rm --platform linux/aarch64 -v $(pwd):/duckdb -e full_sha=$full_sha ubuntu:22.04 /bin/bash -c 'cd /duckdb; ./duckdb --version' > pragma_version.csv
+              short_sha=$(tail -n 2 pragma_version.csv | awk "{ print \$2 }")
+              echo "$short_sha"
+              echo "Build version matches to the version triggered the nightly-build workflow"
+              if [[ "$full_sha" =~ ^"$short_sha" ]]; then
+                printf "- The version of ${{ inputs.nightly-build }} build (\$short_sha) doesn\'t match to the version triggered the build (\$full_sha).\n" > issue_body_${{ inputs.architecture }}.txt
+                cat issue_body_${{ inputs.architecture }}.txt
+                exit 1
+              else  
+                echo Downloading duckdb-binaries-${{ inputs.platform }} artifact is failed.
+                printf "#### No artifacts with name duckdb-binaries-${{ inputs.platform }} provided.\n" > issue_body_${{ inputs.architecture }}.txt
+                echo "has_artifact=false" > /duckdb/has_artifact.txt
+                echo "$has_artifact"
+              fi
+            fi
+          has_artifact=$(cat ./has_artifact.txt)
+          echo "has_artifact=$has_artifact" >> $GITHUB_OUTPUT
             
       - name: Setup upterm session
         uses: owenthereal/action-upterm@v1
