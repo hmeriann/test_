@@ -2,7 +2,8 @@ name: Regression
 on:
   workflow_dispatch:
   push:
-    
+env:
+  GH_TOKEN: ${{ github.token }}
 jobs:
   regression-test-benchmark-runner:
     name: Regression Tests
