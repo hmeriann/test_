@@ -54,7 +54,7 @@ jobs:
             duckdb=./duckdb
           fi
 
-          docker run --rm --platform linux/aarch64 -v $(pwd):/duckdb -e ext=${{ inputs.extension }},duckdb=$duckdb ubuntu:22.04 /bin/bash -c 'cd /duckdb; ./duckdb -line -c "select installed from duckdb_extensions() where extension_name='\''${ext}'\'';"' > sp.csv
+          docker run --rm --platform linux/aarch64 -v $(pwd):/duckdb -e ext=${{ inputs.extension }} -e duckdb=$duckdb ubuntu:22.04 /bin/bash -c 'cd /duckdb; ./duckdb -line -c "select installed from duckdb_extensions() where extension_name='\''${ext}'\'';"' > sp.csv
           cat sp.csv
 
           # $duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';"
@@ -62,7 +62,7 @@ jobs:
           sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
           if [[ $sp == 'false' ]]; then
             echo Installing ${{ inputs.extension }} extension...
-            if docker run --rm --platform linux/aarch64 -v $(pwd):/duckdb -e ext=${{ inputs.extension }},duckdb=$duckdb ubuntu:22.04 /bin/bash -c '$duckdb -c "INSTALL $ext;"'; then 
+            if docker run --rm --platform linux/aarch64 -v $(pwd):/duckdb -e ext=${{ inputs.extension }} -e duckdb=$duckdb ubuntu:22.04 /bin/bash -c '$duckdb -c "INSTALL $ext;"'; then 
               echo ${{ inputs.extension }} extension is installed.
             else
               echo Failed to install ${{ inputs.extension }} extension.
@@ -71,7 +71,7 @@ jobs:
               exit 1
             fi
             echo Loading ${{ inputs.extension }} extension...
-            if docker run --rm --platform linux/aarch64 -v $(pwd):/duckdb -e ext=${{ inputs.extension }},duckdb=$duckdb ubuntu:22.04 /bin/bash -c '$duckdb -c "LOAD $ext;"'; then
+            if docker run --rm --platform linux/aarch64 -v $(pwd):/duckdb -e ext=${{ inputs.extension }} -e duckdb=$duckdb ubuntu:22.04 /bin/bash -c '$duckdb -c "LOAD $ext;"'; then
               echo ${{ inputs.extension }} extension is loaded.
             else
               echo Failed to load ${{ inputs.extension }} extension.
