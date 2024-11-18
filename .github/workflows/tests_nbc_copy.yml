@@ -1,0 +1,92 @@
+name: Test Nightly Builds Check (Reusable)
+on:
+  workflow_call:
+    inputs:
+      nightly-build:
+        required: true
+        type: string
+      platform: 
+        required: false
+        type: string
+      architecture: 
+        required: false
+        type: string
+      runs-on:
+        required: true
+        type: string
+      extension:
+        required: false
+        type: string
+env:
+  GH_TOKEN: ${{ github.token }}
+jobs:
+  check-build:
+    runs-on: ${{ inputs.runs-on }}
+    continue-on-error: true
+    steps:
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: linux/aarch64
+        if: ${{ inputs.architecture == 'linux-aarch64' }}
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Install qemu dependencies
+        if: ${{ inputs.architecture == 'linux-aarch64' }}
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libc6-arm64-cross qemu-user-static
+
+      - name: Download artifact 
+        uses: actions/download-artifact@v4
+        with:
+          name: duckdb_cli-${{ inputs.architecture }}
+      - name: Test ${{ inputs.nightly-build }}
+        shell: bash
+        run: |
+          unzip duckdb_cli-${{ inputs.architecture }}.zip
+          if [[ ${{ inputs.nightly-build }} == Windows ]]; then
+            duckdb=./duckdb.exe
+          else
+            duckdb=./duckdb
+          fi
+
+          docker run --rm --platform linux/aarch64 -v $(pwd):/duckdb -e ext=${{ inputs.extension }} ubuntu:22.04 /bin/bash -c 'cd /duckdb; ./duckdb -line -c "select installed from duckdb_extensions() where extension_name='$ext';"' > pragma_version.csv
+
+
+          # $duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';"
+          # $duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';" > sp.csv
+          # sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
+          # if [[ $sp == 'false' ]]; then
+          #   echo Installing ${{ inputs.extension }} extension...
+          #   if $duckdb -c "INSTALL ${{ inputs.extension }};"; then
+          #     echo ${{ inputs.extension }} extension is installed.
+          #   else
+          #     echo Failed to install ${{ inputs.extension }} extension.
+          #     echo "- \`${{ inputs.architecture }}\`: **Failed** to install \`${{ inputs.extension }}\` extension." >> issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.txt
+          #     echo "" >> issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.txt
+          #     exit 1
+          #   fi
+          #   echo Loading ${{ inputs.extension }} extension...
+          #   if $duckdb -c "LOAD ${{ inputs.extension }};"; then
+          #     echo ${{ inputs.extension }} extension is loaded.
+          #   else
+          #     echo Failed to load ${{ inputs.extension }} extension.
+          #     echo "- \`${{ inputs.architecture }}\`: **Failed** to load the extension \`${{ inputs.extension }}\`." >> issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.txt
+          #     echo "" >> issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.txt
+          #     exit 1
+          #   fi
+          # fi
+      
+      # - name: Setup upterm session
+      #   uses: owenthereal/action-upterm@v1
+      
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: issue_body_${{ inputs.architecture }}_${{ inputs.extension }}
+          path: issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.txt
