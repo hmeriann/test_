@@ -1,0 +1,81 @@
+name: Regression
+on:
+  workflow_dispatch:
+  push:
+    
+jobs:
+  regression-test-benchmark-runner:
+    name: Regression Tests
+    runs-on: ubuntu-20.04
+    env:
+      CC: gcc-10
+      CXX: g++-10
+      GEN: ninja
+      BUILD_BENCHMARK: 1
+      BUILD_JEMALLOC: 1
+      CORE_EXTENSIONS: "json;tpch;tpcds;httpfs;inet"
+
+    steps:
+      - name: Checkout old
+        uses: actions/checkout@v4
+        with:
+          repository: duckdb/duckdb
+          ref: ef4a36df95
+          path: old
+
+      - name: Checkout new
+        uses: actions/checkout@v4
+        with:
+          repository: duckdb/duckdb
+          ref: 810cfa4568
+          path: new
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install
+        shell: bash
+        run: sudo apt-get update -y -qq && sudo apt-get install -y -qq ninja-build && pip install requests
+
+      - name: Setup Ccache
+        uses: hendrikmuhs/ccache-action@main
+        with:
+          key: ${{ github.job }}
+          save: ${{ github.ref == 'refs/heads/main' || github.repository != 'duckdb/duckdb' }}
+
+      - name: Build
+        shell: bash
+        run: |
+          cd old 
+          make
+          
+          cd ../new
+          make
+          cd ..
+
+      - name: Set up benchmarks
+        shell: bash
+        run: |
+          cp -r old/benchmark new/
+
+      - name: Regression Test RealNest 
+        shell: bash
+        run: |
+          mkdir -p duckdb_benchmark_data
+          mkdir -p duckdb/duckdb_benchmark_data
+          wget https://duckdb-blobs.s3.amazonaws.com/data/realnest/realnest.duckdb --output-document=duckdb_benchmark_data/real_nest.duckdb
+          cp duckdb_benchmark_data/real_nest.duckdb duckdb/duckdb_benchmark_data/real_nest.duckdb
+
+          sed -i '/^# nuke cached.*/,+2d' scripts/regression/test_runner.py 
+          for i in {1...25}; do
+            echo Running iteration $i...
+            if python scripts/regression/test_runner.py --old duckdb/build/release/benchmark/benchmark_runner --new build/release/benchmark/benchmark_runner --benchmarks .github/regression/realnest.csv --verbose --threads 2; then
+              echo Iteration $i succeeded >> log_file.txt
+            else
+              echo Iteration $i failed >> log_file.txt
+            fi
+          done
+
+      - uses: actions/upload-artifact@v4
+        with:
+          path: log_file.txt
