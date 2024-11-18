@@ -60,10 +60,11 @@ jobs:
       - name: Regression Test RealNest 
         shell: bash
         run: |
+          cd old
           mkdir -p duckdb_benchmark_data
           mkdir -p duckdb/duckdb_benchmark_data
           wget https://duckdb-blobs.s3.amazonaws.com/data/realnest/realnest.duckdb --output-document=duckdb_benchmark_data/real_nest.duckdb
-          cp duckdb_benchmark_data/real_nest.duckdb duckdb/duckdb_benchmark_data/real_nest.duckdb
+          cp duckdb_benchmark_data/real_nest.duckdb ../new/duckdb/duckdb_benchmark_data/real_nest.duckdb
 
           sed -i '/^# nuke cached.*/,+2d' scripts/regression/test_runner.py 
           for i in {1...25}; do
@@ -72,6 +73,7 @@ jobs:
               echo Iteration $i succeeded >> log_file.txt
             else
               echo Iteration $i failed >> log_file.txt
+
             fi
           done
 
