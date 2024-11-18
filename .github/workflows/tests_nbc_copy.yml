@@ -59,7 +59,7 @@ jobs:
 
           # $duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';"
           # $duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';" > sp.csv
-          # sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
+          sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
           if [[ $sp == 'false' ]]; then
             echo Installing ${{ inputs.extension }} extension...
             if docker run --rm --platform linux/aarch64 -v $(pwd):/duckdb -e ext=${{ inputs.extension }},duckdb=$duckdb ubuntu:22.04 /bin/bash -c '$duckdb -c "INSTALL $ext;"'; then 
