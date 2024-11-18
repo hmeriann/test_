@@ -30,7 +30,7 @@ jobs:
     name: Test LinuxRelease
     needs: linux
     if: needs.linux.outputs.has_artifact == 'true'
-    uses: ./.github/workflows/tests_nbc.yml
+    uses: ./.github/workflows/tests_nbc_copy.yml
     with:
       nightly-build: LinuxRelease
       runs-on: ubuntu-latest
