@@ -35,7 +35,7 @@ jobs:
         uses: docker/setup-qemu-action@v3
         with:
           platforms: linux/aarch64
-        # if: ${{ inputs.architecture == 'linux-aarch64' }}
+        if: ${{ inputs.architecture == 'linux-aarch64' }}
       - name: Checkout the repo with the script
         uses: actions/checkout@v4
       - name: Set up Python
