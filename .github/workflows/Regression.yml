@@ -21,14 +21,16 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: 'duckdb/duckdb'
-          ref: 'ef4a36df95'
+          ref: 'main'
+          fetch-depth: 0
           path: old
 
       - name: Checkout new
         uses: actions/checkout@v4
         with:
           repository: 'duckdb/duckdb'
-          ref: '810cfa4568'
+          ref: 'main'
+          fetch-depth: 0
           path: new
       - uses: actions/setup-python@v5
         with:
@@ -42,9 +44,11 @@ jobs:
         shell: bash
         run: |
           cd old 
+          git checkout ef4a36df95
           make
           
           cd ../new
+          git checkout 810cfa4568
           make
           cd ..
 
