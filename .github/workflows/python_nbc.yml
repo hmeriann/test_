@@ -67,6 +67,10 @@ jobs:
           echo Trying to INSTALL and LOAD extensions...
           python scripts/test_install_load_extensions.py ${{ matrix.runs-on }} --version ${{ matrix.python-version }}
 
+  prepare-result:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
       - name: Prepare a result table
         shell: bash
         run: |
