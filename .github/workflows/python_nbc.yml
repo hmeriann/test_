@@ -72,10 +72,7 @@ jobs:
         run: |
           echo runs_on,version,extension,failed_statement > result.csv
           cat issue_body*.txt >> result.csv
-          duckdb --markdown -c "copy (select * from read_csv("result.csv") group by extension, order by failed_statement) to res.md (HEADER 1, SEPARATOR '|')"
-          sed -i '1a\
-          ----|----|----|----
-          ' "res.md"
+          python scripts/prepare_report.py result.csv
     #   - name: Setup upterm session
     #     uses: owenthereal/action-upterm@v1
       - name: Upload test results
