@@ -68,7 +68,7 @@ jobs:
           mkdir -p ../new/duckdb/duckdb_benchmark_data
           cp duckdb_benchmark_data/real_nest.duckdb ../new/duckdb/duckdb_benchmark_data/real_nest.duckdb
 
-          sed -i '/^# nuke cached.*/,+2d' scripts/regression/test_runner.py 
+          sed -i '/^# nuke cached.*/,+3d' scripts/regression/test_runner.py 
           for i in {1..25}; do
             echo Running iteration $i...
             python scripts/regression/test_runner.py --old=build/release/benchmark/benchmark_runner --new=../new/build/release/benchmark/benchmark_runner --benchmarks=.github/regression/realnest.csv --verbose --threads 2
