@@ -71,7 +71,7 @@ jobs:
           sed -i '/^# nuke cached.*/,+2d' scripts/regression/test_runner.py 
           for i in {1...25}; do
             echo Running iteration $i...
-            if python scripts/regression/test_runner.py --old duckdb/build/release/benchmark/benchmark_runner --new build/release/benchmark/benchmark_runner --benchmarks .github/regression/realnest.csv --verbose --threads 2; then
+            if python scripts/regression/test_runner.py --old=build/release/benchmark/benchmark_runner --new=../new/build/release/benchmark/benchmark_runner --benchmarks=.github/regression/realnest.csv --verbose --threads 2; then
               echo Iteration $i succeeded >> log_file.txt
             else
               echo Iteration $i failed >> log_file.txt
