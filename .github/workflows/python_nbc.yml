@@ -80,6 +80,8 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           pattern: issue_body_Python*
+      - name: Setup upterm session
+        uses: owenthereal/action-upterm@v1
       - name: Prepare a result table
         shell: bash
         run: |
