@@ -136,7 +136,7 @@ jobs:
       - name: Report an issue
         if: success()
         run: |
-          cat result*/* > report.md
+          cat result*/*/* > report.md
           gh issue create --repo hmeriann/test_ --title "Nightly Builds Failures" --body-file report.md
 
       # - name: Create a post
