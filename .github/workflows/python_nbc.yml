@@ -84,7 +84,7 @@ jobs:
         shell: bash
         run: |
           echo runs_on,version,extension,failed_statement > result.csv
-          cat issue_body*.txt >> result.csv
+          cat issue_body*/issue_body*/* >> result.csv
           python scripts/prepare_report.py result.csv
       - name: Upload result file
         uses: actions/upload-artifact@v4
