@@ -127,8 +127,8 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
-          pattern: issue_body*
-          path: issue_body
+          pattern: res*
+          path: result
       
       # - name: Setup upterm session
       #   uses: owenthereal/action-upterm@v1
@@ -136,8 +136,8 @@ jobs:
       - name: Report an issue
         if: success()
         run: |
-          cat issue_body*/issue_body*/* > report.txt
-          gh issue create --repo hmeriann/test_ --title "Nightly Builds Failures" --body-file report.txt
+          cat result* > report.md
+          gh issue create --repo hmeriann/test_ --title "Nightly Builds Failures" --body-file report.md
 
       # - name: Create a post
       #   if: success()
