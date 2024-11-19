@@ -13,34 +13,34 @@ env:
   GH_TOKEN: ${{ github.token }}
   gh_repo: duckdb/duckdb
 jobs:
-  linux:
-    name: Check LinuxRelease
-    uses: ./.github/workflows/nrc_copy.yml
-    with:
-      nightly-build: LinuxRelease
-      runs-on: ubuntu-latest
-      platform: linux
-      architecture: ${{ matrix.architecture }}
-    strategy:
-      matrix:
-        architecture: [ linux-aarch64 ]
-        # architecture: [ linux-amd64, linux-aarch64 ]
+  # linux:
+  #   name: Check LinuxRelease
+  #   uses: ./.github/workflows/nrc_copy.yml
+  #   with:
+  #     nightly-build: LinuxRelease
+  #     runs-on: ubuntu-latest
+  #     platform: linux
+  #     architecture: ${{ matrix.architecture }}
+  #   strategy:
+  #     matrix:
+  #       architecture: [ linux-aarch64 ]
+  #       # architecture: [ linux-amd64, linux-aarch64 ]
 
-  linux-test:
-    name: Test LinuxRelease
-    needs: linux
-    if: needs.linux.outputs.has_artifact == 'true'
-    uses: ./.github/workflows/tests_nbc_copy.yml
-    with:
-      nightly-build: LinuxRelease
-      runs-on: ubuntu-latest
-      platform: linux
-      architecture: ${{ matrix.architecture }}
-      extension: ${{ matrix.extension }}
-    strategy:
-      matrix:
-        extension: [ arrow ]
-        architecture: [ linux-aarch64 ]
+  # linux-test:
+  #   name: Test LinuxRelease
+  #   needs: linux
+  #   if: needs.linux.outputs.has_artifact == 'true'
+  #   uses: ./.github/workflows/tests_nbc_copy.yml
+  #   with:
+  #     nightly-build: LinuxRelease
+  #     runs-on: ubuntu-latest
+  #     platform: linux
+  #     architecture: ${{ matrix.architecture }}
+  #     extension: ${{ matrix.extension }}
+  #   strategy:
+  #     matrix:
+  #       extension: [ arrow ]
+  #       architecture: [ linux-aarch64 ]
         # architecture: [ linux-amd64, linux-aarch64 ]
         # extensions list to be checked before release:
         # extension: [ arrow, autocomplete, aws, azure, delta, excel, fts, httpfs, iceberg, icu, inet, json, motherduck, mysql_scanner, parquet, postgres_scanner, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]
@@ -97,21 +97,21 @@ jobs:
   #     matrix:
   #       extension: [ arrow, autocomplete, aws, azure, excel, fts, httpfs, iceberg, icu, inet, json, mysql_scanner, parquet, postgres_scanner, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]
 
-  # python:
-  #   name: Check Python
-  #   uses: ./.github/workflows/nrc.yml
-  #   with:
-  #     nightly-build: Python
-  #     architecture: Python
-  #     runs-on: ubuntu-20.04
+  python:
+    name: Check Python
+    uses: ./.github/workflows/nrc.yml
+    with:
+      nightly-build: Python
+      architecture: Python
+      runs-on: ubuntu-20.04
   
-  # python-test:
-  #   name: Test Python
-  #   needs: python
-  #   if: needs.python.outputs.is_failure != 'failure'
-  #   uses: ./.github/workflows/python_nbc.yml
-  #   with:
-  #     nightly-build: Python
+  python-test:
+    name: Test Python
+    needs: python
+    if: needs.python.outputs.is_failure != 'failure'
+    uses: ./.github/workflows/python_nbc.yml
+    with:
+      nightly-build: Python
       
   create-issue:
     runs-on: ubuntu-latest
@@ -119,10 +119,10 @@ jobs:
     needs:
       # - linux
       # - osx
-      - linux-test
+      # - linux-test
       # - osx-test
       # - windows-test
-      # - python-test
+      - python-test
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v4

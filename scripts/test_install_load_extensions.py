@@ -1,5 +1,6 @@
 import duckdb
 import argparse
+import re
 
 # Verifying version
 parser = argparse.ArgumentParser()
@@ -13,8 +14,12 @@ runs_on = args.runs_on
 version = args.version
 
 # TODO: if it is a release, check also "delta" (only for linux-python3) and "motherduck"
-extensions = [ "arrow", "autocomplete", "aws", "azure", "excel", "fts", "httpfs", "iceberg", "icu", "inet", "json",
-    "mysql_scanner", "parquet", "postgres_scanner", "spatial", "sqlite_scanner", "substrait", "tpcds", "tpch", "vss", "unexpected" ]
+
+with open(".github/config/out_of_tree_extensions.cmake", "r") as file:
+    content = file.read()
+
+    pattern = r"duckdb_extension_load\(\s*([^\s,)]+)"
+    extensions = re.findall(pattern, content)
 
 with open("issue_body_Python_extensions_{}.txt".format(runs_on), 'w') as f:
     for extension in extensions:
