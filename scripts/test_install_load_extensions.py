@@ -23,26 +23,25 @@ version = args.version
 
 extensions = [ 'one', 'two', 'three' ]
 
-with open("issue_body_Python_extensions.txt", 'w') as f:
-    f.write(f"runs_on,version,extension,failed_statement\n")
+with open("issue_body_Python_extensions_{}.txt".format(runs_on), 'w') as f:
     for extension in extensions:
         if extension == "unexpected":
             try:
                 duckdb.sql(f"INSTALL { extension }")
-                message = f"#### `{ extension }` was unexpectedly installed on Python { runs_on }_{ version }.\n "
-                f.write(f"`{ runs_on }`,`{ version }`,`{ extension }`,INSTALL\n")
+                message = f"#### { extension } was unexpectedly installed on Python { runs_on }_{ version }.\n "
+                f.write(f"Python,{ runs_on },{ version },{ extension },INSTALL\n")
                 print(message)
                 try:
                     duckdb.sql(f"LOAD { extension }")
-                    message = f"#### `{ extension }` was unexpectedly loaded on Python { runs_on }_{ version }.\n "
-                    f.write(f"`{ runs_on }`,`{ version }`,`{ extension }`,LOAD\n")
+                    message = f"#### { extension } was unexpectedly loaded on Python { runs_on }_{ version }.\n "
+                    f.write(f"Python,{ runs_on },{ version },{ extension },LOAD\n")
                     print(message)
                 except Exception as e:
-                    print(f"Extension `{ extension }` is not loaded\n")
+                    print(f"Extension { extension } is not loaded\n")
                     pass
             
             except Exception as e:
-                print(f"Extension `{ extension }` is not installed ")
+                print(f"Extension { extension } is not installed ")
                 pass
 
         else:
@@ -54,11 +53,11 @@ with open("issue_body_Python_extensions.txt", 'w') as f:
                     duckdb.sql(f"LOAD { extension }")
                     print(f"Loaded { extension } ")
                 except Exception as e:
-                    message = f"- Error loading `{ extension }` Python on { runs_on }_{ version }: `{str(e)}`\n "
-                    f.write(f"`{ runs_on }`,`{ version }`,`{ extension }`,INSTALL\n")
+                    message = f"- Error loading { extension } Python on { runs_on }_{ version }: {str(e)}\n "
+                    f.write(f"Python,{ runs_on },{ version },{ extension },INSTALL\n")
                     print(message)
 
             except Exception as e:
-                message = f"- Error installing `{ extension }` Python on { runs_on }_{ version }: `{str(e)}`\n "
-                f.write(f"`{ runs_on }`,`{ version }`,`{ extension }`,LOAD\n")
+                message = f"- Error installing { extension } Python on { runs_on }_{ version }: {str(e)}\n "
+                f.write(f"Python,{ runs_on },{ version },{ extension },LOAD\n")
                 print(message)
