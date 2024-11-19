@@ -23,6 +23,13 @@ jobs:
     steps:
       - name: Checkout the repo with the script
         uses: actions/checkout@v4
+      - name: Sparse checkout duckdb/duckdb 
+        uses: actions/checkout@v4
+        with:
+          repository: duckdb/duckdb
+          sparse-checkout: |
+            .github/config
+          path: extensions
       - name: Set up Python${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:

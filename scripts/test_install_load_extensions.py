@@ -15,7 +15,7 @@ version = args.version
 
 # TODO: if it is a release, check also "delta" (only for linux-python3) and "motherduck"
 
-with open(".github/config/out_of_tree_extensions.cmake", "r") as file:
+with open("extensions/.github/config/out_of_tree_extensions.cmake", "r") as file:
     content = file.read()
 
     pattern = r"duckdb_extension_load\(\s*([^\s,)]+)"
