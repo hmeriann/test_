@@ -66,24 +66,33 @@ jobs:
         run: |  
           echo Trying to INSTALL and LOAD extensions...
           python scripts/test_install_load_extensions.py ${{ matrix.runs-on }} --version ${{ matrix.python-version }}
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: issue_body_Python_extensions_${{ matrix.runs-on }}_${{ matrix.python-version }}
+          path: issue_body_*.txt
 
   prepare-result:
     needs: test
     runs-on: ubuntu-latest
     steps:
+      - name: Download test results
+        uses: actions/download-artifact@v4
+        with:
+          pattern: issue_body_*.txt
       - name: Prepare a result table
         shell: bash
         run: |
           echo runs_on,version,extension,failed_statement > result.csv
           cat issue_body*.txt >> result.csv
           python scripts/prepare_report.py result.csv
-    #   - name: Setup upterm session
-    #     uses: owenthereal/action-upterm@v1
-      - name: Upload test results
+      - name: Upload result file
         uses: actions/upload-artifact@v4
         with:
-          name: result
-          path: issue_body_*.txt
+          name: result_Python
+          path: res.md
+    #   - name: Setup upterm session
+    #     uses: owenthereal/action-upterm@v1
 
     #   - name: Upload build
     #     if: ${{ steps.check-build.outputs.has_artifact }} == true
