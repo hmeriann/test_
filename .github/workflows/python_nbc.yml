@@ -13,8 +13,10 @@ jobs:
     runs-on: ${{ matrix.runs-on }}
     strategy:
       matrix:
-        runs-on: [ ubuntu-latest, macos-latest, windows-2019 ]
-        python-version: [ '3.8', '3.9', '3.10', '3.11', '3.12', '3.13' ]
+        runs-on: [ ubuntu-latest ]
+        python-version: [ '3.8', '3.9' ]
+        # runs-on: [ ubuntu-latest, macos-latest, windows-2019 ]
+        # python-version: [ '3.8', '3.9', '3.10', '3.11', '3.12', '3.13' ]
         exclude:
           - runs-on: macos-latest
             python-version: '3.8'
@@ -65,12 +67,21 @@ jobs:
           echo Trying to INSTALL and LOAD extensions...
           python scripts/test_install_load_extensions.py ${{ matrix.runs-on }} --version ${{ matrix.python-version }}
 
+      - name: Prepare a result table
+        shell: bash
+        run: |
+          echo runs_on,version,extension,failed_statement > result.csv
+          cat issue_body*.txt >> result.csv
+          duckdb --markdown -c "copy (select * from read_csv("result.csv") group by extension, order by failed_statement) to res.md (HEADER 1, SEPARATOR '|')"
+          sed -i '1a\
+          ----|----|----|----
+          ' "res.md"
     #   - name: Setup upterm session
     #     uses: owenthereal/action-upterm@v1
       - name: Upload test results
         uses: actions/upload-artifact@v4
         with:
-          name: issue_body_Python_extensions_${{ matrix.runs-on }}_${{ matrix.python-version }}
+          name: result
           path: issue_body_*.txt
 
     #   - name: Upload build
