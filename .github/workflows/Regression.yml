@@ -64,6 +64,8 @@ jobs:
           mkdir -p duckdb_benchmark_data
           mkdir -p duckdb/duckdb_benchmark_data
           wget https://duckdb-blobs.s3.amazonaws.com/data/realnest/realnest.duckdb --output-document=duckdb_benchmark_data/real_nest.duckdb
+          mkdir -p ../new/duckdb_benchmark_data
+          mkdir -p ../new/duckdb/duckdb_benchmark_data
           cp duckdb_benchmark_data/real_nest.duckdb ../new/duckdb/duckdb_benchmark_data/real_nest.duckdb
 
           sed -i '/^# nuke cached.*/,+2d' scripts/regression/test_runner.py 
