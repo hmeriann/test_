@@ -39,14 +39,15 @@ else:
     failures = 0
 
 def create_issue_body():
-    failures_list = "failures_list.txt"
+    failures_list = "failures_list.md"
     duckdb.sql(f"""
+                .mode markdown    
                 COPY (
-                    SELECT '|' || conclusion || '|' || startedAt || '|' || url || ')|' AS markdown_line
+                    SELECT conclusion, startedAt, url
                     FROM read_json('{ input_file }') 
                     WHERE conclusion='failure'
                 )  
-                TO '{ failures_list }' (HEADER 0, QUOTE '');
+                TO '{ failures_list }' (HEADER 0, QUOTE '', SEPARATOR '|');
                 """)
     with open("issue_body_{}.txt".format(architecture), 'w') as f:
         f.write(f"### '{ nightly_build }':\n\n")
@@ -56,7 +57,6 @@ def create_issue_body():
         f.write(f"|------------|------------|---------|\n")
         with open(failures_list, 'r') as failures_file:
             f.write(failures_file.read())
-    print("HERE!!!")
 
 def main():
     if failures >= 4:
