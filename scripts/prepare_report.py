@@ -9,14 +9,14 @@ if not args:
 
 file_name = args.file_name
 
-with open("res.md". 'w') as f:
+with open("res.md", 'w') as f:
     f.write(f"runs_on,version,extension,failed_statement\n")
     f.write(f"----|----|----|----\n")
-    duckdb.sql("
+    duckdb.sql(f"""
         .mode markdown
         COPY (SELECT * FROM read_csv("{ file_name }")
             GROUP BY extension, ORDER BY failed_statement)
         TO tmp.md (HEADER 1, SEPARATOR '|')
-    ")
+    """)
     with open("tmp.md", 'r') as tbl:
         f.write(tbl.read())
