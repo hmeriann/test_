@@ -10,13 +10,26 @@ if not args:
 file_name = args.file_name
 
 with open("res.md", 'w') as f:
-    f.write(f"runs_on,version,extension,failed_statement\n")
-    f.write(f"----|----|----|----\n")
+    f.write(f"\n#### Extensions failed to INSTALL:\n")
+    f.write(f"Nightly-build|Runs_on|Version|Extension|Failed statement\n")
+    f.write(f"----|----|----|----|----\n")
     duckdb.sql(f"""
-        .mode markdown
-        COPY (SELECT * FROM read_csv("{ file_name }")
-            GROUP BY extension, ORDER BY failed_statement)
-        TO tmp.md (HEADER 1, SEPARATOR '|')
-    """)
+                COPY (SELECT * FROM read_csv("{ file_name }")
+                    WHERE column4='INSTALL'
+                    ORDER BY column1, column2, column3)
+                TO tmp.md (HEADER 0, SEPARATOR '|')
+                """)
+    with open("tmp.md", 'r') as tbl:
+        f.write(tbl.read())
+    
+    f.write(f"\n#### Extensions failed to LOAD:\n")
+    f.write(f"Nightly-build|Runs_on|Version|Extension|Failed statement\n")
+    f.write(f"----|----|----|----|----\n")
+    duckdb.sql(f"""
+                COPY (SELECT * FROM read_csv("{ file_name }")
+                    WHERE column4='LOAD'
+                    ORDER BY column1, column2, column3)
+                TO tmp.md (HEADER 0, SEPARATOR '|')
+                """)
     with open("tmp.md", 'r') as tbl:
         f.write(tbl.read())
