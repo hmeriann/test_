@@ -41,7 +41,6 @@ else:
 def create_issue_body():
     failures_list = "failures_list.md"
     duckdb.sql(f"""
-                .mode markdown    
                 COPY (
                     SELECT conclusion, startedAt, url
                     FROM read_json('{ input_file }') 

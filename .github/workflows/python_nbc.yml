@@ -85,10 +85,12 @@ jobs:
       - name: Prepare a result table
         shell: bash
         run: |
-          python -m pip install duckdb
-          echo runs_on,version,extension,failed_statement > result.csv
-          cat issue_body*/issue_body*.txt >> result.csv
-          python scripts/prepare_report.py result.csv
+          if [ -f issue_body_Python* ]; then
+            python -m pip install duckdb
+            echo nightly_build,runs_on,version,extension,failed_statement > result.csv
+            cat issue_body*/issue_body*.txt >> result.csv
+            python scripts/prepare_report.py result.csv
+          fi
       - name: Upload result file
         uses: actions/upload-artifact@v4
         with:
