@@ -87,7 +87,7 @@ jobs:
         run: |
           if [ -f issue_body_Python* ]; then
             python -m pip install duckdb
-            echo nightly_build,runs_on,version,extension,failed_statement > result.csv
+            echo "nightly_build,runs_on,version,extension,failed_statement" > result.csv
             cat issue_body*/issue_body*.txt >> result.csv
             python scripts/prepare_report.py result.csv
           fi
