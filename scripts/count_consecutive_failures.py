@@ -45,7 +45,7 @@ def create_issue_body():
                     SELECT conclusion, startedAt, url
                     FROM read_json('{ input_file }') 
                     WHERE conclusion='failure'
-                    LIMIT `{ failures }`
+                    LIMIT '{ failures }'
                 )  
                 TO '{ failures_list }' (HEADER 0, QUOTE '', SEPARATOR '|');
                 """)
