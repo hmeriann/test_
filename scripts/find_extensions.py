@@ -9,9 +9,10 @@ if not args:
 
 config = args.config
 
-with open({ config }, "r") as file:
+with open(config, "r") as file:
     content = file.read()
 
     # Adjusted regex for matching after `load(`
     pattern = r"duckdb_extension_load\(\s*([^\s,)]+)"
     matches = re.findall(pattern, content)
+    print(matches)

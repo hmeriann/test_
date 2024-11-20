@@ -20,9 +20,38 @@ on:
 env:
   GH_TOKEN: ${{ github.token }}
 jobs:
+  get-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      extensions: ${{ steps.ex.outputs.extensions }}
+    steps:
+      - name: Checkout the repo with the script
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - uses: actions/checkout@v4
+        with:
+          repository: duckdb/duckdb
+          sparse-checkout: |
+            .github/config
+          path: ext
+      - name: save to GITHUB_OUTPUT
+        id: ex
+        shell: bash
+        run: |
+            chmod +x scripts/find_extensions.py
+            matches=$(python scripts/find_extensions.py ext/.github/config/out_of_tree_extensions.cmake)
+              echo "extensions=$matches" >> $GITHUB_OUTPUT
+
   check-build:
     runs-on: ${{ inputs.runs-on }}
     continue-on-error: true
+    needs: get-matrix
+    strategy:
+      matrix:
+        extensions: ${{ fromJSON(needs.get-matrix.outputs.extensions) }}
     steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -54,39 +83,39 @@ jobs:
             duckdb=./duckdb
           fi
 
-          docker run --rm --platform linux/aarch64 -v $(pwd):/duckdb -e ext=${{ inputs.extension }} -e duckdb=$duckdb ubuntu:22.04 /bin/bash -c 'cd /duckdb; ./duckdb -line -c "select installed from duckdb_extensions() where extension_name='\''${ext}'\'';"' > sp.csv
+          docker run --rm --platform linux/aarch64 -v $(pwd):/duckdb -e ext=${{ matrix.extensions }} -e duckdb=$duckdb ubuntu:22.04 /bin/bash -c 'cd /duckdb; ./duckdb -line -c "select installed from duckdb_extensions() where extension_name='\''${ext}'\'';"' > sp.csv
           cat sp.csv
 
-          # $duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';"
-          # $duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ inputs.extension }}';" > sp.csv
+          # $duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ matrix.extensions }}';"
+          # $duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ matrix.extensions }}';" > sp.csv
           sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
           if [[ $sp == 'false' ]]; then
-            echo Installing ${{ inputs.extension }} extension...
-            if docker run --rm --platform linux/aarch64 -v $(pwd):/duckdb -e ext=${{ inputs.extension }} -e duckdb=$duckdb ubuntu:22.04 /bin/bash -c '$duckdb -c "INSTALL $ext;"'; then 
-              echo ${{ inputs.extension }} extension is installed.
+            echo Installing ${{ matrix.extensions }} extension...
+            if docker run --rm --platform linux/aarch64 -v $(pwd):/duckdb -e ext=${{ matrix.extensions }} -e duckdb=$duckdb ubuntu:22.04 /bin/bash -c '$duckdb -c "INSTALL $ext;"'; then 
+              echo ${{ matrix.extensions }} extension is installed.
             else
-              echo Failed to install ${{ inputs.extension }} extension.
-              echo "- \`${{ inputs.architecture }}\`: **Failed** to install \`${{ inputs.extension }}\` extension." >> issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.txt
-              echo "" >> issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.txt
+              echo Failed to install ${{ matrix.extensions }} extension.
+              echo "- \`${{ inputs.architecture }}\`: **Failed** to install \`${{ matrix.extensions }}\` extension." >> issue_body_${{ inputs.architecture }}_${{ matrix.extensions }}.txt
+              echo "" >> issue_body_${{ inputs.architecture }}_${{ matrix.extensions }}.txt
               exit 1
             fi
-            echo Loading ${{ inputs.extension }} extension...
-            if docker run --rm --platform linux/aarch64 -v $(pwd):/duckdb -e ext=${{ inputs.extension }} -e duckdb=$duckdb ubuntu:22.04 /bin/bash -c '$duckdb -c "LOAD $ext;"'; then
-              echo ${{ inputs.extension }} extension is loaded.
+            echo Loading ${{ matrix.extensions }} extension...
+            if docker run --rm --platform linux/aarch64 -v $(pwd):/duckdb -e ext=${{ matrix.extensions }} -e duckdb=$duckdb ubuntu:22.04 /bin/bash -c '$duckdb -c "LOAD $ext;"'; then
+              echo ${{ matrix.extensions }} extension is loaded.
             else
-              echo Failed to load ${{ inputs.extension }} extension.
-              echo "- \`${{ inputs.architecture }}\`: **Failed** to load the extension \`${{ inputs.extension }}\`." >> issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.txt
-              echo "" >> issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.txt
+              echo Failed to load ${{ matrix.extensions }} extension.
+              echo "- \`${{ inputs.architecture }}\`: **Failed** to load the extension \`${{ matrix.extensions }}\`." >> issue_body_${{ inputs.architecture }}_${{ matrix.extensions }}.txt
+              echo "" >> issue_body_${{ inputs.architecture }}_${{ matrix.extensions }}.txt
               exit 1
             fi
           fi
       
-      - name: Setup upterm session
-        uses: owenthereal/action-upterm@v1
+      # - name: Setup upterm session
+      #   uses: owenthereal/action-upterm@v1
       
       - name: Upload results
         uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: issue_body_${{ inputs.architecture }}_${{ inputs.extension }}
-          path: issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.txt
+          name: issue_body_${{ inputs.architecture }}_${{ matrix.extensions }}
+          path: issue_body_${{ inputs.architecture }}_${{ matrix.extensions }}.txt

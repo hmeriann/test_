@@ -59,16 +59,16 @@ jobs:
     name: Test OSX
     needs: osx
     if: needs.osx.outputs.has_artifact == 'true'
-    uses: ./.github/workflows/tests_nbc.yml
+    uses: ./.github/workflows/tests_nbc_copy.yml
     with:
       nightly-build: OSX
       platform: osx
       architecture: osx-universal
       runs-on: macos-latest
-      extension: ${{ matrix.extension }}
-    strategy:
-      matrix:
-        extension: [ arrow, autocomplete, aws, azure, excel, fts, httpfs, iceberg, icu, inet, json, mysql_scanner, parquet, postgres_scanner, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]            
+      # extension: ${{ matrix.extension }}
+    # strategy:
+    #   matrix:
+    #     extension: [ arrow, autocomplete, aws, azure, excel, fts, httpfs, iceberg, icu, inet, json, mysql_scanner, parquet, postgres_scanner, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]            
   # windows:
   #   name: Check Windows
   #   uses: ./.github/workflows/nrc_copy.yml
