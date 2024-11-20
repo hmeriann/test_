@@ -65,7 +65,7 @@ jobs:
         shell: bash
         run: |  
           echo Trying to INSTALL and LOAD extensions...
-          python scripts/test_install_load_extensions.py ${{ matrix.runs-on }} --version ${{ matrix.python-version }}
+          python scripts/test_install_load_extensions.py ${{ inputs.nightly-build }} --runs-on ${{ matrix.runs-on }} --version ${{ matrix.python-version }}
       - name: Upload test results
         uses: actions/upload-artifact@v4
         with:
