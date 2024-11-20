@@ -95,7 +95,7 @@ jobs:
           sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
           if [[ $sp == 'false' ]]; then
             echo Installing ${{ matrix.extensions }} extension...
-            if [[ ${{ inputs.architecture == 'linux-aarch64' }} ]]; then
+            if [[ ${{ inputs.architecture }} == 'linux-aarch64' ]]; then
               if ! docker run --rm --platform linux/aarch64 -v $(pwd):/duckdb -e ext=${{ matrix.extensions }} -e duckdb=$duckdb ubuntu:22.04 /bin/bash -c '$duckdb -c "INSTALL $ext;"'; then 
                 echo Failed to install ${{ matrix.extensions }} extension.
                 echo "- \`${{ inputs.architecture }}\`: **Failed** to install \`${{ matrix.extensions }}\` extension." >> issue_body_${{ inputs.architecture }}_${{ matrix.extensions }}.txt
