@@ -46,29 +46,29 @@ jobs:
         # extension: [ arrow, autocomplete, aws, azure, delta, excel, fts, httpfs, iceberg, icu, inet, json, motherduck, mysql_scanner, parquet, postgres_scanner, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]
 
         
-  # osx:
-  #   name: Check OSX
-  #   uses: ./.github/workflows/nrc_copy.yml
-  #   with:
-  #     nightly-build: OSX
-  #     platform: osx
-  #     architecture: osx-universal
-  #     runs-on: macos-latest
+  osx:
+    name: Check OSX
+    uses: ./.github/workflows/nrc_copy.yml
+    with:
+      nightly-build: OSX
+      platform: osx
+      architecture: osx-universal
+      runs-on: macos-latest
   
-  # osx-test:
-  #   name: Test OSX
-  #   needs: osx
-  #   if: needs.osx.outputs.has_artifact == 'true'
-  #   uses: ./.github/workflows/tests_nbc.yml
-  #   with:
-  #     nightly-build: OSX
-  #     platform: osx
-  #     architecture: osx-universal
-  #     runs-on: macos-latest
-  #     extension: ${{ matrix.extension }}
-  #   strategy:
-  #     matrix:
-  #       extension: [ arrow, autocomplete, aws, azure, excel, fts, httpfs, iceberg, icu, inet, json, mysql_scanner, parquet, postgres_scanner, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]            
+  osx-test:
+    name: Test OSX
+    needs: osx
+    if: needs.osx.outputs.has_artifact == 'true'
+    uses: ./.github/workflows/tests_nbc.yml
+    with:
+      nightly-build: OSX
+      platform: osx
+      architecture: osx-universal
+      runs-on: macos-latest
+      extension: ${{ matrix.extension }}
+    strategy:
+      matrix:
+        extension: [ arrow, autocomplete, aws, azure, excel, fts, httpfs, iceberg, icu, inet, json, mysql_scanner, parquet, postgres_scanner, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]            
   # windows:
   #   name: Check Windows
   #   uses: ./.github/workflows/nrc_copy.yml
@@ -120,7 +120,7 @@ jobs:
       # - linux
       # - osx
       # - linux-test
-      # - osx-test
+      - osx-test
       # - windows-test
       - python-test
     steps:
@@ -137,7 +137,8 @@ jobs:
       - name: Report an issue
         if: success()
         run: |
-          cat result*/*/* > report.md
+          # result/result_Python/res.md 
+          cat result*/res*/* > report.md
           gh issue create --repo hmeriann/test_ --title "Nightly Builds Failures" --body-file report.md
 
       # - name: Create a post

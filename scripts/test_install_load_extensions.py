@@ -9,7 +9,7 @@ parser.add_argument("--runs_on")
 parser.add_argument("--version")
 args = parser.parse_args()
 if not args:
-    print("SET runs_on parameter")
+    print("SET nightly_build parameter")
 
 nightly_build = args.nightly_build
 runs_on = args.runs_on

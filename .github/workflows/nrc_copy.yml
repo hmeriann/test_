@@ -126,16 +126,60 @@ jobs:
           echo "has_artifact=true" >> $GITHUB_OUTPUT
       # - name: Setup upterm session
       #   uses: owenthereal/action-upterm@v1
-      - name: Upload issue
-        if: steps.check-build.outputs.is_failure == 'failure'
-        uses: actions/upload-artifact@v4
-        with:
-          name: issue_body_${{ inputs.architecture }}
-          path: issue_body_${{ inputs.architecture }}.txt
-
+      # - name: Upload issue
+      #   if: steps.check-build.outputs.is_failure == 'failure'
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: issue_body_${{ inputs.architecture }}
+      #     path: issue_body_${{ inputs.architecture }}.txt
       - name: Upload build
         if: steps.verify-build.outputs.has_artifact == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: duckdb_cli-${{ inputs.architecture }}
           path: duckdb_cli-${{ inputs.architecture }}.zip
+
+  prepare-result:
+    needs: check-build
+    if: needs.check-build.outputs.is_failure == 'failure'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo with the script
+        uses: actions/checkout@v4
+      - name: Sparse checkout duckdb/duckdb for config
+        uses: actions/checkout@v4
+        with:
+          repository: duckdb/duckdb
+          sparse-checkout: |
+            .github/config
+          path: extensions
+      - name: Set up Python${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install pip
+        shell: bash
+        run: |
+          python -m pip install --upgrade pip
+          python -v
+      - name: Install Duckdb for Python${{ matrix.python-version }}
+        shell: bash
+        run: pip install duckdb --pre --upgrade
+
+      - name: Download test results
+        uses: actions/download-artifact@v4
+        with:
+          pattern: issue_body_Python*
+      - name: Prepare a result table
+        shell: bash
+        run: |
+          python -m pip install duckdb
+          echo "nightly_build,runs_on,version,extension,failed_statement" > result.csv
+          cat issue_body*/issue_body*.txt >> result.csv
+          python scripts/prepare_report.py result.csv
+      - name: Upload result file
+        uses: actions/upload-artifact@v4
+        with:
+          name: result_Python
+          path: res.md

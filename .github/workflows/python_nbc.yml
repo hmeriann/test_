@@ -25,7 +25,7 @@ jobs:
     steps:
       - name: Checkout the repo with the script
         uses: actions/checkout@v4
-      - name: Sparse checkout duckdb/duckdb 
+      - name: Sparse checkout duckdb/duckdb for config
         uses: actions/checkout@v4
         with:
           repository: duckdb/duckdb
