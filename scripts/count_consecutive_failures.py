@@ -61,6 +61,8 @@ def create_issue_body():
 def main():
     if failures >= 1:
         print(f"Found '{ failures }' failures.")
+        # ???: Do we want to report only when >= 4 consecutive failures?
+        # if failures >= 4:
         create_issue_body()
         return 1
     else:
