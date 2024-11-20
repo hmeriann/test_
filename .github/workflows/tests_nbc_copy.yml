@@ -101,24 +101,28 @@ jobs:
                 echo "- \`${{ inputs.architecture }}\`: **Failed** to install \`${{ matrix.extensions }}\` extension." >> issue_body_${{ inputs.architecture }}_${{ matrix.extensions }}.txt
                 echo "" >> issue_body_${{ inputs.architecture }}_${{ matrix.extensions }}.txt
                 exit 1
+              fi
+              echo Loading ${{ matrix.extensions }} extension...
+              if ! docker run --rm --platform linux/aarch64 -v $(pwd):/duckdb -e ext=${{ matrix.extensions }} -e duckdb=$duckdb ubuntu:22.04 /bin/bash -c '$duckdb -c "LOAD $ext;"'; then
+                echo Failed to load ${{ matrix.extensions }} extension.
+                echo "- \`${{ inputs.architecture }}\`: **Failed** to load the extension \`${{ matrix.extensions }}\`." >> issue_body_${{ inputs.architecture }}_${{ matrix.extensions }}.txt
+                echo "" >> issue_body_${{ inputs.architecture }}_${{ matrix.extensions }}.txt
+                exit 1
+              fi
             else
-              $duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ matrix.extensions }}';"
-              $duckdb -line -c "select installed from duckdb_extensions() where extension_name='${{ matrix.extensions }}';" > sp.csv
-            fi
-            
-            if docker run --rm --platform linux/aarch64 -v $(pwd):/duckdb -e ext=${{ matrix.extensions }} -e duckdb=$duckdb ubuntu:22.04 /bin/bash -c '$duckdb -c "INSTALL $ext;"'; then 
-              echo ${{ matrix.extensions }} extension is installed.
-            else
-              
-            fi
-            echo Loading ${{ matrix.extensions }} extension...
-            if docker run --rm --platform linux/aarch64 -v $(pwd):/duckdb -e ext=${{ matrix.extensions }} -e duckdb=$duckdb ubuntu:22.04 /bin/bash -c '$duckdb -c "LOAD $ext;"'; then
-              echo ${{ matrix.extensions }} extension is loaded.
-            else
-              echo Failed to load ${{ matrix.extensions }} extension.
-              echo "- \`${{ inputs.architecture }}\`: **Failed** to load the extension \`${{ matrix.extensions }}\`." >> issue_body_${{ inputs.architecture }}_${{ matrix.extensions }}.txt
-              echo "" >> issue_body_${{ inputs.architecture }}_${{ matrix.extensions }}.txt
-              exit 1
+              if ! $duckdb -c "INSTALL ${{ inputs.extension }};"; then
+                echo Failed to install ${{ inputs.extension }} extension.
+                echo "- \`${{ inputs.architecture }}\`: **Failed** to install \`${{ inputs.extension }}\` extension." >> issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.txt
+                echo "" >> issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.txt
+                exit 1
+              fi
+              echo Loading ${{ inputs.extension }} extension...
+              if ! $duckdb -c "LOAD ${{ inputs.extension }};"; then
+                echo Failed to load ${{ inputs.extension }} extension.
+                echo "- \`${{ inputs.architecture }}\`: **Failed** to load the extension \`${{ inputs.extension }}\`." >> issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.txt
+                echo "" >> issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.txt
+                exit 1
+              fi
             fi
           fi
       
