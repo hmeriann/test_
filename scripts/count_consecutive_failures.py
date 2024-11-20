@@ -58,7 +58,7 @@ def create_issue_body():
             f.write(failures_file.read())
 
 def main():
-    if failures >= 4:
+    if failures >= 1:
         print(f"Found '{ failures }' failures.")
         create_issue_body()
         return 1
