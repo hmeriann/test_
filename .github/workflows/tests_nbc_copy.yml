@@ -74,8 +74,8 @@ jobs:
         with:
           name: duckdb_cli-${{ inputs.architecture }}
       
-      - name: Setup upterm session
-        uses: owenthereal/action-upterm@v1
+      # - name: Setup upterm session
+      #   uses: owenthereal/action-upterm@v1
 
       - name: Test ${{ inputs.nightly-build }}
         shell: bash
@@ -88,7 +88,7 @@ jobs:
             duckdb=./duckdb
           fi
 
-          docker run --rm --platform linux/aarch64 -v $(pwd):/duckdb -e ext=${{ matrix.extensions }} -e duckdb=$duckdb ubuntu:22.04 /bin/bash -c 'cd /duckdb; ./duckdb -line -c "select installed from duckdb_extensions() where extension_name='\''${ext}'\'';"' > sp.csv
+          docker run --rm --platform linux/aarch64 -v $(pwd):/duckdb -e ext=${{ matrix.extensions }} -e duckdb=$duckdb ubuntu:22.04 /bin/bash -c '$duckdb -line -c "select installed from duckdb_extensions() where extension_name='\''${ext}'\'';"' > sp.csv
           cat sp.csv
 
           sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
