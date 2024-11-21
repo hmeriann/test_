@@ -13,34 +13,34 @@ env:
   GH_TOKEN: ${{ github.token }}
   gh_repo: duckdb/duckdb
 jobs:
-  # linux:
-  #   name: Check LinuxRelease
-  #   uses: ./.github/workflows/nrc_copy.yml
-  #   with:
-  #     nightly-build: LinuxRelease
-  #     runs-on: ubuntu-latest
-  #     platform: linux
-  #     architecture: ${{ matrix.architecture }}
-  #   strategy:
-  #     matrix:
-  #       architecture: [ linux-aarch64 ]
-  #       # architecture: [ linux-amd64, linux-aarch64 ]
+  linux:
+    name: Check LinuxRelease
+    uses: ./.github/workflows/nrc_copy.yml
+    with:
+      nightly-build: LinuxRelease
+      runs-on: ubuntu-latest
+      platform: linux
+      architecture: ${{ matrix.architecture }}
+    strategy:
+      matrix:
+        architecture: [ linux-aarch64 ]
+        # architecture: [ linux-amd64, linux-aarch64 ]
 
-  # linux-test:
-  #   name: Test LinuxRelease
-  #   needs: linux
-  #   if: needs.linux.outputs.has_artifact == 'true'
-  #   uses: ./.github/workflows/tests_nbc_copy.yml
-  #   with:
-  #     nightly-build: LinuxRelease
-  #     runs-on: ubuntu-latest
-  #     platform: linux
-  #     architecture: ${{ matrix.architecture }}
+  linux-test:
+    name: Test LinuxRelease
+    needs: linux
+    if: needs.linux.outputs.has_artifact == 'true'
+    uses: ./.github/workflows/tests_nbc_copy.yml
+    with:
+      nightly-build: LinuxRelease
+      runs-on: ubuntu-latest
+      platform: linux
+      architecture: ${{ matrix.architecture }}
   #     extension: ${{ matrix.extension }}
-  #   strategy:
-  #     matrix:
-  #       extension: [ arrow ]
-  #       architecture: [ linux-aarch64 ]
+    strategy:
+      matrix:
+        architecture: [ linux-aarch64 ]
+        #       extension: [ arrow ]
         # architecture: [ linux-amd64, linux-aarch64 ]
         # extensions list to be checked before release:
         # extension: [ arrow, autocomplete, aws, azure, delta, excel, fts, httpfs, iceberg, icu, inet, json, motherduck, mysql_scanner, parquet, postgres_scanner, spatial, sqlite_scanner, substrait, tpcds, tpch, vss ]
