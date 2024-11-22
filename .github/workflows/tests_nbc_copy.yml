@@ -123,9 +123,9 @@ jobs:
               fi
             fi
           done
-      - name: Setup upterm session
-        if: always()
-        uses: owenthereal/action-upterm@v1
+      # - name: Setup upterm session
+      #   if: always()
+      #   uses: owenthereal/action-upterm@v1
       - name: Test ${{ inputs.nightly-build }}
         shell: bash
         if: inputs.architecture == 'linux-arm64' || inputs.nightly-build == 'OSX'
