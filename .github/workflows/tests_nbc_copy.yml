@@ -101,7 +101,7 @@ jobs:
           # matches=$(python scripts/find_extensions.py ext/.github/config/out_of_tree_extensions.cmake --arch=${{ inputs.architecture }})
           #   echo "extensions=$matches" >> $GITHUB_OUTPUT
           
-          matches = ${{ needs.get-matrix.outputs.extensions }}
+          matches=${{ fromJSON(needs.get-matrix.outputs.extensions) }}
           echo $matches
           
           for ext in $matches[@]; do
