@@ -53,6 +53,15 @@ jobs:
     #   matrix:
     #     extensions: ${{ fromJSON(needs.get-matrix.outputs.extensions) }}
     steps:
+      - name: Checkout the repo with the script
+        uses: actions/checkout@v4
+      - name: Checkout repo with extensions config file
+        uses: actions/checkout@v4
+        with:
+          repository: duckdb/duckdb
+          sparse-checkout: |
+            .github/config
+          path: ext
       - name: Set up QEMU
         if: ${{ inputs.architecture == 'linux-aarch64' }}
         uses: docker/setup-qemu-action@v3
@@ -68,7 +77,6 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libc6-arm64-cross qemu-user-static
-
       - name: Download artifact 
         uses: actions/download-artifact@v4
         with:
