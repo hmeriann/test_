@@ -100,7 +100,7 @@ jobs:
             matches=$(python scripts/find_extensions.py ext/.github/config/out_of_tree_extensions.cmake)
               echo "extensions=$matches" >> $GITHUB_OUTPUT
           
-          foe ext in extensions; do
+          for ext in $extensions; do
             docker run --rm --platform linux/aarch64 -v $(pwd)/duckdb:/duckdb -e ext=$ext -e duckdb=$duckdb ubuntu:22.04 /bin/bash -c '$duckdb -line -c "select installed from duckdb_extensions() where extension_name='\''${ext}'\'';"' > sp.csv
             cat sp.csv
 
@@ -133,7 +133,7 @@ jobs:
           else
             duckdb=./duckdb
           fi
-          for ext in extensions; do
+          for ext in $extensions; do
             $duckdb -line -c "select installed from duckdb_extensions() where extension_name='$ext';"
             $duckdb -line -c "select installed from duckdb_extensions() where extension_name='$ext';" > sp.csv
             cat sp.csv
