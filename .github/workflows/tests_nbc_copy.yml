@@ -45,7 +45,7 @@ jobs:
   #           matches=$(python scripts/find_extensions.py ext/.github/config/out_of_tree_extensions.cmake)
   #             echo "extensions=$matches" >> $GITHUB_OUTPUT
 
-  check-build:
+  test:
     runs-on: ${{ inputs.runs-on }}
     continue-on-error: true
     # needs: get-matrix
@@ -97,10 +97,13 @@ jobs:
           fi
 
           chmod +x scripts/find_extensions.py
-            matches=$(python scripts/find_extensions.py ext/.github/config/out_of_tree_extensions.cmake)
-              echo "extensions=$matches" >> $GITHUB_OUTPUT
           
-          for ext in $extensions[@]; do
+          matches=$(python scripts/find_extensions.py ext/.github/config/out_of_tree_extensions.cmake)
+            echo "extensions=$matches" >> $GITHUB_OUTPUT
+          
+          echo $matches
+          
+          for ext in $matches[@]; do
             docker run --rm --platform linux/aarch64 -v $(pwd)/duckdb:/duckdb -e ext=$ext -e duckdb=$duckdb ubuntu:22.04 /bin/bash -c '$duckdb -line -c "select installed from duckdb_extensions() where extension_name='\''${ext}'\'';"' > sp.csv
             cat sp.csv
 
@@ -122,7 +125,9 @@ jobs:
               fi
             fi
           done
-
+      - name: Setup upterm session
+        if: always()
+        uses: owenthereal/action-upterm@v1
       - name: Test ${{ inputs.nightly-build }}
         shell: bash
         if: inputs.architecture == 'linux-arm64' || inputs.nightly-build == 'OSX'
@@ -133,7 +138,7 @@ jobs:
           else
             duckdb=./duckdb
           fi
-          for ext in $extensions[@]; do
+          for ext in $matches[@]; do
             $duckdb -line -c "select installed from duckdb_extensions() where extension_name='$ext';"
             $duckdb -line -c "select installed from duckdb_extensions() where extension_name='$ext';" > sp.csv
             cat sp.csv
@@ -167,7 +172,7 @@ jobs:
           path: issue_body_${{ inputs.architecture }}_$ext.txt
 
   # prepare-result:
-  #   needs: check-build
+  #   needs: test
   #   runs-on: ubuntu-latest
   #   steps:
   #     - name: Checkout the repo with the script
