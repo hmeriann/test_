@@ -23,7 +23,7 @@ version = args.version
 #     pattern = r"duckdb_extension_load\(\s*([^\s,)]+)"
 #     extensions = re.findall(pattern, content)
 
-# extensions = [ 'one', 'two', 'three' ]
+extensions = [ 'one', 'two', 'three' ]
 
 with open("issue_body_extensions_{}.txt".format(nightly_build), 'w') as f:
     for extension in extensions:
