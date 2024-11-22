@@ -110,16 +110,12 @@ jobs:
               echo Installing $ext extension...
               if ! docker run --rm --platform linux/aarch64 -v $(pwd)/duckdb:/duckdb -e ext=$ext -e duckdb=$duckdb ubuntu:22.04 /bin/bash -c '$duckdb -c "INSTALL $ext;"'; then 
                 echo Failed to install $ext extension.
-                echo "- \`${{ inputs.architecture }}\`: **Failed** to install \`$ext\` extension." >> issue_body_${{ inputs.architecture }}_$ext.txt
-                echo "" >> issue_body_${{ inputs.architecture }}_$ext.txt
-                exit 1
+                echo "${{ inputs.nightly-build }},${{ inputs.runs-on }},NULL,$ext,INSTALL" >> issue_body_${{ inputs.architecture }}_$ext.txt
               fi
               echo Loading $ext extension...
               if ! docker run --rm --platform linux/aarch64 -v $(pwd)/duckdb:/duckdb -e ext=$ext -e duckdb=$duckdb ubuntu:22.04 /bin/bash -c '$duckdb -c "LOAD $ext;"'; then
                 echo Failed to load $ext extension.
-                echo "- \`${{ inputs.architecture }}\`: **Failed** to load the extension \`$ext\`." >> issue_body_${{ inputs.architecture }}_$ext.txt
-                echo "" >> issue_body_${{ inputs.architecture }}_$ext.txt
-                exit 1
+                echo "${{ inputs.nightly-build }},${{ inputs.runs-on }},NULL,$ext,LOAD" >> issue_body_${{ inputs.architecture }}_$ext.txt
               fi
             fi
           done
@@ -168,26 +164,3 @@ jobs:
         with:
           name: issue_body_${{ inputs.architecture }}_$ext
           path: issue_body_${{ inputs.architecture }}_$ext.txt
-
-  # prepare-result:
-  #   needs: test
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout the repo with the script
-  #       uses: actions/checkout@v4
-  #     - name: Download test results
-  #       uses: actions/download-artifact@v4
-  #       with:
-  #         pattern: issue_body_${{ inputs.architecture }}*
-  #     - name: Prepare a result table
-  #       shell: bash
-  #       run: |
-  #         python -m pip install duckdb
-  #         echo "nightly_build,runs_on,version,extension,failed_statement" > result.csv
-  #         cat issue_body*/issue_body*.txt >> result.csv
-  #         python scripts/prepare_report.py result.csv
-  #     - name: Upload result file
-  #       uses: actions/upload-artifact@v4
-  #       with:
-  #         name: result_Python
-  #         path: res.md
