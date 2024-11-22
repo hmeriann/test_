@@ -77,9 +77,9 @@ jobs:
       # - name: Setup upterm session
       #   uses: owenthereal/action-upterm@v1
 
-      - name: Test ${{ inputs.nightly-build }}
+      - name: Test ${{ inputs.nightly-build }} in an aarch64 Docker container
         shell: bash
-        if: inputs.architecture == 'linux-aarch64' || inputs.nightly-build == 'OSX'
+        if: inputs.architecture == 'linux-aarch64'
         run: |
           unzip duckdb_cli-${{ inputs.architecture }}.zip
           if [[ ${{ inputs.nightly-build }} == Windows ]]; then
@@ -88,22 +88,20 @@ jobs:
             duckdb=./duckdb
           fi
 
-          docker run --rm --platform linux/aarch64 -v $(pwd):/duckdb -e ext=${{ matrix.extensions }} -e duckdb=$duckdb ubuntu:22.04 /bin/bash -c 'cd duckdb; $duckdb -line -c "select installed from duckdb_extensions() where extension_name='\''${ext}'\'';"' > sp.csv
+          docker run --name con --platform linux/aarch64 -v $(pwd)/duckdb:/duckdb -e ext=${{ matrix.extensions }} -e duckdb=$duckdb ubuntu:22.04 /bin/bash -c '$duckdb -line -c "select installed from duckdb_extensions() where extension_name='\''${ext}'\'';"' > sp.csv
           cat sp.csv
 
           sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
           if [[ $sp == 'false' ]]; then
             echo Installing ${{ matrix.extensions }} extension...
-            if docker run --rm --platform linux/aarch64 -v $(pwd):/duckdb -e ext=${{ matrix.extensions }} -e duckdb=$duckdb ubuntu:22.04 /bin/bash -c '$duckdb -c "INSTALL $ext;"'; then 
-              echo ALL GOOD!
-            else
+            if ! docker exec con $duckdb -c '$duckdb -c "INSTALL $ext;"'; then 
               echo Failed to install ${{ matrix.extensions }} extension.
               echo "- \`${{ inputs.architecture }}\`: **Failed** to install \`${{ matrix.extensions }}\` extension." >> issue_body_${{ inputs.architecture }}_${{ matrix.extensions }}.txt
               echo "" >> issue_body_${{ inputs.architecture }}_${{ matrix.extensions }}.txt
               exit 1
             fi
             echo Loading ${{ matrix.extensions }} extension...
-            if ! docker run --rm --platform linux/aarch64 -v $(pwd):/duckdb -e ext=${{ matrix.extensions }} -e duckdb=$duckdb ubuntu:22.04 /bin/bash -c '$duckdb -c "LOAD $ext;"'; then
+            if ! docker exec con $duckdb -c '$duckdb -c "LOAD $ext;"'; then
               echo Failed to load ${{ matrix.extensions }} extension.
               echo "- \`${{ inputs.architecture }}\`: **Failed** to load the extension \`${{ matrix.extensions }}\`." >> issue_body_${{ inputs.architecture }}_${{ matrix.extensions }}.txt
               echo "" >> issue_body_${{ inputs.architecture }}_${{ matrix.extensions }}.txt
@@ -113,7 +111,7 @@ jobs:
 
       - name: Test ${{ inputs.nightly-build }}
         shell: bash
-        if: inputs.architecture == 'linux-arm64'
+        if: inputs.architecture == 'linux-arm64' || inputs.nightly-build == 'OSX'
         run: |
           unzip duckdb_cli-${{ inputs.architecture }}.zip
           if [[ ${{ inputs.nightly-build }} == Windows ]]; then
