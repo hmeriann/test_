@@ -21,13 +21,12 @@ all = duckdb.sql(f"SELECT * FROM read_json('{ input_file }')")
 rows = all.fetchall()
 conclusions = [row[0] for row in rows]
 print(conclusions)
-result=0
+failures=0
 for c in conclusions:
     if c == 'failure':
-        result+=1
+        failures+=1
     else:
         break
-print(result)
 
 def create_issue_body():
     failures_list = "failures_list.md"
