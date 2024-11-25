@@ -23,8 +23,8 @@ jobs:
       architecture: ${{ matrix.architecture }}
     strategy:
       matrix:
-        architecture: [ linux-aarch64 ]
-        # architecture: [ linux-amd64, linux-aarch64 ]
+        # architecture: [ linux-aarch64 ]
+        architecture: [ linux-amd64, linux-aarch64 ]
   linux-test:
     name: Test LinuxRelease
     needs: linux
@@ -37,8 +37,8 @@ jobs:
       architecture: ${{ matrix.architecture }}
     strategy:
       matrix:
-        architecture: [ linux-aarch64 ]
-        # architecture: [ linux-amd64, linux-aarch64 ]
+        # architecture: [ linux-aarch64 ]
+        architecture: [ linux-amd64, linux-aarch64 ]
   linux-report:
     name: Create Report for linux
     needs: 
@@ -81,29 +81,39 @@ jobs:
       nightly-build: OSX
       run_url: ${{ needs.osx.outputs.run_url }}
 
-  # windows:
-  #   name: Check Windows
-  #   uses: ./.github/workflows/nrc_copy.yml
-  #   with:
-  #     nightly-build: Windows
-  #     runs-on: windows-2019
-  #     platform: windows
-  #     architecture: ${{ matrix.architecture }}
-  #   strategy:
-  #     matrix:
-  #       architecture: [ windows-amd64 ]
-  #       # architecture: [ windows-amd64, windows-arm64 ]  
-  # windows-test:
-  #   name: Test Windows
-  #   needs: windows
-  #   if: needs.windows.outputs.has_artifact == 'true'
-  #   uses: ./.github/workflows/tests_nbc.yml
-  #   with:
-  #     nightly-build: Windows
-  #     platform: windows
-  #     architecture: windows-amd64
-  #     runs-on: windows-2019
-
+  windows:
+    name: Check Windows
+    uses: ./.github/workflows/nrc_copy.yml
+    with:
+      nightly-build: Windows
+      runs-on: windows-2019
+      platform: windows
+      architecture: ${{ matrix.architecture }}
+    strategy:
+      matrix:
+        architecture: [ windows-amd64 ]
+        # architecture: [ windows-amd64, windows-arm64 ]  
+  windows-test:
+    name: Test Windows
+    needs: windows
+    if: needs.windows.outputs.has_artifact == 'true'
+    uses: ./.github/workflows/tests_nbc.yml
+    with:
+      nightly-build: Windows
+      platform: windows
+      architecture: windows-amd64
+      runs-on: windows-2019
+  windows-report:
+    name: Create Report for Windows
+    needs: 
+      - windows
+      - windows-test
+    if: needs.windows.outputs.is_failure == 'failure' || needs.windows-test.result == 'success'
+    uses: ./.github/workflows/create_report.yml
+    with:
+      platform: windows
+      nightly-build: Windows
+      run_url: ${{ needs.windows.outputs.run_url }}
 
   python:
     name: Check Python
@@ -137,7 +147,7 @@ jobs:
     needs:
       - linux-report
       - osx-report
-      # - windows-test
+      - windows-report
       - python-report
     steps:
       - name: Download artifacts
