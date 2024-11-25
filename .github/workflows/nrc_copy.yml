@@ -70,6 +70,9 @@ jobs:
           url=$(tail -n 1 url.csv | awk -F "[:}]" '{ print $3 }' | sed 's/"$//')
           echo "run_url=$(tail -n 1 url.csv | awk -F "[:}]" '{ print $3 }' | sed 's/"$//')" >> $GITHUB_OUTPUT
 
+          echo $url 📌
+          echo $run_url 🦑
+
           if echo $conclusion | grep -q 'failure'; then
             echo "is_failure=failure" >> $GITHUB_OUTPUT
             
