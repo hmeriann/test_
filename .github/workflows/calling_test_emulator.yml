@@ -125,7 +125,7 @@ jobs:
     if: always()
     uses: ./.github/workflows/create_report.yml
     with:
-      platform: python
+      platform: Python
       nightly-build: Python
   
   create-issue:
