@@ -35,7 +35,6 @@ jobs:
         shell: bash
         if: always()
         run: |
-          echo ${{ inputs.run_url }} 🍀
           if [ $(ls ext_failures_*/issue_ext*/ | wc -l) -gt 0 ]; then
             python -m pip install duckdb
             echo "nightly_build,runs_on,version,extension,failed_statement" > result.csv
