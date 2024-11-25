@@ -110,12 +110,12 @@ jobs:
               echo Installing $ext extension...
               if ! docker run --rm --platform linux/aarch64 -v $(pwd)/duckdb:/duckdb -e ext=$ext -e duckdb=$duckdb ubuntu:22.04 /bin/bash -c '$duckdb -c "INSTALL $ext;"'; then 
                 echo Failed to install $ext extension.
-                echo "${{ inputs.nightly-build }},${{ inputs.runs-on }},NULL,$ext,INSTALL" >> issue_body_${{ inputs.architecture }}_$ext.txt
+                echo "${{ inputs.nightly-build }},${{ inputs.runs-on }},NULL,$ext,INSTALL" >> issue_body_${{ inputs.architecture }}.txt
               fi
               echo Loading $ext extension...
               if ! docker run --rm --platform linux/aarch64 -v $(pwd)/duckdb:/duckdb -e ext=$ext -e duckdb=$duckdb ubuntu:22.04 /bin/bash -c '$duckdb -c "LOAD $ext;"'; then
                 echo Failed to load $ext extension.
-                echo "${{ inputs.nightly-build }},${{ inputs.runs-on }},NULL,$ext,LOAD" >> issue_body_${{ inputs.architecture }}_$ext.txt
+                echo "${{ inputs.nightly-build }},${{ inputs.runs-on }},NULL,$ext,LOAD" >> issue_body_${{ inputs.architecture }}.txt
               fi
             fi
           done
@@ -139,17 +139,17 @@ jobs:
             sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
             if [[ $sp == 'false' ]]; then
               echo Installing $ext extension...
-              if ! $duckdb -c "INSTALL ${{ inputs.extension }};"; then
-                echo Failed to install ${{ inputs.extension }} extension.
-                echo "- \`${{ inputs.architecture }}\`: **Failed** to install \`${{ inputs.extension }}\` extension." >> issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.txt
-                echo "" >> issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.txt
+              if ! $duckdb -c "INSTALL $ext;"; then
+                echo Failed to install $ext extension.
+                echo "- \`${{ inputs.architecture }}\`: **Failed** to install \`$ext\` extension." >> issue_body_${{ inputs.architecture }}.txt
+                echo "" >> issue_body_${{ inputs.architecture }}.txt
                 exit 1
               fi
-              echo Loading ${{ inputs.extension }} extension...
-              if ! $duckdb -c "LOAD ${{ inputs.extension }};"; then
-                echo Failed to load ${{ inputs.extension }} extension.
-                echo "- \`${{ inputs.architecture }}\`: **Failed** to load the extension \`${{ inputs.extension }}\`." >> issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.txt
-                echo "" >> issue_body_${{ inputs.architecture }}_${{ inputs.extension }}.txt
+              echo Loading $ext extension...
+              if ! $duckdb -c "LOAD $ext;"; then
+                echo Failed to load $ext extension.
+                echo "- \`${{ inputs.architecture }}\`: **Failed** to load the extension \`$ext\`." >> issue_body_${{ inputs.architecture }}.txt
+                echo "" >> issue_body_${{ inputs.architecture }}.txt
                 exit 1
               fi
             fi
@@ -161,6 +161,6 @@ jobs:
       - name: Upload results
         uses: actions/upload-artifact@v4
         with:
-          name: issue_body_${{ inputs.architecture }}_$ext
-          path: issue_body_${{ inputs.architecture }}_$ext.txt
+          name: issue_body_${{ inputs.architecture }}
+          path: issue_body_${{ inputs.architecture }}.txt
           if-no-files-found: ignore
