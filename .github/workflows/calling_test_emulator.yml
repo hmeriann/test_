@@ -122,6 +122,7 @@ jobs:
       # - windows-test
       - python-test
     runs-on: ubuntu-latest
+    if: always()
     steps:
       - name: Checkout the repo with the script
         uses: actions/checkout@v4

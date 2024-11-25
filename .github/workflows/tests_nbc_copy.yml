@@ -160,7 +160,7 @@ jobs:
       
       - name: Upload results
         uses: actions/upload-artifact@v4
-        if: failure()
         with:
           name: issue_body_${{ inputs.architecture }}_$ext
           path: issue_body_${{ inputs.architecture }}_$ext.txt
+          if-no-files-found: ignore
