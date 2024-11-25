@@ -70,8 +70,8 @@ jobs:
   osx-report:
     name: Create Report for OSX
     needs: 
-      - python
-      - python-test
+      - osx
+      - osx-test
     if: needs.osx.outputs.is_failure != 'failure' || needs.osx-test.result == 'success'
     uses: ./.github/workflows/create_report.yml
     with:
