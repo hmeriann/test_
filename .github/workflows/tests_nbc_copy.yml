@@ -110,12 +110,12 @@ jobs:
               echo Installing $ext extension...
               if ! docker run --rm --platform linux/aarch64 -v $(pwd)/duckdb:/duckdb -e ext=$ext -e duckdb=$duckdb ubuntu:22.04 /bin/bash -c '$duckdb -c "INSTALL $ext;"'; then 
                 echo Failed to install $ext extension.
-                echo "${{ inputs.nightly-build }},${{ inputs.runs-on }},NULL,$ext,INSTALL" >> issue_body_${{ inputs.architecture }}.txt
+                echo "${{ inputs.nightly-build }},${{ inputs.runs-on }},NULL,$ext,INSTALL" >> issue_ext_${{ inputs.architecture }}.txt
               fi
               echo Loading $ext extension...
               if ! docker run --rm --platform linux/aarch64 -v $(pwd)/duckdb:/duckdb -e ext=$ext -e duckdb=$duckdb ubuntu:22.04 /bin/bash -c '$duckdb -c "LOAD $ext;"'; then
                 echo Failed to load $ext extension.
-                echo "${{ inputs.nightly-build }},${{ inputs.runs-on }},NULL,$ext,LOAD" >> issue_body_${{ inputs.architecture }}.txt
+                echo "${{ inputs.nightly-build }},${{ inputs.runs-on }},NULL,$ext,LOAD" >> issue_ext_${{ inputs.architecture }}.txt
               fi
             fi
           done
@@ -141,26 +141,22 @@ jobs:
               echo Installing $ext extension...
               if ! $duckdb -c "INSTALL $ext;"; then
                 echo Failed to install $ext extension.
-                echo "- \`${{ inputs.architecture }}\`: **Failed** to install \`$ext\` extension." >> issue_body_${{ inputs.architecture }}.txt
-                echo "" >> issue_body_${{ inputs.architecture }}.txt
-                exit 1
+                echo "${{ inputs.nightly-build }},${{ inputs.runs-on }},NULL,$ext,INSTALL" >> issue_ext_${{ inputs.architecture }}.txt
               fi
               echo Loading $ext extension...
               if ! $duckdb -c "LOAD $ext;"; then
                 echo Failed to load $ext extension.
-                echo "- \`${{ inputs.architecture }}\`: **Failed** to load the extension \`$ext\`." >> issue_body_${{ inputs.architecture }}.txt
-                echo "" >> issue_body_${{ inputs.architecture }}.txt
-                exit 1
+                echo "${{ inputs.nightly-build }},${{ inputs.runs-on }},NULL,$ext,INSTALL" >> issue_ext_${{ inputs.architecture }}.txt
               fi
             fi
           done
       
       # - name: Setup upterm session
       #   uses: owenthereal/action-upterm@v1
-      
-      - name: Upload results
+
+      - name: Upload results for extensions
         uses: actions/upload-artifact@v4
         with:
-          name: issue_body_${{ inputs.architecture }}
-          path: issue_body_${{ inputs.architecture }}.txt
+          name: issue_ext_${{ inputs.architecture }}
+          path: issue_ext_${{ inputs.architecture }}.txt
           if-no-files-found: ignore

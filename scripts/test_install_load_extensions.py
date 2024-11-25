@@ -25,7 +25,7 @@ version = args.version
 
 extensions = [ 'one', 'two', 'three' ]
 
-with open("issue_body_extensions_{}.txt".format(nightly_build), 'w') as f:
+with open("issue_ext_{}.txt".format(nightly_build), 'w') as f:
     for extension in extensions:
         if extension == "unexpected":
             try:
