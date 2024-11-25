@@ -17,26 +17,17 @@ nightly_build = args.nightly_build
 architecture = args.architecture
 url = args.url
 
-result = duckdb.sql(f"""
-              WITH runs AS (
-                SELECT * FROM read_json('{ input_file }')
-              )
-              SELECT
-                conclusion,
-                count(*) AS count
-              FROM (
-                  SELECT
-                    conclusion,
-                    (row_number() OVER (ORDER BY startedAt) - row_number() OVER (PARTITION BY conclusion ORDER BY startedAt)) AS freq \
-                  FROM runs
-              )
-              WHERE conclusion='failure' GROUP BY freq, conclusion LIMIT 1;
-              """).fetchall()
-# failures=$(tail -n +2 result.csv | awk -F ","  '{ print $2 }')
-if result:
-    failures = result[0][1]
-else:
-    failures = 0
+all = duckdb.sql(f"SELECT * FROM read_json('{ input_file }')")
+rows = all.fetchall()
+conclusions = [row[0] for row in rows]
+print(conclusions)
+result=0
+for c in conclusions:
+    if c == 'failure':
+        result+=1
+    else:
+        break
+print(result)
 
 def create_issue_body():
     failures_list = "failures_list.md"
