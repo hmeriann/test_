@@ -18,9 +18,13 @@ on:
       is_failure: 
         description: "Stores nightly-build's conclusion: 'success' or 'failure'."
         value: ${{ jobs.check-build.outputs.is_failure }}
+      run_url:
+        description: "Stores run URL."
+        value: ${{ jobs.check-build.outputs.run_url }}
       has_artifact: 
         description: "If there is an expected artifact, stores 'true'."
         value: ${{ jobs.check-build.outputs.has_artifact }}
+      
         
 env:
   GH_TOKEN: ${{ github.token }}
@@ -29,6 +33,7 @@ jobs:
     runs-on: ${{ inputs.runs-on }}
     outputs:
       is_failure: ${{ steps.check-build.outputs.is_failure }}
+      run_url: ${{ steps.check-build.outputs.run_url }}
       has_artifact: ${{ steps.verify-build.outputs.has_artifact }}
     steps:
       - name: Set up QEMU
@@ -61,9 +66,11 @@ jobs:
         run: |
           gh run list --repo duckdb/duckdb --event repository_dispatch --workflow ${{ inputs.nightly-build }} --created $(date +%Y-%m-%d) --json conclusion
           conclusion=$(gh run list --repo duckdb/duckdb --event repository_dispatch --workflow ${{ inputs.nightly-build }} --created $(date +%Y-%m-%d) --json conclusion) 
+          gh run list --repo duckdb/duckdb --event repository_dispatch --workflow ${{ inputs.nightly-build }} --created $(date +%Y-%m-%d) --json url > url.csv
+          url=$(tail -n 1 url.csv | awk -F "[:}]" '{ print $3 }')
+          echo "run_url=$url" >> GITHUB_OUTPUT
+          
           if echo $conclusion | grep -q 'failure'; then
-            gh run list --repo duckdb/duckdb --event repository_dispatch --workflow ${{ inputs.nightly-build }} --created $(date +%Y-%m-%d) --json url > url.csv
-            url=$(tail -n 1 url.csv | awk -F "[:}]" '{ print $3 }')
             echo "is_failure=failure" >> $GITHUB_OUTPUT
             
             echo Listing ${{ inputs.nightly-build }} runs...
