@@ -119,7 +119,7 @@ jobs:
     needs: 
       - python
       - python-test
-    # if: needs.python.outputs.is_failure == 'failure' || needs.python-test.result == 'success'
+    if: steps.python.conclusion == 'failure' || needs.python-test.result == 'success'
     uses: ./.github/workflows/create_report.yml
     with:
       platform: Python
