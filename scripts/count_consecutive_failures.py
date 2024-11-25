@@ -40,7 +40,6 @@ def create_issue_body():
                 TO '{ failures_list }' (HEADER 0, QUOTE '', SEPARATOR '|');
                 """)
     with open("issue_body_{}.txt".format(architecture), 'w') as f:
-        f.write(f"### '{ nightly_build }':\n\n")
         f.write(f"At least one job had failed in the **'{ nightly_build }'** nightly-build consecutively '{ failures }' times: [ Run Link ](https:'{ url }')\n")
         f.write(f"#### Failure Details\n\n")
         f.write(f"| Conclusion | Started At | Run URL |\n")

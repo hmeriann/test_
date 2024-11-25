@@ -44,10 +44,11 @@ jobs:
     needs: 
       - linux
       - linux-test
-    if: needs.linux.outputs.is_failure != 'failure' || needs.linux-test.result == 'success'
+    if: needs.linux.outputs.is_failure == 'failure' || needs.linux-test.result == 'success'
     uses: ./.github/workflows/create_report.yml
     with:
       platform: linux
+      nightly-build: LinuxRelease
         
   osx:
     name: Check OSX
@@ -72,10 +73,12 @@ jobs:
     needs: 
       - osx
       - osx-test
-    if: needs.osx.outputs.is_failure != 'failure' || needs.osx-test.result == 'success'
+    if: needs.osx.outputs.is_failure == 'failure' || needs.osx-test.result == 'success'
     uses: ./.github/workflows/create_report.yml
     with:
       platform: osx
+      nightly-build: OSX
+
   # windows:
   #   name: Check Windows
   #   uses: ./.github/workflows/nrc_copy.yml
@@ -122,7 +125,8 @@ jobs:
     if: always()
     uses: ./.github/workflows/create_report.yml
     with:
-      platform: Python
+      platform: python
+      nightly-build: Python
   
   create-issue:
     runs-on: ubuntu-latest
