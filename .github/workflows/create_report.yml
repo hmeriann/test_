@@ -42,7 +42,7 @@ jobs:
           if ls issue_body*/issue_body*/* 1> /dev/null 2>&1; then
             cat issue_body*/issue_body*/* > report_${{ inputs.platform }}.md
           fi
-          if -f res_${{ inputs.platform }}.md; then
+          if [ -f res_${{ inputs.platform }}.md ]; then
             cat res_${{ inputs.platform }}.md >> report_${{ inputs.platform }}.md
           fi
       - name: Upload result file
