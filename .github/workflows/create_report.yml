@@ -20,16 +20,18 @@ jobs:
           pattern: issue_body_${{ inputs.platform }}*
           path: failures
       - name: Download extensions test results
+        if: failure()
         uses: actions/download-artifact@v4
         with:
           pattern: issue_ext_${{ inputs.platform }}*
           path: ext_failures
       - name: Prepare a result table
         shell: bash
+        if: success()
         run: |
           python -m pip install duckdb
           echo "nightly_build,runs_on,version,extension,failed_statement" > result.csv
-          cat issue_ext_*/issue_ext_*.txt >> result.csv
+          cat ext_failures/issue_ext*.txt >> result.csv
           # scripts/prepare_report.py creates res_${{ inputs.platform }}.md file
           python scripts/prepare_report.py result.csv --nightly_build ${{ inputs.platform }}
       - name: Create result file
