@@ -11,7 +11,7 @@ if not args:
 file_name = args.file_name
 platform = args.platform
 
-with open("res.md".format(platform), 'w') as f:
+with open("res_{}.md".format(platform), 'w') as f:
     f.write(f"\n#### Extensions failed to INSTALL or to LOAD:\n")
     f.write(f" Nightly-build | Runs_on | Version | Extension | Failed statement \n")
     f.write(f"----|----|----|----|----\n")

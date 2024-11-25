@@ -39,6 +39,7 @@ jobs:
             # scripts/prepare_report.py creates res_${{ inputs.platform }}.md file
             python scripts/prepare_report.py result.csv --platform ${{ inputs.platform }}
             echo ✅✅✅
+            ls -lah
             cat res_*.md
           fi
       - name: Create result file
