@@ -59,7 +59,6 @@ jobs:
       - name: Test ${{ inputs.nightly-build }} in an aarch64 Docker container
         shell: bash
         if: inputs.architecture == 'linux-aarch64'
-        continue-on-error: true
         run: |
           unzip duckdb_cli-${{ inputs.architecture }}.zip
           if [[ ${{ inputs.nightly-build }} == Windows ]]; then
