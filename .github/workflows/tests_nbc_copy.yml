@@ -67,13 +67,6 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libc6-arm64-cross qemu-user-static
-      - name: Download artifact 
-        uses: actions/download-artifact@v4
-        with:
-          name: duckdb_cli-${{ inputs.architecture }}
-      
-      # - name: Setup upterm session
-      #   uses: owenthereal/action-upterm@v1
       - name: Checkout the repo with the script
         uses: actions/checkout@v4
       - name: Checkout repo with extensions config file
@@ -83,6 +76,14 @@ jobs:
           sparse-checkout: |
             .github/config
           path: ext
+      - name: Download artifact 
+        uses: actions/download-artifact@v4
+        with:
+          name: duckdb_cli-${{ inputs.architecture }}
+      
+      # - name: Setup upterm session
+      #   uses: owenthereal/action-upterm@v1
+      
       - name: Test ${{ inputs.nightly-build }} in an aarch64 Docker container
         shell: bash
         if: inputs.architecture == 'linux-aarch64'
