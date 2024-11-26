@@ -43,7 +43,8 @@ jobs:
         id: matches
         run: |
           chmod +x scripts/find_extensions.py
-          matches=$(python scripts/find_extensions.py ext/.github/config/out_of_tree_extensions.cmake | tr -d '[],')
+          # matches=$(python scripts/find_extensions.py ext/.github/config/out_of_tree_extensions.cmake | tr -d '[],')
+          matches=$(python scripts/find_extensions.py ext/.github/config/out_of_tree_extensions.cmake | tr -d '[]')
           echo "extensions=$matches" >> $GITHUB_OUTPUT
 
   test:
