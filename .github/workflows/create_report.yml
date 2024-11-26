@@ -8,6 +8,9 @@ on:
       nightly-build:
         required: true
         type: string
+      architecture:
+        required: false
+        type: string
       run_url:
         required: true
         type: string    
@@ -43,7 +46,7 @@ jobs:
             # scripts/prepare_report.py creates res_${{ inputs.platform }}.md file
             python scripts/prepare_report.py result.csv --platform ${{ inputs.platform }} --url ${{ inputs.run_url }}
           fi
-      - uses: owenthereal/action-upterm@v1
+    #   - uses: owenthereal/action-upterm@v1
       - name: Create result file
         shell: bash
         run: |
@@ -54,6 +57,7 @@ jobs:
           if [ -f res_${{ inputs.platform }}.md ]; then
             cat res_${{ inputs.platform }}.md >> report_${{ inputs.platform }}.md
           fi
+          echo HERE! 🙋🏼‍♀️
 
       - name: Upload result file
         uses: actions/upload-artifact@v4
