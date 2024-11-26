@@ -87,8 +87,6 @@ jobs:
               echo "is_failure=failure" >> $GITHUB_OUTPUT
             fi
           fi
-
-        # Version verification for Python performs in .github/workflows/python_nbc.yml      
       - name: Verify ${{ inputs.nightly-build }} version
         if: inputs.nightly-build != 'Python'
         id: verify-build
@@ -137,7 +135,7 @@ jobs:
       # - name: Setup upterm session
       #   uses: owenthereal/action-upterm@v1
       - name: Upload issue
-        if: steps.check-build.outputs.is_failure == 'failure'
+        if: always() && steps.check-build.outputs.is_failure == 'failure'
         uses: actions/upload-artifact@v4
         with:
           name: issue_body_${{ inputs.architecture }}
