@@ -45,6 +45,7 @@ jobs:
           chmod +x scripts/find_extensions.py
           # matches=$(python scripts/find_extensions.py ext/.github/config/out_of_tree_extensions.cmake | tr -d '[],')
           matches=$(python scripts/find_extensions.py ext/.github/config/out_of_tree_extensions.cmake | tr -d '[]')
+          echo $(python scripts/find_extensions.py ext/.github/config/out_of_tree_extensions.cmake | tr -d '[]')
           echo "extensions=$matches" >> $GITHUB_OUTPUT
 
   test:
@@ -124,7 +125,8 @@ jobs:
           else
             duckdb=./duckdb
           fi
-          for ext in ${{ needs.find-extensions.outputs.extensions }}; do
+          matches=$(echo ${{ needs.find-extensions.outputs.extensions }} | tr -d ',')
+          for ext in $matches; do
             echo 🍀 $ext
             $duckdb -line -c "select installed from duckdb_extensions() where extension_name='$ext';"
             $duckdb -line -c "select installed from duckdb_extensions() where extension_name='$ext';" > sp.csv
