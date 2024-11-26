@@ -89,20 +89,11 @@ jobs:
         if: inputs.architecture == 'linux-aarch64'
         run: |
           unzip duckdb_cli-${{ inputs.architecture }}.zip
-          if [[ ${{ inputs.nightly-build }} == Windows ]]; then
-            duckdb=./duckdb.exe
-          else
-            duckdb=./duckdb
-          fi
 
-          chmod +x scripts/find_extensions.py
-          
-          matches=$(python scripts/find_extensions.py ext/.github/config/out_of_tree_extensions.cmake | tr -d '[],')
-          echo $matches
-          echo ${{ needs.find-extensions.outputs.extensions }}
+          matches=${{ needs.find-extensions.outputs.extensions }}
 
           for ext in $matches; do
-            docker run --rm --platform linux/aarch64 -v $(pwd)/duckdb:/duckdb -e ext=$ext -e duckdb=$duckdb ubuntu:22.04 /bin/bash -c '$duckdb -line -c "select installed from duckdb_extensions() where extension_name='$ext';"' > sp.csv
+            docker run --rm --platform linux/aarch64 -v $(pwd)/duckdb:/duckdb -e ext=$ext ubuntu:22.04 /bin/bash -c './duckdb -line -c "select installed from duckdb_extensions() where extension_name='$ext';"' > sp.csv
             cat sp.csv
 
             sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
