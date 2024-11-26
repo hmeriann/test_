@@ -74,7 +74,15 @@ jobs:
       
       # - name: Setup upterm session
       #   uses: owenthereal/action-upterm@v1
-
+      - name: Checkout the repo with the script
+        uses: actions/checkout@v4
+      - name: Checkout repo with extensions config file
+        uses: actions/checkout@v4
+        with:
+          repository: duckdb/duckdb
+          sparse-checkout: |
+            .github/config
+          path: ext
       - name: Test ${{ inputs.nightly-build }} in an aarch64 Docker container
         shell: bash
         if: inputs.architecture == 'linux-aarch64'
@@ -86,10 +94,10 @@ jobs:
             duckdb=./duckdb
           fi
 
-          # chmod +x scripts/find_extensions.py
+          chmod +x scripts/find_extensions.py
           
-          # matches=$(python scripts/find_extensions.py ext/.github/config/out_of_tree_extensions.cmake | tr -d '[],')
-          # echo $matches
+          matches=$(python scripts/find_extensions.py ext/.github/config/out_of_tree_extensions.cmake | tr -d '[],')
+          echo $matches
           
           for ext in ${{ needs.find-extensions.outputs.extensions }}; do
             docker run --rm --platform linux/aarch64 -v $(pwd)/duckdb:/duckdb -e ext=$ext -e duckdb=$duckdb ubuntu:22.04 /bin/bash -c '$duckdb -line -c "select installed from duckdb_extensions() where extension_name='$ext';"' > sp.csv
