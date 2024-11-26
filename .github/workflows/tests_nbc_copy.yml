@@ -88,11 +88,10 @@ jobs:
         if: inputs.architecture == 'linux-aarch64'
         run: |
           unzip duckdb_cli-${{ inputs.architecture }}.zip
-          echo 🍀
-          echo ${{ needs.find-extensions.outputs.extensions }}
           matches=${{ needs.find-extensions.outputs.extensions }}
 
           for ext in $matches; do
+            echo $ext 🍀
             docker run --rm --platform linux/aarch64 -v $(pwd)/duckdb:/duckdb -e ext=$ext ubuntu:22.04 /bin/bash -c './duckdb -line -c "select installed from duckdb_extensions() where extension_name='$ext';"' > sp.csv
             cat sp.csv
 
@@ -124,8 +123,8 @@ jobs:
           else
             duckdb=./duckdb
           fi
-          echo ${{ needs.find-extensions.outputs.extensions }}
           for ext in ${{ needs.find-extensions.outputs.extensions }}; do
+            echo 🍀 $ext
             $duckdb -line -c "select installed from duckdb_extensions() where extension_name='$ext';"
             $duckdb -line -c "select installed from duckdb_extensions() where extension_name='$ext';" > sp.csv
             cat sp.csv
