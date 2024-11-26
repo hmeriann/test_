@@ -20,9 +20,22 @@ on:
 env:
   GH_TOKEN: ${{ github.token }}
 jobs:
+  find-extensions:
+    runs-on: ubuntu-latest
+    outputs:
+      extensions: ${{ steps.matches.outputs.extensions }}
+    steps:
+      - name: Find extensions
+        shell: bash
+        id: matches
+        run: |
+          matches=$(python scripts/find_extensions.py ext/.github/config/out_of_tree_extensions.cmake | tr -d '[],')
+          echo "extensions=$matches" >> $GITHUB_OUTPUT
+
   test:
     runs-on: ${{ inputs.runs-on }}
     continue-on-error: true
+    needs: find-extensions
     steps:
       - name: Checkout the repo with the script
         uses: actions/checkout@v4
@@ -69,10 +82,10 @@ jobs:
 
           chmod +x scripts/find_extensions.py
           
-          matches=$(python scripts/find_extensions.py ext/.github/config/out_of_tree_extensions.cmake | tr -d '[],')
-          echo $matches
+          # matches=$(python scripts/find_extensions.py ext/.github/config/out_of_tree_extensions.cmake | tr -d '[],')
+          # echo $matches
           
-          for ext in $matches; do
+          for ext in ${{ needs.find-extensions.outputs.extensions }}; do
             docker run --rm --platform linux/aarch64 -v $(pwd)/duckdb:/duckdb -e ext=$ext -e duckdb=$duckdb ubuntu:22.04 /bin/bash -c '$duckdb -line -c "select installed from duckdb_extensions() where extension_name=$ext;"' > sp.csv
             cat sp.csv
 
@@ -95,7 +108,7 @@ jobs:
       #   uses: owenthereal/action-upterm@v1
       - name: Test ${{ inputs.nightly-build }}
         shell: bash
-        if: inputs.architecture == 'linux-amd64' || inputs.nightly-build == 'OSX'
+        if: inputs.architecture == 'linux-amd64' || inputs.nightly-build == 'OSX' || inputs.architecture == 'Windows'
         run: |
           unzip duckdb_cli-${{ inputs.architecture }}.zip
           if [[ ${{ inputs.nightly-build }} == Windows ]]; then
@@ -103,7 +116,7 @@ jobs:
           else
             duckdb=./duckdb
           fi
-          for ext in $matches; do
+          for ext in ${{ needs.find-extensions.outputs.extensions }}; do
             $duckdb -line -c "select installed from duckdb_extensions() where extension_name='$ext';"
             $duckdb -line -c "select installed from duckdb_extensions() where extension_name='$ext';" > sp.csv
             cat sp.csv
