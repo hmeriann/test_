@@ -117,7 +117,7 @@ jobs:
 
   python:
     name: Check Python
-    uses: ./.github/workflows/nrc.yml
+    uses: ./.github/workflows/nrc_copy.yml
     with:
       nightly-build: Python
       architecture: Python
