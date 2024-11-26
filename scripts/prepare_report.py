@@ -19,7 +19,7 @@ with open("res_{}.md".format(platform), 'w') as f:
     duckdb.sql(f"""
                 COPY (SELECT * 
                     FROM read_csv("{ file_name }")
-                        ORDER BY nightly_build, architecture, runs_on, version, extension
+                        ORDER BY nightly_build, architecture, runs_on, version, extension, failed_statement
                     )
                 TO tmp.md (HEADER 0, SEPARATOR '|')
                 """)
