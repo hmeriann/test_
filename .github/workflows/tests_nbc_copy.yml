@@ -115,7 +115,7 @@ jobs:
       #   uses: owenthereal/action-upterm@v1
       - name: Test ${{ inputs.nightly-build }}
         shell: bash
-        if: inputs.architecture == 'linux-amd64' || inputs.nightly-build == 'OSX' || inputs.architecture == 'Windows'
+        if: inputs.architecture == 'linux-amd64' || inputs.nightly-build == 'OSX' || inputs.architecture == 'windows-amd64'
         run: |
           unzip duckdb_cli-${{ inputs.architecture }}.zip
           if [[ ${{ inputs.nightly-build }} == Windows ]]; then
