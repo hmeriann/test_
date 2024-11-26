@@ -110,8 +110,8 @@ jobs:
           matches=$(python scripts/find_extensions.py ext/.github/config/out_of_tree_extensions.cmake | tr -d '[],')
 
           for ext in $matches; do
-            $duckdb -line -c "select installed from duckdb_extensions() where extension_name='$ext';"
-            $duckdb -line -c "select installed from duckdb_extensions() where extension_name='$ext';" > sp.csv
+            $duckdb -line -c "select installed from duckdb_extensions() where extension_name=$ext;"
+            $duckdb -line -c "select installed from duckdb_extensions() where extension_name=$ext;" > sp.csv
             cat sp.csv
             sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
             if [[ $sp == 'false' ]]; then
