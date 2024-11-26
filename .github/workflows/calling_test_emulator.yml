@@ -44,7 +44,7 @@ jobs:
     needs: 
       - linux
       - linux-test
-    if: needs.linux.outputs.is_failure == 'failure' || needs.linux-test.result == 'success'
+    if: needs.linux.outputs.is_failure == 'true' || needs.linux-test.result == 'success'
     uses: ./.github/workflows/create_report.yml
     with:
       platform: linux
@@ -74,7 +74,7 @@ jobs:
     needs: 
       - osx
       - osx-test
-    if: needs.osx.outputs.is_failure == 'failure' || needs.osx-test.result == 'success'
+    if: needs.osx.outputs.is_failure == 'true' || needs.osx-test.result == 'success'
     uses: ./.github/workflows/create_report.yml
     with:
       platform: osx
@@ -108,7 +108,7 @@ jobs:
     needs: 
       - windows
       - windows-test
-    if: needs.windows.outputs.is_failure == 'failure' || needs.windows-test.result == 'success'
+    if: needs.windows.outputs.is_failure == 'true' || needs.windows-test.result == 'success'
     uses: ./.github/workflows/create_report.yml
     with:
       platform: windows
@@ -125,7 +125,7 @@ jobs:
   python-test:
     name: Test Python
     needs: python
-    if: needs.python.outputs.is_failure != 'failure'
+    if: needs.python.outputs.is_failure == 'false'
     uses: ./.github/workflows/python_nbc.yml
     with:
       nightly-build: Python
