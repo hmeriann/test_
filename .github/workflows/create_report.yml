@@ -50,7 +50,9 @@ jobs:
       - name: Create result file
         shell: bash
         run: |
-          echo "## ${{ inputs.nightly-build }}" > report_${{ inputs.platform }}.md
+          if [ $(ls failures_*/issue_body*/ | wc -l) -gt 0 || -f res_${{ inputs.platform }}.md ]; then
+            echo "## ${{ inputs.nightly-build }}" > report_${{ inputs.platform }}.md
+          fi
           if [ $(ls failures_*/issue_body*/ | wc -l) -gt 0 ]; then
             cat failures_${{ inputs.platform }}/issue_body*/* >> report_${{ inputs.platform }}.md
           fi
