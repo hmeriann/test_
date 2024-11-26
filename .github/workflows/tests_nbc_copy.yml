@@ -124,6 +124,7 @@ jobs:
           else
             duckdb=./duckdb
           fi
+          echo ${{ needs.find-extensions.outputs.extensions }}
           for ext in ${{ needs.find-extensions.outputs.extensions }}; do
             $duckdb -line -c "select installed from duckdb_extensions() where extension_name='$ext';"
             $duckdb -line -c "select installed from duckdb_extensions() where extension_name='$ext';" > sp.csv
