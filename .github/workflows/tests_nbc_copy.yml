@@ -57,6 +57,15 @@ jobs:
         uses: docker/setup-qemu-action@v3
         with:
           platforms: linux/aarch64
+      - name: Checkout the repo with the script
+        uses: actions/checkout@v4
+      - name: Checkout repo with extensions config file
+        uses: actions/checkout@v4
+        with:
+          repository: duckdb/duckdb
+          sparse-checkout: |
+            .github/config
+          path: ext
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -89,8 +98,11 @@ jobs:
         if: inputs.architecture == 'linux-aarch64'
         run: |
           unzip duckdb_cli-${{ inputs.architecture }}.zip
-          matches=($(echo ${{ needs.find-extensions.outputs.extensions }}))
-          echo 🍀 $matches
+          # matches=($(echo ${{ needs.find-extensions.outputs.extensions }}))
+          # echo 🍀 $matches
+          chmod +x scripts/find_extensions.py
+          matches=$(python scripts/find_extensions.py ext/.github/config/out_of_tree_extensions.cmake | tr -d '[],')
+
           for ext in $matches; do
             docker run --rm --platform linux/aarch64 -v $(pwd)/duckdb:/duckdb -e ext=$ext ubuntu:22.04 /bin/bash -c './duckdb -line -c "select installed from duckdb_extensions() where extension_name=$ext;"' > sp.csv
             cat sp.csv
