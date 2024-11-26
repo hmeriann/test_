@@ -92,12 +92,13 @@ jobs:
           # echo $matches
           
           for ext in ${{ needs.find-extensions.outputs.extensions }}; do
-            docker run --rm --platform linux/aarch64 -v $(pwd)/duckdb:/duckdb -e ext=$ext -e duckdb=$duckdb ubuntu:22.04 /bin/bash -c '$duckdb -line -c "select installed from duckdb_extensions() where extension_name=$ext;"' > sp.csv
+            docker run --rm --platform linux/aarch64 -v $(pwd)/duckdb:/duckdb -e ext=$ext -e duckdb=$duckdb ubuntu:22.04 /bin/bash -c '$duckdb -line -c "select installed from duckdb_extensions() where extension_name='$ext';"' > sp.csv
             cat sp.csv
 
             sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
             if [[ $sp == 'false' ]]; then
               echo Installing $ext extension...
+              echo $ext
               if ! docker run --rm --platform linux/aarch64 -v $(pwd)/duckdb:/duckdb -e ext=$ext -e duckdb=$duckdb ubuntu:22.04 /bin/bash -c '$duckdb -c "INSTALL $ext;"'; then 
                 echo Failed to install $ext extension.
                 echo "${{ inputs.nightly-build }},${{ inputs.runs-on }},NULL,$ext,INSTALL" >> issue_ext_${{ inputs.architecture }}.txt
