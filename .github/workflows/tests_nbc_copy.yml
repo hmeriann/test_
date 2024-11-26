@@ -93,8 +93,8 @@ jobs:
           matches=${{ needs.find-extensions.outputs.extensions }}
 
           for e in $matches; do
-            echo $ext | tr -d ',' 🍀
-            ext=$e | tr -d ','
+            echo $($ext | tr -d ',') 🍀
+            ext=$($e | tr -d ',')
             docker run --rm --platform linux/aarch64 -v $(pwd)/duckdb:/duckdb -e ext=$ext ubuntu:22.04 /bin/bash -c './duckdb -line -c "select installed from duckdb_extensions() where extension_name=$ext;"' > sp.csv
             cat sp.csv
 
