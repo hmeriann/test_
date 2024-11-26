@@ -31,12 +31,12 @@ with open("issue_ext_{}.txt".format(nightly_build), 'w') as f:
             try:
                 duckdb.sql(f"INSTALL { extension }")
                 message = f"#### { extension } was unexpectedly installed on Python { runs_on }_{ version }.\n "
-                f.write(f"{ nightly_build },{ runs_on },{ version },{ extension },INSTALL\n")
+                f.write(f"{ nightly_build },NULL,{ runs_on },{ version },{ extension },INSTALL\n")
                 print(message)
                 try:
                     duckdb.sql(f"LOAD { extension }")
                     message = f"#### { extension } was unexpectedly loaded on Python { runs_on }_{ version }.\n "
-                    f.write(f"{ nightly_build },{ runs_on },{ version },{ extension },LOAD\n")
+                    f.write(f"{ nightly_build },NULL,{ runs_on },{ version },{ extension },LOAD\n")
                     print(message)
                 except Exception as e:
                     print(f"Extension { extension } is not loaded\n")
@@ -56,10 +56,10 @@ with open("issue_ext_{}.txt".format(nightly_build), 'w') as f:
                     print(f"Loaded { extension } ")
                 except Exception as e:
                     message = f"- Error loading { extension } Python on { runs_on }_{ version }: {str(e)}\n "
-                    f.write(f"{ nightly_build },{ runs_on },{ version },{ extension },INSTALL\n")
+                    f.write(f"{ nightly_build },NULL,{ runs_on },{ version },{ extension },INSTALL\n")
                     print(message)
 
             except Exception as e:
                 message = f"- Error installing { extension } Python on { runs_on }_{ version }: {str(e)}\n "
-                f.write(f"{ nightly_build },{ runs_on },{ version },{ extension },LOAD\n")
+                f.write(f"{ nightly_build },NULL,{ runs_on },{ version },{ extension },LOAD\n")
                 print(message)

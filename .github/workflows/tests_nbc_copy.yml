@@ -102,12 +102,12 @@ jobs:
               echo $ext
               if ! docker run --rm --platform linux/aarch64 -v $(pwd)/duckdb:/duckdb -e ext=$ext -e duckdb=$duckdb ubuntu:22.04 /bin/bash -c '$duckdb -c "INSTALL $ext;"'; then 
                 echo Failed to install $ext extension.
-                echo "${{ inputs.nightly-build }},${{ inputs.runs-on }},NULL,$ext,INSTALL" >> issue_ext_${{ inputs.architecture }}.txt
+                echo "${{ inputs.nightly-build }},${{ inputs.architecture }},${{ inputs.runs-on }},NULL,$ext,INSTALL" >> issue_ext_${{ inputs.architecture }}.txt
               fi
               echo Loading $ext extension...
               if ! docker run --rm --platform linux/aarch64 -v $(pwd)/duckdb:/duckdb -e ext=$ext -e duckdb=$duckdb ubuntu:22.04 /bin/bash -c '$duckdb -c "LOAD $ext;"'; then
                 echo Failed to load $ext extension.
-                echo "${{ inputs.nightly-build }},${{ inputs.runs-on }},NULL,$ext,LOAD" >> issue_ext_${{ inputs.architecture }}.txt
+                echo "${{ inputs.nightly-build }},${{ inputs.architecture }},${{ inputs.runs-on }},NULL,$ext,LOAD" >> issue_ext_${{ inputs.architecture }}.txt
               fi
             fi
           done
@@ -133,12 +133,12 @@ jobs:
               echo Installing $ext extension...
               if ! $duckdb -c "INSTALL $ext;"; then
                 echo Failed to install $ext extension.
-                echo "${{ inputs.nightly-build }},${{ inputs.runs-on }},NULL,$ext,INSTALL" >> issue_ext_${{ inputs.architecture }}.txt
+                echo "${{ inputs.nightly-build }},${{ inputs.architecture }},${{ inputs.runs-on }},NULL,$ext,INSTALL" >> issue_ext_${{ inputs.architecture }}.txt
               fi
               echo Loading $ext extension...
               if ! $duckdb -c "LOAD $ext;"; then
                 echo Failed to load $ext extension.
-                echo "${{ inputs.nightly-build }},${{ inputs.runs-on }},NULL,$ext,INSTALL" >> issue_ext_${{ inputs.architecture }}.txt
+                echo "${{ inputs.nightly-build }},${{ inputs.architecture }},${{ inputs.runs-on }},NULL,$ext,INSTALL" >> issue_ext_${{ inputs.architecture }}.txt
               fi
             fi
           done

@@ -14,12 +14,12 @@ platform = args.platform
 url = args.url
 with open("res_{}.md".format(platform), 'w') as f:
     f.write(f"\n#### Extensions failed to INSTALL or to LOAD: [ Run Link ](https:{ url })\n")
-    f.write(f" Nightly-build | Runs_on | Version | Extension | Failed statement \n")
+    f.write(f" Nightly-build | Architecture | Runs_on | Version | Extension | Failed statement \n")
     f.write(f"----|----|----|----|----\n")
     duckdb.sql(f"""
                 COPY (SELECT * 
                     FROM read_csv("{ file_name }")
-                        ORDER BY nightly_build, runs_on, version, extension
+                        ORDER BY nightly_build, architecture, runs_on, version, extension
                     )
                 TO tmp.md (HEADER 0, SEPARATOR '|')
                 """)
