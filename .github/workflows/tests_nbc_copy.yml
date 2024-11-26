@@ -42,6 +42,7 @@ jobs:
         shell: bash
         id: matches
         run: |
+          chmod +x scripts/find_extensions.py
           matches=$(python scripts/find_extensions.py ext/.github/config/out_of_tree_extensions.cmake | tr -d '[],')
           echo "extensions=$matches" >> $GITHUB_OUTPUT
 
@@ -85,7 +86,7 @@ jobs:
             duckdb=./duckdb
           fi
 
-          chmod +x scripts/find_extensions.py
+          # chmod +x scripts/find_extensions.py
           
           # matches=$(python scripts/find_extensions.py ext/.github/config/out_of_tree_extensions.cmake | tr -d '[],')
           # echo $matches
