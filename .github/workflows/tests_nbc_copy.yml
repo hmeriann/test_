@@ -51,7 +51,6 @@ jobs:
     continue-on-error: true
     needs: find-extensions
     steps:
-      
       - name: Set up QEMU
         if: ${{ inputs.architecture == 'linux-aarch64' }}
         uses: docker/setup-qemu-action@v3
@@ -89,9 +88,9 @@ jobs:
         if: inputs.architecture == 'linux-aarch64'
         run: |
           unzip duckdb_cli-${{ inputs.architecture }}.zip
-
+          echo 🍀
+          echo ${{ needs.find-extensions.outputs.extensions }}
           matches=${{ needs.find-extensions.outputs.extensions }}
-          echo $matches 🥵
 
           for ext in $matches; do
             docker run --rm --platform linux/aarch64 -v $(pwd)/duckdb:/duckdb -e ext=$ext ubuntu:22.04 /bin/bash -c './duckdb -line -c "select installed from duckdb_extensions() where extension_name='$ext';"' > sp.csv
