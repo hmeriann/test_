@@ -135,7 +135,7 @@ jobs:
       # - name: Setup upterm session
       #   uses: owenthereal/action-upterm@v1
       - name: Upload issue
-        if: always() && steps.check-build.outputs.is_failure == 'failure'
+        # if: always() && steps.check-build.outputs.is_failure == 'failure'
         uses: actions/upload-artifact@v4
         with:
           name: issue_body_${{ inputs.architecture }}
