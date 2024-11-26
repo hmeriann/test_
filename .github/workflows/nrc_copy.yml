@@ -16,7 +16,7 @@ on:
         type: string
     outputs:
       is_failure: 
-        description: "Stores nightly-build's conclusion: 'success' or 'failure'."
+        description: "If nightly-build's conclusion is 'failure', stores 'true'."
         value: ${{ jobs.check-build.outputs.is_failure }}
       run_url:
         description: "Stores run URL."
@@ -73,10 +73,10 @@ jobs:
         run: |
           gh run list --repo duckdb/duckdb --event repository_dispatch --workflow ${{ inputs.nightly-build }} --created $(date +%Y-%m-%d) --json conclusion
           conclusion=$(gh run list --repo duckdb/duckdb --event repository_dispatch --workflow ${{ inputs.nightly-build }} --created $(date +%Y-%m-%d) --json conclusion) 
-          echo ${{ steps.check-build.outputs.run_url }} 🦑
+          echo $conclusion 🦑
 
           if echo $conclusion | grep -q 'failure'; then
-            echo "is_failure=failure" >> $GITHUB_OUTPUT
+            echo "is_failure=true" >> $GITHUB_OUTPUT
             
             echo Listing ${{ inputs.nightly-build }} runs...
             gh run list --repo duckdb/duckdb --event repository_dispatch --workflow ${{ inputs.nightly-build }} --json conclusion,url,name,startedAt > ${{ inputs.nightly-build }}.json
@@ -84,9 +84,10 @@ jobs:
             echo Counting consecutive failures...
             python scripts/count_consecutive_failures.py ${{ inputs.nightly-build }}.json --nightly_build ${{ inputs.nightly-build }} --architecture ${{ inputs.architecture }} --url ${{ steps.check-build.outputs.run_url }}
             if [[ $? == 1 ]]; then
-              echo "is_failure=failure" >> $GITHUB_OUTPUT
+              echo "is_failure=true" >> $GITHUB_OUTPUT
             fi
           fi
+          echo "is_failure=false" >> $GITHUB_OUTPUT
       - name: Verify ${{ inputs.nightly-build }} version
         if: inputs.nightly-build != 'Python'
         id: verify-build
@@ -135,7 +136,6 @@ jobs:
       # - name: Setup upterm session
       #   uses: owenthereal/action-upterm@v1
       - name: Upload issue
-        # if: always() && steps.check-build.outputs.is_failure == 'failure'
         uses: actions/upload-artifact@v4
         with:
           name: issue_body_${{ inputs.architecture }}
