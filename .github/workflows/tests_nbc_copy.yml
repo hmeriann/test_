@@ -91,6 +91,7 @@ jobs:
           unzip duckdb_cli-${{ inputs.architecture }}.zip
 
           matches=${{ needs.find-extensions.outputs.extensions }}
+          echo $matches 🥵
 
           for ext in $matches; do
             docker run --rm --platform linux/aarch64 -v $(pwd)/duckdb:/duckdb -e ext=$ext ubuntu:22.04 /bin/bash -c './duckdb -line -c "select installed from duckdb_extensions() where extension_name='$ext';"' > sp.csv
