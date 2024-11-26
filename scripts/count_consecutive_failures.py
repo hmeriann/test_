@@ -16,7 +16,7 @@ input_file = args.input_file
 nightly_build = args.nightly_build
 architecture = args.architecture
 url = args.url
-
+print(url, "🥵")
 all = duckdb.sql(f"SELECT * FROM read_json('{ input_file }')")
 rows = all.fetchall()
 conclusions = [row[0] for row in rows]
