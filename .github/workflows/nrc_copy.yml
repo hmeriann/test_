@@ -71,6 +71,7 @@ jobs:
         shell: bash
         run: |
           conclusion=$(python -c "import duckdb; print(duckdb.sql(f\"SELECT conclusion FROM read_json('${{ inputs.nightly-build }}.json') ORDER BY createdAt DESC LIMIT 1;\").fetchone()[0])") 
+          echo $conclusion 🦋
           if [ $conclusion != 'success' ]; then
             echo "is_failure=true" >> $GITHUB_OUTPUT
             
