@@ -46,7 +46,7 @@ jobs:
             # scripts/prepare_report.py creates res_${{ inputs.platform }}.md file
             python scripts/prepare_report.py result.csv --platform ${{ inputs.platform }} --url ${{ inputs.run_url }}
           fi
-      - uses: owenthereal/action-upterm@v1
+    #   - uses: owenthereal/action-upterm@v1
       - name: Create result file
         shell: bash
         run: |
