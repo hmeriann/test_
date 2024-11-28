@@ -89,7 +89,7 @@ jobs:
           fi
           echo "is_failure=false" >> $GITHUB_OUTPUT
       - name: Verify ${{ inputs.nightly-build }} version
-        if: inputs.nightly-build != 'Python' && steps.check-build.outputs.is_failure == 'false'
+        if: inputs.nightly-build != 'Python' && steps.check-build.outputs.is_failure == 'true'
         id: verify-build
         shell: bash
         run: |
