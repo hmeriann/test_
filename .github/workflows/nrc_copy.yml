@@ -45,7 +45,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - name: Install duckdb
+      - name: Install DuckDB for Python
         shell: bash
         if: 
         run: |
@@ -64,13 +64,13 @@ jobs:
         run: |
           echo "Listing ${{ inputs.nightly-build }} runs..."
           gh run list --repo duckdb/duckdb --event repository_dispatch --workflow ${{ inputs.nightly-build }} --json conclusion,url,name,createdAt,databaseId,headSha > ${{ inputs.nightly-build }}.json 
-          url=$(duckdb -csv -noheader -c "SELECT url FROM read_json('${{ inputs.nightly-build }}.json') ORDER BY createdAt DESC LIMIT 1;")
-          echo "run_url=$(duckdb -csv -noheader -c "SELECT url FROM read_json('${{ inputs.nightly-build }}.json') ORDER BY createdAt DESC LIMIT 1;")" >> $GITHUB_OUTPUT
+          url=$(python -c "import duckdb; print(duckdb.sql(f\"SELECT url FROM read_json('${{ inputs.nightly-build }}.json') ORDER BY createdAt DESC LIMIT 1;\").fetchone()[0])")
+          echo "run_url=$url" >> $GITHUB_OUTPUT
       
       - name: Check is ${{ inputs.nightly-build }} build conclusion
         shell: bash
         run: |
-          conclusion=$(duckdb -csv -noheader -c "SELECT conclusion FROM read_json('${{ inputs.nightly-build }}.json') ORDER BY createdAt DESC LIMIT 1;") 
+          conclusion=$(python -c "import duckdb; print(duckdb.sql(f\"SELECT conclusion FROM read_json('${{ inputs.nightly-build }}.json') ORDER BY createdAt DESC LIMIT 1;\").fetchone()[0])") 
           if [ $conclusion != 'success' ]; then
             echo "is_failure=true" >> $GITHUB_OUTPUT
             
@@ -86,7 +86,7 @@ jobs:
         id: verify-build
         shell: bash
         run: |
-          run_id=$(duckdb -csv -noheader -c "SELECT databaseId FROM read_json('${{ inputs.nightly-build }}.json') ORDER BY createdAt DESC LIMIT 1;)
+          run_id=$(python -c "import duckdb; print(duckdb.sql(f\"SELECT databaseId FROM read_json('${{ inputs.nightly-build }}.json') ORDER BY createdAt DESC LIMIT 1;\").fetchone()[0])")
           echo "Found run_id: $run_id"
         
           if [[ '${{ inputs.architecture }}' == 'linux-aarch64' ]]; then
@@ -101,7 +101,7 @@ jobs:
             unzip duckdb_cli-${{ inputs.architecture }}.zip
             
             echo "Verifying version..."
-            full_sha=$(duckdb -csv -noheader -c "SELECT headSha FROM read_json('${{ inputs.nightly-build }}.json') ORDER BY createdAt DESC LIMIT 1;)
+            full_sha=$($duckdb -csv -noheader -c "SELECT headSha FROM read_json('${{ inputs.nightly-build }}.json') ORDER BY createdAt DESC LIMIT 1;")
             if [[ ${{ inputs.architecture }} == linux-aarch64 ]]; then
               tmp_sha=$(docker run --rm --platform linux/aarch64 -v $(pwd):/duckdb -e full_sha=$full_sha ubuntu:22.04 /bin/bash -c 'cd /duckdb; ./duckdb --version')
             else
