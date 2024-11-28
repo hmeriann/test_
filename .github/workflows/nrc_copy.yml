@@ -100,7 +100,7 @@ jobs:
             unzip duckdb_cli-${{ inputs.architecture }}.zip
             
             echo "Verifying version..."
-            full_sha=$($duckdb -csv -noheader -c "SELECT headSha FROM read_json('${{ inputs.nightly-build }}.json') ORDER BY createdAt DESC LIMIT 1;")
+            full_sha=$(gh run view $run_id --repo duckdb/duckdb --json headSha -q .headSha)
             if [[ ${{ inputs.architecture }} == linux-aarch64 ]]; then
               tmp_sha=$(docker run --rm --platform linux/aarch64 -v $(pwd):/duckdb -e full_sha=$full_sha ubuntu:22.04 /bin/bash -c 'cd /duckdb; ./duckdb --version')
             else
