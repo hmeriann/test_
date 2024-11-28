@@ -47,7 +47,7 @@ def create_issue_body():
                 f.write(failures_file.read())
     else:
         with open("issue_body_{}.txt".format(architecture), 'w') as f:
-            f.write(f"The **'{ nightly_build }'** nightly-build has succeeded.\nSee the latest run: [ Run Link ](https:{ url })\n")
+            f.write(f"\nThe **'{ nightly_build }'** nightly-build has succeeded.\nSee the latest run: [ Run Link ](https:{ url })\n")
 
 def main():
     create_issue_body()

@@ -114,7 +114,7 @@ jobs:
             fi
             echo "has_artifact=true" >> $GITHUB_OUTPUT
           else  
-            echo Downloading duckdb-binaries-$name artifact is failed.
+            echo "Downloading duckdb-binaries-$name artifact is failed."
             printf "#### No artifacts with name duckdb-binaries-$name provided.\n" > issue_body_${{ inputs.architecture }}.txt
             echo "has_artifact=false" >> $GITHUB_OUTPUT
           fi
@@ -123,6 +123,7 @@ jobs:
         with:
           name: issue_body_${{ inputs.architecture }}
           path: issue_body_${{ inputs.architecture }}.txt
+
       - name: Upload build
         if: steps.verify-build.outputs.has_artifact == 'true'
         uses: actions/upload-artifact@v4
