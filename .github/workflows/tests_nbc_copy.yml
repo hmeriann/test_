@@ -1,4 +1,4 @@
-name: Test Nightly Builds Check (Reusable)
+name: Verify Nightly Builds (Reusable)
 on:
   workflow_call:
     inputs:
@@ -42,60 +42,41 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - name: Install qemu dependencies
+      - name: Install QEMU dependencies
         if: ${{ inputs.architecture == 'linux-aarch64' }}
         shell: bash
         run: |
           sudo apt-get update
           sudo apt-get install -y libc6-arm64-cross qemu-user-static
-      - name: Checkout the repo with the script
-        uses: actions/checkout@v4
-      - name: Checkout repo with extensions config file
-        uses: actions/checkout@v4
-        with:
-          repository: duckdb/duckdb
-          sparse-checkout: |
-            .github/config
-          path: ext
       - name: Download artifact 
         uses: actions/download-artifact@v4
         with:
           name: duckdb_cli-${{ inputs.architecture }}
-      
-      # - name: Setup upterm session
-      #   uses: owenthereal/action-upterm@v1
-      
+      - name: Set executable permissions to all scripts
+        run: chmod +x scripts/*.py
       - name: Test ${{ inputs.nightly-build }} in an aarch64 Docker container
         shell: bash
         if: inputs.architecture == 'linux-aarch64'
         run: |
           unzip duckdb_cli-${{ inputs.architecture }}.zip
           
-          chmod +x scripts/find_extensions.py
           matches=$(python scripts/find_extensions.py ext/.github/config/out_of_tree_extensions.cmake | tr -d '[],')
 
           for ext in $matches; do
-            docker run --rm --platform linux/aarch64 -v $(pwd)/duckdb:/duckdb -e ext=$ext ubuntu:22.04 /bin/bash -c './duckdb -line -c "select installed from duckdb_extensions() where extension_name=$ext;"' > sp.csv
-            cat sp.csv
+            is_installed=$(docker run --rm --platform linux/aarch64 -v $(pwd)/duckdb:/duckdb -e ext=$ext ubuntu:22.04 /bin/bash -c './duckdb -csv -noheader -c "SELECT installed FROM duckdb_extensions() WHERE extension_name=$ext;"')
 
-            sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
-            if [[ $sp == 'false' ]]; then
-              echo Installing $ext extension...
-              echo $ext
-              if ! docker run --rm --platform linux/aarch64 -v $(pwd)/duckdb:/duckdb -e ext=$ext -e duckdb=$duckdb ubuntu:22.04 /bin/bash -c '$duckdb -c "INSTALL $ext;"'; then 
-                echo Failed to install $ext extension.
-                echo "${{ inputs.nightly-build }},${{ inputs.architecture }},${{ inputs.runs-on }},NULL,$ext,INSTALL" >> issue_ext_${{ inputs.architecture }}.txt
-              fi
-              echo Loading $ext extension...
-              if ! docker run --rm --platform linux/aarch64 -v $(pwd)/duckdb:/duckdb -e ext=$ext -e duckdb=$duckdb ubuntu:22.04 /bin/bash -c '$duckdb -c "LOAD $ext;"'; then
-                echo Failed to load $ext extension.
-                echo "${{ inputs.nightly-build }},${{ inputs.architecture }},${{ inputs.runs-on }},NULL,$ext,LOAD" >> issue_ext_${{ inputs.architecture }}.txt
-              fi
+            if [[ $is_installed == 'false' ]]; then
+              result=(INSTALL, LOAD)
+              for res in $result; do
+                echo "$res'ing $ext extension..."
+                if ! docker run --rm --platform linux/aarch64 -v $(pwd)/duckdb:/duckdb -e ext=$ext -e duckdb=$duckdb ubuntu:22.04 /bin/bash -c '$duckdb -c "$res $ext;"'; then 
+                  echo "Failed to $res $ext extension."
+                  result="INSTALL"
+                  echo "${{ inputs.nightly-build }},${{ inputs.architecture }},${{ inputs.runs-on }},NULL,$ext,$result" >> issue_ext_${{ inputs.architecture }}.txt
+                fi
+              done
             fi
           done
-      # - name: Setup upterm session
-      #   if: always()
-      #   uses: owenthereal/action-upterm@v1
       - name: Test ${{ inputs.nightly-build }}
         shell: bash
         if: inputs.architecture == 'linux-amd64' || inputs.nightly-build == 'OSX' || inputs.architecture == 'windows-amd64'
@@ -106,31 +87,23 @@ jobs:
           else
             duckdb=./duckdb
           fi
-          chmod +x scripts/find_extensions.py
+
           matches=$(python scripts/find_extensions.py ext/.github/config/out_of_tree_extensions.cmake | tr -d '[],')
 
           for ext in $matches; do
-            $duckdb -line -c "select installed from duckdb_extensions() where extension_name=$ext;"
-            $duckdb -line -c "select installed from duckdb_extensions() where extension_name=$ext;" > sp.csv
-            cat sp.csv
-            sp=$(tail -n 1 sp.csv | awk '{ print $3 }')
-            if [[ $sp == 'false' ]]; then
-              echo Installing $ext extension...
-              if ! $duckdb -c "INSTALL $ext;"; then
-                echo Failed to install $ext extension.
-                echo "${{ inputs.nightly-build }},${{ inputs.architecture }},${{ inputs.runs-on }},NULL,$ext,INSTALL" >> issue_ext_${{ inputs.architecture }}.txt
-              fi
-              echo Loading $ext extension...
-              if ! $duckdb -c "LOAD $ext;"; then
-                echo Failed to load $ext extension.
-                echo "${{ inputs.nightly-build }},${{ inputs.architecture }},${{ inputs.runs-on }},NULL,$ext,INSTALL" >> issue_ext_${{ inputs.architecture }}.txt
-              fi
+            is_installed=$(docker run --rm --platform linux/aarch64 -v $(pwd)/duckdb:/duckdb -e ext=$ext ubuntu:22.04 /bin/bash -c './duckdb -csv -noheader -c "SELECT installed FROM duckdb_extensions() WHERE extension_name=$ext;"')
+
+            if [[ $is_installed == 'false' ]]; then
+              result=(INSTALL, LOAD)
+              for res in $result; do
+                echo "$res'ing $ext extension..."  
+                if ! $duckdb -c "$res $ext;"; then
+                  echo "Failed to install $ext extension."
+                  echo "${{ inputs.nightly-build }},${{ inputs.architecture }},${{ inputs.runs-on }},NULL,$ext,$res" >> issue_ext_${{ inputs.architecture }}.txt
+                fi
+              done
             fi
           done
-      
-      # - name: Setup upterm session
-      #   uses: owenthereal/action-upterm@v1
-
       - name: Upload results for extensions
         uses: actions/upload-artifact@v4
         with:
