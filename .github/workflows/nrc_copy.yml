@@ -63,7 +63,7 @@ jobs:
         shell: bash
         run: |
           echo "Listing ${{ inputs.nightly-build }} runs..."
-          gh run list --repo duckdb/duckdb --event repository_dispatch --workflow ${{ inputs.nightly-build }} --json conclusion,url,name,createdAt,databaseI,headSha > ${{ inputs.nightly-build }}.json 
+          gh run list --repo duckdb/duckdb --event repository_dispatch --workflow ${{ inputs.nightly-build }} --json conclusion,url,name,createdAt,databaseId,headSha > ${{ inputs.nightly-build }}.json 
           url=$(duckdb -csv -noheader -c "SELECT url FROM read_json('${{ inputs.nightly-build }}.json') ORDER BY createdAt DESC LIMIT 1;")
           echo "run_url=$(duckdb -csv -noheader -c "SELECT url FROM read_json('${{ inputs.nightly-build }}.json') ORDER BY createdAt DESC LIMIT 1;")" >> $GITHUB_OUTPUT
       
