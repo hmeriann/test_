@@ -72,16 +72,13 @@ jobs:
         run: |
           conclusion=$(python -c "import duckdb; print(duckdb.sql(f\"SELECT conclusion FROM read_json('${{ inputs.nightly-build }}.json') ORDER BY createdAt DESC LIMIT 1;\").fetchone()[0])") 
           echo $conclusion 🦋
-          if [ $conclusion != 'success' ]; then
+          if [ $conclusion == 'success' ]; then
+            echo "is_failure=false" >> $GITHUB_OUTPUT
+          else
             echo "is_failure=true" >> $GITHUB_OUTPUT
-            
             echo "Counting consecutive failures..."
             python scripts/count_consecutive_failures.py ${{ inputs.nightly-build }}.json --nightly_build ${{ inputs.nightly-build }} --architecture ${{ inputs.architecture }} --url ${{ steps.check-build.outputs.run_url }}
-            if [[ $? == 1 ]]; then
-              echo "is_failure=true" >> $GITHUB_OUTPUT
-            fi
           fi
-          echo "is_failure=false" >> $GITHUB_OUTPUT
       - name: Verify ${{ inputs.nightly-build }} version
         if: inputs.nightly-build != 'Python'
         id: verify-build
