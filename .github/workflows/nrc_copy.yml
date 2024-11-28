@@ -79,6 +79,7 @@ jobs:
             echo "Counting consecutive failures..."
             python scripts/count_consecutive_failures.py ${{ inputs.nightly-build }}.json --nightly_build ${{ inputs.nightly-build }} --architecture ${{ inputs.architecture }} --url ${{ steps.check-build.outputs.run_url }}
           fi
+          echo $is_failure
       - name: Verify ${{ inputs.nightly-build }} version
         if: inputs.nightly-build != 'Python'
         id: verify-build
