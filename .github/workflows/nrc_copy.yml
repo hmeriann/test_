@@ -59,7 +59,6 @@ jobs:
           sudo apt-get install -y libc6-arm64-cross qemu-user-static
 
       - name: Get run url ${{ inputs.nightly-build }}
-        id: check-build
         shell: bash
         run: |
           echo "Listing ${{ inputs.nightly-build }} runs..."
@@ -69,6 +68,7 @@ jobs:
       
       - name: Check is ${{ inputs.nightly-build }} build conclusion
         shell: bash
+        id: check-build
         run: |
           conclusion=$(python -c "import duckdb; print(duckdb.sql(f\"SELECT conclusion FROM read_json('${{ inputs.nightly-build }}.json') ORDER BY createdAt DESC LIMIT 1;\").fetchone()[0])") 
           echo $conclusion 🦋
@@ -79,9 +79,8 @@ jobs:
             echo "Counting consecutive failures..."
             python scripts/count_consecutive_failures.py ${{ inputs.nightly-build }}.json --nightly_build ${{ inputs.nightly-build }} --architecture ${{ inputs.architecture }} --url ${{ steps.check-build.outputs.run_url }}
           fi
-          echo $is_failure 🦑
       - name: Verify ${{ inputs.nightly-build }} version
-        if: inputs.nightly-build != 'Python'
+        if: inputs.nightly-build != 'Python' && steps.check-build.outputs.is_failure == 'false'
         id: verify-build
         shell: bash
         run: |
