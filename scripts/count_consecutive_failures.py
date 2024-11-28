@@ -39,7 +39,7 @@ def create_issue_body():
                     TO '{ failures_list }' (HEADER 0, QUOTE '', SEPARATOR '|');
                     """)
         with open("issue_body_{}.txt".format(architecture), 'w') as f:
-            f.write(f"The **'{ nightly_build }'** nightly-build has not succeeded the previous '{ failures }' times.\nSee the latest run: [ Run Link ](https:{ url })\n")
+            f.write(f"\nThe **'{ nightly_build }'** nightly-build has not succeeded the previous '{ failures }' times.\nSee the latest run: [ Run Link ](https:{ url })\n")
             f.write(f"#### Failure Details\n\n")
             f.write(f"| Conclusion | Started At | Run URL |\n")
             f.write(f"|------------|------------|---------|\n")
