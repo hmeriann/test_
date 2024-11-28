@@ -55,11 +55,14 @@ jobs:
             echo "## ${{ inputs.nightly-build }}" > report_${{ inputs.platform }}.md
           fi
           if [ $(ls failures_*/issue_body*/ | wc -l) -gt 0 ]; then
+            echo HERE! 🙋🏼‍♀️
+            echo ${{ inputs.platform }}
             grep -Fxf failures_*/issue_body*/* > report_${{ inputs.platform }}.md         
             grep -Fxvf failures_*/issue_body*/* >> report_${{ inputs.platform }}.md
             # cat failures_${{ inputs.platform }}/issue_body*/* >> report_${{ inputs.platform }}.md
           fi
           if [ -f res_${{ inputs.platform }}.md ]; then
+            echo NOW ITS HEERE 🦑
             cat res_${{ inputs.platform }}.md >> report_${{ inputs.platform }}.md
           fi
       - name: Upload result file
