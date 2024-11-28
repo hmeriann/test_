@@ -57,8 +57,9 @@ jobs:
           if [ $(ls failures_*/issue_body*/ | wc -l) -gt 0 ]; then
             echo HERE! 🙋🏼‍♀️
             echo ${{ inputs.platform }}
-            grep -Fxf failures_*/issue_body*/* > report_${{ inputs.platform }}.md         
-            grep -Fxvf failures_*/issue_body*/* >> report_${{ inputs.platform }}.md
+            files=$(failures_*/issue_body*/* -type f)
+            grep -Fxf $files > report_${{ inputs.platform }}.md         
+            grep -Fxvf $files >> report_${{ inputs.platform }}.md
             # cat failures_${{ inputs.platform }}/issue_body*/* >> report_${{ inputs.platform }}.md
           fi
           if [ -f res_${{ inputs.platform }}.md ]; then
