@@ -66,7 +66,7 @@ jobs:
             is_installed=$(docker run --rm --platform linux/aarch64 -v $(pwd)/duckdb:/duckdb -e ext=$ext ubuntu:22.04 /bin/bash -c './duckdb -csv -noheader -c "SELECT installed FROM duckdb_extensions() WHERE extension_name=$ext;"')
 
             if [[ $is_installed == 'false' ]]; then
-              result=(INSTALL LOAD)
+              result=("INSTALL" "LOAD")
               for res in $result; do
                 echo "$res'ing $ext extension..."
                 if ! docker run --rm --platform linux/aarch64 -v $(pwd)/duckdb:/duckdb -e ext=$ext -e duckdb=$duckdb ubuntu:22.04 /bin/bash -c '$duckdb -c "$res $ext;"'; then 
