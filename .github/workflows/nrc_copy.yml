@@ -112,13 +112,12 @@ jobs:
               cat issue_body_${{ inputs.architecture }}.txt
               exit 1
             fi
+            echo "has_artifact=true" >> $GITHUB_OUTPUT
           else  
             echo Downloading duckdb-binaries-$name artifact is failed.
             printf "#### No artifacts with name duckdb-binaries-$name provided.\n" > issue_body_${{ inputs.architecture }}.txt
             echo "has_artifact=false" >> $GITHUB_OUTPUT
-            echo "$has_artifact"
           fi
-          echo "has_artifact=true" >> $GITHUB_OUTPUT
       - name: Upload issue
         uses: actions/upload-artifact@v4
         with:
