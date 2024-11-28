@@ -106,7 +106,7 @@ jobs:
             else
               tmp_sha=$(./duckdb --version)
             fi
-            short_sha=$(echo $tmp_sha | awk -F' ' "{ print $2 }")
+            short_sha=$(echo $tmp_sha | awk -F' ' "{ print \$2 }")
             if [[ "$full_sha" != "$short_sha"* ]]; then
               printf "- The version of \`${{ inputs.nightly-build }}\` build (\`$short_sha\`) doesn't match to the version triggered the build (\`$full_sha\`).\n " > issue_body_${{ inputs.architecture }}.txt
               cat issue_body_${{ inputs.architecture }}.txt
