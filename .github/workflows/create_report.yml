@@ -56,10 +56,9 @@ jobs:
           fi
           if [ $(ls failures_*/issue_body*/ | wc -l) -gt 0 ]; then
             cat failures_${{ inputs.platform }}/issue_body*/* > TMP.md
-            awk '!seen[$0]++' TMP.md > report_${{ inputs.platform }}.md
+            awk '!seen[$0]++' TMP.md >> report_${{ inputs.platform }}.md
           fi
           if [ -f res_${{ inputs.platform }}.md ]; then
-            echo NOW ITS HEERE 🦑
             cat res_${{ inputs.platform }}.md >> report_${{ inputs.platform }}.md
           fi
       - name: Upload result file
