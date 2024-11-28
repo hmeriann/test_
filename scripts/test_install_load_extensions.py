@@ -1,6 +1,8 @@
 import duckdb
 import argparse
 import re
+import random
+import string
 
 # Verifying version
 parser = argparse.ArgumentParser()
@@ -18,48 +20,45 @@ version = args.version
 # TODO: if it is a release, check also "delta" (only for linux-python3) and "motherduck"
 
 # with open("extensions/.github/config/out_of_tree_extensions.cmake", "r") as file:
-#     content = file.read()
-
-#     pattern = r"duckdb_extension_load\(\s*([^\s,)]+)"
-#     extensions = re.findall(pattern, content)
-
-extensions = [ 'one', 'two', 'three' ]
+with open("/Users/zuleykhapavlichenkova/Documents/test_/ext/.github/config/out_of_tree_extensions.cmake", "r") as file:
+    content = file.read()
+    pattern = r"duckdb_extension_load\(\s*([^\s,)]+)"
+    extensions = re.findall(pattern, content)
 
 with open("issue_ext_{}.txt".format(nightly_build), 'w') as f:
     for extension in extensions:
-        if extension == "unexpected":
+        try:
+            duckdb.sql(f"INSTALL { extension }")
+            print(f"Installed { extension } ")
+
             try:
-                duckdb.sql(f"INSTALL { extension }")
-                message = f"#### { extension } was unexpectedly installed on Python { runs_on }_{ version }.\n "
+                duckdb.sql(f"LOAD { extension }")
+                print(f"Loaded { extension } ")
+            except Exception as e:
+                message = f"- Error loading { extension } { nightly_build } on { runs_on }_{ version }: {str(e)}\n "
                 f.write(f"{ nightly_build },NULL,{ runs_on },{ version },{ extension },INSTALL\n")
                 print(message)
-                try:
-                    duckdb.sql(f"LOAD { extension }")
-                    message = f"#### { extension } was unexpectedly loaded on Python { runs_on }_{ version }.\n "
-                    f.write(f"{ nightly_build },NULL,{ runs_on },{ version },{ extension },LOAD\n")
-                    print(message)
-                except Exception as e:
-                    print(f"Extension { extension } is not loaded\n")
-                    pass
-            
-            except Exception as e:
-                print(f"Extension { extension } is not installed ")
-                pass
-
-        else:
-            try:
-                duckdb.sql(f"INSTALL { extension }")
-                print(f"Installed { extension } ")
-
-                try:
-                    duckdb.sql(f"LOAD { extension }")
-                    print(f"Loaded { extension } ")
-                except Exception as e:
-                    message = f"- Error loading { extension } Python on { runs_on }_{ version }: {str(e)}\n "
-                    f.write(f"{ nightly_build },NULL,{ runs_on },{ version },{ extension },INSTALL\n")
-                    print(message)
-
-            except Exception as e:
-                message = f"- Error installing { extension } Python on { runs_on }_{ version }: {str(e)}\n "
-                f.write(f"{ nightly_build },NULL,{ runs_on },{ version },{ extension },LOAD\n")
-                print(message)
+        except Exception as e:
+            message = f"- Error installing { extension } { nightly_build } on { runs_on }_{ version }: {str(e)}\n "
+            f.write(f"{ nightly_build },NULL,{ runs_on },{ version },{ extension },LOAD\n")
+            print(message)
+    
+    # negative test to make sure that DuckDB handles non-existing extension name
+    print(f"Running negative test with the random name of extension...")
+    unexpected = ''.join(random.choices(string.ascii_uppercase + string.ascii_lowercase, k=10))
+    try:
+        duckdb.sql(f"INSTALL { unexpected }")
+        message = f"#### { unexpected } was unexpectedly installed on { nightly_build } { runs_on }_{ version }.\n "
+        f.write(f"{ nightly_build },NULL,{ runs_on },{ version },{ unexpected },INSTALL\n")
+        print(message)
+        try:
+            duckdb.sql(f"LOAD { unexpected }")
+            message = f"#### { unexpected } was unexpectedly loaded on { nightly_build } { runs_on }_{ version }.\n "
+            f.write(f"{ nightly_build },NULL,{ runs_on },{ version },{ unexpected },LOAD\n")
+            print(message)
+        except Exception as e:
+            print(f"Extension { unexpected } is not loaded on { nightly_build } { runs_on }_{ version }: {str(e)}\n")
+            pass
+    except Exception as e:
+        print(f"Extension { unexpected } is not installed on { nightly_build } { runs_on }_{ version }: {str(e)}\n ")
+        pass
