@@ -31,7 +31,7 @@ jobs:
     runs-on: ${{ inputs.runs-on }}
     outputs:
       is_failure: ${{ steps.check-build.outputs.is_failure }}
-      run_url: ${{ steps.check-build.outputs.run_url }}
+      run_url: ${{ steps.get-url.outputs.run_url }}
       has_artifact: ${{ steps.verify-build.outputs.has_artifact }}
     steps:
       - name: Set up QEMU
@@ -60,6 +60,7 @@ jobs:
 
       - name: Get run url ${{ inputs.nightly-build }}
         shell: bash
+        id: get-url
         run: |
           echo "Listing ${{ inputs.nightly-build }} runs..."
           gh run list --repo duckdb/duckdb --event repository_dispatch --workflow ${{ inputs.nightly-build }} --json conclusion,url,name,createdAt,databaseId,headSha > ${{ inputs.nightly-build }}.json 
@@ -77,7 +78,7 @@ jobs:
           else
             echo "is_failure=true" >> $GITHUB_OUTPUT
             echo "Counting consecutive failures..."
-            python scripts/count_consecutive_failures.py ${{ inputs.nightly-build }}.json --nightly_build ${{ inputs.nightly-build }} --architecture ${{ inputs.architecture }} --url ${{ steps.check-build.outputs.run_url }}
+            python scripts/count_consecutive_failures.py ${{ inputs.nightly-build }}.json --nightly_build ${{ inputs.nightly-build }} --architecture ${{ inputs.architecture }} --url ${{ steps.get-url.outputs.run_url }}
           fi
       - name: Verify ${{ inputs.nightly-build }} version
         if: inputs.nightly-build != 'Python' && steps.check-build.outputs.is_failure == 'false'
