@@ -16,13 +16,13 @@ on:
         type: string
     outputs:
       is_failure: 
-        ription: "If nightly-build's conclusion is 'failure', stores 'true'."
+        description: "If nightly-build's conclusion is 'failure', stores 'true'."
         value: ${{ jobs.check-build.outputs.is_failure }}
       run_url:
-        ription: "Stores run URL."
+        description: "Stores run URL."
         value: ${{ jobs.check-build.outputs.run_url }}
       has_artifact: 
-        ription: "If there is an expected artifact, stores 'true'."
+        description: "If there is an expected artifact, stores 'true'."
         value: ${{ jobs.check-build.outputs.has_artifact }}
 env:
   GH_TOKEN: ${{ github.token }}
