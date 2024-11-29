@@ -1,7 +1,6 @@
 import duckdb
 import argparse
 import pandas
-import numpy
 
 parser = argparse.ArgumentParser()
 parser.add_argument("file_name")
