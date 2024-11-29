@@ -28,7 +28,7 @@ jobs:
           python-version: '3.10'
       - name: Install dependencies
         run: |
-          pip install duckdb pandas table tabulate
+          python -m pip install duckdb pandas table tabulate
 
       - name: Download build failures
         uses: actions/download-artifact@v4
