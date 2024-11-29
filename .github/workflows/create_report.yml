@@ -32,7 +32,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           pattern: issue_ext_${{ inputs.platform }}*
-        #   path: ext_failures_${{ inputs.platform }}
+          path: ext_failures_${{ inputs.platform }}
       - name: Prepare a result table
         shell: bash
         if: always()
@@ -46,7 +46,7 @@ jobs:
             # scripts/prepare_report.py creates res_${{ inputs.platform }}.md file
             python scripts/prepare_report.py result.csv --platform ${{ inputs.platform }} --url ${{ inputs.run_url }}
           fi
-      - uses: owenthereal/action-upterm@v1
+    #   - uses: owenthereal/action-upterm@v1
       - name: Create result file
         shell: bash
         run: |
