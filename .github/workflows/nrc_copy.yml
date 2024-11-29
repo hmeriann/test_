@@ -16,13 +16,13 @@ on:
         type: string
     outputs:
       is_failure: 
-        description: "If nightly-build's conclusion is 'failure', stores 'true'."
+        ription: "If nightly-build's conclusion is 'failure', stores 'true'."
         value: ${{ jobs.check-build.outputs.is_failure }}
       run_url:
-        description: "Stores run URL."
+        ription: "Stores run URL."
         value: ${{ jobs.check-build.outputs.run_url }}
       has_artifact: 
-        description: "If there is an expected artifact, stores 'true'."
+        ription: "If there is an expected artifact, stores 'true'."
         value: ${{ jobs.check-build.outputs.has_artifact }}
 env:
   GH_TOKEN: ${{ github.token }}
@@ -64,14 +64,14 @@ jobs:
         run: |
           echo "Listing ${{ inputs.nightly-build }} runs..."
           gh run list --repo duckdb/duckdb --event repository_dispatch --workflow ${{ inputs.nightly-build }} --json conclusion,url,name,createdAt,databaseId,headSha > ${{ inputs.nightly-build }}.json 
-          url=$(python -c "import duckdb; print(duckdb.sql(f\"SELECT url FROM read_json('${{ inputs.nightly-build }}.json') ORDER BY createdAt DESC LIMIT 1;\").fetchone()[0])")
+          url=$(python -c "import duckdb; print(duckdb.sql(f\"SELECT url FROM read_json('${{ inputs.nightly-build }}.json') ORDER BY createdAt  LIMIT 1;\").fetchone()[0])")
           echo "run_url=$url" >> $GITHUB_OUTPUT
       
       - name: Check is ${{ inputs.nightly-build }} build conclusion
         shell: bash
         id: check-build
         run: |
-          conclusion=$(python -c "import duckdb; print(duckdb.sql(f\"SELECT conclusion FROM read_json('${{ inputs.nightly-build }}.json') ORDER BY createdAt DESC LIMIT 1;\").fetchone()[0])") 
+          conclusion=$(python -c "import duckdb; print(duckdb.sql(f\"SELECT conclusion FROM read_json('${{ inputs.nightly-build }}.json') ORDER BY createdAt  LIMIT 1;\").fetchone()[0])") 
           echo $conclusion 🦋
           if [ $conclusion == 'success' ]; then
             echo "is_failure=false" >> $GITHUB_OUTPUT
@@ -85,7 +85,7 @@ jobs:
         id: verify-build
         shell: bash
         run: |
-          run_id=$(python -c "import duckdb; print(duckdb.sql(f\"SELECT databaseId FROM read_json('${{ inputs.nightly-build }}.json') ORDER BY createdAt DESC LIMIT 1;\").fetchone()[0])")
+          run_id=$(python -c "import duckdb; print(duckdb.sql(f\"SELECT databaseId FROM read_json('${{ inputs.nightly-build }}.json') ORDER BY createdAt  LIMIT 1;\").fetchone()[0])")
           echo "Found run_id: $run_id"
         
           if [[ '${{ inputs.architecture }}' == 'linux-aarch64' ]]; then
