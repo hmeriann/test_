@@ -97,7 +97,7 @@ jobs:
     name: Test Windows
     needs: windows
     if: needs.windows.outputs.has_artifact == 'true'
-    uses: ./.github/workflows/tests_nbc.yml
+    uses: ./.github/workflows/tests_nbc_copy.yml
     with:
       nightly-build: Windows
       platform: windows
