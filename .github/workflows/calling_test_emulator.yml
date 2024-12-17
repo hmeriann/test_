@@ -1,8 +1,8 @@
 name: Calling Nightly Builds Check AARCH64
 on:
-  push:
-  schedule:
-    - cron: 0 9 * * * # runs at 10am CET DAILY
+  # push:
+  # schedule:
+  #   - cron: 0 9 * * * # runs at 10am CET DAILY
   workflow_dispatch:
 
 permissions:
