@@ -34,7 +34,7 @@ jobs:
 
     - name: Build
       shell: bash
-      run: THREADSAN=1 make reldebug
+      run: THREADSAN=1 TSAN_OPTIONS="suppressions=${{ github.workspace }}/.sanitizer-thread-suppressions.txt" make reldebug
 
     - name: Test
       shell: bash
